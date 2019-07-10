@@ -13,6 +13,10 @@ export default {
   name: 'home',
   components: {
     HelloWorld
+  },
+  mounted () {
+    console.log(process.env.VUE_APP_BASE_URL)
+    console.log(process.env.NODE_ENV)
   }
 }
 </script>
