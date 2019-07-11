@@ -1,6 +1,6 @@
 <template>
   <div class="main-login">
-    <!--<div class="main-content">
+    <div class="main-content">
       <Row class="login-title">
       </Row>
       <Row class="login-content">
@@ -12,7 +12,7 @@
               <PairIcon type="gray-earth"
                         class="icon-earth"/>
               <span>
-&lt;!&ndash;                {{ language }}&ndash;&gt;
+<!--                {{ language }}-->
               </span>
               <Icon type="md-arrow-dropdown"/>
             </Button>
@@ -89,7 +89,7 @@
           </Form>
         </Row>
       </Row>
-    </div>-->
+    </div>
   </div>
 </template>
 <script>
