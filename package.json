@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "dev": "vue-cli-service build --mode dev",
     "uat": "vue-cli-service build --mode uat",
+    "prod": "vue-cli-service build --mode prod",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
     "@vue/cli-service": "^3.8.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "css-loader": "^3.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",

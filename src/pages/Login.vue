@@ -2,6 +2,7 @@
   <div class="main-login">
     <div class="main-content">
       <Row class="login-title">
+        {{ $t("sysManage.loginPage.title") }}
       </Row>
       <Row class="login-content">
         <Row>

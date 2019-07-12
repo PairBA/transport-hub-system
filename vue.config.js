@@ -1,7 +1,9 @@
 module.exports = {
   // 选项...
   publicPath: '/panel/',
+
   outputDir: 'panel',
+
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')
 
@@ -13,5 +15,14 @@ module.exports = {
     svgRule
       .use('svg-inline-loader')
       .loader('svg-inline-loader')
-  }
+  },
+  css: {
+    loaderOptions: {
+      less: {
+        javascriptEnabled: true
+      }
+    }
+  },
+
+  assetsDir: 'static'
 }
