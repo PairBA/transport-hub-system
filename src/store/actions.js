@@ -4,7 +4,7 @@ import {
 } from '@/api'
 
 const actions = {
-  async getAreaCodeName({
+  async getAreaCodeName ({
     commit
   }) {
     const token = localStorage.getItem('token')
@@ -13,7 +13,7 @@ const actions = {
       commit('updateAreaCodeListForSelect', areaCodeNameListForSelectObj.data)
     }
   },
-  async getCompListForSelect({
+  async getCompListForSelect ({
     commit,
     state
   }, value) {
@@ -25,7 +25,7 @@ const actions = {
       commit('updateCompanyListForSelect', compListForSelectObj.data)
     }
   },
-  async getTerminalList({
+  async getTerminalList ({
     commit,
     state
   }) {
@@ -35,7 +35,7 @@ const actions = {
       commit('updateTerminalList', compListForSelectObj.data)
     } else commit('updateTerminalList', [])
   },
-  async getCenterGpsByAreaCode({
+  async getCenterGpsByAreaCode ({
     commit,
     state
   }, areaCode) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title></title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="交易记录/一口价行程/行程详情页" transform="translate(-487.000000, -219.000000)">
+            <g id="分组-3" transform="translate(263.000000, 150.000000)">
+                <g id="分组">
+                    <g id="icon/时间-copy-13" transform="translate(224.000000, 69.000000)">
+                        <g id="icon/大/查看" transform="translate(0.000000, 1.000000)">
+                            <rect id="矩形" fill="#2A9EF6" fill-rule="evenodd" opacity="0" x="0" y="0" width="23.6307692" height="23.6307692" rx="1.6"></rect>
+                            <circle id="椭圆形" stroke="#2A9EF6" stroke-width="1.06666667" cx="16" cy="13.0461538" r="5.62051282"></circle>
+                            <path d="M19.2,17.7230769 L22.0391827,21.0545673" id="路径-4" stroke="#2A9EF6" stroke-width="1.06666667"></path>
+                            <path d="M2.95384615,3.69230769 L20.6769231,3.69230769" id="路径-22" stroke="#2A9EF6" stroke-width="1.06666667"></path>
+                            <path d="M2.95384615,14.5230769 L7.38461538,14.5230769" id="路径-22-copy" stroke="#2A9EF6" stroke-width="1.06666667"></path>
+                            <path d="M2.95384615,9.10769231 L9.35384615,9.10769231" id="路径-22-copy-3" stroke="#2A9EF6" stroke-width="1.06666667"></path>
+                            <path d="M2.95384615,19.4461538 L10.5891827,19.4461538" id="路径-22-copy-2" stroke="#2A9EF6" stroke-width="1.06666667"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

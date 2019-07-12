@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>shishiditu _icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="版本1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.8">
+        <g id="切图" transform="translate(-180.000000, -783.000000)" fill="#FFFFFF">
+            <g id="shishiditu" transform="translate(180.000000, 783.000000)">
+                <g id="实时地图-copy-2">
+                    <g id="Group" transform="translate(2.000000, 2.000000)">
+                        <path d="M1.90854178,8 C3.66521727,10.1764213 6,12 6,12 C6,12 8.33478273,10.1764213 10.0914582,8 L11,8 C11.5522847,8 12,8.44771525 12,9 L12,12 C12,12.5522847 11.5522847,13 11,13 L1,13 C0.44771525,13 6.76353751e-17,12.5522847 0,12 L0,9 C-6.76353751e-17,8.44771525 0.44771525,8 1,8 L1.90854178,8 Z" id="Combined-Shape" fill-rule="nonzero"></path>
+                        <path d="M6,10 C6,10 2,6.65264893 2,4.28571429 C2,1.91877964 3.790861,0 6,0 C8.209139,0 10,1.91877964 10,4.28571429 C10,6.65264893 6,10 6,10 Z M6,5.71428571 C6.73637967,5.71428571 7.33333333,5.0746925 7.33333333,4.28571429 C7.33333333,3.49673607 6.73637967,2.85714286 6,2.85714286 C5.26362033,2.85714286 4.66666667,3.49673607 4.66666667,4.28571429 C4.66666667,5.0746925 5.26362033,5.71428571 6,5.71428571 Z" id="Combined-Shape" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

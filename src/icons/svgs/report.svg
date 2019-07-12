@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>icon/报表</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="工时报表" transform="translate(-22.000000, -88.000000)">
+            <g id="侧边栏" transform="translate(0.000000, 71.000000)">
+                <g id="Group-3">
+                    <g id="分组-3" transform="translate(0.000000, 0.099010)">
+                        <g id="报表" transform="translate(22.000000, 16.801980)">
+                            <g id="icon/报表">
+                                <g>
+                                    <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                                    <path d="M12,1.34165059 L13.7573593,3.0990099 L12,3.0990099 L12,1.34165059 Z M14,4.0990099 L14,13.0990099 C14,14.2035794 13.1045695,15.0990099 12,15.0990099 L4,15.0990099 C2.8954305,15.0990099 2,14.2035794 2,13.0990099 L2,3.0990099 C2,1.9944404 2.8954305,1.0990099 4,1.0990099 L11,1.0990099 L11,4.0990099 L12,4.0990099 L14,4.0990099 Z M4,11.0990099 L4,12.0990099 L12,12.0990099 L12,11.0990099 L4,11.0990099 Z M5,6 L5,10 L6,10 L6,6 L5,6 Z M10,8 L10,10 L11,10 L11,8 L10,8 Z M7.5,4 L7.5,10 L8.5,10 L8.5,4 L7.5,4 Z" id="合并形状" fill="#FFFFFF"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

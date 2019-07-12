@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="119px" height="38px" viewBox="0 0 119 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>重车图表</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradientForchart-1">
+            <stop stop-color="#60B23E" offset="0%"></stop>
+            <stop stop-color="#60B23E" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.8">
+        <g id="运行监控" transform="translate(-1159.000000, -269.000000)" fill="url(#linearGradientForchart-1)">
+            <g id="分组" transform="translate(836.000000, 211.000000)">
+                <g id="重车图表" transform="translate(323.000000, 58.000000)">
+                    <g id="路径">
+                        <path d="M0,38 C4.050847,18.3880208 15.1927994,8.58203125 33.425857,8.58203125 C60.7754436,8.58203125 53.7119383,14.5 70.8197608,14.5 C87.9275832,14.5 88.9657719,0.183687003 119,0.183687003 C119,15.3086631 119,27.9141008 119,38 L0,38 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

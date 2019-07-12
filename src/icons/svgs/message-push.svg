@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title></title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="按钮-定义" transform="translate(-93.000000, -1042.000000)">
+            <g id="退出-2" transform="translate(93.000000, 1042.000000)">
+                <g id="icon/消息推送-copy-2">
+                    <g id="分组-3" stroke-width="1" fill-rule="evenodd" transform="translate(2.400000, 4.800000)">
+                        <rect id="矩形" fill="#FFFFFF" x="0" y="0" width="17.6" height="1.6"></rect>
+                        <rect id="矩形-copy" fill="#FFFFFF" x="0" y="12.8" width="10.4" height="1.6"></rect>
+                        <rect id="矩形" fill="#FFFFFF" x="0" y="0" width="1.6" height="14.4"></rect>
+                        <rect id="矩形-copy-2" fill="#FFFFFF" x="16" y="0" width="1.6" height="8"></rect>
+                        <rect id="矩形" stroke="#FFFFFF" stroke-width="1.67" x="10.435" y="7.235" width="8.73" height="8.73" rx="4.365"></rect>
+                        <g id="分组" transform="translate(10.400000, 8.800000)" fill="#FFFFFF">
+                            <g id="分组-2" transform="translate(4.281096, 3.043851) rotate(-270.000000) translate(-4.281096, -3.043851) translate(1.481096, -0.556149)">
+                                <polygon id="矩形" transform="translate(2.451243, 4.616233) rotate(-270.000000) translate(-2.451243, -4.616233) " points="0.451243385 3.94823267 4.45124339 3.94823267 4.45124339 5.28423267 0.451243385 5.28423267"></polygon>
+                                <polygon id="三角形" transform="translate(2.583243, 1.666233) rotate(-360.000000) translate(-2.583243, -1.666233) " points="2.58324339 0.31623267 4.98324339 3.01623267 0.183243385 3.01623267"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                    <polygon id="路径-4" fill="#FFFFFF" fill-rule="nonzero" points="18.7883094 4.91406208 19.6116906 6.28593792 11.2 11.8146697 2.78830937 6.28593792 3.61169063 4.91406208 11.2 9.94861158"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

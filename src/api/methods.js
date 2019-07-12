@@ -10,7 +10,7 @@ axios.interceptors.response.use((response) => {
     localStorage.removeItem('token')
     router.push('/login')
   } else return response
-}, function (error) {
+}, (error) => {
   // Do something with response error
   return Promise.reject(error)
 })

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/电量</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="切图02" transform="translate(-41.000000, -159.000000)">
+            <g id="icon/电量" transform="translate(41.000000, 159.000000)">
+                <g>
+                    <g>
+                        <rect id="矩形" fill="#FFFFFF" x="2" y="3" width="12" height="12" rx="1"></rect>
+                        <path d="M7,1 L9,1 C9.55228475,1 10,1.44771525 10,2 L10,4 L6,4 L6,2 C6,1.44771525 6.44771525,1 7,1 Z" id="矩形" fill="#FFFFFF"></path>
+                        <polygon id="路径-3" fill="#19355C" transform="translate(8.000000, 9.000000) rotate(-345.000000) translate(-8.000000, -9.000000) " points="5 9.87395338 8 9.87395338 8 14 11 8 8 8 8 4"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

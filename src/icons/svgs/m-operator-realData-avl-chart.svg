@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="119px" height="35px" viewBox="0 0 119 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>路径 copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2-chart">
+            <stop stop-color="#619BF5" offset="0%"></stop>
+            <stop stop-color="#21253F" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.8">
+        <g id="运行监控-2" transform="translate(-1705.000000, -269.000000)" fill="url(#linearGradient-2-chart)">
+            <g id="分组-copy" transform="translate(1385.000000, 211.000000)">
+                <g id="空车图表" transform="translate(320.000000, 57.183687)">
+                    <path d="M0,35.816313 C4.050847,18.2043338 15.1927994,9.39834425 33.425857,9.39834425 C60.7754436,9.39834425 53.7119383,16.9581871 70.8197608,16.9581871 C87.9275832,16.9581871 88.9657719,1 119,1 C119,16.1249761 119,27.7304138 119,35.816313 L0,35.816313 Z" id="路径-copy"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

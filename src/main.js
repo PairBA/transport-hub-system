@@ -5,6 +5,8 @@ import store from './store'
 import iView from 'iview'
 import i18n from './i18n'
 import 'iview/dist/styles/iview.css'
+import PairIcon from './icons'
+Vue.use(PairIcon)
 
 Vue.use(iView)
 

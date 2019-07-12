@@ -24,7 +24,7 @@ const getters = {
 }
 
 const actions = {
-  async login({
+  async login ({
     commit,
     state,
     dispatch
@@ -43,7 +43,7 @@ const actions = {
 
     return responseData
   },
-  async init({commit}) {
+  async init ({ commit }) {
     const token = localStorage.getItem('token')
     const responseData = await get(END_POINTS.TOKEN_EXPIRE, token)
 
@@ -60,7 +60,7 @@ const actions = {
 
     return isLoggedin
   },
-  async checkLoginStatus({
+  async checkLoginStatus ({
     state,
     commit
   }) {
@@ -71,7 +71,7 @@ const actions = {
     } while (responseData.success)
     commit('logout')
   },
-  async checkIsUseCaptchaLogin({
+  async checkIsUseCaptchaLogin ({
     state,
     dispatch,
     commit
@@ -82,7 +82,7 @@ const actions = {
       dispatch('getCaptchaImg', postData)
     }
   },
-  async getCaptchaImg({
+  async getCaptchaImg ({
     state,
     dispatch,
     commit
@@ -96,7 +96,7 @@ const actions = {
 }
 
 const mutations = {
-  initUser(state) {
+  initUser (state) {
     const token = localStorage.getItem('token')
     const userName = localStorage.getItem('userName')
     if (token && userName) {
@@ -108,7 +108,7 @@ const mutations = {
     }
   },
 
-  setLoginUser(state, {
+  setLoginUser (state, {
     userName,
     token,
     defaultAreaCode,
@@ -131,7 +131,7 @@ const mutations = {
     state.isLoggedin = true
   },
 
-  logout(state) {
+  logout (state) {
     localStorage.removeItem('token')
     localStorage.removeItem('userName')
     localStorage.removeItem('email')
@@ -141,16 +141,16 @@ const mutations = {
     state.userName = ''
     state.isLoggedin = false
   },
-  updateShowImg(state, showImg) {
+  updateShowImg (state, showImg) {
     state.showImg = showImg
   },
-  updateImgSrc(state, imgSrc) {
+  updateImgSrc (state, imgSrc) {
     state.imgSrc = imgSrc
   },
-  updateRefresh(state, flag) {
+  updateRefresh (state, flag) {
     state.refresh = flag
   },
-  updateMsgCount(state) {
+  updateMsgCount (state) {
     if (localStorage.getItem('meMessageQueue')) {
       let object = JSON.parse(localStorage.getItem('meMessageQueue'))
       state.msgCount = object.length

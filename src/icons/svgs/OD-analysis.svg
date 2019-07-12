@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>od分析</title>
+    <desc>Created with Sketch.</desc>
+    <g id="版本1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="切图" transform="translate(-334.000000, -783.000000)" fill="#FFFFFF">
+            <g id="icon/OD分析" transform="translate(334.000000, 783.000000)">
+                <g id="icon/ot">
+                    <g id="分组" transform="translate(1.500000, 2.000000)">
+                        <rect id="矩形" x="3" y="0" width="2" height="12"></rect>
+                        <rect id="矩形-copy" x="8" y="0" width="2" height="12"></rect>
+                        <polygon id="矩形" points="3 0 3 3 0 3"></polygon>
+                        <polygon id="矩形-copy-2" transform="translate(11.500000, 10.500000) scale(-1, -1) translate(-11.500000, -10.500000) " points="13 9 13 12 10 12"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

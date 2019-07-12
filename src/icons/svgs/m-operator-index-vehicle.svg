@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="63px" height="63px" viewBox="0 0 63 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>车次</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="40 121 766 121 766 1060 40 1060"></polygon>
+        <filter x="-0.8%" y="-0.6%" width="101.7%" height="101.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="6" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.290196078   0 0 0 0 0.564705882   0 0 0 0 0.88627451  0 0 0 0.4 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="运行监控" transform="translate(-668.000000, -503.000000)">
+            <rect fill="#1C1D2F" x="0" y="0" width="3200" height="1080"></rect>
+            <g id="Rectangle-3" fill-rule="nonzero">
+                <use fill-opacity="0.1" fill="#4C6ACE" xlink:href="#path-1"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <path stroke="#1665C0" stroke-width="1" d="M40.5,121.5 L40.5,1059.5 L765.5,1059.5 L765.5,121.5 L40.5,121.5 Z" stroke-linejoin="square"></path>
+            </g>
+            <g id="车次-2" transform="translate(667.500000, 502.500000)" fill="#90CAF9" opacity="0.2">
+                <g id="车次" transform="translate(4.000000, 4.000000)">
+                    <path d="M25.7,0.5 L30.3,0.5 C44.2175757,0.5 55.5,11.7824243 55.5,25.7 L55.5,30.3 C55.5,44.2175757 44.2175757,55.5 30.3,55.5 L25.7,55.5 C11.7824243,55.5 0.5,44.2175757 0.5,30.3 L0.5,25.7 C0.5,11.7824243 11.7824243,0.5 25.7,0.5 Z M28,42.8076923 C31.504884,42.8076923 34.3461538,39.9664225 34.3461538,36.4615385 C34.3461538,34.1249491 32.2307692,30.5993081 28,25.8846154 C23.7692308,30.5993081 21.6538462,34.1249491 21.6538462,36.4615385 C21.6538462,39.9664225 24.495116,42.8076923 28,42.8076923 Z M25.8846154,6.84615385 L25.8846154,15.3076923 L30.1153846,15.3076923 L30.1153846,6.84615385 L25.8846154,6.84615385 Z M44.014602,13.5403941 L37.4387516,18.8654128 L40.1012609,22.153338 L46.6771114,16.8283193 L44.014602,13.5403941 Z M11.6240478,13.5403941 L8.96153846,16.8283193 L15.5373889,22.153338 L18.1998983,18.8654128 L11.6240478,13.5403941 Z M50.1281467,31.9493384 L41.8834769,30.0459064 L40.9317609,34.1682413 L49.1764307,36.0716733 L50.1281467,31.9493384 Z M6.8235693,36.0716733 L15.0682391,34.1682413 L14.1165231,30.0459064 L5.87185331,31.9493384 L6.8235693,36.0716733 Z" id="合并形状"></path>
+                </g>
+            </g>
+            <rect id="矩形-copy-15" stroke="#1D508B" stroke-width="2" x="403" y="397" width="342" height="189"></rect>
+        </g>
+    </g>
+</svg>
