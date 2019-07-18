@@ -1,46 +1,6 @@
 <template>
   <div class="main-login">
-    <div class="main-content">
-      <div class="login-title">
-        {{ $t("sysManage.loginPage.title") }}
-      </div>
-      <div class="login-content">
-        <Form label-position="top"
-              inline
-              @submit.prevent.native="onSubmit">
-          <div class="username-div">
-            用户名
-          </div>
-          <div style="margin-top: 10px">
-            <Input v-model="username"
-                   id="username"
-                   type="text"
-                   class="input-width"
-                   :placeholder="$t('sysManage.loginPage.userNamePH')"
-                   />
-          </div>
-          <div class="input-margin">
-            <div class="username-div">
-              密码
-            </div>
-          </div>
-          <div class="input-margin">
-            <Input v-model="password"
-                   id="password"
-                   type="password"
-                   class="input-width"
-                   :placeholder="$t('sysManage.loginPage.passwordPH')"
-                   @keyup.enter.native="onSubmit"/>
-          </div>
-          <div class="button-margin">
-            <Button type="primary" :loading="loginLoading" @click="onSubmit" class="input-width">
-              {{loginBtnInfo}}
-            </Button>
-            <p>{{message}}</p>
-          </div>
-        </Form>
-      </div>
-    </div>
+    1231312
   </div>
 </template>
 <script>
@@ -86,17 +46,24 @@ export default {
       })
 
       if (response.success) {
-        this.$store.dispatch('login/login', {
-          username: this.username,
-          password: this.password
-        })
-        await this.$store.dispatch('permission/getResourceList')
-        // this.$router.push('/realMap/index')
+        if (response.data.defaultAreaCode) { // 登录成功之后才初始化默认运营区域，避免初始化失败
+          this.$store.commit('updateAreaCodeForSelect', response.data.defaultAreaCode)
+        }
+        this.loginStatus = 'success'
+        this.$router.push('/')
       } else {
         console.log('failed')
         this.loginStatus = ''
         this.loginLoading = false
         this.message = response.msg
+      }
+    },
+    checkIsUseCaptchaLogin () {
+      if (this.username) {
+        this.$store.dispatch('login/checkIsUseCaptchaLogin', {
+          username: this.username,
+          password: this.password
+        })
       }
     }
   }

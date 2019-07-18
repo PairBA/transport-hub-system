@@ -10,10 +10,7 @@ const baseUrl = process.env.VUE_APP_BASE_URL
 
 const state = {
   userName: '',
-  showImg: false,
   isLoggedin: false,
-  refresh: false,
-  imgSrc: '',
   msgCount: 0
 }
 
@@ -31,16 +28,10 @@ const actions = {
   }, postData) {
     const responseData = await post(END_POINTS.LOGIN, postData)
     if (responseData.success) {
-      commit('updateShowImg', false)
       commit('setLoginUser', {
         ...responseData.data
       })
-    } else {
-      if (postData.username) {
-        dispatch('checkIsUseCaptchaLogin', postData)
-      }
     }
-
     return responseData
   },
   async init ({ commit }) {
@@ -110,22 +101,21 @@ const mutations = {
 
   setLoginUser (state, {
     userName,
+    userId,
     token,
-    defaultAreaCode,
-    role,
-    email,
-    mobile,
-    photo
+    areaCode,
+    hubCode,
+    roleName,
+    hubName,
+    systemName
   }) {
     localStorage.setItem('token', token)
     localStorage.setItem('userName', userName)
-    localStorage.setItem('defaultAreaCode', defaultAreaCode)
-    localStorage.setItem('email', email)
-    localStorage.setItem('mobile', mobile)
-    localStorage.setItem('photo', photo)
-    if (role === 'dm_company') {
-      localStorage.setItem('role', 'dm_company')
-    } else localStorage.setItem('role', '')
+    localStorage.setItem('userId', userId)
+    localStorage.setItem('areaCode', areaCode)
+    localStorage.setItem('hubCode', hubCode)
+    localStorage.setItem('hubName', hubName)
+    localStorage.setItem('systemName', systemName)
 
     state.userName = userName
     state.isLoggedin = true
@@ -140,23 +130,6 @@ const mutations = {
 
     state.userName = ''
     state.isLoggedin = false
-  },
-  updateShowImg (state, showImg) {
-    state.showImg = showImg
-  },
-  updateImgSrc (state, imgSrc) {
-    state.imgSrc = imgSrc
-  },
-  updateRefresh (state, flag) {
-    state.refresh = flag
-  },
-  updateMsgCount (state) {
-    if (localStorage.getItem('meMessageQueue')) {
-      let object = JSON.parse(localStorage.getItem('meMessageQueue'))
-      state.msgCount = object.length
-    } else {
-      state.msgCount = 0
-    }
   }
 }
 
