@@ -4,7 +4,7 @@ import {
 } from '@/api'
 
 const actions = {
-  async getCompListForSelect ({
+  async getCompListForSelect({
     commit,
     state
   }, value) {
@@ -16,7 +16,7 @@ const actions = {
       commit('updateCompanyListForSelect', compListForSelectObj.data)
     }
   },
-  async getTerminalList ({
+  async getTerminalList({
     commit,
     state
   }) {
@@ -26,7 +26,7 @@ const actions = {
       commit('updateTerminalList', compListForSelectObj.data)
     } else commit('updateTerminalList', [])
   },
-  async getCenterGpsByAreaCode ({
+  async getCenterGpsByAreaCode({
     commit,
     state
   }, areaCode) {

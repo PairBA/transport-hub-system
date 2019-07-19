@@ -1,15 +1,15 @@
 const mutations = {
-  updateCompanyListForSelect (state, companyListForSelect) {
+  updateCompanyListForSelect(state, companyListForSelect) {
     state.companyListForSelect = companyListForSelect
     if (localStorage.getItem('role')) state.companyIdForSelect = companyListForSelect[0].id
   },
-  updateCompanyIdForSelect (state, companyId) {
+  updateCompanyIdForSelect(state, companyId) {
     state.companyIdForSelect = companyId
   },
-  updateTerminalList (state, value) {
+  updateTerminalList(state, value) {
     state.terminalList = value
   },
-  updateCenterGps (state, centerGps) {
+  updateCenterGps(state, centerGps) {
     state.center = centerGps
   }
 }

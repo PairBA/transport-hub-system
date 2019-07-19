@@ -9,10 +9,12 @@
           <MainMenu/>
         </Sider>
         <Content :style="{background: '#fff', minHeight: '500px'}">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </Content>
       </Layout>
-      <Footer/>
+<!--      <Footer/>-->
     </Layout>
   </div>
 </template>
@@ -20,19 +22,17 @@
 <script>
 import MainMenu from '@/components/MainMenu'
 import PairHeader from '@/components/PairHeader'
-import Footer from '@/components/Footer'
 export default {
   components: {
     MainMenu,
-    PairHeader,
-    Footer
+    PairHeader
   },
   computed: {
-    showMenu () {
+    showMenu() {
       return this.$store.state.permission.showMenu
     }
   },
-  async mounted () {
+  async mounted() {
     await this.$store.dispatch('login/checkLoginStatus')
     this.$router.push('/login')
   }

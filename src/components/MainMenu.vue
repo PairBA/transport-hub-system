@@ -34,7 +34,7 @@ import { accountMgmtMenu } from '@/constant/menu'
 export default {
   name: 'MainMenu',
   methods: {
-    onSelectMenu (name) {
+    onSelectMenu(name) {
       if (name === '7') {
         this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
       }
