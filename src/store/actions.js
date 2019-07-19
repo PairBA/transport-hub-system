@@ -4,15 +4,6 @@ import {
 } from '@/api'
 
 const actions = {
-  async getAreaCodeName ({
-    commit
-  }) {
-    const token = localStorage.getItem('token')
-    const areaCodeNameListForSelectObj = await get(END_POINTS.GET_AREA_CODE_NAME, token)
-    if (areaCodeNameListForSelectObj.success) {
-      commit('updateAreaCodeListForSelect', areaCodeNameListForSelectObj.data)
-    }
-  },
   async getCompListForSelect ({
     commit,
     state

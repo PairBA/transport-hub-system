@@ -2,6 +2,7 @@
   <div class="main-menu">
     <Menu ref="menu"
           width="auto"
+          @on-select="onSelectMenu"
           accordion>
       <MenuItem name="1">
         运力调度
@@ -29,8 +30,16 @@
 </template>
 
 <script>
+import { accountMgmtMenu } from '@/constant/menu'
 export default {
-  name: 'MainMenu'
+  name: 'MainMenu',
+  methods: {
+    onSelectMenu (name) {
+      if (name === '7') {
+        this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
+      }
+    }
+  }
 }
 </script>
 

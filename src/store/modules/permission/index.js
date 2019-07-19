@@ -11,7 +11,8 @@ const state = {
   hasGetRules: false,
   activePath: '',
   resourceList: [],
-  showMenu: true
+  showMenu: true,
+  subMenu: []
 }
 
 const getAccesRouterList = (routerMap, rules) => {
@@ -94,6 +95,9 @@ const mutations = {
   },
   updateShowMenu (state, value) {
     state.showMenu = value
+  },
+  updateSubMenu (state, value) {
+    state.subMenu = value
   }
 }
 
