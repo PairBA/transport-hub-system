@@ -1,40 +1,37 @@
 <template>
   <div class="main-page">
     <Layout>
-      <Header :style="{position: 'fixed', width: '100%'}">
-        <Menu mode="horizontal" theme="dark" active-name="1">
-          <MenuItem name="1">
-            <Icon type="ios-navigate"></Icon>
-            Item 1
-          </MenuItem>
-          <MenuItem name="2">
-            <Icon type="ios-keypad"></Icon>
-            Item 9
-          </MenuItem>
-          <MenuItem name="3">
-            <Icon type="ios-analytics"></Icon>
-            Item 3
-          </MenuItem>
-          <MenuItem name="4">
-            <Icon type="ios-paper"></Icon>
-            Item 4
-          </MenuItem>
-          <MenuItem name="5">
-            <Icon type="ios-paper"></Icon>
-            Item 4
-          </MenuItem>
-        </Menu>
-      </Header>
-      <Content :style="{background: '#fff', minHeight: '500px'}">
-        Content
-      </Content>
-      <Footer class="layout-footer-center">2011-2019 &copy; PairTaxi</Footer>
+      <PairHeader/>
+      <Layout class="system__layout">
+        <Sider id="pairSider"
+               hide-trigger
+               v-show="showMenu">
+          <MainMenu/>
+        </Sider>
+        <Content :style="{background: '#fff', minHeight: '500px'}">
+          <router-view></router-view>
+        </Content>
+      </Layout>
+      <Footer/>
     </Layout>
   </div>
 </template>
 
 <script>
+import MainMenu from '@/components/MainMenu'
+import PairHeader from '@/components/PairHeader'
+import Footer from '@/components/Footer'
 export default {
+  components: {
+    MainMenu,
+    PairHeader,
+    Footer
+  },
+  computed: {
+    showMenu () {
+      return this.$store.state.permission.showMenu
+    }
+  },
   async mounted () {
     await this.$store.dispatch('login/checkLoginStatus')
     this.$router.push('/login')
@@ -49,23 +46,9 @@ export default {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
-  .layout-logo{
-    width: 100px;
-    height: 30px;
-    background: #5b6270;
-    border-radius: 3px;
-    float: left;
-    position: relative;
-    top: 15px;
-    left: 20px;
-  }
-  .layout-nav{
-    width: 420px;
-    margin: 0 auto;
-    margin-right: 20px;
-  }
-  .layout-footer-center{
-    text-align: center;
+
+  .system__layout {
+    height: @system__content--height;
   }
 }
 </style>

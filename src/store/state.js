@@ -1,4 +1,5 @@
 const state = {
+  showMenu: true,
   areaCodeForSelect: localStorage.getItem('defaultAreaCode') || '',
   areaCodeListForSelect: [],
   companyIdForSelect: '',

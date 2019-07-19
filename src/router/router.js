@@ -1,3 +1,4 @@
+import routerMap from '@/router/routerMap'
 const MainPage = () => import('@/pages/MainPage')
 const Login = () => import('@/pages/Login')
 const NotFound = () => import('@/pages/NotFound')
@@ -7,6 +8,7 @@ export const routerCommon = {
   path: '/',
   component: MainPage,
   children: [
+    ...routerMap,
     {
       path: '/realMap/index',
       name: 'index',

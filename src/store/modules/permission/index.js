@@ -10,7 +10,8 @@ const state = {
   homePageMenuKey: '',
   hasGetRules: false,
   activePath: '',
-  resourceList: []
+  resourceList: [],
+  showMenu: true
 }
 
 const getAccesRouterList = (routerMap, rules) => {
@@ -34,14 +35,14 @@ const actions = {
     const resourceListObject = await get(END_POINTS.GET_RESOURCE_LIST + `?userId=` + localStorage.getItem('userId'))
     console.log(resourceListObject)
     // 将匹配到的路由拼接到子路由中，返回所有匹配到的路由
-    // const routerList = getAccesRouterList(routerMap, resourceListObject.data.twoLevelResourceList)
-    // const routerCommonChild = routerCommon.children.concat(routerList)
-    // routerCommon.children = routerCommonChild
-    // if (resourceListObject.success) {
-    //   // 生成菜单
-    //   commit('updateResourceList', {serverMenu: resourceListObject.data, routerCommonChild})
-    // }
-    // return routerCommon
+    const routerList = getAccesRouterList(routerMap, resourceListObject.data.twoLevelResourceList)
+    const routerCommonChild = routerCommon.children.concat(routerList)
+    routerCommon.children = routerCommonChild
+    if (resourceListObject.success) {
+      // 生成菜单
+      commit('updateResourceList', { serverMenu: resourceListObject.data, routerCommonChild })
+    }
+    return routerCommon
   }
 }
 
@@ -90,6 +91,9 @@ const mutations = {
     state.homePageMenuKey = homePageMenuKey
     state.homePage = routerCommonChild.find(router => router.name === homePageMenuKey).path
     state.resourceList = newOneLevelResource
+  },
+  updateShowMenu (state, value) {
+    state.showMenu = value
   }
 }
 

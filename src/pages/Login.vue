@@ -68,13 +68,6 @@ export default {
       }
     }
   },
-  mounted () {
-    // this.$store.commit('login/updateShowImg', false)
-  },
-  beforeRouteLeave (to, from, next) {
-    this.$store.commit('login/updateShowImg', false)
-    next()
-  },
   methods: {
     async onSubmit () {
       this.loginStatus = 'load'
@@ -90,8 +83,8 @@ export default {
           username: this.username,
           password: this.password
         })
-        await this.$store.dispatch('permission/getResourceList')
-        // this.$router.push('/realMap/index')
+        // await this.$store.dispatch('permission/getResourceList')
+        this.$router.push('/accountMgmt/accountMgmtHomePage')
       } else {
         console.log('failed')
         this.loginStatus = ''
