@@ -5,6 +5,8 @@ const NotFound = () => import('@/pages/NotFound')
 const index = () => import('@/pages/index')
 const AccountMgmtAddPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtAddPage')
 const AccountMgmtEditPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtEditPage')
+const RoleMgmtAddPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtAddPage')
+const RoleMgmtEditPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtEditPage')
 
 export const routerCommon = {
   path: '/',
@@ -25,6 +27,16 @@ export const routerCommon = {
       path: '/accountMgmt/accountMgmtEditPage',
       name: '修改账号',
       component: AccountMgmtEditPage
+    },
+    {
+      path: '/accountMgmt/roleMgmtAddPage',
+      name: '新增角色',
+      component: RoleMgmtAddPage
+    },
+    {
+      path: '/accountMgmt/roleMgmtEditPage',
+      name: '修改角色',
+      component: RoleMgmtEditPage
     }
   ]
 }

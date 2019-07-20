@@ -136,10 +136,6 @@ export default {
           content: this.$t('monitor.success')
         })
         this.goSearch()
-      } else {
-        this.$Message.error({
-          content: result.msg
-        })
       }
     },
     async getRoleList() {
