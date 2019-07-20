@@ -3,6 +3,8 @@ const MainPage = () => import('@/pages/MainPage')
 const Login = () => import('@/pages/Login')
 const NotFound = () => import('@/pages/NotFound')
 const index = () => import('@/pages/index')
+const AccountMgmtAddPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtAddPage')
+const AccountMgmtEditPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtEditPage')
 
 export const routerCommon = {
   path: '/',
@@ -13,6 +15,16 @@ export const routerCommon = {
       path: '/realMap/index',
       name: 'index',
       component: index
+    },
+    {
+      path: '/accountMgmt/accountMgmtAddPage',
+      name: '新增账号',
+      component: AccountMgmtAddPage
+    },
+    {
+      path: '/accountMgmt/accountMgmtEditPage',
+      name: '修改账号',
+      component: AccountMgmtEditPage
     }
   ]
 }

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '../router'
+import { Message } from 'iview'
 
 const baseUrl = process.env.VUE_APP_BASE_URL
 // 添加一个响应拦截器
@@ -15,7 +16,7 @@ axios.interceptors.response.use((response) => {
   return Promise.reject(error)
 })
 
-export async function send (url, {
+export async function send(url, {
   method = 'GET',
   data = {},
   headers = {},
@@ -38,6 +39,11 @@ export async function send (url, {
       params
     })
     responseData = response.data
+    if (!responseData.success) {
+      Message.error({
+        content: responseData.msg
+      })
+    }
   } catch (e) {
     responseData = (e.response && e.response.data) || {
       success: false,
@@ -49,7 +55,7 @@ export async function send (url, {
   return responseData
 }
 
-export async function post (url, data) {
+export async function post(url, data) {
   let headers = {
     'Content-Type': 'application/json'
   }
@@ -60,19 +66,19 @@ export async function post (url, data) {
   })
 }
 
-export async function get (url, params = {}) {
+export async function get(url, params = {}) {
   return send(url, {
     params
   })
 }
 
-export async function deleteSend (url) {
+export async function deleteSend(url) {
   return send(url, {
     method: 'DELETE'
   })
 }
 
-export async function put (url, data) {
+export async function put(url, data) {
   return send(url, {
     method: 'PUT',
     data,

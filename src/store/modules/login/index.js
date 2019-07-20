@@ -19,7 +19,7 @@ const getters = {
 }
 
 const actions = {
-  async login ({
+  async login({
     commit,
     state,
     dispatch
@@ -32,9 +32,8 @@ const actions = {
     }
     return responseData
   },
-  async init ({ commit }) {
-    const token = localStorage.getItem('token')
-    const responseData = await get(END_POINTS.TOKEN_EXPIRE, token)
+  async init({ commit }) {
+    const responseData = await get(END_POINTS.TOKEN_EXPIRE)
 
     let isLoggedin
 
@@ -47,21 +46,21 @@ const actions = {
 
     return isLoggedin
   },
-  async checkLoginStatus ({
+  async checkLoginStatus({
     state,
     commit
   }) {
     let responseData
     do {
       await sleep(1000 * 60)
-      responseData = await get(END_POINTS.TOKEN_EXPIRE, localStorage.getItem('token'))
+      responseData = await get(END_POINTS.TOKEN_EXPIRE)
     } while (responseData.success)
     commit('logout')
   }
 }
 
 const mutations = {
-  setLoginUser (state, {
+  setLoginUser(state, {
     userName,
     userId,
     token,
@@ -83,7 +82,7 @@ const mutations = {
     state.isLoggedin = true
   },
 
-  logout (state) {
+  logout(state) {
     localStorage.removeItem('token')
     localStorage.removeItem('userName')
     localStorage.removeItem('email')

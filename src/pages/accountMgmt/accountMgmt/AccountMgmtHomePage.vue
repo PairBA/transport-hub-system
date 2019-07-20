@@ -3,7 +3,7 @@
     <ContentLayout :showSpin="showSpin">
       <div slot="searchCondition">
         <Form>
-          <FormItem :label="$t('sysManage.queryBar.areaCode')">
+          <FormItem label="角色">
             <Select v-model="roleId"
                     placeholder="请选择角色">
               <Option v-for="item in roleList"
@@ -12,7 +12,8 @@
                 {{ item.roleName }}
               </Option>
             </Select>
-            <Divider/>
+          </FormItem>
+          <FormItem label="账号名称">
             <Input v-model="userName" placeholder="请输入账号名称"/>
           </FormItem>
           <Divider/>
@@ -93,7 +94,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.goToDetail(params.row.id)
+                    this.goToDelete(params.row.userId)
                   }
                 }
               }, '删除'),
@@ -104,7 +105,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.goToEdit(params.row.id)
+                    this.goToEdit(params.row.userId)
                   }
                 }
               }, '修改')
@@ -114,16 +115,33 @@ export default {
       ]
     }
   },
-  mounted() {
-    this.getRoleList()
+  async mounted() {
+    await this.getRoleList()
+    this.goSearch()
   },
   methods: {
     goSearch() {
       this.getUserList()
     },
-    addAccount() {},
-    goToEdit(id) {},
-    goToDetail(id) {},
+    addAccount() {
+      this.$router.push({ name: '新增账号' })
+    },
+    goToEdit(userId) {
+      this.$router.push({ name: '修改账号', query: { userId } })
+    },
+    async goToDelete(userId) {
+      const result = await get(END_POINTS.DELETE_USER_BY_ID + `?userId=${userId}`)
+      if (result.code === 2000) {
+        this.$Message.success({
+          content: this.$t('monitor.success')
+        })
+        this.goSearch()
+      } else {
+        this.$Message.error({
+          content: result.msg
+        })
+      }
+    },
     async getRoleList() {
       const result = await get(END_POINTS.GET_ROLE_LIST)
       if (result.code === 2000) this.roleList = result.data
@@ -134,7 +152,6 @@ export default {
         roleId: this.roleId,
         hubCode: localStorage.getItem('hubCode')
       })
-      console.log(result)
       if (result.code === 2000) this.userList = result.data
       else this.userList = []
     }
