@@ -19,3 +19,14 @@ export const watchDutySchedule = [
     name: '班次时间'
   }
 ]
+
+export const tripTrail = [
+  {
+    name: '车辆轨迹',
+    path: '/tripTrail/vehicleTrajectoryHomePage'
+  },
+  {
+    name: '行程查找',
+    path: '/tripTrail/searchTripHomePage'
+  }
+]
