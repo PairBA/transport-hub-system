@@ -30,13 +30,15 @@
 </template>
 
 <script>
-import { accountMgmtMenu } from '@/constant/menu'
+import { accountMgmtMenu, watchDutySchedule } from '@/constant/menu'
 export default {
   name: 'MainMenu',
   methods: {
     onSelectMenu(name) {
       if (name === '7') {
         this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
+      } else if (name === '6') {
+        this.$store.commit('permission/updateSubMenu', watchDutySchedule)
       }
     }
   }

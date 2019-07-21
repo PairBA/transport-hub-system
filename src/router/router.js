@@ -7,6 +7,8 @@ const AccountMgmtAddPage = () => import('@/pages/accountMgmt/accountMgmt/Account
 const AccountMgmtEditPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtEditPage')
 const RoleMgmtAddPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtAddPage')
 const RoleMgmtEditPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtEditPage')
+const ScheduleAddPage = () => import('@/pages/watchDutySchedule/schedule/ScheduleAddPage')
+const ScheduleEditPage = () => import('@/pages/watchDutySchedule/schedule/ScheduleEditPage')
 
 export const routerCommon = {
   path: '/',
@@ -37,6 +39,16 @@ export const routerCommon = {
       path: '/accountMgmt/roleMgmtEditPage',
       name: '修改角色',
       component: RoleMgmtEditPage
+    },
+    {
+      path: '/watchDutySchedule/scheduleAddPage',
+      name: '新增班次',
+      component: ScheduleAddPage
+    },
+    {
+      path: '/watchDutySchedule/scheduleEditPage',
+      name: '编辑班次',
+      component: ScheduleEditPage
     }
   ]
 }

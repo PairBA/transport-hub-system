@@ -8,3 +8,14 @@ export const accountMgmtMenu = [
     name: '角色管理'
   }
 ]
+
+export const watchDutySchedule = [
+  {
+    path: '/watchDutySchedule/watchDutyScheduleHomePage',
+    name: '值班表'
+  },
+  {
+    path: '/watchDutySchedule/scheduleHomePage',
+    name: '班次时间'
+  }
+]

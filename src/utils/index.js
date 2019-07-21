@@ -1,5 +1,22 @@
 import provinceCode from '@/constant/provinceCode'
 
+export const dateFormat = (date, fmt) => {
+  const o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'h+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds(),
+    'q+': Math.floor((date.getMonth() + 3) / 3),
+    'S': date.getMilliseconds()
+  }
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+  for (let k in o) {
+    if (new RegExp('(' + k + ')').test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+  }
+  return fmt
+}
+
 export const numFormat = (value) => {
   if (!value) return '0'
   const intPart = Number(value).toFixed(0) // 获取整数部分
@@ -87,84 +104,6 @@ export const getRectangleByStepAndGridCode = (gridCode, lngStep, latStep) => {
 }
 
 export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
-export const formatDate = (date) => {
-  const year = date.getFullYear()
-  const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-  const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-  const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-  const seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
-
-  return `${year}-${month}-${day} ${hour}:${minute}:${seconds}`
-}
-export const formatDateToMinute = (date) => {
-  const year = date.getFullYear()
-  const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-  const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-  const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-
-  return `${year}-${month}-${day} ${hour}:${minute}`
-}
-export const formatDateToHourStr = (date) => {
-  const year = date.getFullYear()
-  const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-  const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-
-  return `${year}-${month}-${day} ${hour}`
-}
-export const formatDateToDay = (date) => {
-  const year = date.getFullYear()
-  const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-
-  return `${year}-${month}-${day}`
-}
-export const formatDateToMonth = (date) => {
-  const year = date.getFullYear()
-  const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-
-  return `${year}-${month}`
-}
-export const formatDateToDayNum = (date) => {
-  const year = date.getFullYear()
-  const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-
-  return `${year}${month}${day}`
-}
-export const formatDateToNoYear = (date) => {
-  const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-  const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-  const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-
-  return `${month}-${day} ${hour}:${minute}`
-}
-export const formatDateToHHmmss = (date) => {
-  const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-  const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-  const seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
-
-  return `${hour}:${minute}:${seconds}`
-}
-export const formatDateToHour = (date) => {
-  const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-  const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-
-  return `${hour}:${minute}`
-}
-export const formatDateToOnlyMinute = (date) => {
-  const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-
-  return `${minute}`
-}
-export const formatDateToOnlyHour = (date) => {
-  const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-
-  return `${hour}`
-}
 /**
  * 根据当前日期获取上一个月
  * return “2018-01”

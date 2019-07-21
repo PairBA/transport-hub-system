@@ -13,5 +13,11 @@ export default {
   ADD_ROLE: '/api/lawSystem/accountManage/addRole',
   GET_ROLE_BY_ID: '/api/lawSystem/accountManage/getRoleById',
   EDIT_ROLE: '/api/lawSystem/accountManage/editRole',
-  DELETE_ROLE_BY_ID: '/api/lawSystem/accountManage/deleteRoleById'
+  DELETE_ROLE_BY_ID: '/api/lawSystem/accountManage/deleteRoleById',
+  // 班次
+  GET_SCHEDULE_LIST: '/api/lawSystem/gateAlert/getScheduleList',
+  ADD_SCHEDULE: '/api/lawSystem/gateAlert/addSchedule',
+  GET_SCHEDULE_BY_ID: '/api/lawSystem/gateAlert/getScheduleById',
+  EDIT_SCHEDULE: '/api/lawSystem/gateAlert/editSchedule',
+  DELETE_SCHEDULE_BY_ID: '/api/lawSystem/gateAlert/deleteScheduleById'
 }
