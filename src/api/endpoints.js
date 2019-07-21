@@ -19,5 +19,8 @@ export default {
   ADD_SCHEDULE: '/api/lawSystem/gateAlert/addSchedule',
   GET_SCHEDULE_BY_ID: '/api/lawSystem/gateAlert/getScheduleById',
   EDIT_SCHEDULE: '/api/lawSystem/gateAlert/editSchedule',
-  DELETE_SCHEDULE_BY_ID: '/api/lawSystem/gateAlert/deleteScheduleById'
+  DELETE_SCHEDULE_BY_ID: '/api/lawSystem/gateAlert/deleteScheduleById',
+  // 值班表
+  GET_PLAN_DETAIL_LIST: '/api/slAirport/gateAlert/getPlanDetailList',
+  GET_PLAN_WORKER_LIST: '/api/slAirport/gateAlert/getPlanWorkerList'
 }

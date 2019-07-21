@@ -2,6 +2,7 @@
 const AccountMgmtHomePage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtHomePage')
 const RoleMgmtHomePage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtHomePage')
 // 值班表
+const WatchDutyScheduleHomePage = () => import('@/pages/watchDutySchedule/watchDutySchedule/WatchDutyScheduleHomePage')
 const ScheduleHomePage = () => import('@/pages/watchDutySchedule/schedule/ScheduleHomePage')
 export default [
   {
@@ -18,5 +19,10 @@ export default [
     name: '班次时间',
     path: '/watchDutySchedule/scheduleHomePage',
     component: ScheduleHomePage
+  },
+  {
+    name: '值班表',
+    path: '/watchDutySchedule/watchDutyScheduleHomePage',
+    component: WatchDutyScheduleHomePage
   }
 ]

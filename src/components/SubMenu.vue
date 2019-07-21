@@ -10,11 +10,11 @@
 export default {
   name: 'SubMenu',
   computed: {
-    subMenu () {
+    subMenu() {
       return this.$store.state.permission.subMenu
     }
   },
-  mounted () {
+  mounted() {
     console.log()
   }
 }
