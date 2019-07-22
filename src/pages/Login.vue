@@ -46,7 +46,7 @@
 <script>
 
 export default {
-  data () {
+  data() {
     return {
       loginLoading: false,
       username: '',
@@ -58,7 +58,7 @@ export default {
     }
   },
   computed: {
-    loginBtnInfo () {
+    loginBtnInfo() {
       if (this.loginStatus === 'success') {
         return this.$t('sysManage.commonVar.loadingSuccess')
       } else if (this.loginStatus === 'load') {
@@ -69,7 +69,7 @@ export default {
     }
   },
   methods: {
-    async onSubmit () {
+    async onSubmit() {
       this.loginStatus = 'load'
       this.message = ''
       this.loginLoading = true

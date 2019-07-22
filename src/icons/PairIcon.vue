@@ -9,12 +9,12 @@ export default {
       require: true
     }
   },
-  data () {
+  data() {
     return {
       iconSvg: ''
     }
   },
-  async mounted () {
+  async mounted() {
     const icon = await import(`./svgs/${this.type}.svg`)
     this.iconSvg = icon.default
   }

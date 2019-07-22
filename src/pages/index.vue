@@ -6,7 +6,7 @@
 <script>
 
 export default {
-  data () {
+  data() {
     return {
       loginLoading: false,
       username: '',
@@ -18,7 +18,7 @@ export default {
     }
   },
   computed: {
-    loginBtnInfo () {
+    loginBtnInfo() {
       if (this.loginStatus === 'success') {
         return this.$t('sysManage.commonVar.loadingSuccess')
       } else if (this.loginStatus === 'load') {
@@ -28,15 +28,15 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     // this.$store.commit('login/updateShowImg', false)
   },
-  beforeRouteLeave (to, from, next) {
+  beforeRouteLeave(to, from, next) {
     this.$store.commit('login/updateShowImg', false)
     next()
   },
   methods: {
-    async onSubmit () {
+    async onSubmit() {
       this.loginStatus = 'load'
       this.message = ''
       this.loginLoading = true
@@ -58,7 +58,7 @@ export default {
         this.message = response.msg
       }
     },
-    checkIsUseCaptchaLogin () {
+    checkIsUseCaptchaLogin() {
       if (this.username) {
         this.$store.dispatch('login/checkIsUseCaptchaLogin', {
           username: this.username,

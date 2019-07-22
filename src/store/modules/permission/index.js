@@ -30,7 +30,7 @@ const getAccesRouterList = (routerMap, rules) => {
 }
 
 const actions = {
-  async getResourceList ({
+  async getResourceList({
     commit
   }) {
     const resourceListObject = await get(END_POINTS.GET_RESOURCE_LIST + `?userId=` + localStorage.getItem('userId'))
@@ -48,16 +48,16 @@ const actions = {
 }
 
 const mutations = {
-  updateHomePage (state, homePage) {
+  updateHomePage(state, homePage) {
     state.homePage = homePage
   },
-  updateHasRule (state, hasRule) {
+  updateHasRule(state, hasRule) {
     state.hasGetRules = hasRule
   },
-  updateActivePath (state, url) {
+  updateActivePath(state, url) {
     state.activePath = url
   },
-  updateResourceList (state, { serverMenu, routerCommonChild }) {
+  updateResourceList(state, { serverMenu, routerCommonChild }) {
     // 已经获取到权限菜单
     state.hasGetRules = true
     let oneLevelResourceList = serverMenu.oneLevelResourceList
@@ -93,10 +93,10 @@ const mutations = {
     state.homePage = routerCommonChild.find(router => router.name === homePageMenuKey).path
     state.resourceList = newOneLevelResource
   },
-  updateShowMenu (state, value) {
+  updateShowMenu(state, value) {
     state.showMenu = value
   },
-  updateSubMenu (state, value) {
+  updateSubMenu(state, value) {
     state.subMenu = value
   }
 }

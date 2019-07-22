@@ -30,3 +30,10 @@ export const tripTrail = [
     path: '/tripTrail/searchTripHomePage'
   }
 ]
+
+export const trafficFlow = [
+  {
+    name: '车流量',
+    path: '/trafficFlow/TrafficFlowHomePage'
+  }
+]

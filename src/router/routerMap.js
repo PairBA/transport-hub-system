@@ -7,6 +7,9 @@ const ScheduleHomePage = () => import('@/pages/watchDutySchedule/schedule/Schedu
 // 行程轨迹
 const VehicleTrajectoryHomePage = () => import('@/pages/tripTrail/vehicleTrajectory/VehicleTrajectoryHomePage')
 const SearchTripHomePage = () => import('@/pages/tripTrail/searchTrip/SearchTripHomePage')
+// 车流量
+const TrafficFlowHomePage = () => import('@/pages/trafficFlow/TrafficFlowHomePage')
+
 export default [
   {
     name: 'accountMgmtHomePage',
@@ -37,5 +40,10 @@ export default [
     name: '行程查找',
     path: '/tripTrail/searchTripHomePage',
     component: SearchTripHomePage
+  },
+  {
+    name: '车流量统计',
+    path: '/trafficFlow/TrafficFlowHomePage',
+    component: TrafficFlowHomePage
   }
 ]
