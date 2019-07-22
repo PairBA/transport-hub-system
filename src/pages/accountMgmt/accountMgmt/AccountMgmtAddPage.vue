@@ -1,7 +1,7 @@
 <template>
   <div class="accountMgmt__add">
     <SearchWrapper>
-      <Form>
+      <Form label-width="100">
         <FormItem label="用户名:">
           <Input v-model="userName" placeholder="请输入用户名"/>
         </FormItem>

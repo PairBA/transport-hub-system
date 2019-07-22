@@ -1,12 +1,15 @@
 <template>
   <div class="roleMgmt__homePage">
-    <Button type="primary"
-            @click="addRole">
-      新增角色
-    </Button>
-    <Table :columns="columns"
-           :data="roleList">
-    </Table>
+    <TableWrapper>
+      <Button type="primary"
+              @click="addRole"
+              style="margin-bottom: 12px">
+        新增角色
+      </Button>
+      <Table :columns="columns"
+             :data="roleList">
+      </Table>
+    </TableWrapper>
   </div>
 </template>
 
@@ -15,7 +18,11 @@ import {
   get,
   END_POINTS
 } from '@/api'
+import TableWrapper from '@/components/wrapper/TableWrapper'
 export default {
+  components: {
+    TableWrapper
+  },
   name: 'RoleMgmtHomePage',
   data() {
     return {
@@ -98,5 +105,7 @@ export default {
 </script>
 
 <style lang="less">
-.roleMgmt__homePage{}
+.roleMgmt__homePage{
+  padding: 24px;
+}
 </style>

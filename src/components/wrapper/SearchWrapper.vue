@@ -13,6 +13,10 @@
     font-size: 14px;
     font-weight: 600;
   }
+  .ivu-form {
+    width: 50%;
+    margin: auto;
+  }
   .ivu-btn {
     padding: 5px 24px;
     font-size: 14px;

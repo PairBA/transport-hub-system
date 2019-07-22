@@ -9,7 +9,6 @@
 
 .table-wrapper{
   &:extend(.content__card);
-  margin-top: @layout__padding;
   padding:@layout__padding;
   min-height: 280px;
   .ivu-table:after{

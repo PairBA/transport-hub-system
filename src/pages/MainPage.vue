@@ -8,7 +8,7 @@
                v-show="showMenu">
           <SubMenu/>
         </Sider>
-        <Content :style="{background: '#fff', minHeight: '500px'}">
+        <Content>
           <router-view></router-view>
         </Content>
       </Layout>
