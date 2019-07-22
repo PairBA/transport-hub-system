@@ -1,25 +1,29 @@
 <template>
-  <Menu mode="horizontal" theme="dark" active-name="1">
-    <MenuItem v-for="item in subMenu" :key="item.name" :name="item.path" :to="item.path">
-      {{item.name}}
-    </MenuItem>
-  </Menu>
+  <div class="sub-menu">
+    <Menu ref="menu"
+          width="auto"
+          accordion>
+      <MenuItem v-for="item in subMenu" :key="item.name" :name="item.path" :to="item.path">
+        {{item.name}}
+      </MenuItem>
+    </Menu>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'SubMenu',
+  name: 'MainMenu',
   computed: {
     subMenu() {
       return this.$store.state.permission.subMenu
     }
-  },
-  mounted() {
-    console.log()
   }
 }
 </script>
 
-<style scoped>
+<style lang="less">
+.sub-menu {
+
+}
 
 </style>

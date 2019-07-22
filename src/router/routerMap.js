@@ -9,12 +9,12 @@ const VehicleTrajectoryHomePage = () => import('@/pages/tripTrail/vehicleTraject
 const SearchTripHomePage = () => import('@/pages/tripTrail/searchTrip/SearchTripHomePage')
 export default [
   {
-    name: 'accountMgmtHomePage',
+    name: '帐号管理',
     path: '/accountMgmt/accountMgmtHomePage',
     component: AccountMgmtHomePage
   },
   {
-    name: 'roleMgmtHomePage',
+    name: '角色管理',
     path: '/accountMgmt/roleMgmtHomePage',
     component: RoleMgmtHomePage
   },

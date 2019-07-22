@@ -12,30 +12,30 @@
       <div style="line-height: 30px">{{mainTitle}}</div>
     </div>
     <div class="layout-nav">
-      <SubMenu/>
+      <MainMenu/>
     </div>
   </Header>
 </template>
 
 <script>
-import SubMenu from '@/components/SubMenu'
+import MainMenu from '@/components/MainMenu'
 export default {
   components: {
-    SubMenu
+    MainMenu
   },
-  data () {
+  data() {
     return {
       mainTitle: localStorage.getItem('systemName'),
       subTitle: localStorage.getItem('hubName')
     }
   },
   computed: {
-    showMenu () {
+    showMenu() {
       return this.$store.state.permission.showMenu
     }
   },
   methods: {
-    triggerSideMenu () {
+    triggerSideMenu() {
       this.$store.commit('permission/updateShowMenu', !this.showMenu)
     }
   }

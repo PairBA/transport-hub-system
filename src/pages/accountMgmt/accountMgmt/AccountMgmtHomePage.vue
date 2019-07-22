@@ -13,6 +13,7 @@
               </Option>
             </Select>
           </FormItem>
+          <Divider/>
           <FormItem label="账号名称">
             <Input v-model="userName" placeholder="请输入账号名称"/>
           </FormItem>
@@ -25,7 +26,7 @@
         </Form>
       </div>
       <div slot="content">
-        <Button type="primary"
+        <Button style="margin-bottom: 12px" type="primary" icon="md-add"
                 @click="addAccount">
           新增账号
         </Button>
