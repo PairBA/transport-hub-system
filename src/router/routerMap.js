@@ -9,6 +9,9 @@ const VehicleTrajectoryHomePage = () => import('@/pages/tripTrail/vehicleTraject
 const SearchTripHomePage = () => import('@/pages/tripTrail/searchTrip/SearchTripHomePage')
 // 车流量
 const TrafficFlowHomePage = () => import('@/pages/trafficFlow/TrafficFlowHomePage')
+// 重点关注
+const FocusHomePage = () => import('@/pages/focus/focus/FocusHomePage')
+const VehicleQueryHomePage = () => import('@/pages/focus/vehicleQuery/VehicleQueryHomePage')
 
 export default [
   {
@@ -45,5 +48,15 @@ export default [
     name: '车流量统计',
     path: '/trafficFlow/TrafficFlowHomePage',
     component: TrafficFlowHomePage
+  },
+  {
+    name: '重点关注',
+    path: '/focus/FocusHomePage',
+    component: FocusHomePage
+  },
+  {
+    name: '车辆查询',
+    path: '/focus/VehicleQueryHomePage',
+    component: VehicleQueryHomePage
   }
 ]

@@ -34,7 +34,8 @@ import {
   accountMgmtMenu,
   watchDutySchedule,
   tripTrail,
-  trafficFlow
+  trafficFlow,
+  focus
 } from '@/constant/menu'
 
 export default {
@@ -49,6 +50,8 @@ export default {
         this.$store.commit('permission/updateSubMenu', trafficFlow)
       } else if (name === '4') {
         this.$store.commit('permission/updateSubMenu', tripTrail)
+      } else if (name === '3') {
+        this.$store.commit('permission/updateSubMenu', focus)
       }
     }
   }

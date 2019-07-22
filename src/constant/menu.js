@@ -33,7 +33,18 @@ export const tripTrail = [
 
 export const trafficFlow = [
   {
-    name: '车流量',
+    name: '车流量统计',
     path: '/trafficFlow/TrafficFlowHomePage'
+  }
+]
+
+export const focus = [
+  {
+    name: '重点关注',
+    path: '/focus/FocusHomePage'
+  },
+  {
+    name: '车辆查询',
+    path: '/focus/VehicleQueryHomePage'
   }
 ]

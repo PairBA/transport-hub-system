@@ -25,5 +25,10 @@ export default {
   GET_PLAN_WORKER_LIST: '/api/slAirport/gateAlert/getPlanWorkerList',
   // 车流量统计
   GET_VEHICLE_FLOW_COUNT: '/api/vehicleFlowCount/getVehicleFlowCount',
-  GET_VEHICLE_FLOW_COUNT_EXCEL: '/api/vehicleFlowCount/getVehicleFlowCountExcel'
+  GET_VEHICLE_FLOW_COUNT_EXCEL: '/api/vehicleFlowCount/getVehicleFlowCountExcel',
+  // 重点关注
+  GET_HUB_FOCUS_VEHICLE_LIST: '/api/transhub/fullscreen/getHubFocusVehicleList',
+  GET_HUB_FOCUS_VEHICLE_EXCEL: '/api/transhub/fullscreen/getHubFocusVehicleExcel',
+  GET_HUB_STAT_TRAIL_LIST: '/api/transhub/fullscreen/getHubStatTrailList',
+  GET_HUB_STAT_TRAIL_ALL_EXCEL: '/api/transhub/fullscreen/getHubStatTrailAllExcel',
 }
