@@ -10,14 +10,47 @@
             </Col>
           </Row>
           <Row>
-            <Col v-for="(day, index) in monthDayList" :key="index">
-              {{day}}
+            <Col v-for="(singleDay, index) in monthDayList" :key="index" @click.native="highlightDay(singleDay)">
+              <div v-if="singleDay.scheduleDetailList">
+                <div v-for="(oneItem, indexForOne) in singleDay.scheduleDetailList" :key="`singleDay_${indexForOne}`">
+                  <div>{{oneItem.scheduleName}}</div>
+                  <div>
+                    <div v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
+                      {{worker.fullName}}{{worker.mobile}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-else>
+                {{singleDay}}
+              </div>
             </Col>
           </Row>
         </Col>
         <Col span="6">
-          <div>2019-07-31</div>
-          <Button>新增值班人员</Button>
+          <div>{{item.scheduleDate}}</div>
+          <div v-for="detail in item.scheduleDetailList" :key="detail.scheduleName">
+            {{detail.scheduleName}}
+            <div v-for="worker in detail.scheduleWorkerList" :key="worker.fullName">
+              {{worker.fullName}}{{worker.mobile}}<Icon type="ios-close-circle-outline" @click="deletePlanWorker(detail.scheduleName, worker.fullName, worker.mobile)"/>
+            </div>
+            <Poptip placement="bottom">
+              <Button>新增值班人员</Button>
+              <div slot="content">
+                <Select v-model="fullName"
+                        placeholder="请选择人员">
+                  <Option v-for="worker in planWorkerList"
+                          :value="worker.fullName"
+                          :key="worker.fullName">
+                    {{ worker.fullName }} {{ worker.mobile }}
+                  </Option>
+                </Select>
+                <div>
+                  <Button @click="addPlanWorker(detail.scheduleName)">确定</Button>
+                </div>
+              </div>
+            </Poptip>
+          </div>
         </Col>
       </Row>
     </div>
@@ -35,10 +68,12 @@ export default {
   data() {
     return {
       date: new Date(),
+      item: '',
       planDetailList: [],
       maxDay: 0,
       monthDayList: [],
       planWorkerList: [],
+      fullName: '',
       weekList: [
         '日',
         '一',
@@ -51,27 +86,65 @@ export default {
     }
   },
   mounted() {
-    this.getPlanDetailList()
+    this.goSearch()
     this.getPlanWorkerList()
   },
   methods: {
-    goSearch() {
+    async goSearch() {
+      await this.getPlanDetailList()
       const date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0)
       this.maxDay = date.getDate()
       const monthDayList = []
       date.setDate(1)
       const week = date.getDay()
       console.log(week)
-      if (week !== 7) {
-        for (let i = 1; i <= week; i++) {
-          monthDayList.push('.')
-        }
-      }
       for (let i = 1; i <= this.maxDay; i++) {
         monthDayList.push(i)
       }
+      this.planDetailList.forEach(item => {
+        const dateStr = item.scheduleDate
+        const day = dateStr.substring(8)
+        monthDayList[day - 1] = item
+      })
+      if (week !== 7) {
+        for (let i = 1; i <= week; i++) {
+          monthDayList.unshift('.')
+        }
+      }
       this.monthDayList = monthDayList
-      console.log(monthDayList)
+    },
+    highlightDay(item) {
+      console.log(item)
+      this.item = item
+    },
+    async deletePlanWorker(scheduleName, fullName, mobile) {
+      const result = await get(END_POINTS.DELETE_PLAN_WORKER, {
+        scheduleDate: this.item.scheduleDate,
+        scheduleName,
+        fullName,
+        mobile
+      })
+      if (result.code === 2000) {
+        this.$Message.success({
+          content: this.$t('monitor.success')
+        })
+        this.goSearch()
+      }
+    },
+    async addPlanWorker(scheduleName) {
+      const worker = this.planWorkerList.find(worker => worker.fullName === this.fullName)
+      const result = await get(END_POINTS.ADD_PLAN_WORKER, {
+        scheduleDate: this.item.scheduleDate,
+        scheduleName,
+        fullName: worker.fullName,
+        mobile: worker.mobile
+      })
+      if (result.code === 2000) {
+        this.$Message.success({
+          content: this.$t('monitor.success')
+        })
+        this.goSearch()
+      }
     },
     async getPlanDetailList() {
       const result = await get(END_POINTS.GET_PLAN_DETAIL_LIST + `?queryMonth=${dateFormat(this.date, 'yyyy-MM')}`)
@@ -79,7 +152,7 @@ export default {
     },
     async getPlanWorkerList() {
       const result = await get(END_POINTS.GET_PLAN_WORKER_LIST)
-      if (result.code === 2000) this.planWorkerList = result.data
+      if (result) this.planWorkerList = result.data
     }
   }
 }

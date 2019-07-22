@@ -60,7 +60,7 @@ export default {
       const result = await post(END_POINTS.EDIT_ROLE, {
         id: this.id,
         roleName: this.roleName,
-        resourceIdList: this.resourceIdList.join()
+        resourceIdList: this.resourceIdList
       })
       if (result.code === 2000) {
         this.$Message.success({

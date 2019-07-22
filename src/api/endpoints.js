@@ -21,6 +21,10 @@ export default {
   EDIT_SCHEDULE: '/api/lawSystem/gateAlert/editSchedule',
   DELETE_SCHEDULE_BY_ID: '/api/lawSystem/gateAlert/deleteScheduleById',
   // 值班表
-  GET_PLAN_DETAIL_LIST: '/api/slAirport/gateAlert/getPlanDetailList',
-  GET_PLAN_WORKER_LIST: '/api/slAirport/gateAlert/getPlanWorkerList'
+  GET_PLAN_DETAIL_LIST: '/api/lawSystem/gateAlert/getPlanDetailList',
+  GET_PLAN_WORKER_LIST: '/api/lawSystem/gateAlert/getPlanWorkerList',
+  ADD_PLAN_WORKER: '/api/lawSystem/gateAlert/addPlanWorker',
+  DELETE_PLAN_WORKER: '/api/lawSystem/gateAlert/deletePlanWorker',
+  // 行程轨迹
+  GET_TRAIL_LIST: 'api/vehicle/trail/getTrailList'
 }

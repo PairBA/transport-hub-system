@@ -9,9 +9,7 @@
           <MainMenu/>
         </Sider>
         <Content :style="{background: '#fff', minHeight: '500px'}">
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
+          <router-view></router-view>
         </Content>
       </Layout>
 <!--      <Footer/>-->

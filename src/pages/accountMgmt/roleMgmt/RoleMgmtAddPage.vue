@@ -42,7 +42,7 @@ export default {
     async submit() {
       const result = await post(END_POINTS.ADD_ROLE, {
         roleName: this.roleName,
-        resourceIdList: this.resourceIdList.join()
+        resourceIdList: this.resourceIdList
       })
       if (result.code === 2000) {
         this.$Message.success({
