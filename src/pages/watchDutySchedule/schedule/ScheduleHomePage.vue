@@ -1,12 +1,15 @@
 <template>
   <div class="schedule_homePage">
-    <Button type="primary"
-            @click="addSchedule">
-      新增班次
-    </Button>
-    <Table :columns="columns"
-           :data="scheduleList">
-    </Table>
+    <TableWrapper>
+      <Button type="primary"
+              style="margin-bottom: 12px"
+              @click="addSchedule">
+        新增班次
+      </Button>
+      <Table :columns="columns"
+             :data="scheduleList">
+      </Table>
+    </TableWrapper>
   </div>
 </template>
 
@@ -15,7 +18,11 @@ import {
   get,
   END_POINTS
 } from '@/api'
+import TableWrapper from '@/components/wrapper/TableWrapper'
 export default {
+  components: {
+    TableWrapper
+  },
   data() {
     return {
       scheduleList: []
@@ -99,5 +106,7 @@ export default {
 </script>
 
 <style lang="less">
-.schedule_homePage {}
+.schedule_homePage {
+  padding: 24px;
+}
 </style>
