@@ -23,19 +23,19 @@ export default {
   components: {
     SubMenu
   },
-  data () {
+  data() {
     return {
       mainTitle: localStorage.getItem('systemName'),
       subTitle: localStorage.getItem('hubName')
     }
   },
   computed: {
-    showMenu () {
+    showMenu() {
       return this.$store.state.permission.showMenu
     }
   },
   methods: {
-    triggerSideMenu () {
+    triggerSideMenu() {
       this.$store.commit('permission/updateShowMenu', !this.showMenu)
     }
   }

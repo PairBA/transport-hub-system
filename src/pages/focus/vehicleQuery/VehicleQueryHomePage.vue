@@ -39,7 +39,6 @@
 
 <script>
 import {
-  get,
   post,
   END_POINTS
 } from '@/api'

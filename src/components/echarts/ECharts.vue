@@ -11,37 +11,37 @@ export default {
       required: true
     },
     series: {
-      type: Array | Object,
+      type: Object,
       default: () => {
         return []
       }
     },
     radar: {
-      type: Object | Array,
+      type: Object,
       default: () => {
         return {}
       }
     },
     xAxis: {
-      type: Object | Array,
+      type: Object,
       default: () => {
         return {}
       }
     },
     yAxis: {
-      type: Object | Array,
+      type: Object,
       default: () => {
         return {}
       }
     },
     title: {
-      type: Object | Array,
+      type: Object,
       default: () => {
         return {}
       }
     },
     color: {
-      type: String | Array,
+      type: String,
       default: () => {
         return ''
       }
@@ -53,13 +53,13 @@ export default {
       }
     },
     grid: {
-      type: Object | Array,
+      type: Object,
       default: () => {
         return {}
       }
     },
     dataZoom: {
-      type: Object | Array,
+      type: Object,
       default: () => {
         return [
           {
@@ -75,7 +75,7 @@ export default {
       }
     },
     legend: {
-      type: Object | Array,
+      type: Object,
       default: () => {
         return {
           show: false
