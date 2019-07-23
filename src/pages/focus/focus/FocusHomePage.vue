@@ -33,6 +33,11 @@
         </div>
       </div>
     </ContentLayout>
+    <RealLocationAMap :isShowModal="isShowModal"
+                      :vehicleNo="propVehicleNo"
+                      :terminalName="propTerminalName"
+                      :companyName="propCompanyName"
+                      @on-visible-change="doCloseModal"/>
   </div>
 </template>
 
@@ -44,14 +49,22 @@ import {
 
 import { dateFormat } from '@/utils'
 
+import RealLocationAMap from '@/components/map/realLocation/RealLocationAMap'
+
 export default {
-  components: {},
+  components: {
+    RealLocationAMap
+  },
   data() {
     return {
+      isShowModal: false,
       showSpin: false,
       vehicleNo: '',
       focusDate: [new Date(), new Date()],
-      tableList: []
+      tableList: [],
+      propVehicleNo: '',
+      propTerminalName: '',
+      propCompanyName: ''
     }
   },
   computed: {
@@ -125,7 +138,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.goToEdit(params.row.userId)
+                    this.doShowModal(params.row)
                   }
                 }
               }, '实时位置')
@@ -152,7 +165,7 @@ export default {
         vehicleNo: this.vehicleNo,
         driverType: 'TAXI'
       })
-      console.log(result)
+      // console.log(result)
       if (result.code === 2000) {
         this.tableList = result.data // 表格数据
         this.showSpin = false
@@ -172,6 +185,15 @@ export default {
         '&driverType=TAXI' +
         '&x-me-token=' + token
       window.location.href = `${baseUrl}${url}`
+    },
+    doShowModal(row) {
+      this.propVehicleNo = row.vehicleNo
+      this.propTerminalName = row.terminalName
+      this.propCompanyName = row.companyName
+      this.isShowModal = true
+    },
+    doCloseModal(result) {
+      this.isShowModal = result
     }
   }
 }
