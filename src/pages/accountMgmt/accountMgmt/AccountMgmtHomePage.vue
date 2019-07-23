@@ -13,6 +13,7 @@
               </Option>
             </Select>
           </FormItem>
+          <Divider/>
           <FormItem label="账号名称">
             <Input v-model="userName" placeholder="请输入账号名称"/>
           </FormItem>
@@ -25,13 +26,15 @@
         </Form>
       </div>
       <div slot="content">
-        <Button type="primary"
-                @click="addAccount">
-          新增账号
-        </Button>
-        <Table :columns="columns"
-               :data="userList">
-        </Table>
+        <TableWrapper>
+          <Button style="margin-bottom: 12px" type="primary" icon="md-add"
+                  @click="addAccount">
+            新增账号
+          </Button>
+          <Table :columns="columns"
+                 :data="userList">
+          </Table>
+        </TableWrapper>
       </div>
     </ContentLayout>
   </div>
@@ -39,13 +42,15 @@
 
 <script>
 import ContentLayout from '@/components/ContentLayout'
+import TableWrapper from '@/components/wrapper/TableWrapper'
 import {
   get,
   END_POINTS
 } from '@/api'
 export default {
   components: {
-    ContentLayout
+    ContentLayout,
+    TableWrapper
   },
   data() {
     return {

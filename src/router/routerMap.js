@@ -7,6 +7,10 @@ const ScheduleHomePage = () => import('@/pages/watchDutySchedule/schedule/Schedu
 // 行程轨迹
 const VehicleTrajectoryHomePage = () => import('@/pages/tripTrail/vehicleTrajectory/VehicleTrajectoryHomePage')
 const SearchTripHomePage = () => import('@/pages/tripTrail/searchTrip/SearchTripHomePage')
+// 异常告警
+const ExceptionQueueHomePage = () => import('@/pages/anomaly/exceptionQueue/ExceptionQueueHomePage')
+const GateVehicleHomePage = () => import('@/pages/anomaly/gateVehicle/GateVehicleHomePage')
+const IllegalBoardingHomePage = () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingHomePage')
 // 车流量
 const TrafficFlowHomePage = () => import('@/pages/trafficFlow/TrafficFlowHomePage')
 // 重点关注
@@ -15,12 +19,12 @@ const VehicleQueryHomePage = () => import('@/pages/focus/vehicleQuery/VehicleQue
 
 export default [
   {
-    name: 'accountMgmtHomePage',
+    name: '帐号管理',
     path: '/accountMgmt/accountMgmtHomePage',
     component: AccountMgmtHomePage
   },
   {
-    name: 'roleMgmtHomePage',
+    name: '角色管理',
     path: '/accountMgmt/roleMgmtHomePage',
     component: RoleMgmtHomePage
   },
@@ -43,6 +47,21 @@ export default [
     name: '行程查找',
     path: '/tripTrail/searchTripHomePage',
     component: SearchTripHomePage
+  },
+  {
+    name: '异常排队',
+    path: '/anomaly/exceptionQueueHomePage',
+    component: ExceptionQueueHomePage
+  },
+  {
+    name: '闸口异常车辆',
+    path: '/anomaly/gateVehicleHomePage',
+    component: GateVehicleHomePage
+  },
+  {
+    name: '违规上客',
+    path: '/anomaly/illegalBoardingHomePage',
+    component: IllegalBoardingHomePage
   },
   {
     name: '车流量统计',

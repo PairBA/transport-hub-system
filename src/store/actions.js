@@ -10,8 +10,7 @@ const actions = {
   }, value) {
     let driverType = ''
     if (value) driverType = value
-    const token = localStorage.getItem('token')
-    const compListForSelectObj = await get(END_POINTS.GET_COMP_LIST_FOR_SELECT_BY_AREA_CODE + `?areaCode=${state.areaCodeForSelect}&driverType=${driverType}`, token)
+    const compListForSelectObj = await get(END_POINTS.GET_COMP_LIST_FOR_SELECT_BY_AREA_CODE + `?areaCode=${state.areaCodeForSelect}&driverType=${driverType}`)
     if (compListForSelectObj.success) {
       commit('updateCompanyListForSelect', compListForSelectObj.data)
     }
@@ -20,8 +19,7 @@ const actions = {
     commit,
     state
   }) {
-    const token = localStorage.getItem('token')
-    const compListForSelectObj = await get(END_POINTS.GET_TERMINAL_LIST + `?areaCode=${state.areaCodeForSelect}`, token)
+    const compListForSelectObj = await get(END_POINTS.GET_TERMINAL_LIST + `?areaCode=${state.areaCodeForSelect}`)
     if (compListForSelectObj.code === 2000) {
       commit('updateTerminalList', compListForSelectObj.data)
     } else commit('updateTerminalList', [])
@@ -30,8 +28,7 @@ const actions = {
     commit,
     state
   }, areaCode) {
-    const token = localStorage.getItem('token')
-    const centerGpsObject = await get(END_POINTS.GET_CENTER_GPS_BY_AREA_CODE + `?areaCode=${areaCode}`, token)
+    const centerGpsObject = await get(END_POINTS.GET_CENTER_GPS_BY_AREA_CODE + `?areaCode=${areaCode}`)
     if (centerGpsObject.success) {
       commit('updateCenterGps', centerGpsObject.data)
     }

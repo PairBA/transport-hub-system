@@ -6,9 +6,9 @@
         <Sider id="pairSider"
                hide-trigger
                v-show="showMenu">
-          <MainMenu/>
+          <SubMenu/>
         </Sider>
-        <Content :style="{background: '#fff', minHeight: '500px'}">
+        <Content>
           <router-view></router-view>
         </Content>
       </Layout>
@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import MainMenu from '@/components/MainMenu'
+import SubMenu from '@/components/SubMenu'
 import PairHeader from '@/components/PairHeader'
 export default {
   components: {
-    MainMenu,
+    SubMenu,
     PairHeader
   },
   computed: {

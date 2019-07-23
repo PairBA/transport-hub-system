@@ -38,6 +38,7 @@ export async function send(url, {
       data,
       params
     })
+    console.log(localStorage.getItem('token'))
     responseData = response.data
     if (!responseData.success) {
       Message.error({

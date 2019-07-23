@@ -1,8 +1,10 @@
 module.exports = {
   // 选项...
-  publicPath: '/panel/',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/hubmanager/'
+    : '/',
 
-  outputDir: 'panel',
+  outputDir: 'hubmanager',
 
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')

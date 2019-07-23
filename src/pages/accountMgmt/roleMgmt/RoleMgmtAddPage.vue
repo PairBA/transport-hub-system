@@ -1,23 +1,25 @@
 <template>
   <div class="accountMgmt__add">
-    <Form>
-      <FormItem label="角色:">
-        <Input v-model="roleName" placeholder="请输入角色"/>
-      </FormItem>
-      <FormItem label="权限:">
-        <CheckboxGroup v-model="resourceIdList">
-          <Checkbox v-for="resource in resourceList"
-                    :label="resource.id"
-                    :key="resource.id">
-            {{resource.resourceName}}
-          </Checkbox>
-        </CheckboxGroup>
-      </FormItem>
-      <Button type="primary"
-              @click="submit">
-        提交
-      </Button>
-    </Form>
+    <SearchWrapper>
+      <Form>
+        <FormItem label="角色:">
+          <Input v-model="roleName" placeholder="请输入角色"/>
+        </FormItem>
+        <FormItem label="权限:">
+          <CheckboxGroup v-model="resourceIdList">
+            <Checkbox v-for="resource in resourceList"
+                      :label="resource.id"
+                      :key="resource.id">
+              {{resource.resourceName}}
+            </Checkbox>
+          </CheckboxGroup>
+        </FormItem>
+        <Button type="primary"
+                @click="submit">
+          提交
+        </Button>
+      </Form>
+    </SearchWrapper>
   </div>
 </template>
 
@@ -27,7 +29,11 @@ import {
   get,
   END_POINTS
 } from '@/api'
+import SearchWrapper from '@/components/wrapper/SearchWrapper'
 export default {
+  components: {
+    SearchWrapper
+  },
   data() {
     return {
       roleName: '',
@@ -42,7 +48,7 @@ export default {
     async submit() {
       const result = await post(END_POINTS.ADD_ROLE, {
         roleName: this.roleName,
-        resourceIdList: this.resourceIdList.join()
+        resourceIdList: this.resourceIdList
       })
       if (result.code === 2000) {
         this.$Message.success({

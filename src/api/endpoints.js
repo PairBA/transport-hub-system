@@ -3,6 +3,10 @@ export default {
   TOKEN_EXPIRE: '/api/lawSystem/auth/tokenExpire',
   GET_RESOURCE_LIST: '/api/lawSystem/accountManage/getResourceList',
   GET_ROLE_LIST: '/api/lawSystem/accountManage/getRoleList',
+  GET_COMP_LIST_FOR_SELECT_BY_AREA_CODE: 'api/dmComp/getCompListForSelectByAreaCode',
+  GET_CENTER_GPS_BY_AREA_CODE: 'api/admin/commonInfo/getCenterGpsByAreaCode',
+  GET_TERMINAL_LIST: 'api/gpsQuality/getTerminalList',
+  GET_GATE_JUDGE_LIST: 'api/gateVehicle/getGateJudgeList',
   // 帐号管理
   GET_USER_LIST: '/api/lawSystem/accountManage/getUserList',
   ADD_USER: '/api/lawSystem/accountManage/addUser',
@@ -35,4 +39,18 @@ export default {
   CANCEL_FOCUS: '/api/transhub/fullscreen/cancelFocus',
   IS_VEHICLE_FOCUS: '/api/transhub/fullscreen/isVehicleFocus',
   FOCUS_VEHICLE: '/api/transhub/fullscreen/focusVehicle'
+  GET_PLAN_DETAIL_LIST: '/api/lawSystem/gateAlert/getPlanDetailList',
+  GET_PLAN_WORKER_LIST: '/api/lawSystem/gateAlert/getPlanWorkerList',
+  ADD_PLAN_WORKER: '/api/lawSystem/gateAlert/addPlanWorker',
+  DELETE_PLAN_WORKER: '/api/lawSystem/gateAlert/deletePlanWorker',
+  // 行程轨迹
+  GET_TRAIL_LIST: '/api/vehicle/trail/getTrailList',
+  GET_CODE_TYPE: '/api/admin/cmCode/getCodeType',
+  GET_METER_TRIP_SEARCH_LIST: '/api/meterTrip/getMeterTripSearchList', // 行程查找分页查询
+  GET_GPS_LIST: '/api/meterTrip/getGpsList',
+  // 异常排队
+  GET_HUB_STAT_TRAIL_LIST: 'api/transhub/fullscreen/getHubStatTrailList',
+  GET_HUB_SUM_QCUT_LIST_DETAIL: 'api/transhub/fullscreen/getHubQcutListDetail',
+  GET_HUB_SUM_ON_ALERT_LIST_DETAIL: 'api/transhub/fullscreen/getHubOnAlertListDetail',
+  EXPORT_GATE_JUDGE_REPORT: 'api/gateVehicle/exportGateJudgeReport'
 }

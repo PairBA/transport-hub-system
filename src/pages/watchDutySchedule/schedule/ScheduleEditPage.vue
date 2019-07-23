@@ -1,20 +1,24 @@
 <template>
   <div class="schedule__edit">
-    <Form>
-      <FormItem label="班次名称:">
-        <Input v-model="scheduleName" placeholder="请输入班次名称"/>
-      </FormItem>
-      <FormItem label="开始时间:">
-        <TimePicker type="time" v-model="startTime" format="HH:mm" placeholder="请输入开始时间"></TimePicker>
-      </FormItem>
-      <FormItem label="结束时间:">
-        <TimePicker type="time" v-model="endTime" format="HH:mm" placeholder="请输入结束时间"></TimePicker>
-      </FormItem>
-      <Button type="primary"
-              @click="submit">
-        提交
-      </Button>
-    </Form>
+    <SearchWrapper>
+      <Form label-width="90">
+        <FormItem label="班次名称:">
+          <Input v-model="scheduleName" placeholder="请输入班次名称"/>
+        </FormItem>
+        <FormItem label="开始时间:">
+          <TimePicker type="time" v-model="startTime" format="HH:mm" placeholder="请输入开始时间"></TimePicker>
+        </FormItem>
+        <FormItem label="结束时间:">
+          <TimePicker type="time" v-model="endTime" format="HH:mm" placeholder="请输入结束时间"></TimePicker>
+        </FormItem>
+        <div style="text-align: center">
+          <Button type="primary"
+                  @click="submit">
+            提交
+          </Button>
+        </div>
+      </Form>
+    </SearchWrapper>
   </div>
 </template>
 
@@ -27,7 +31,11 @@ import {
 import {
   dateFormat
 } from '@/utils'
+import SearchWrapper from '@/components/wrapper/SearchWrapper'
 export default {
+  components: {
+    SearchWrapper
+  },
   data() {
     return {
       id: '',
@@ -72,7 +80,9 @@ export default {
 
 <style lang="less">
 .schedule__edit{
-
+  .ivu-form {
+    width: 25%;
+  }
 }
 
 </style>
