@@ -26,8 +26,8 @@ export default {
   ADD_PLAN_WORKER: '/api/lawSystem/gateAlert/addPlanWorker',
   DELETE_PLAN_WORKER: '/api/lawSystem/gateAlert/deletePlanWorker',
   // 行程轨迹
-  GET_TRAIL_LIST: 'api/vehicle/trail/getTrailList',
-  GET_CODE_TYPE: 'api/admin/cmCode/getCodeType',
-  GET_METER_TRIP_SEARCH_LIST: 'api/meterTrip/getMeterTripSearchList', // 行程查找分页查询
-  GET_GPS_LIST: 'api/meterTrip/getGpsList'
+  GET_TRAIL_LIST: '/api/vehicle/trail/getTrailList',
+  GET_CODE_TYPE: '/api/admin/cmCode/getCodeType',
+  GET_METER_TRIP_SEARCH_LIST: '/api/meterTrip/getMeterTripSearchList', // 行程查找分页查询
+  GET_GPS_LIST: '/api/meterTrip/getGpsList'
 }
