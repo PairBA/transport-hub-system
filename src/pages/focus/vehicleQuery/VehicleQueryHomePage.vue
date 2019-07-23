@@ -46,19 +46,36 @@
                       :terminalName="propTerminalName"
                       :companyName="propCompanyName"
                       @on-visible-change="doCloseModal"/>
-    <Modal width="360"
-           :value="isShowFocusModal"
-           @on-visible-change="closeFocusModal">
-      <p slot="header" style="color:#f60;text-align:center">
-        <Icon type="ios-information-circle"></Icon>
-        <span>Delete confirmation</span>
+    <Modal v-model="showFocusModal"
+           width="360"
+           class="focus-modal"
+           :mask-closable="false">
+      <p slot="header"
+         class="focus-modal-title">
+        <span>加入重点关注</span>
       </p>
-      <div style="text-align:center">
-        <p>After this task is deleted, the downstream 10 tasks will not be implemented.</p>
-        <p>Will you delete it?</p>
+      <div style="font-size: 16px;font-weight: bold;">
+        <div style="margin-bottom: 12px;">
+          <span>车牌号码：{{confirmVehicleNo}}</span>
+        </div>
+        <div>
+          <div>备注：</div>
+          <div>
+            <Input v-model="remark"
+                   type="textarea"
+                   :rows="2"
+                   placeholder="请输入备注" />
+          </div>
+        </div>
       </div>
       <div slot="footer">
-        <Button type="success" size="large" long :loading="focusLoading" @click="confirmFocus">Delete</Button>
+        <Button type="success"
+                size="large"
+                long
+                :loading="focusLoading"
+                @click="confirmFocus">
+          确定
+        </Button>
       </div>
     </Modal>
   </div>
@@ -82,7 +99,7 @@ export default {
     return {
       focusLoading: false,
       isShowModal: false,
-      isShowFocusModal: true,
+      showFocusModal: false,
       showSpin: false,
       vehicleNo: '',
       focusDate: [new Date(), new Date()],
@@ -97,7 +114,7 @@ export default {
       propVehicleNo: '',
       propTerminalName: '',
       propCompanyName: '',
-      confirmRow: null
+      confirmVehicleNo: ''
     }
   },
   computed: {
@@ -309,19 +326,18 @@ export default {
       this.isShowModal = result
     },
     openFocus(row) {
-      console.log('openFocus')
-      this.isShowFocusModal = true
-      this.confirmRow = row
+      this.showFocusModal = true
+      this.confirmVehicleNo = row.vehicleNo
     },
     closeFocusModal() {
-      this.isShowFocusModal = false
-      this.confirmRow = null
+      this.showFocusModal = false
+      this.confirmVehicleNo = ''
     },
     async confirmFocus() {
       this.focusLoading = true
       const result = await get(END_POINTS.FOCUS_VEHICLE, {
         areaCode: localStorage.getItem('areaCode'),
-        vehicleNo: this.confirmRow.vehicleNo,
+        vehicleNo: this.confirmVehicleNo,
         remark: this.remark
       })
       // console.log(result)
@@ -354,6 +370,15 @@ export default {
 .vehicle-query-home-page {
   .ivu-date-picker {
     width: 100%;
+  }
+}
+.focus-modal {
+  .focus-modal-title {
+    text-align: center;
+    font-size: 24px;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
   }
 }
 </style>
