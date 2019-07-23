@@ -1,24 +1,32 @@
 <template>
   <Modal class="real-location-amap-modal"
+         width="60"
          :footer-hide="true"
          :closable="false"
          :value="isShowModal"
          @on-visible-change="closeModal">
     <PairSpin :show="showSpin"/>
-    <div>
-      <div>
-        <span>车牌号：{{vehicleNo}}</span>
-        <span>终端厂商：{{terminalName}}</span>
-      </div>
-      <div>
-        <span>公司：{{companyName}}</span>
-        <span>最新gps时间：{{lastTime}}</span>
-      </div>
-    </div>
-    <Divider/>
+    <Row class="real-location-amap-modal-info">
+      <Col span="6">
+        <div>
+          <span>车牌号：{{vehicleNo}}</span>
+        </div>
+        <div>
+          <span>终端厂商：{{terminalName}}</span>
+        </div>
+      </Col>
+      <Col span="10">
+        <div>
+          <span>公司：{{companyName}}</span>
+        </div>
+        <div>
+          <span>最新gps时间：{{lastTime}}</span>
+        </div>
+      </Col>
+    </Row>
     <el-amap ref="realLocationAmap"
              vid="realLocationAmap"
-             style="height: 350px;"
+             style="height: 250px;"
              :amap-manager="mapManager"
              :zoom="zoom"
              :center="center"
@@ -34,14 +42,20 @@
 </template>
 
 <script>
-import {
-  get,
-  END_POINTS
-} from '@/api'
-
-import { drawTripLine } from '@/utils'
+import Vue from 'vue'
 import VueAMap from 'vue-amap'
+Vue.use(VueAMap)
+VueAMap.initAMapApiLoader({
+  key: '7bfb1994e208f200c2cd63a626f74868',
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Heatmap', 'AMap.MouseTool'],
+  v: '1.4.10',
+  uiVersion: '1.0.11'
+})
 import { AMAP_STYLE_NORMAL } from '@/constant'
+import { get, END_POINTS } from '@/api'
+import { drawTripLine } from '@/utils'
+const driverPositionBlue = require('@/img/driver/driver-position-blue.png')
+const driverPositionGreen = require('@/img/driver/driver-position-green.png')
 
 export default {
   props: {
@@ -66,13 +80,11 @@ export default {
     const mapManager = new VueAMap.AMapManager()
     return {
       mapManager,
-      zoom: 11,
+      zoom: 12,
       center: [104.066143, 30.573095],
       plugins: ['Scale'],
       events: {
         'complete': () => { // 地图初始化完成
-          let map = mapManager.getMap()
-          this.getTrailInfoInterval(map)
         },
         init: (map) => {
           // 设置地图的皮肤
@@ -80,16 +92,26 @@ export default {
         }
       },
       showSpin: false,
-      lastTime: '',
+      lastTime: '2019-07-22 00:00:00',
       driverMarker: null,
       intervalId: null
     }
+  },
+  watch: {
+    isShowModal: 'isInitInterval'
   },
   methods: {
     closeModal(result) {
       this.$emit('on-visible-change', result)
       if (this.intervalId) {
         clearInterval(this.intervalId)
+      }
+    },
+    isInitInterval() {
+      if (this.isShowModal) {
+        this.$nextTick(() => {
+          this.getTrailInfoInterval(this.mapManager.getMap())
+        })
       }
     },
     getTrailInfoInterval(map) {
@@ -117,12 +139,12 @@ export default {
             }
           })
           // 司机的位置
-          let icon = '../../../img/driver/driver-position-blue.png'
+          let icon = driverPositionBlue
           const driverStatus = result.data.tripLineList[result.data.tripLineList.length - 1].driverStatus
           if (driverStatus === 'HIRED') {
-            icon = '../../../img/driver/driver-position-green.png'
+            icon = driverPositionGreen
           } else if (driverStatus === 'AVL' || driverStatus === 'PAY') {
-            icon = '../../../img/driver/driver-position-blue.png'
+            icon = driverPositionBlue
           }
           if (result.data.allGpsList && result.data.allGpsList.length) {
             this.driverMarker = {
@@ -134,6 +156,7 @@ export default {
           if (result.data.timeForGpsList && result.data.timeForGpsList.length) {
             this.lastTime = result.data.timeForGpsList[result.data.timeForGpsList.length - 1]
           }
+          map.setFitView()
         }
       }
       this.showSpin = false
@@ -144,5 +167,11 @@ export default {
 
 <style lang="less">
 .real-location-amap-modal {
+  .real-location-amap-modal-info {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px #E9E9E9 solid;
+  }
 }
 </style>
