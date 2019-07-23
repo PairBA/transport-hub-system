@@ -1,9 +1,6 @@
 module.exports = {
   // 选项...
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/hubmanager/'
-    : '/',
-
+  publicPath: '/hubmanager/',
   outputDir: 'hubmanager',
 
   chainWebpack: config => {
