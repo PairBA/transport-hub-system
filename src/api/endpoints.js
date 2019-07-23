@@ -26,7 +26,6 @@ export default {
   DELETE_SCHEDULE_BY_ID: '/api/lawSystem/gateAlert/deleteScheduleById',
   // 值班表
   GET_PLAN_DETAIL_LIST: '/api/slAirport/gateAlert/getPlanDetailList',
-  GET_PLAN_WORKER_LIST: '/api/slAirport/gateAlert/getPlanWorkerList',
   // 车流量统计
   GET_VEHICLE_FLOW_COUNT: '/api/vehicleFlowCount/getVehicleFlowCount',
   GET_VEHICLE_FLOW_COUNT_EXCEL: '/api/vehicleFlowCount/getVehicleFlowCountExcel',
@@ -38,8 +37,7 @@ export default {
   GET_LAST_TRAIL_LIST: '/api/vehicle/trail/getLastTrailList',
   CANCEL_FOCUS: '/api/transhub/fullscreen/cancelFocus',
   IS_VEHICLE_FOCUS: '/api/transhub/fullscreen/isVehicleFocus',
-  FOCUS_VEHICLE: '/api/transhub/fullscreen/focusVehicle'
-  GET_PLAN_DETAIL_LIST: '/api/lawSystem/gateAlert/getPlanDetailList',
+  FOCUS_VEHICLE: '/api/transhub/fullscreen/focusVehicle',
   GET_PLAN_WORKER_LIST: '/api/lawSystem/gateAlert/getPlanWorkerList',
   ADD_PLAN_WORKER: '/api/lawSystem/gateAlert/addPlanWorker',
   DELETE_PLAN_WORKER: '/api/lawSystem/gateAlert/deletePlanWorker',
@@ -49,7 +47,6 @@ export default {
   GET_METER_TRIP_SEARCH_LIST: '/api/meterTrip/getMeterTripSearchList', // 行程查找分页查询
   GET_GPS_LIST: '/api/meterTrip/getGpsList',
   // 异常排队
-  GET_HUB_STAT_TRAIL_LIST: 'api/transhub/fullscreen/getHubStatTrailList',
   GET_HUB_SUM_QCUT_LIST_DETAIL: 'api/transhub/fullscreen/getHubQcutListDetail',
   GET_HUB_SUM_ON_ALERT_LIST_DETAIL: 'api/transhub/fullscreen/getHubOnAlertListDetail',
   EXPORT_GATE_JUDGE_REPORT: 'api/gateVehicle/exportGateJudgeReport'
