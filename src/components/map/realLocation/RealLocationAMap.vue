@@ -44,6 +44,9 @@
 <script>
 import Vue from 'vue'
 import VueAMap from 'vue-amap'
+import { AMAP_STYLE_NORMAL } from '@/constant'
+import { get, END_POINTS } from '@/api'
+import { drawTripLine } from '@/utils'
 Vue.use(VueAMap)
 VueAMap.initAMapApiLoader({
   key: '7bfb1994e208f200c2cd63a626f74868',
@@ -51,9 +54,6 @@ VueAMap.initAMapApiLoader({
   v: '1.4.10',
   uiVersion: '1.0.11'
 })
-import { AMAP_STYLE_NORMAL } from '@/constant'
-import { get, END_POINTS } from '@/api'
-import { drawTripLine } from '@/utils'
 const driverPositionBlue = require('@/img/driver/driver-position-blue.png')
 const driverPositionGreen = require('@/img/driver/driver-position-green.png')
 
@@ -116,9 +116,9 @@ export default {
       }
     },
     getTrailInfoInterval(map) {
-      this.getTrailInfo(map); // 先执行一次请求
+      this.getTrailInfo(map) // 先执行一次请求
       this.intervalId = setInterval(() => { // 后面每15秒执行一次
-        this.getTrailInfo(map);
+        this.getTrailInfo(map)
       }, 15 * 1000)
     },
     async getTrailInfo(map) {

@@ -46,6 +46,21 @@
                       :terminalName="propTerminalName"
                       :companyName="propCompanyName"
                       @on-visible-change="doCloseModal"/>
+    <Modal width="360"
+           :value="isShowFocusModal"
+           @on-visible-change="closeFocusModal">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="ios-information-circle"></Icon>
+        <span>Delete confirmation</span>
+      </p>
+      <div style="text-align:center">
+        <p>After this task is deleted, the downstream 10 tasks will not be implemented.</p>
+        <p>Will you delete it?</p>
+      </div>
+      <div slot="footer">
+        <Button type="success" size="large" long :loading="focusLoading" @click="confirmFocus">Delete</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -65,7 +80,9 @@ export default {
   },
   data() {
     return {
+      focusLoading: false,
       isShowModal: false,
+      isShowFocusModal: true,
       showSpin: false,
       vehicleNo: '',
       focusDate: [new Date(), new Date()],
@@ -79,7 +96,8 @@ export default {
       },
       propVehicleNo: '',
       propTerminalName: '',
-      propCompanyName: ''
+      propCompanyName: '',
+      confirmRow: null
     }
   },
   computed: {
@@ -137,7 +155,7 @@ export default {
                     click: () => {
                       if (params.row.focus) { // 已经被关注
                         this.doCancelFocus(params.row)
-                      } else {// 未被关注
+                      } else { // 未被关注
                         this.doFocus(params.row)
                       }
                     }
@@ -165,8 +183,8 @@ export default {
                     click: () => {
                       if (params.row.focus) { // 已经被关注
                         this.doCancelFocus(params.row)
-                      } else {// 未被关注
-                        this.doFocus(params.row)
+                      } else { // 未被关注
+                        this.openFocus(params.row)
                       }
                     }
                   }
@@ -290,19 +308,31 @@ export default {
     doCloseModal(result) {
       this.isShowModal = result
     },
-    async doFocus(row) {
+    openFocus(row) {
+      console.log('openFocus')
+      this.isShowFocusModal = true
+      this.confirmRow = row
+    },
+    closeFocusModal() {
+      this.isShowFocusModal = false
+      this.confirmRow = null
+    },
+    async confirmFocus() {
+      this.focusLoading = true
       const result = await get(END_POINTS.FOCUS_VEHICLE, {
         areaCode: localStorage.getItem('areaCode'),
-        vehicleNo: row.vehicleNo,
+        vehicleNo: this.confirmRow.vehicleNo,
         remark: this.remark
       })
       // console.log(result)
       if (result.code === 2000) {
         this.goSearch()
+        this.closeFocusModal()
         this.$Message.success({
           content: '关注成功！'
         })
       }
+      this.focusLoading = false
     },
     async doCancelFocus(row) {
       const result = await get(END_POINTS.CANCEL_FOCUS, {

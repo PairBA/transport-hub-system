@@ -42,15 +42,15 @@ export default {
       required: true
     },
     total: {
-      type: String | Number,
+      type: Number,
       default: 0
     },
     current: {
-      type: String | Number,
+      type: Number,
       default: 1
     },
     pageSize: {
-      type: String | Number,
+      type: Number,
       default: 10
     },
     size: {

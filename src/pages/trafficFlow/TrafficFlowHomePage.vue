@@ -300,9 +300,8 @@ export default {
       if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
         this.tableListObject.showTableList = [] // 清空显示的列表
         for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
-             i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ?
-               (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
-             i++) {
+          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+          i++) {
           this.tableListObject.showTableList.push(this.tableListObject.tableList[i - 1])
         }
       }
