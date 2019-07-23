@@ -51,6 +51,7 @@
 
 <script>
 import {
+  get,
   post,
   END_POINTS
 } from '@/api'
@@ -68,6 +69,7 @@ export default {
       showSpin: false,
       vehicleNo: '',
       focusDate: [new Date(), new Date()],
+      remark: '',
       tableListObject: {
         tableList: [],
         currentPage: 1,
@@ -119,29 +121,58 @@ export default {
           width: 125,
           align: 'center',
           render: (h, params) => {
-            return h('div', [
-              h('span', {
-                style: {
-                  cursor: 'pointer'
-                },
-                on: {
-                  click: () => {
-                    this.goToDelete(params.row.userId)
+            let content = ''
+            if (params.row.focus) { // 已经被关注
+              content = '取消关注'
+            } else { // 未被关注
+              content = '关注'
+            }
+            if (params.row.realLocation) { // 显示实时地图
+              return h('div', [
+                h('span', {
+                  style: {
+                    cursor: 'pointer'
+                  },
+                  on: {
+                    click: () => {
+                      if (params.row.focus) { // 已经被关注
+                        this.doCancelFocus(params.row)
+                      } else {// 未被关注
+                        this.doFocus(params.row)
+                      }
+                    }
                   }
-                }
-              }, '取消关注'),
-              h('span', {
-                style: {
-                  cursor: 'pointer',
-                  marginLeft: '12px'
-                },
-                on: {
-                  click: () => {
-                    this.doShowModal(params.row)
+                }, content),
+                h('span', {
+                  style: {
+                    cursor: 'pointer',
+                    marginLeft: '12px'
+                  },
+                  on: {
+                    click: () => {
+                      this.doShowModal(params.row)
+                    }
                   }
-                }
-              }, '实时位置')
-            ])
+                }, '实时位置')
+              ])
+            } else {
+              return h('div', [
+                h('span', {
+                  style: {
+                    cursor: 'pointer'
+                  },
+                  on: {
+                    click: () => {
+                      if (params.row.focus) { // 已经被关注
+                        this.doCancelFocus(params.row)
+                      } else {// 未被关注
+                        this.doFocus(params.row)
+                      }
+                    }
+                  }
+                }, content)
+              ])
+            }
           }
         }
       ]
@@ -182,10 +213,16 @@ export default {
       if (result.code === 2001) {
         if (result.data && result.data.length) {
           this.tableListObject.tableList = result.data.map(item => {
+            let realLocation = false
+            if (item.companyName && item.terminalName) {
+              realLocation = true
+            }
             return {
               vehicleNo: item.vehicleNo,
               companyName: item.companyName,
               terminalName: item.terminalName,
+              focus: item.focus, // 是否被关注
+              realLocation: realLocation, // 是否显示实时位置操作
               sumOn: item.sumOn, // 发车量
               sumOnAlert: item.sumOnAlert, // 违规上客
               sumQcut: item.sumQcut // 异常排队
@@ -197,11 +234,20 @@ export default {
           this.tableListObject.total = result.total
         } else {
           if (this.vehicleNo) {
+            let focus = false
+            const result = await get(END_POINTS.IS_VEHICLE_FOCUS, {
+              vehicleNo: this.vehicleNo
+            })
+            if (result.code === 2000) {
+              focus = true
+            }
             this.tableListObject.tableList = [
               {
                 vehicleNo: this.vehicleNo,
                 companyName: '',
                 terminalName: '',
+                focus: focus, // 是否被关注
+                realLocation: false, // 是否显示实时位置操作
                 sumOn: 0, // 发车量
                 sumOnAlert: 0, // 违规上客
                 sumQcut: 0 // 异常排队
@@ -243,6 +289,32 @@ export default {
     },
     doCloseModal(result) {
       this.isShowModal = result
+    },
+    async doFocus(row) {
+      const result = await get(END_POINTS.FOCUS_VEHICLE, {
+        areaCode: localStorage.getItem('areaCode'),
+        vehicleNo: row.vehicleNo,
+        remark: this.remark
+      })
+      // console.log(result)
+      if (result.code === 2000) {
+        this.goSearch()
+        this.$Message.success({
+          content: '关注成功！'
+        })
+      }
+    },
+    async doCancelFocus(row) {
+      const result = await get(END_POINTS.CANCEL_FOCUS, {
+        vehicleNo: row.vehicleNo
+      })
+      // console.log(result)
+      if (result.code === 2000) {
+        this.goSearch()
+        this.$Message.success({
+          content: '成功取消关注！'
+        })
+      }
     }
   }
 }
