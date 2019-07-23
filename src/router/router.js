@@ -2,7 +2,6 @@ import routerMap from '@/router/routerMap'
 const MainPage = () => import('@/pages/MainPage')
 const Login = () => import('@/pages/Login')
 const NotFound = () => import('@/pages/NotFound')
-const index = () => import('@/pages/index')
 const AccountMgmtAddPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtAddPage')
 const AccountMgmtEditPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtEditPage')
 const RoleMgmtAddPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtAddPage')
@@ -15,11 +14,6 @@ export const routerCommon = {
   component: MainPage,
   children: [
     ...routerMap,
-    {
-      path: '/realMap/index',
-      name: 'index',
-      component: index
-    },
     {
       path: '/accountMgmt/accountMgmtAddPage',
       name: '新增账号',
