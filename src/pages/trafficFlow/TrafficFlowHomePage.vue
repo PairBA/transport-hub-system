@@ -41,47 +41,53 @@
             </TimePicker>
           </FormItem>
           <Divider/>
-          <Button type="primary"
-                  @click="goSearch">
-            查询
-          </Button>
-          <Button type="success"
-                  @click="exportExcel">
-            导出excel
-          </Button>
+          <div>
+            <Button type="primary"
+                    style="float: left;"
+                    @click="goSearch">
+              查询
+            </Button>
+            <Button type="success"
+                    style="float: right;"
+                    @click="exportExcel">
+              导出excel
+            </Button>
+          </div>
         </Form>
       </div>
       <div slot="content">
-        <div>
-          <PairECharts id="trafficFlowECharts"
-                       :title="trafficFlowECharts.title"
-                       :xAxis="trafficFlowECharts.xAxis"
-                       :yAxis="trafficFlowECharts.yAxis"
-                       :tooltip="trafficFlowECharts.tooltip"
-                       :series="trafficFlowECharts.series"
-                       :grid="trafficFlowECharts.grid"
-                       :color="trafficFlowECharts.color"
-                       style="height: 300px;width: 100%">
-          </PairECharts>
-        </div>
-        <div>
+        <TableWrapper>
           <div>
-            <span>闸口车辆总数：{{gateVehicleNum}}（车次）</span>
-            <span>发车总车次：{{normalVehicleNum}}（车次）</span>
+            <PairECharts id="trafficFlowECharts"
+                         :title="trafficFlowECharts.title"
+                         :xAxis="trafficFlowECharts.xAxis"
+                         :yAxis="trafficFlowECharts.yAxis"
+                         :tooltip="trafficFlowECharts.tooltip"
+                         :series="trafficFlowECharts.series"
+                         :grid="trafficFlowECharts.grid"
+                         :color="trafficFlowECharts.color"
+                         style="height: 300px;width: 100%">
+            </PairECharts>
           </div>
           <div>
-            <Table :columns="columns"
-                   :data="tableListObject.showTableList">
-            </Table>
-            <PairPage id="trafficFlowListPage"
-                      :total="tableListObject.total"
-                      :current="tableListObject.currentPage"
-                      :page-size="tableListObject.pageSize"
-                      @on-change="getPage"
-                      @on-page-size-change="changeSize">
-            </PairPage>
+            <div>
+              <span>闸口车辆总数：{{gateVehicleNum}}（车次）</span>
+              <span>发车总车次：{{normalVehicleNum}}（车次）</span>
+            </div>
+            <div>
+              <Table :columns="columns"
+                     :data="tableListObject.showTableList">
+              </Table>
+              <PairPage id="trafficFlowListPage"
+                        :total="tableListObject.total"
+                        :current="tableListObject.currentPage"
+                        :page-size="tableListObject.pageSize"
+                        @on-change="getPage"
+                        @on-page-size-change="changeSize">
+              </PairPage>
+            </div>
           </div>
-        </div>
+        </TableWrapper>
       </div>
     </ContentLayout>
   </div>

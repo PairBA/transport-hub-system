@@ -16,18 +16,22 @@
             </DatePicker>
           </FormItem>
           <Divider/>
-          <Button type="primary"
-                  @click="goSearch">
-            查询
-          </Button>
-          <Button type="success"
-                  @click="exportExcel">
-            导出excel
-          </Button>
+          <div>
+            <Button type="primary"
+                    style="float: left;"
+                    @click="goSearch">
+              查询
+            </Button>
+            <Button type="success"
+                    style="float: right;"
+                    @click="exportExcel">
+              导出excel
+            </Button>
+          </div>
         </Form>
       </div>
       <div slot="content">
-        <div>
+        <TableWrapper>
           <Table :columns="columns"
                  :data="tableListObject.tableList">
           </Table>
@@ -38,7 +42,7 @@
                     @on-change="getPage"
                     @on-page-size-change="changeSize">
           </PairPage>
-        </div>
+        </TableWrapper>
       </div>
     </ContentLayout>
     <RealLocationAMap :isShowModal="isShowModal"
