@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { accountMgmtMenu, watchDutySchedule, tripTrail } from '@/constant/menu'
+import { accountMgmtMenu, watchDutySchedule, tripTrail, anomaly } from '@/constant/menu'
 export default {
   name: 'SubMenu',
   computed: {
@@ -41,6 +41,8 @@ export default {
         this.$store.commit('permission/updateSubMenu', watchDutySchedule)
       } else if (name === '4') {
         this.$store.commit('permission/updateSubMenu', tripTrail)
+      } else if (name === '2') {
+        this.$store.commit('permission/updateSubMenu', anomaly)
       }
     }
   }

@@ -181,7 +181,6 @@ export default {
     }
   }
   .item {
-    width: 92px;
     height: 140px;
     background-color: white;
     margin-bottom: 12px;
@@ -198,6 +197,7 @@ export default {
     text-align: right;
     background-image: url("../../../img/calendar.png");
     background-repeat: no-repeat;
+    background-size: 100%;
   }
   .single-item {
     padding: 20px 16px;

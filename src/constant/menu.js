@@ -30,3 +30,18 @@ export const tripTrail = [
     path: '/tripTrail/searchTripHomePage'
   }
 ]
+
+export const anomaly = [
+  {
+    name: '异常排队',
+    path: '/anomaly/exceptionQueueHomePage'
+  },
+  {
+    name: '闸口异常车辆',
+    path: '/anomaly/gateVehicleHomePage'
+  },
+  {
+    name: '违规上客',
+    path: '/anomaly/illegalBoardingHomePage'
+  }
+]

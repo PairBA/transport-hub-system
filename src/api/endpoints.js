@@ -29,5 +29,9 @@ export default {
   GET_TRAIL_LIST: '/api/vehicle/trail/getTrailList',
   GET_CODE_TYPE: '/api/admin/cmCode/getCodeType',
   GET_METER_TRIP_SEARCH_LIST: '/api/meterTrip/getMeterTripSearchList', // 行程查找分页查询
-  GET_GPS_LIST: '/api/meterTrip/getGpsList'
+  GET_GPS_LIST: '/api/meterTrip/getGpsList',
+  // 异常排队
+  GET_HUB_STAT_TRAIL_LIST: 'api/transhub/fullscreen/getHubStatTrailList',
+  GET_HUB_SUM_QCUT_LIST_DETAIL: 'api/transhub/fullscreen/getHubQcutListDetail',
+  GET_HUB_SUM_ON_ALERT_LIST_DETAIL: 'api/transhub/fullscreen/getHubOnAlertListDetail'
 }

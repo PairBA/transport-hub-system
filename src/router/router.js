@@ -8,7 +8,8 @@ const RoleMgmtAddPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtAddPa
 const RoleMgmtEditPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtEditPage')
 const ScheduleAddPage = () => import('@/pages/watchDutySchedule/schedule/ScheduleAddPage')
 const ScheduleEditPage = () => import('@/pages/watchDutySchedule/schedule/ScheduleEditPage')
-
+const ExceptionQueueDetail = () => import('@/pages/anomaly/exceptionQueue/ExceptionQueueDetail')
+const IllegalBoardingDetail = () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingDetail')
 export const routerCommon = {
   path: '/',
   component: MainPage,
@@ -43,6 +44,16 @@ export const routerCommon = {
       path: '/watchDutySchedule/scheduleEditPage',
       name: '编辑班次',
       component: ScheduleEditPage
+    },
+    {
+      path: '/anomaly/exceptionQueueDetail',
+      name: '异常排队详情',
+      component: ExceptionQueueDetail
+    },
+    {
+      path: '/anomaly/illegalBoardingDetail',
+      name: '违规上客详情',
+      component: IllegalBoardingDetail
     }
   ]
 }
