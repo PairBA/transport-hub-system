@@ -7,24 +7,34 @@
 <style lang="less">
 @import '../../theme/index.less';
 
-.table-wrapper{
+.table-wrapper {
   &:extend(.content__card);
-  padding:@layout__padding;
-  .ivu-table:after{
+  padding: @layout__padding;
+  .ivu-table:after {
     width: 0;
   }
-
-  .ivu-table:before{
+  .ivu-table:before {
     height: 0;
   }
-
-  .ivu-table{
+  .ivu-table {
     border-radius: 6px;
   }
-
-  .ivu-table-wrapper{
+  .ivu-table-wrapper {
     position: static;
     border: none;
+  }
+  .ivu-table-cell {
+    width: 100%;
+    .ivu-tooltip {
+      width: 100%;
+      .ivu-tooltip-rel {
+        vertical-align: bottom;
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+      }
+    }
   }
 }
 </style>

@@ -53,14 +53,11 @@
 </template>
 
 <script>
-import {
-  get,
-  END_POINTS
-} from '@/api'
-
-import { dateFormat } from '@/utils'
-
+import { get, END_POINTS } from '@/api'
+import { dateFormat, renderHeader } from '@/utils'
 import RealLocationAMap from '@/components/map/realLocation/RealLocationAMap'
+const cancelFocus = require('@/img/focus/cancelFocus.png')
+const realLocation = require('@/img/focus/realLocation.png')
 
 export default {
   components: {
@@ -91,37 +88,44 @@ export default {
         {
           title: '车牌号',
           key: 'vehicleNo',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '公司',
           key: 'companyName',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '终端厂商',
           key: 'terminalName',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '进场次数',
           key: 'sumIn',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '发车量',
           key: 'sumOn',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '操作人员',
           key: 'operatorName',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '关注时间',
           key: 'focusTime',
           tooltip: true,
+          renderHeader,
           render: (h, params) => {
             // console.log(params)
             return h('span', dateFormat(new Date(params.row.focusTime), 'yyyy-MM-dd hh:mm'))
@@ -130,7 +134,8 @@ export default {
         {
           title: '备注',
           key: 'remark',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '操作',
@@ -139,27 +144,35 @@ export default {
           align: 'center',
           render: (h, params) => {
             return h('div', [
-              h('span', {
+              h('img', {
                 style: {
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  width: '30px'
+                },
+                attrs: {
+                  src: cancelFocus
                 },
                 on: {
                   click: () => {
                     this.doCancelFocus(params.row)
                   }
                 }
-              }, '取消关注'),
-              h('span', {
+              }),
+              h('img', {
                 style: {
                   cursor: 'pointer',
+                  width: '30px',
                   marginLeft: '12px'
+                },
+                attrs: {
+                  src: realLocation
                 },
                 on: {
                   click: () => {
                     this.doShowModal(params.row)
                   }
                 }
-              }, '实时位置')
+              })
             ])
           }
         }
