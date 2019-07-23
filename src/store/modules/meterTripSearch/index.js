@@ -13,7 +13,7 @@ import {
 import { dateFormat } from '../../../utils'
 
 const state = {
-  areaName: '',
+  areaName: '成都',
   driverType: 'TAXI',
   mtsOrgLocName: '',
   mtsOrgLocGps: [],

@@ -37,6 +37,13 @@
 <script>
 import VueAMap from 'vue-amap'
 import { AMAP_STYLE_NORMAL } from '@/constant'
+import Vue from 'vue'
+Vue.use(VueAMap)
+VueAMap.initAMapApiLoader({
+  key: '7bfb1994e208f200c2cd63a626f74868',
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Heatmap', 'AMap.Polyline'],
+  v: '1.4.4'
+})
 export default {
   data() {
     const aMapManager = new VueAMap.AMapManager()

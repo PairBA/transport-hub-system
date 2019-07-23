@@ -1,6 +1,6 @@
 <template>
   <div class="searchTrip__homePage">
-    <ContentLayout :showSpin="showSpin">
+    <ContentLayout :showSpin="isShowPairSpin">
       <div slot="searchCondition">
         <Form>
           <FormItem :label="$t('sysManage.queryBar.orgLocName')">
@@ -15,7 +15,7 @@
                         format="yyyy-MM-dd"
                         :editable="true"
                         :clearable="true"
-                        :placeholder="$t('sysManage.queryBar.datePH')">
+                        :placeholder="$t('sysManage.queryBar.datePH')" style="margin-bottom: 12px">
             </DatePicker>
             <TimePicker type="time"
                         v-model="mtsOrgTime"
@@ -45,7 +45,7 @@
                         :disabled="destTimeDisabled"
                         :editable="true"
                         :clearable="true"
-                        :placeholder="$t('sysManage.queryBar.datePH')">
+                        :placeholder="$t('sysManage.queryBar.datePH')" style="margin-bottom: 12px">
             </DatePicker>
             <TimePicker type="time"
                         v-model="mtsDestTime"
@@ -69,13 +69,11 @@
             </RadioGroup>
           </FormItem>
           <FormItem>
-            <Checkbox v-model="closeMeter"
-                      style="margin-left: 24px;">
+            <Checkbox v-model="closeMeter">
               {{ $t('sysManage.meterTripSearch.notCloseMeter') }}
             </Checkbox>
           </FormItem>
           <Button type="primary"
-                  style="margin-left: 24px;"
                   @click="goSearch">
             {{ $t("sysManage.queryBar.searchBT") }}
           </Button>
@@ -465,12 +463,6 @@ export default {
           i--
         }
       }
-      let areaName = '北京'
-      const area = this.areaCodeListForSelect.find(area => area.areaCode === this.areaCode)
-      if (area) {
-        areaName = area.areaName
-      }
-      this.$store.commit('meterTripSearch/updateAreaName', areaName)
       this.isLoadMap = true
     },
     async activeItem(meterTripId, recDate, activeTripStatus) {
