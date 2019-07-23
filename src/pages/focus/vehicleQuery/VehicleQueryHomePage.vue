@@ -31,6 +31,13 @@
           <Table :columns="columns"
                  :data="tableListObject.tableList">
           </Table>
+          <PairPage id="vehicleQueryListPage"
+                    :total="tableListObject.total"
+                    :current="tableListObject.currentPage"
+                    :page-size="tableListObject.pageSize"
+                    @on-change="getPage"
+                    @on-page-size-change="changeSize">
+          </PairPage>
         </div>
       </div>
     </ContentLayout>
@@ -144,6 +151,14 @@ export default {
     this.getVehicleInfo()
   },
   methods: {
+    getPage(currentPage) {
+      this.tableListObject.currentPage = currentPage
+      this.goSearch()
+    },
+    changeSize(pageSize) {
+      this.tableListObject.pageSize = pageSize
+      this.getPage(1)
+    },
     goSearch() {
       this.getVehicleInfo()
     },
@@ -195,6 +210,9 @@ export default {
             this.tableListObject.currentPage = 1
             this.tableListObject.totalPage = 1
             this.tableListObject.total = 1
+          } else {
+            this.tableListObject.tableList = []
+            this.tableListObject.total = 0
           }
         }
         this.showSpin = false

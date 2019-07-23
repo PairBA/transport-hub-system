@@ -92,7 +92,7 @@ export default {
         }
       },
       showSpin: false,
-      lastTime: '2019-07-22 00:00:00',
+      lastTime: '',
       driverMarker: null,
       intervalId: null
     }
@@ -102,6 +102,7 @@ export default {
   },
   methods: {
     closeModal(result) {
+      this.lastTime = ''
       this.$emit('on-visible-change', result)
       if (this.intervalId) {
         clearInterval(this.intervalId)

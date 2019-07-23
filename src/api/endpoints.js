@@ -31,5 +31,6 @@ export default {
   GET_HUB_FOCUS_VEHICLE_EXCEL: '/api/transhub/fullscreen/getHubFocusVehicleExcel',
   GET_HUB_STAT_TRAIL_LIST: '/api/transhub/fullscreen/getHubStatTrailList',
   GET_HUB_STAT_TRAIL_ALL_EXCEL: '/api/transhub/fullscreen/getHubStatTrailAllExcel',
-  GET_LAST_TRAIL_LIST: '/api/vehicle/trail/getLastTrailList'
+  GET_LAST_TRAIL_LIST: '/api/vehicle/trail/getLastTrailList',
+  CANCEL_FOCUS: '/api/transhub/fullscreen/cancelFocus'
 }

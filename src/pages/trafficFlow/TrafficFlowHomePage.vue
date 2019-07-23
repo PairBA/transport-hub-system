@@ -71,8 +71,15 @@
           </div>
           <div>
             <Table :columns="columns"
-                   :data="tableList">
+                   :data="tableListObject.showTableList">
             </Table>
+            <PairPage id="trafficFlowListPage"
+                      :total="tableListObject.total"
+                      :current="tableListObject.currentPage"
+                      :page-size="tableListObject.pageSize"
+                      @on-change="getPage"
+                      @on-page-size-change="changeSize">
+            </PairPage>
           </div>
         </div>
       </div>
@@ -103,7 +110,14 @@ export default {
       echartsInfo: null, // echarts的数据
       gateVehicleNum: 0, // 总闸口车辆数
       normalVehicleNum: 0, // 总发车辆
-      tableList: [] // 表格数据
+      tableListObject: { // 前端分页的表格数据对象
+        tableList: [],
+        showTableList: [],
+        currentPage: 1,
+        pageSize: 10,
+        total: 0,
+        totalPage: 0
+      }
     }
   },
   computed: {
@@ -189,7 +203,7 @@ export default {
         series: [
           {
             type: 'line',
-            smooth: true,
+            smooth: false,
             color: '#6BB523',
             showSymbol: false,
             hoverAnimation: false,
@@ -201,7 +215,7 @@ export default {
           },
           {
             type: 'line',
-            smooth: true,
+            smooth: false,
             color: '#1F88E5',
             showSymbol: false,
             hoverAnimation: false,
@@ -219,11 +233,22 @@ export default {
     this.getTrafficFlowInfo()
   },
   methods: {
+    getPage(currentPage) {
+      this.tableListObject.currentPage = currentPage
+      this.doViewPage(this.tableListObject.tableList)
+    },
+    changeSize(pageSize) {
+      this.tableListObject.pageSize = pageSize
+      this.getPage(1)
+    },
     goSearch() {
       this.getTrafficFlowInfo()
     },
     async getTrafficFlowInfo() {
       this.showSpin = true
+      this.tableListObject.currentPage = 1
+      this.tableListObject.total = 0
+      this.tableListObject.pageSize = 10
       const result = await get(END_POINTS.GET_VEHICLE_FLOW_COUNT, {
         gateName: this.gateName,
         countType: this.countType,
@@ -251,11 +276,35 @@ export default {
           yNormal: yNormal
         }
         // 构造echarts数据结束
-        this.tableList = result.data // 表格数据
+        // 构造表格前端分页数据开始
+        this.doViewPage(result.data)
+        // 构造表格前端分页数据结束
         this.showSpin = false
       } else {
+        if (result.code === 2006) {
+          this.$Message.warning({
+            content: result.msg + '！'
+          })
+        }
+        this.tableListObject.tableList = []
+        this.tableListObject.showTableList = []
         this.echartsInfo = null
         this.showSpin = false
+      }
+    },
+    doViewPage(data) {
+      this.tableListObject.tableList = data // 表格数据
+      this.tableListObject.total = data.length // 数据总数
+      this.tableListObject.totalPage = Math.ceil(this.tableListObject.total / this.tableListObject.pageSize) // 总页数
+      // 当前页不大于总页数
+      if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
+        this.tableListObject.showTableList = [] // 清空显示的列表
+        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
+             i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ?
+               (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+             i++) {
+          this.tableListObject.showTableList.push(this.tableListObject.tableList[i - 1])
+        }
       }
     },
     async exportExcel() {

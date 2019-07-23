@@ -28,8 +28,15 @@
       <div slot="content">
         <div>
           <Table :columns="columns"
-                 :data="tableList">
+                 :data="tableListObject.tableList">
           </Table>
+          <PairPage id="focusListPage"
+                    :total="tableListObject.total"
+                    :current="tableListObject.currentPage"
+                    :page-size="tableListObject.pageSize"
+                    @on-change="getPage"
+                    @on-page-size-change="changeSize">
+          </PairPage>
         </div>
       </div>
     </ContentLayout>
@@ -61,10 +68,17 @@ export default {
       showSpin: false,
       vehicleNo: '',
       focusDate: [new Date(), new Date()],
-      tableList: [],
       propVehicleNo: '',
       propTerminalName: '',
-      propCompanyName: ''
+      propCompanyName: '',
+      tableListObject: { // 前端分页的表格数据对象
+        tableList: [],
+        showTableList: [],
+        currentPage: 1,
+        pageSize: 10,
+        total: 0,
+        totalPage: 0
+      }
     }
   },
   computed: {
@@ -127,7 +141,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.goToDelete(params.row.userId)
+                    this.doCancelFocus(params.row)
                   }
                 }
               }, '取消关注'),
@@ -152,11 +166,22 @@ export default {
     this.getFocusInfo()
   },
   methods: {
+    getPage(currentPage) {
+      this.tableListObject.currentPage = currentPage
+      this.doViewPage(this.tableListObject.tableList)
+    },
+    changeSize(pageSize) {
+      this.tableListObject.pageSize = pageSize
+      this.getPage(1)
+    },
     goSearch() {
       this.getFocusInfo()
     },
     async getFocusInfo() {
       this.showSpin = true
+      this.tableListObject.currentPage = 1
+      this.tableListObject.total = 0
+      this.tableListObject.pageSize = 10
       const result = await get(END_POINTS.GET_HUB_FOCUS_VEHICLE_LIST, {
         startDate: dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd'),
         endDate: dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd'),
@@ -167,10 +192,32 @@ export default {
       })
       // console.log(result)
       if (result.code === 2000) {
-        this.tableList = result.data // 表格数据
+        this.doViewPage(result.data) // 表格数据
         this.showSpin = false
       } else {
+        if (result.code === 2006) {
+          this.$Message.warning({
+            content: result.msg + '！'
+          })
+        }
+        this.tableListObject.tableList = []
+        this.tableListObject.showTableList = []
         this.showSpin = false
+      }
+    },
+    doViewPage(data) {
+      this.tableListObject.tableList = data // 表格数据
+      this.tableListObject.total = data.length // 数据总数
+      this.tableListObject.totalPage = Math.ceil(this.tableListObject.total / this.tableListObject.pageSize) // 总页数
+      // 当前页不大于总页数
+      if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
+        this.tableListObject.showTableList = [] // 清空显示的列表
+        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
+             i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ?
+               (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+             i++) {
+          this.tableListObject.showTableList.push(this.tableListObject.tableList[i - 1])
+        }
       }
     },
     exportExcel() {
@@ -185,6 +232,18 @@ export default {
         '&driverType=TAXI' +
         '&x-me-token=' + token
       window.location.href = `${baseUrl}${url}`
+    },
+    async doCancelFocus(row) {
+      const result = await get(END_POINTS.CANCEL_FOCUS, {
+        vehicleNo: row.vehicleNo
+      })
+      // console.log(result)
+      if (result.code === 2000) {
+        this.goSearch()
+        this.$Message.success({
+          content: '成功取消关注！'
+        })
+      }
     },
     doShowModal(row) {
       this.propVehicleNo = row.vehicleNo
