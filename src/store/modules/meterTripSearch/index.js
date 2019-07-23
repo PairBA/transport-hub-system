@@ -8,9 +8,9 @@ import {
   drawTripLine,
   addMarker,
   dealDistance,
-  dealDuration
+  dealDuration,
+  dateFormat
 } from '@/utils'
-import { dateFormat } from '../../../utils'
 
 const state = {
   areaName: '成都',
@@ -286,10 +286,10 @@ const mutations = {
     const otGpsHistList = gpsListObject.otGpsHistList
     if (otGpsHistList && otGpsHistList.length) {
       state.gpsListForAMap.polylines = drawTripLine(otGpsHistList, '#6AA84F')
-      let markerStart = addMarker(otGpsHistList[0], './src/img/tripDetail/icon_green.png', location)
-      let markerEnd = addMarker(otGpsHistList[otGpsHistList.length - 1], './src/img/tripDetail/icon_red.png', dropOffLocation)
+      let markerStart = addMarker(otGpsHistList[0], require('@/img/tripDetail/icon_green.png'), location)
+      let markerEnd = addMarker(otGpsHistList[otGpsHistList.length - 1], require('@/img/tripDetail/icon_red.png'), dropOffLocation)
       if (state.activeTripStatus === 'OT') {
-        markerEnd = addMarker(otGpsHistList[otGpsHistList.length - 1], './src/img/tripSharing/wtAndBdCar.png', duringTheTrip)
+        markerEnd = addMarker(otGpsHistList[otGpsHistList.length - 1], require('@/img/tripSharing/wtAndBdCar.png'), duringTheTrip)
       }
       state.gpsListForAMap.markers.push(markerStart)
       state.gpsListForAMap.markers.push(markerEnd)

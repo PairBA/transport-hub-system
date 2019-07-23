@@ -259,7 +259,7 @@ export default {
       this.clearOrgMaker() // 先清除marker，再添加
       let icon = new AMap.Icon({
         size: new AMap.Size(24, 24), // 图标尺寸
-        image: './static/img/meterTrip/pick-up-area.png', // Icon的图像
+        image: require('@/img/meterTrip/pick-up-area.png'), // Icon的图像
         imageSize: new AMap.Size(24, 24) // 根据所设置的大小拉伸或压缩图片
       })
       this.orgMarker = new AMap.Marker({
@@ -274,7 +274,7 @@ export default {
       this.clearDestMaker() // 先清除marker，再添加
       let icon = new AMap.Icon({
         size: new AMap.Size(24, 24), // 图标尺寸
-        image: './static/img/meterTrip/drop-off-area.png', // Icon的图像
+        image: require('@/img/meterTrip/drop-off-area.png'), // Icon的图像
         imageSize: new AMap.Size(24, 24) // 根据所设置的大小拉伸或压缩图片
       })
       this.destMarker = new AMap.Marker({
