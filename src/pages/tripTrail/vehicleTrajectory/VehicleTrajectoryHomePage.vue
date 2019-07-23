@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       showSpin: false,
-      vehicleNo: '',
+      vehicleNo: '川ATR888',
       vehtStartDate: '',
       vehtStartHour: '',
       vehtEndDate: '',
@@ -98,6 +98,7 @@ export default {
         this.showSpin = false
         if (response.code === 2000) {
           let value = response.data
+          this.tripStatusAndGpsInfo = value.tripLineList
           this.allGpsList = value.allGpsList
           this.timeForGpsList = value.timeForGpsList
           this.polylines = []

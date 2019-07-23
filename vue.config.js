@@ -1,6 +1,8 @@
 module.exports = {
   // 选项...
-  publicPath: '/hubmanager/',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/hubmanager/'
+    : '/',
 
   outputDir: 'hubmanager',
 

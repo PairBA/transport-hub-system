@@ -13,21 +13,18 @@
 </template>
 <script>
 export default {
+  props: {
+    playerSpeed: {
+      type: Number,
+      default: () => 0
+    }
+  },
   data() {
     return {
       speed: 0
     }
   },
   computed: {
-    playerSpeed: {
-      get() {
-        return this.$store.state.vehicleTrajectory.playerSpeed
-      },
-      set(value) {
-        this.speed = value
-        this.$store.commit('vehicleTrajectory/updatePlayerSpeed', value)
-      }
-    },
     showContent() {
       if (this.playerSpeed === 1 && this.speed !== 1) {
         return this.$t('monitor.hubTrailPlayer.speed')
@@ -38,7 +35,6 @@ export default {
   },
   methods: {
     updatePlayerSpeed(playerSpeed) {
-      this.playerSpeed = parseFloat(playerSpeed)
       this.$emit('updatePlayerSpeed', parseFloat(playerSpeed))
     }
   },
