@@ -21,7 +21,9 @@
           <FormItem label="开始时间：">
             <DatePicker v-model="startDate"
                         type="date"
+                        format="yyyy/MM/dd"
                         placeholder="请选择日期"
+                        style="float: left;"
                         :clearable="false"
                         :editable="false"
                         :options="options">
@@ -30,6 +32,8 @@
                         type="time"
                         format="HH:mm"
                         placeholder="请选择时间"
+                        style="float: right;"
+                        :disabled-minutes="disabledMinutes"
                         :clearable="false"
                         :editable="false">
             </TimePicker>
@@ -37,7 +41,9 @@
           <FormItem label="结束时间：">
             <DatePicker v-model="endDate"
                         type="date"
+                        format="yyyy/MM/dd"
                         placeholder="请选择日期"
+                        style="float: left;"
                         :clearable="false"
                         :editable="false"
                         :options="options">
@@ -46,6 +52,8 @@
                         type="time"
                         format="HH:mm"
                         placeholder="请选择时间"
+                        style="float: right;"
+                        :disabled-minutes="disabledMinutes"
                         :clearable="false"
                         :editable="false">
             </TimePicker>
@@ -81,8 +89,12 @@
           </div>
           <div>
             <div>
-              <span>闸口车辆总数：{{gateVehicleNum}}（车次）</span>
-              <span>发车总车次：{{normalVehicleNum}}（车次）</span>
+              <span class="traffic-flow-count-info-span">
+                闸口车辆总数：{{gateVehicleNum}}（车次）
+              </span>
+              <span class="traffic-flow-count-info-span">
+                发车量总数：{{normalVehicleNum}}（车次）
+              </span>
             </div>
             <div>
               <Table :columns="columns"
@@ -115,7 +127,12 @@ export default {
   components: {
   },
   data() {
+    const disabledMinutes = []
+    for (let i = 0; i < 60; i++) {
+      disabledMinutes.push(i)
+    }
     return {
+      disabledMinutes: disabledMinutes,
       showSpin: false,
       gateName: '',
       countType: 'HOUR',
@@ -209,14 +226,14 @@ export default {
           formatter: params => {
             // console.log(params)
             let title = params[0].axisValue + '<br />'
-            let content = params[0].marker + '闸口车辆数：' + params[0].data + '<br />' +
-                          params[1].marker + '发车辆：' + params[1].data
+            let content = params[0].marker + '闸口车辆数：' + params[0].data + ' （车次）<br />' +
+                          params[1].marker + '发车量：' + params[1].data + ' （车次）'
             return `${title}${content}`
           }
         },
         grid: {
-          left: '3%',
-          right: '10%',
+          left: '4%',
+          right: '12%',
           top: 60,
           bottom: 30,
           containLabel: true
@@ -347,7 +364,17 @@ export default {
 <style lang="less">
 .traffic-flow-home-page {
   .ivu-date-picker {
-    width: 50%;
+    width: 49%;
+  }
+  .traffic-flow-count-info-span {
+    font-size: 16px;
+    height: 32px;
+    padding: 6px 12px;
+    line-height: 32px;
+    font-weight: 500;
+    &:last-child {
+      margin-left: 24px;
+    }
   }
 }
 </style>

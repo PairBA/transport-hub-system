@@ -76,7 +76,7 @@
         </div>
       </div>
       <div slot="footer">
-        <Button type="success"
+        <Button type="primary"
                 size="large"
                 long
                 :loading="focusLoading"
@@ -401,10 +401,12 @@ export default {
     openFocus(row) {
       this.showFocusModal = true
       this.confirmVehicleNo = row.vehicleNo
+      this.remark = ''
     },
     closeFocusModal() {
       this.showFocusModal = false
       this.confirmVehicleNo = ''
+      this.remark = ''
     },
     async confirmFocus() {
       this.focusLoading = true
