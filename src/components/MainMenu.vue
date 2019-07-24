@@ -1,27 +1,29 @@
 <template>
-  <Menu mode="horizontal" theme="dark" active-name="1"  @on-select="onSelectMenu">
-    <MenuItem name="1">
-      运力调度
-    </MenuItem>
-    <MenuItem name="2">
-      异常告警
-    </MenuItem>
-    <MenuItem name="3">
-      重点关注
-    </MenuItem>
-    <MenuItem name="4">
-      行程轨迹
-    </MenuItem>
-    <MenuItem name="5">
-      车流量
-    </MenuItem>
-    <MenuItem name="6">
-      值班表
-    </MenuItem>
-    <MenuItem name="7">
-      账号管理
-    </MenuItem>
-  </Menu>
+  <div class="main-menu">
+    <Menu mode="horizontal" theme="dark" active-name="1"  @on-select="onSelectMenu">
+      <MenuItem name="1">
+        运力调度
+      </MenuItem>
+      <MenuItem name="2">
+        异常告警
+      </MenuItem>
+      <MenuItem name="3">
+        重点关注
+      </MenuItem>
+      <MenuItem name="4">
+        行程轨迹
+      </MenuItem>
+      <MenuItem name="5">
+        车流量
+      </MenuItem>
+      <MenuItem name="6">
+        值班表
+      </MenuItem>
+      <MenuItem name="7">
+        账号管理
+      </MenuItem>
+    </Menu>
+  </div>
 </template>
 
 <script>
@@ -55,7 +57,19 @@ export default {
 
 <style lang="less">
 .main-menu {
-
+  .ivu-menu-dark {
+    background-color: transparent;
+    line-height: 40px;
+    padding: 12px;
+  }
+  .ivu-menu-item-active {
+    background:linear-gradient(270deg,rgba(23,149,255,1) 0%,rgba(82,211,255,1) 100%);
+    box-shadow:0px 2px 4px 0px rgba(15,120,238,1);
+  }
+  .ivu-menu-item {
+    margin-left: 24px;
+    border-radius:20px;
+  }
 }
 
 </style>

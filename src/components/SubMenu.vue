@@ -23,7 +23,6 @@ export default {
 
 <style lang="less">
 .sub-menu {
-
 }
 
 </style>

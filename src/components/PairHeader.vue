@@ -45,9 +45,7 @@ export default {
 <style lang="less">
 .header {
   .layout-nav{
-    width: 750px;
-    margin: 0 auto;
-    margin-right: 20px;
+    float: left;
   }
   .menu-icon-wrapper {
     display: block;

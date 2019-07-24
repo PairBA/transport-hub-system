@@ -32,13 +32,11 @@ export async function send(url, {
       headers: {
         'me-client-type': 'me-client/web',
         'x-me-token': localStorage.getItem('token'),
-        'lang': localStorage.getItem('trans-language'),
         ...headers
       },
       data,
       params
     })
-    console.log(localStorage.getItem('token'))
     responseData = response.data
     if (!responseData.success) {
       Message.error({
