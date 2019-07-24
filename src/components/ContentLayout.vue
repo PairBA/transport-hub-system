@@ -28,9 +28,6 @@ export default {
     title() {
       return this.$route.name
     }
-  },
-  mounted() {
-    console.log(this.title)
   }
 }
 </script>
