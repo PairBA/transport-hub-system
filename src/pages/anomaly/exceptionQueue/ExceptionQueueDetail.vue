@@ -12,6 +12,7 @@
           <div class="group-date-str">
             {{detailObject.dateStr}}
           </div>
+          <Button type="primary" style="float: right; margin-top: 12px;margin-right: 24px" @click="handleClick">{{isFocus ? '-关注' : '+关注'}}</Button>
         </div>
         <TableWrapper>
           <Table :columns="columns"
@@ -50,7 +51,8 @@ export default {
       hubEventListObject: '',
       polygons: [],
       polylines: [],
-      markers: []
+      markers: [],
+      isFocus: false
     }
   },
   computed: {
@@ -100,8 +102,12 @@ export default {
     this.startDate = this.$route.query.startDate
     this.endDate = this.$route.query.endDate
     this.getHubStatTrailList()
+    this.isVehicleFocus()
   },
   methods: {
+    handleClick() {
+      this.isFocus ? this.cancelFocus() : this.focusVehicle()
+    },
     async getHubStatTrailList() {
       const result = await get(END_POINTS.GET_HUB_SUM_QCUT_LIST_DETAIL, {
         areaCode: localStorage.getItem('areaCode'),
@@ -180,7 +186,38 @@ export default {
           })
         })
       }
-      console.log(this.polygons)
+    },
+    async cancelFocus() {
+      const result = await get(END_POINTS.CANCEL_FOCUS, {
+        vehicleNo: this.vehicleNo
+      })
+      if (result.code === 2000) {
+        this.$Message.success({
+          content: '成功取消关注！'
+        })
+        this.isVehicleFocus()
+      }
+    },
+    async isVehicleFocus() {
+      const result = await get(END_POINTS.IS_VEHICLE_FOCUS, {
+        vehicleNo: this.vehicleNo
+      })
+      if (result.code === 2000) {
+        this.isFocus = true
+      } else this.isFocus = false
+    },
+    async focusVehicle() {
+      const result = await get(END_POINTS.FOCUS_VEHICLE, {
+        vehicleNo: this.vehicleNo,
+        areaCode: 'CNSCA1',
+        mobile: this.mobile
+      })
+      if (result.code === 2000) {
+        this.$Message.success({
+          content: '关注成功！'
+        })
+        this.isVehicleFocus()
+      }
     }
   }
 }
@@ -212,6 +249,12 @@ export default {
         font-size: 16px;
         line-height: 32px;
         margin-left: 48px;
+      }
+      .ivu-btn-primary {
+        background:rgba(25,152,255,1);
+        border-radius:18px;
+        padding-left: 24px;
+        padding-right: 24px
       }
     }
   }
