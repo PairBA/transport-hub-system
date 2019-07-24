@@ -77,7 +77,6 @@ export default {
         username: this.username,
         password: this.password
       })
-
       if (response.success) {
         // await this.$store.dispatch('permission/getResourceList')
         this.$router.push('/accountMgmt/accountMgmtHomePage')

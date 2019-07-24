@@ -3,9 +3,6 @@
     <ContentLayout :showSpin="showSpin">
       <div slot="searchCondition">
         <Form>
-          <FormItem :label="$t('sysManage.commonVar.startDateAndTime')">
-            <DatePicker v-model="startDate" :editable="false" :clearable="false" type="date" :placeholder="$t('sysManage.queryBar.datePH')"/>
-          </FormItem>
           <FormItem :label="$t('sysManage.queryBar.terminalManufacturer')">
             <Select v-model="terminalName" :placeholder="$t('sysManage.queryBar.terminalManufacturerPH')">
               <Option :value="''">
@@ -17,12 +14,9 @@
             </Select>
           </FormItem>
           <CompanySelect/>
-          <FormItem :label="$t('sysManage.commonVar.endDateAndTime')">
-            <DatePicker v-model="endDate" :editable="false" :clearable="false" type="date" :placeholder="$t('sysManage.queryBar.datePH')"/>
-          </FormItem>
           <FormItem :label="$t('sysManage.queryBar.issueType')">
             <Select v-model="judgeType" :placeholder="$t('sysManage.queryBar.issueTypePH')">
-              <Option value="">{{$t("sysManage.queryBar.tripStatusSelect.ALL")}}</Option>
+              <Option value=" ">{{$t("sysManage.queryBar.tripStatusSelect.ALL")}}</Option>
               <Option :value="'GPS_LOST'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsLost') }}</Option>
               <Option :value="'GPS_REPEAT'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsRepeat') }}</Option>
               <Option :value="'CLONE_VEHICLE'">{{ $t('sysManage.commonSelect.issueJudgeType.cloneVehicle') }}</Option>
@@ -32,11 +26,34 @@
             </Select>
           </FormItem>
           <FormItem :label="$t('sysManage.queryBar.vehicleNo')">
-            <Input v-model="vehicleNo"/>
+            <Input v-model="vehicleNo"
+                   placeholder="请输入车辆号牌">
+            </Input>
           </FormItem>
+          <FormItem label="时间区间：">
+            <DatePicker v-model="daterange"
+                        type="daterange"
+                        format="yyyy/MM/dd"
+                        placement="bottom-start"
+                        placeholder="请选择时间区间"
+                        :clearable="false"
+                        :editable="false"
+                        :options="options">
+            </DatePicker>
+          </FormItem>
+          <Divider/>
           <div>
-            <Button type="primary" style="margin-left: 24px;margin-bottom: 24px" @click="initPage" :disabled="showSpin">{{$t("sysManage.queryBar.searchBT")}}</Button>
-            <Button type="primary" style="margin-left: 24px;margin-bottom: 24px" @click="exportGate">{{$t("sysManage.versionMgmt.exportExcel")}}</Button>
+            <Button type="primary"
+                    style="float: left;"
+                    :disabled="showSpin"
+                    @click="initPage">
+              {{$t("sysManage.queryBar.searchBT")}}
+            </Button>
+            <Button type="primary"
+                    style="float: right;"
+                    @click="exportGate">
+              {{$t("sysManage.versionMgmt.exportExcel")}}
+            </Button>
           </div>
         </Form>
       </div>
@@ -70,8 +87,7 @@ export default {
   data() {
     return {
       showSpin: false,
-      startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-      endDate: new Date(),
+      daterange: [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date()],
       judgeType: '',
       hubCode: '',
       vehicleNo: '',
@@ -79,25 +95,17 @@ export default {
       gateJudgeList: [],
       total: 0,
       currentPage: 1,
-      pageSize: 10
+      pageSize: 10,
+      options: {
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now()
+        }
+      }
     }
   },
   computed: {
     tableColumns() {
       return [
-        {
-          title: this.$t('sysManage.commonVar.hubName'),
-          key: 'hubCode',
-          width: 110,
-          render: (h, params) => {
-            const hubCode = params.row.hubCode
-            let hubName = ''
-            const hub = this.hubList.find(hub => hub.hubCode === hubCode)
-            if (hub) hubName = hub.description
-            return h('span', {
-            }, hubName)
-          }
-        },
         {
           title: this.$t('sysManage.gateAnalysis.gate'),
           key: 'gateName',
@@ -120,7 +128,7 @@ export default {
         {
           title: this.$t('sysManage.gateAnalysis.gateTime'),
           key: 'entryTime',
-          width: 180
+          width: 110
         },
         {
           title: this.$t('sysManage.queryBar.issueType'),
@@ -196,15 +204,23 @@ export default {
     },
     async exportGate() {
       const token = localStorage.getItem('token')
-      const baseUrl = process.env.BASE_URL
-      const startDate = new Date(dateFormat((this.startDate), 'yyyy-MM-dd')).getTime()
-      const endDate = new Date(dateFormat((this.endDate), 'yyyy-MM-dd')).getTime()
-      const url = END_POINTS.EXPORT_GATE_JUDGE_REPORT + `?judgeType=${this.judgeType}&areaCode=CNSCA1&companyId=${this.$store.state.companyIdForSelect}&startDate=${dateFormat(new Date(startDate), 'yyyy-MM-dd')}&vehicleNo=${this.vehicleNo}&endDate=${dateFormat(new Date(endDate), 'yyyy-MM-dd')}&terminalName=${this.terminalName}&x-me-token=${token}`
+      const baseUrl = process.env.VUE_APP_BASE_URL
+      const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
+      const endDate = new Date(dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')).getTime()
+      const url = END_POINTS.EXPORT_GATE_JUDGE_REPORT +
+        '?judgeType=' + this.judgeType +
+        '&areaCode=' + localStorage.getItem('areaCode') +
+        '&companyId=' + this.$store.state.companyIdForSelect +
+        '&startDate=' + dateFormat(new Date(startDate), 'yyyy-MM-dd') +
+        '&vehicleNo=' + this.vehicleNo +
+        '&endDate=' + dateFormat(new Date(endDate), 'yyyy-MM-dd') +
+        '&terminalName=' + this.terminalName +
+        '&x-me-token=' + token
       window.location.href = `${baseUrl}${url}`
     },
     async goSearch() {
-      const startDate = new Date(dateFormat((this.startDate), 'yyyy-MM-dd')).getTime()
-      const endDate = new Date(dateFormat((this.endDate), 'yyyy-MM-dd')).getTime()
+      const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
+      const endDate = new Date(dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')).getTime()
       if (startDate > endDate) {
         this.$Notice.warning({
           desc: this.$t('sysManage.tripData.warningDesc')
@@ -217,8 +233,8 @@ export default {
           pageSize: this.pageSize,
           queryVO: {
             judgeType: this.judgeType,
-            startDate: dateFormat(new Date(startDate), 'yyyy-MM-dd'),
-            endDate: dateFormat(new Date(endDate), 'yyyy-MM-dd'),
+            startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
+            endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd'),
             areaCode: this.$store.state.areaCodeForSelect,
             hubCode: localStorage.getItem('hubCode'),
             companyId: this.$store.state.companyIdForSelect,
@@ -244,5 +260,9 @@ export default {
 </script>
 
 <style lang="less">
-.gateVehicle__homePage{}
+.gateVehicle__homePage{
+  .ivu-date-picker {
+    width: 100%;
+  }
+}
 </style>

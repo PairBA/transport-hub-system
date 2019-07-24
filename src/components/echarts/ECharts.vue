@@ -11,7 +11,7 @@ export default {
       required: true
     },
     series: {
-      type: Object,
+      type: Array,
       default: () => {
         return []
       }
@@ -59,7 +59,7 @@ export default {
       }
     },
     dataZoom: {
-      type: Object,
+      type: Array,
       default: () => {
         return [
           {

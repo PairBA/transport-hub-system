@@ -1,28 +1,34 @@
 <template>
-  <div class="exceptionQueue__detail">
-    <div v-for="(detailObject, index) in alertOnListDetail" :key="`alertDetail__${index}`">
-      <div>{{detailObject.dateStr}}</div>
-      <TableWrapper>
-        <Table :columns="columns"
-               :data="detailObject.list"
-               @on-row-click="showTransHubEvent" highlight-row >
-        </Table>
-      </TableWrapper>
+  <div class="illegal-boarding-detail">
+    <PairBreadcrumb parentPath="/anomaly/illegalBoardingHomePage"
+                    parentTitle="违规上客"
+                    :title="vehicleNo"/>
+    <div class="illegal-boarding-detail-content">
+      <div v-for="(detailObject, index) in alertOnListDetail" :key="`alertDetail__${index}`">
+        <div class="illegal-boarding-detail-group-title">
+          <div class="group-vehicle-no">
+            {{vehicleNo}}
+          </div>
+          <div class="group-date-str">
+            {{detailObject.dateStr}}
+          </div>
+        </div>
+        <TableWrapper>
+          <Table :columns="columns"
+                 :data="detailObject.list"
+                 @on-row-click="showTransHubEvent" highlight-row >
+          </Table>
+        </TableWrapper>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import TableWrapper from '@/components/wrapper/TableWrapper'
-import {
-  get,
-  END_POINTS
-} from '@/api'
-import { getHubTrailTableArr } from '@/utils'
+import { get, END_POINTS } from '@/api'
+import { dateFormat, getHubTrailTableArr } from '@/utils'
 export default {
-  components: {
-    TableWrapper
-  },
+  components: {},
   data() {
     return {
       mobile: '',
@@ -37,15 +43,24 @@ export default {
       return [
         {
           title: '进场时间',
-          key: 'timeIn'
+          key: 'timeIn',
+          render: (h, params) => {
+            return h('span', dateFormat(new Date(params.row.timeIn), 'yyyy-MM-dd hh:mm'))
+          }
         },
         {
           title: '发车时间',
-          key: 'timeOn'
+          key: 'timeOn',
+          render: (h, params) => {
+            return h('span', dateFormat(new Date(params.row.timeOn), 'yyyy-MM-dd hh:mm'))
+          }
         },
         {
           title: '出场时间',
-          key: 'timeOut'
+          key: 'timeOut',
+          render: (h, params) => {
+            return h('span', dateFormat(new Date(params.row.timeOut), 'yyyy-MM-dd hh:mm'))
+          }
         },
         {
           title: this.$t('sysManage.commonVar.action'),
@@ -98,7 +113,33 @@ export default {
 </script>
 
 <style lang="less">
-.exceptionQueue__detail{
-  padding: 24px;
+.illegal-boarding-detail {
+  .illegal-boarding-detail-content {
+    padding: 24px;
+    .illegal-boarding-detail-group-title {
+      height: 60px;
+      line-height: 60px;
+      background-color: #A5BDE5;
+      color: #FFFFFF;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+      .group-vehicle-no {
+        display: inline-block;
+        height: 32px;
+        font-size: 18px;
+        line-height: 32px;
+        margin-left: 24px;
+      }
+
+      .group-date-str {
+        display: inline-block;
+        height: 32px;
+        font-size: 16px;
+        line-height: 32px;
+        margin-left: 48px;
+      }
+    }
+  }
 }
 </style>

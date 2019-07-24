@@ -21,67 +21,95 @@
           <FormItem label="开始时间：">
             <DatePicker v-model="startDate"
                         type="date"
-                        placeholder="请选择日期">
+                        format="yyyy/MM/dd"
+                        placeholder="请选择日期"
+                        style="float: left;"
+                        :clearable="false"
+                        :editable="false"
+                        :options="options">
             </DatePicker>
             <TimePicker v-model="startTime"
                         type="time"
                         format="HH:mm"
-                        placeholder="请选择时间">
+                        placeholder="请选择时间"
+                        style="float: right;"
+                        :disabled-minutes="disabledMinutes"
+                        :clearable="false"
+                        :editable="false">
             </TimePicker>
           </FormItem>
           <FormItem label="结束时间：">
             <DatePicker v-model="endDate"
                         type="date"
-                        placeholder="请选择日期">
+                        format="yyyy/MM/dd"
+                        placeholder="请选择日期"
+                        style="float: left;"
+                        :clearable="false"
+                        :editable="false"
+                        :options="options">
             </DatePicker>
             <TimePicker v-model="endTime"
                         type="time"
                         format="HH:mm"
-                        placeholder="请选择时间">
+                        placeholder="请选择时间"
+                        style="float: right;"
+                        :disabled-minutes="disabledMinutes"
+                        :clearable="false"
+                        :editable="false">
             </TimePicker>
           </FormItem>
           <Divider/>
-          <Button type="primary"
-                  @click="goSearch">
-            查询
-          </Button>
-          <Button type="success"
-                  @click="exportExcel">
-            导出excel
-          </Button>
+          <div>
+            <Button type="primary"
+                    style="float: left;"
+                    @click="goSearch">
+              查询
+            </Button>
+            <Button type="primary"
+                    style="float: right;"
+                    @click="exportExcel">
+              导出excel
+            </Button>
+          </div>
         </Form>
       </div>
       <div slot="content">
-        <div>
-          <PairECharts id="trafficFlowECharts"
-                       :title="trafficFlowECharts.title"
-                       :xAxis="trafficFlowECharts.xAxis"
-                       :yAxis="trafficFlowECharts.yAxis"
-                       :tooltip="trafficFlowECharts.tooltip"
-                       :series="trafficFlowECharts.series"
-                       :grid="trafficFlowECharts.grid"
-                       :color="trafficFlowECharts.color"
-                       style="height: 300px;width: 100%">
-          </PairECharts>
-        </div>
-        <div>
+        <TableWrapper>
           <div>
-            <span>闸口车辆总数：{{gateVehicleNum}}（车次）</span>
-            <span>发车总车次：{{normalVehicleNum}}（车次）</span>
+            <PairECharts id="trafficFlowECharts"
+                         :title="trafficFlowECharts.title"
+                         :xAxis="trafficFlowECharts.xAxis"
+                         :yAxis="trafficFlowECharts.yAxis"
+                         :tooltip="trafficFlowECharts.tooltip"
+                         :series="trafficFlowECharts.series"
+                         :grid="trafficFlowECharts.grid"
+                         :color="trafficFlowECharts.color"
+                         style="height: 300px;width: 100%">
+            </PairECharts>
           </div>
           <div>
-            <Table :columns="columns"
-                   :data="tableListObject.showTableList">
-            </Table>
-            <PairPage id="trafficFlowListPage"
-                      :total="tableListObject.total"
-                      :current="tableListObject.currentPage"
-                      :page-size="tableListObject.pageSize"
-                      @on-change="getPage"
-                      @on-page-size-change="changeSize">
-            </PairPage>
+            <div>
+              <span class="traffic-flow-count-info-span">
+                闸口车辆总数：{{gateVehicleNum}}（车次）
+              </span>
+              <span class="traffic-flow-count-info-span">
+                发车量总数：{{normalVehicleNum}}（车次）
+              </span>
+            </div>
+            <div>
+              <Table :columns="columns"
+                     :data="tableListObject.showTableList">
+              </Table>
+              <PairPage id="trafficFlowListPage"
+                        :total="tableListObject.total"
+                        :current="tableListObject.currentPage"
+                        :page-size="tableListObject.pageSize"
+                        @on-change="getPage"
+                        @on-page-size-change="changeSize">
+              </PairPage>
+            </div>
           </div>
-        </div>
+        </TableWrapper>
       </div>
     </ContentLayout>
   </div>
@@ -99,7 +127,12 @@ export default {
   components: {
   },
   data() {
+    const disabledMinutes = []
+    for (let i = 0; i < 60; i++) {
+      disabledMinutes.push(i)
+    }
     return {
+      disabledMinutes: disabledMinutes,
       showSpin: false,
       gateName: '',
       countType: 'HOUR',
@@ -117,6 +150,11 @@ export default {
         pageSize: 10,
         total: 0,
         totalPage: 0
+      },
+      options: {
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now()
+        }
       }
     }
   },
@@ -188,14 +226,14 @@ export default {
           formatter: params => {
             // console.log(params)
             let title = params[0].axisValue + '<br />'
-            let content = params[0].marker + '闸口车辆数：' + params[0].data + '<br />' +
-                          params[1].marker + '发车辆：' + params[1].data
+            let content = params[0].marker + '闸口车辆数：' + params[0].data + ' （车次）<br />' +
+                          params[1].marker + '发车量：' + params[1].data + ' （车次）'
             return `${title}${content}`
           }
         },
         grid: {
-          left: '3%',
-          right: '10%',
+          left: '4%',
+          right: '12%',
           top: 60,
           bottom: 30,
           containLabel: true
@@ -250,6 +288,7 @@ export default {
       this.tableListObject.total = 0
       this.tableListObject.pageSize = 10
       const result = await get(END_POINTS.GET_VEHICLE_FLOW_COUNT, {
+        hubCode: localStorage.getItem('hubCode'),
         gateName: this.gateName,
         countType: this.countType,
         startTime: dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00',
@@ -279,7 +318,6 @@ export default {
         // 构造表格前端分页数据开始
         this.doViewPage(result.data)
         // 构造表格前端分页数据结束
-        this.showSpin = false
       } else {
         if (result.code === 2006) {
           this.$Message.warning({
@@ -289,8 +327,8 @@ export default {
         this.tableListObject.tableList = []
         this.tableListObject.showTableList = []
         this.echartsInfo = null
-        this.showSpin = false
       }
+      this.showSpin = false
     },
     doViewPage(data) {
       this.tableListObject.tableList = data // 表格数据
@@ -312,6 +350,7 @@ export default {
       const url = END_POINTS.GET_VEHICLE_FLOW_COUNT_EXCEL +
         '?gateName=' + this.gateName +
         '&countType=' + this.countType +
+        '&hubCode=' + localStorage.getItem('hubCode') +
         '&startTime=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endTime=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token
@@ -324,7 +363,17 @@ export default {
 <style lang="less">
 .traffic-flow-home-page {
   .ivu-date-picker {
-    width: 50%;
+    width: 49%;
+  }
+  .traffic-flow-count-info-span {
+    font-size: 16px;
+    height: 32px;
+    padding: 6px 12px;
+    line-height: 32px;
+    font-weight: 500;
+    &:last-child {
+      margin-left: 24px;
+    }
   }
 }
 </style>

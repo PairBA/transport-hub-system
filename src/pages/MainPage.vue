@@ -48,5 +48,28 @@ export default {
   .system__layout {
     height: @system__content--height;
   }
+
+  /* 重写 primary 按钮的样式 start */
+  .ivu-btn {
+    font-size: 14px;
+  }
+  .ivu-btn-primary {
+    background: -webkit-linear-gradient(left, #52D3FF, #1795FF); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #52D3FF, #1795FF); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #52D3FF, #1795FF); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #52D3FF, #1795FF); /* 标准的语法（必须放在最后）*/
+  }
+  /* 重写 primary 按钮的样式 end */
+}
+.ivu-modal-wrap .ivu-modal {
+  .ivu-btn {
+    font-size: 14px;
+  }
+  .ivu-btn-primary {
+    background: -webkit-linear-gradient(left, #52D3FF, #1795FF); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #52D3FF, #1795FF); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #52D3FF, #1795FF); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #52D3FF, #1795FF); /* 标准的语法（必须放在最后）*/
+  }
 }
 </style>

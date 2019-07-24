@@ -11,22 +11,29 @@
                         type="daterange"
                         format="yyyy/MM/dd"
                         placement="bottom-start"
-                        placeholder="请选择关注时间区间">
+                        placeholder="请选择关注时间区间"
+                        :clearable="false"
+                        :editable="false"
+                        :options="options">
             </DatePicker>
           </FormItem>
           <Divider/>
-          <Button type="primary"
-                  @click="goSearch">
-            查询
-          </Button>
-          <Button type="success"
-                  @click="exportExcel">
-            导出excel
-          </Button>
+          <div>
+            <Button type="primary"
+                    style="float: left;"
+                    @click="goSearch">
+              查询
+            </Button>
+            <Button type="primary"
+                    style="float: right;"
+                    @click="exportExcel">
+              导出excel
+            </Button>
+          </div>
         </Form>
       </div>
       <div slot="content">
-        <div>
+        <TableWrapper>
           <Table :columns="columns"
                  :data="tableListObject.tableList">
           </Table>
@@ -37,7 +44,7 @@
                     @on-change="getPage"
                     @on-page-size-change="changeSize">
           </PairPage>
-        </div>
+        </TableWrapper>
       </div>
     </ContentLayout>
     <RealLocationAMap :isShowModal="isShowModal"
@@ -49,14 +56,11 @@
 </template>
 
 <script>
-import {
-  get,
-  END_POINTS
-} from '@/api'
-
-import { dateFormat } from '@/utils'
-
+import { get, END_POINTS } from '@/api'
+import { dateFormat, renderHeader } from '@/utils'
 import RealLocationAMap from '@/components/map/realLocation/RealLocationAMap'
+const cancelFocus = require('@/img/focus/cancelFocus.png')
+const realLocation = require('@/img/focus/realLocation.png')
 
 export default {
   components: {
@@ -78,6 +82,11 @@ export default {
         pageSize: 10,
         total: 0,
         totalPage: 0
+      },
+      options: {
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now()
+        }
       }
     }
   },
@@ -87,37 +96,45 @@ export default {
         {
           title: '车牌号',
           key: 'vehicleNo',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '公司',
           key: 'companyName',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '终端厂商',
           key: 'terminalName',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '进场次数',
           key: 'sumIn',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '发车量',
           key: 'sumOn',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '操作人员',
           key: 'operatorName',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '关注时间',
           key: 'focusTime',
-          tooltip: true,
+          width: 110,
+          // tooltip: true,
+          renderHeader,
           render: (h, params) => {
             // console.log(params)
             return h('span', dateFormat(new Date(params.row.focusTime), 'yyyy-MM-dd hh:mm'))
@@ -126,7 +143,8 @@ export default {
         {
           title: '备注',
           key: 'remark',
-          tooltip: true
+          tooltip: true,
+          renderHeader
         },
         {
           title: '操作',
@@ -135,27 +153,59 @@ export default {
           align: 'center',
           render: (h, params) => {
             return h('div', [
-              h('span', {
-                style: {
-                  cursor: 'pointer'
+              h('Tooltip', {
+                props: {
+                  content: '取消关注',
+                  transfer: true,
+                  placement: 'bottom'
                 },
-                on: {
-                  click: () => {
-                    this.doCancelFocus(params.row)
-                  }
-                }
-              }, '取消关注'),
-              h('span', {
                 style: {
                   cursor: 'pointer',
-                  marginLeft: '12px'
-                },
-                on: {
-                  click: () => {
-                    this.doShowModal(params.row)
-                  }
+                  width: '30px'
                 }
-              }, '实时位置')
+              }, [
+                h('img', {
+                  style: {
+                    cursor: 'pointer',
+                    width: '30px'
+                  },
+                  attrs: {
+                    src: cancelFocus
+                  },
+                  on: {
+                    click: () => {
+                      this.doCancelFocus(params.row)
+                    }
+                  }
+                })
+              ], '取消关注'),
+              h('Tooltip', {
+                props: {
+                  content: '实时位置',
+                  transfer: true,
+                  placement: 'bottom'
+                },
+                style: {
+                  cursor: 'pointer',
+                  width: '30px',
+                  marginLeft: '12px'
+                }
+              }, [
+                h('img', {
+                  style: {
+                    cursor: 'pointer',
+                    width: '30px'
+                  },
+                  attrs: {
+                    src: realLocation
+                  },
+                  on: {
+                    click: () => {
+                      this.doShowModal(params.row)
+                    }
+                  }
+                })
+              ], '实时位置')
             ])
           }
         }
@@ -178,31 +228,37 @@ export default {
       this.getFocusInfo()
     },
     async getFocusInfo() {
-      this.showSpin = true
-      this.tableListObject.currentPage = 1
-      this.tableListObject.total = 0
-      this.tableListObject.pageSize = 10
-      const result = await get(END_POINTS.GET_HUB_FOCUS_VEHICLE_LIST, {
-        startDate: dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd'),
-        endDate: dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd'),
-        areaCode: localStorage.getItem('areaCode'),
-        hubCode: localStorage.getItem('hubCode'),
-        vehicleNo: this.vehicleNo,
-        driverType: 'TAXI'
-      })
-      // console.log(result)
-      if (result.code === 2000) {
-        this.doViewPage(result.data) // 表格数据
-        this.showSpin = false
+      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
       } else {
-        if (result.code === 2006) {
-          this.$Message.warning({
-            content: result.msg + '！'
-          })
+        this.showSpin = true
+        this.tableListObject.currentPage = 1
+        this.tableListObject.total = 0
+        this.tableListObject.pageSize = 10
+        const result = await get(END_POINTS.GET_HUB_FOCUS_VEHICLE_LIST, {
+          startDate: dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd'),
+          endDate: dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd'),
+          areaCode: localStorage.getItem('areaCode'),
+          hubCode: localStorage.getItem('hubCode'),
+          vehicleNo: this.vehicleNo,
+          driverType: 'TAXI'
+        })
+        // console.log(result)
+        if (result.code === 2000) {
+          this.doViewPage(result.data) // 表格数据
+          this.showSpin = false
+        } else {
+          if (result.code === 2006) {
+            this.$Message.warning({
+              content: result.msg + '！'
+            })
+          }
+          this.tableListObject.tableList = []
+          this.tableListObject.showTableList = []
+          this.showSpin = false
         }
-        this.tableListObject.tableList = []
-        this.tableListObject.showTableList = []
-        this.showSpin = false
       }
     },
     doViewPage(data) {
@@ -220,17 +276,23 @@ export default {
       }
     },
     exportExcel() {
-      const token = localStorage.getItem('token')
-      const baseUrl = process.env.VUE_APP_BASE_URL
-      const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
-        '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
-        '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
-        '&areaCode=' + localStorage.getItem('areaCode') +
-        '&hubCode=' + localStorage.getItem('hubCode') +
-        '&vehicleNo=' + this.vehicleNo +
-        '&driverType=TAXI' +
-        '&x-me-token=' + token
-      window.location.href = `${baseUrl}${url}`
+      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
+      } else {
+        const token = localStorage.getItem('token')
+        const baseUrl = process.env.VUE_APP_BASE_URL
+        const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
+          '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
+          '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
+          '&areaCode=' + localStorage.getItem('areaCode') +
+          '&hubCode=' + localStorage.getItem('hubCode') +
+          '&vehicleNo=' + this.vehicleNo +
+          '&driverType=TAXI' +
+          '&x-me-token=' + token
+        window.location.href = `${baseUrl}${url}`
+      }
     },
     async doCancelFocus(row) {
       const result = await get(END_POINTS.CANCEL_FOCUS, {
