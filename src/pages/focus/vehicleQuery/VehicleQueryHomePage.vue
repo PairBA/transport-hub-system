@@ -13,6 +13,8 @@
                         format="yyyy/MM/dd"
                         placement="bottom-start"
                         placeholder="请选择关注时间区间"
+                        :clearable="false"
+                        :editable="false"
                         :options="options">
             </DatePicker>
           </FormItem>
@@ -288,92 +290,104 @@ export default {
       this.getVehicleInfo()
     },
     async getVehicleInfo() {
-      this.showSpin = true
-      const result = await post(END_POINTS.GET_HUB_STAT_TRAIL_LIST, {
-        currentPage: this.tableListObject.currentPage,
-        pageSize: this.tableListObject.pageSize,
-        queryVO: {
-          areaCode: localStorage.getItem('areaCode'),
-          driverType: 'TAXI',
-          startDate: dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd'),
-          endDate: dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd'),
-          hubCode: localStorage.getItem('hubCode'),
-          type: 'ALL',
-          vehicleNo: this.vehicleNo
-        },
-        refreshTotalRecord: true
-      })
-      // console.log(result)
-      if (result.code === 2001) {
-        if (result.data && result.data.length) {
-          this.tableListObject.tableList = result.data.map(item => {
-            let realLocation = false
-            if (item.companyName && item.terminalName) {
-              realLocation = true
-            }
-            return {
-              vehicleNo: item.vehicleNo,
-              companyName: item.companyName,
-              terminalName: item.terminalName,
-              focus: item.focus, // 是否被关注
-              realLocation: realLocation, // 是否显示实时位置操作
-              sumOn: item.sumOn, // 发车量
-              sumOnAlert: item.sumOnAlert, // 违规上客
-              sumQcut: item.sumQcut // 异常排队
-            }
-          })
-          this.tableListObject.currentPage = result.currentPage
-          this.tableListObject.pageSize = result.pageSize
-          this.tableListObject.totalPage = result.totalPage
-          this.tableListObject.total = result.total
-        } else {
-          if (this.vehicleNo) {
-            let focus = false
-            const result = await get(END_POINTS.IS_VEHICLE_FOCUS, {
-              vehicleNo: this.vehicleNo
-            })
-            if (result.code === 2000) {
-              focus = true
-            }
-            this.tableListObject.tableList = [
-              {
-                vehicleNo: this.vehicleNo,
-                companyName: '',
-                terminalName: '',
-                focus: focus, // 是否被关注
-                realLocation: false, // 是否显示实时位置操作
-                sumOn: 0, // 发车量
-                sumOnAlert: 0, // 违规上客
-                sumQcut: 0 // 异常排队
-              }
-            ]
-            this.tableListObject.currentPage = 1
-            this.tableListObject.totalPage = 1
-            this.tableListObject.total = 1
-          } else {
-            this.tableListObject.tableList = []
-            this.tableListObject.total = 0
-          }
-        }
-        this.showSpin = false
+      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
       } else {
-        this.tableListObject.tableList = []
-        this.tableListObject.total = 0
-        this.showSpin = false
+        this.showSpin = true
+        const result = await post(END_POINTS.GET_HUB_STAT_TRAIL_LIST, {
+          currentPage: this.tableListObject.currentPage,
+          pageSize: this.tableListObject.pageSize,
+          queryVO: {
+            areaCode: localStorage.getItem('areaCode'),
+            driverType: 'TAXI',
+            startDate: dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd'),
+            endDate: dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd'),
+            hubCode: localStorage.getItem('hubCode'),
+            type: 'ALL',
+            vehicleNo: this.vehicleNo
+          },
+          refreshTotalRecord: true
+        })
+        // console.log(result)
+        if (result.code === 2001) {
+          if (result.data && result.data.length) {
+            this.tableListObject.tableList = result.data.map(item => {
+              let realLocation = false
+              if (item.companyName && item.terminalName) {
+                realLocation = true
+              }
+              return {
+                vehicleNo: item.vehicleNo,
+                companyName: item.companyName,
+                terminalName: item.terminalName,
+                focus: item.focus, // 是否被关注
+                realLocation: realLocation, // 是否显示实时位置操作
+                sumOn: item.sumOn, // 发车量
+                sumOnAlert: item.sumOnAlert, // 违规上客
+                sumQcut: item.sumQcut // 异常排队
+              }
+            })
+            this.tableListObject.currentPage = result.currentPage
+            this.tableListObject.pageSize = result.pageSize
+            this.tableListObject.totalPage = result.totalPage
+            this.tableListObject.total = result.total
+          } else {
+            if (this.vehicleNo) {
+              let focus = false
+              const result = await get(END_POINTS.IS_VEHICLE_FOCUS, {
+                vehicleNo: this.vehicleNo
+              })
+              if (result.code === 2000) {
+                focus = true
+              }
+              this.tableListObject.tableList = [
+                {
+                  vehicleNo: this.vehicleNo,
+                  companyName: '',
+                  terminalName: '',
+                  focus: focus, // 是否被关注
+                  realLocation: false, // 是否显示实时位置操作
+                  sumOn: 0, // 发车量
+                  sumOnAlert: 0, // 违规上客
+                  sumQcut: 0 // 异常排队
+                }
+              ]
+              this.tableListObject.currentPage = 1
+              this.tableListObject.totalPage = 1
+              this.tableListObject.total = 1
+            } else {
+              this.tableListObject.tableList = []
+              this.tableListObject.total = 0
+            }
+          }
+          this.showSpin = false
+        } else {
+          this.tableListObject.tableList = []
+          this.tableListObject.total = 0
+          this.showSpin = false
+        }
       }
     },
     exportExcel() {
-      const token = localStorage.getItem('token')
-      const baseUrl = process.env.VUE_APP_BASE_URL
-      const url = END_POINTS.GET_HUB_STAT_TRAIL_ALL_EXCEL +
-        '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
-        '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
-        '&vehicleNo=' + this.vehicleNo +
-        '&driverType=TAXI' +
-        '&areaCode=' + localStorage.getItem('areaCode') +
-        '&hubCode=' + localStorage.getItem('hubCode') +
-        '&x-me-token=' + token
-      window.location.href = `${baseUrl}${url}`
+      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
+      } else {
+        const token = localStorage.getItem('token')
+        const baseUrl = process.env.VUE_APP_BASE_URL
+        const url = END_POINTS.GET_HUB_STAT_TRAIL_ALL_EXCEL +
+          '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
+          '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
+          '&vehicleNo=' + this.vehicleNo +
+          '&driverType=TAXI' +
+          '&areaCode=' + localStorage.getItem('areaCode') +
+          '&hubCode=' + localStorage.getItem('hubCode') +
+          '&x-me-token=' + token
+        window.location.href = `${baseUrl}${url}`
+      }
     },
     doShowModal(row) {
       this.propVehicleNo = row.vehicleNo

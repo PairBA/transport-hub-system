@@ -22,24 +22,32 @@
             <DatePicker v-model="startDate"
                         type="date"
                         placeholder="请选择日期"
+                        :clearable="false"
+                        :editable="false"
                         :options="options">
             </DatePicker>
             <TimePicker v-model="startTime"
                         type="time"
                         format="HH:mm"
-                        placeholder="请选择时间">
+                        placeholder="请选择时间"
+                        :clearable="false"
+                        :editable="false">
             </TimePicker>
           </FormItem>
           <FormItem label="结束时间：">
             <DatePicker v-model="endDate"
                         type="date"
                         placeholder="请选择日期"
+                        :clearable="false"
+                        :editable="false"
                         :options="options">
             </DatePicker>
             <TimePicker v-model="endTime"
                         type="time"
                         format="HH:mm"
-                        placeholder="请选择时间">
+                        placeholder="请选择时间"
+                        :clearable="false"
+                        :editable="false">
             </TimePicker>
           </FormItem>
           <Divider/>

@@ -12,6 +12,8 @@
                         format="yyyy/MM/dd"
                         placement="bottom-start"
                         placeholder="请选择关注时间区间"
+                        :clearable="false"
+                        :editable="false"
                         :options="options">
             </DatePicker>
           </FormItem>
@@ -226,31 +228,37 @@ export default {
       this.getFocusInfo()
     },
     async getFocusInfo() {
-      this.showSpin = true
-      this.tableListObject.currentPage = 1
-      this.tableListObject.total = 0
-      this.tableListObject.pageSize = 10
-      const result = await get(END_POINTS.GET_HUB_FOCUS_VEHICLE_LIST, {
-        startDate: dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd'),
-        endDate: dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd'),
-        areaCode: localStorage.getItem('areaCode'),
-        hubCode: localStorage.getItem('hubCode'),
-        vehicleNo: this.vehicleNo,
-        driverType: 'TAXI'
-      })
-      // console.log(result)
-      if (result.code === 2000) {
-        this.doViewPage(result.data) // 表格数据
-        this.showSpin = false
+      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
       } else {
-        if (result.code === 2006) {
-          this.$Message.warning({
-            content: result.msg + '！'
-          })
+        this.showSpin = true
+        this.tableListObject.currentPage = 1
+        this.tableListObject.total = 0
+        this.tableListObject.pageSize = 10
+        const result = await get(END_POINTS.GET_HUB_FOCUS_VEHICLE_LIST, {
+          startDate: dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd'),
+          endDate: dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd'),
+          areaCode: localStorage.getItem('areaCode'),
+          hubCode: localStorage.getItem('hubCode'),
+          vehicleNo: this.vehicleNo,
+          driverType: 'TAXI'
+        })
+        // console.log(result)
+        if (result.code === 2000) {
+          this.doViewPage(result.data) // 表格数据
+          this.showSpin = false
+        } else {
+          if (result.code === 2006) {
+            this.$Message.warning({
+              content: result.msg + '！'
+            })
+          }
+          this.tableListObject.tableList = []
+          this.tableListObject.showTableList = []
+          this.showSpin = false
         }
-        this.tableListObject.tableList = []
-        this.tableListObject.showTableList = []
-        this.showSpin = false
       }
     },
     doViewPage(data) {
@@ -268,17 +276,23 @@ export default {
       }
     },
     exportExcel() {
-      const token = localStorage.getItem('token')
-      const baseUrl = process.env.VUE_APP_BASE_URL
-      const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
-        '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
-        '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
-        '&areaCode=' + localStorage.getItem('areaCode') +
-        '&hubCode=' + localStorage.getItem('hubCode') +
-        '&vehicleNo=' + this.vehicleNo +
-        '&driverType=TAXI' +
-        '&x-me-token=' + token
-      window.location.href = `${baseUrl}${url}`
+      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
+      } else {
+        const token = localStorage.getItem('token')
+        const baseUrl = process.env.VUE_APP_BASE_URL
+        const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
+          '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
+          '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
+          '&areaCode=' + localStorage.getItem('areaCode') +
+          '&hubCode=' + localStorage.getItem('hubCode') +
+          '&vehicleNo=' + this.vehicleNo +
+          '&driverType=TAXI' +
+          '&x-me-token=' + token
+        window.location.href = `${baseUrl}${url}`
+      }
     },
     async doCancelFocus(row) {
       const result = await get(END_POINTS.CANCEL_FOCUS, {
