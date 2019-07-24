@@ -54,7 +54,7 @@ export default {
         this.$Message.success({
           content: this.$t('monitor.success')
         })
-        this.$router.push({ name: 'roleMgmtHomePage' })
+        this.$router.push({ name: '角色管理' })
       }
     },
     async getResourceList() {

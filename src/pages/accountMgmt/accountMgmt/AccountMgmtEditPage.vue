@@ -1,7 +1,7 @@
 <template>
   <div class="accountMgmt__add">
     <SearchWrapper>
-      <Form label-width="100" ref="formValidate" :model="formValidate" :rules="ruleValidate">
+      <Form :label-width="100" ref="formValidate" :model="formValidate" :rules="ruleValidate">
         <FormItem label="用户名:" prop="userName">
           <Input v-model="formValidate.userName" placeholder="请输入用户名"/>
         </FormItem>

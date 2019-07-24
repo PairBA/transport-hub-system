@@ -8,6 +8,9 @@
 @import '../../theme/index.less';
 
 .table-wrapper{
+  .ivu-table-wrapper {
+    position: unset !important;
+  }
   &:extend(.content__card);
   padding:@layout__padding;
   .ivu-table:after{

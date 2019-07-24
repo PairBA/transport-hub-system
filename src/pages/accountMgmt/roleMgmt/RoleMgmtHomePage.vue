@@ -52,25 +52,40 @@ export default {
             return h('div', [
               h('span', {
                 style: {
+                  color: '#1890FF',
                   cursor: 'pointer'
-                },
-                on: {
-                  click: () => {
-                    this.goToDelete(params.row.id)
-                  }
-                }
-              }, '删除'),
-              h('span', {
-                style: {
-                  cursor: 'pointer',
-                  marginLeft: '12px'
                 },
                 on: {
                   click: () => {
                     this.goToEdit(params.row.id)
                   }
                 }
-              }, '修改')
+              }, this.$t('sysManage.commonVar.actionEdit')),
+              h('Poptip', {
+                style: {
+                  textAlign: 'left'
+                },
+                props: {
+                  confirm: true,
+                  placement: 'bottom-end',
+                  title: '删除角色会删除该角色对应的所有账号, 确定删除吗？'
+                },
+                on: {
+                  'on-ok': () => {
+                    this.goToDelete(params.row.id)
+                  },
+                  'on-cancel': () => {
+                  }
+                }
+              }, [
+                h('span', {
+                  style: {
+                    color: '#1890FF',
+                    marginLeft: '5px',
+                    cursor: 'pointer'
+                  }
+                }, this.$t('sysManage.toolBar.delete'))
+              ])
             ])
           }
         }
