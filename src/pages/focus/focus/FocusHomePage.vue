@@ -21,7 +21,7 @@
                     @click="goSearch">
               查询
             </Button>
-            <Button type="success"
+            <Button type="primary"
                     style="float: right;"
                     @click="exportExcel">
               导出excel
@@ -124,7 +124,8 @@ export default {
         {
           title: '关注时间',
           key: 'focusTime',
-          tooltip: true,
+          width: 110,
+          // tooltip: true,
           renderHeader,
           render: (h, params) => {
             // console.log(params)
@@ -144,35 +145,59 @@ export default {
           align: 'center',
           render: (h, params) => {
             return h('div', [
-              h('img', {
+              h('Tooltip', {
+                props: {
+                  content: '取消关注',
+                  transfer: true,
+                  placement: 'bottom'
+                },
                 style: {
                   cursor: 'pointer',
                   width: '30px'
-                },
-                attrs: {
-                  src: cancelFocus
-                },
-                on: {
-                  click: () => {
-                    this.doCancelFocus(params.row)
-                  }
                 }
-              }),
-              h('img', {
+              }, [
+                h('img', {
+                  style: {
+                    cursor: 'pointer',
+                    width: '30px'
+                  },
+                  attrs: {
+                    src: cancelFocus
+                  },
+                  on: {
+                    click: () => {
+                      this.doCancelFocus(params.row)
+                    }
+                  }
+                })
+              ], '取消关注'),
+              h('Tooltip', {
+                props: {
+                  content: '实时位置',
+                  transfer: true,
+                  placement: 'bottom'
+                },
                 style: {
                   cursor: 'pointer',
                   width: '30px',
                   marginLeft: '12px'
-                },
-                attrs: {
-                  src: realLocation
-                },
-                on: {
-                  click: () => {
-                    this.doShowModal(params.row)
-                  }
                 }
-              })
+              }, [
+                h('img', {
+                  style: {
+                    cursor: 'pointer',
+                    width: '30px'
+                  },
+                  attrs: {
+                    src: realLocation
+                  },
+                  on: {
+                    click: () => {
+                      this.doShowModal(params.row)
+                    }
+                  }
+                })
+              ], '实时位置')
             ])
           }
         }

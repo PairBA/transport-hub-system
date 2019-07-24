@@ -3,7 +3,7 @@
       <Row>
         <Col span="18" class="table">
           <DatePicker v-model="date" type="month" style="width: 200px"></DatePicker>
-          <Button @click="goSearch" style="margin-left: 24px">查询</Button>
+          <Button type="primary" @click="goSearch" style="margin-left: 24px">查询</Button>
           <Row :gutter="8" style="margin-top: 24px">
             <Col v-for="(singleDay, index) in monthDayList" :key="index" @click.native="highlightDay(singleDay)">
               <div class="item">

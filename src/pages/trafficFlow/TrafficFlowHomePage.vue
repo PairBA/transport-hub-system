@@ -47,7 +47,7 @@
                     @click="goSearch">
               查询
             </Button>
-            <Button type="success"
+            <Button type="primary"
                     style="float: right;"
                     @click="exportExcel">
               导出excel
