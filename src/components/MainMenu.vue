@@ -37,22 +37,38 @@ export default {
       this.activeName = name
       if (name === 'accountMgmt') {
         this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
-        // this.$router.push({ name: accountMgmtMenu[0].name })
+        this.$router.push({ name: accountMgmtMenu[0].name })
       } else if (name === 'watchDutySchedule') {
         this.$store.commit('permission/updateSubMenu', watchDutySchedule)
-        // this.$router.push({ name: watchDutySchedule[0].name })
+        this.$router.push({ name: watchDutySchedule[0].name })
       } else if (name === 'trafficFlow') {
         this.$store.commit('permission/updateSubMenu', trafficFlow)
-        // this.$router.push({ name: trafficFlow[0].name })
+        this.$router.push({ name: trafficFlow[0].name })
       } else if (name === 'tripTrail') {
         this.$store.commit('permission/updateSubMenu', tripTrail)
-        // this.$router.push({ name: tripTrail[0].name })
+        this.$router.push({ name: tripTrail[0].name })
       } else if (name === 'focus') {
         this.$store.commit('permission/updateSubMenu', focus)
-        // this.$router.push({ name: focus[0].name })
+        this.$router.push({ name: focus[0].name })
       } else if (name === 'anomaly') {
         this.$store.commit('permission/updateSubMenu', anomaly)
-        // this.$router.push({ name: anomaly[0].name })
+        this.$router.push({ name: anomaly[0].name })
+      }
+    },
+    getSelectMenu(name) {
+      this.activeName = name
+      if (name === 'accountMgmt') {
+        this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
+      } else if (name === 'watchDutySchedule') {
+        this.$store.commit('permission/updateSubMenu', watchDutySchedule)
+      } else if (name === 'trafficFlow') {
+        this.$store.commit('permission/updateSubMenu', trafficFlow)
+      } else if (name === 'tripTrail') {
+        this.$store.commit('permission/updateSubMenu', tripTrail)
+      } else if (name === 'focus') {
+        this.$store.commit('permission/updateSubMenu', focus)
+      } else if (name === 'anomaly') {
+        this.$store.commit('permission/updateSubMenu', anomaly)
       }
     }
   },
@@ -61,7 +77,7 @@ export default {
     this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
       return $1
     }).substring(1)
-    this.onSelectMenu(this.activeName)
+    this.getSelectMenu(this.activeName)
     this.$nextTick(() => {
       this.$refs.mainMenu.updateActiveName()
     })

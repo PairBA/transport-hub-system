@@ -11,16 +11,16 @@
                   {{singleDay.scheduleDate.substring(8)}}
                 </div>
                 <div style="padding: 8px" >
-                  <div v-if="singleDay.scheduleDetailList && singleDay.scheduleDetailList.length">
-                    <div v-for="(oneItem, indexForOne) in singleDay.scheduleDetailList" :key="`singleDay_${indexForOne}`">
-                      <div style="font-size: 12px">{{oneItem.scheduleName}}</div>
-                      <span style="font-size: 14px; font-weight: 600" v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
+                  <div v-for="(oneItem, indexForOne) in singleDay.scheduleDetailList" :key="`singleDay_${indexForOne}`">
+                    <div style="font-size: 12px">{{oneItem.scheduleName}}</div>
+                    <div v-if="oneItem.scheduleWorkerList">
+                        <span style="font-size: 14px; font-weight: 600" v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
                       {{worker.fullName}}
-                    </span>
+                        </span>
                     </div>
-                  </div>
-                  <div v-else>
-                    暂无排班
+                    <div v-else>
+                      暂无排班
+                    </div>
                   </div>
                 </div>
               </div>
@@ -46,8 +46,8 @@
                     {{ workerTwo.fullName }} {{ workerTwo.mobile }}
                   </Option>
                 </Select>
-                <div>
-                  <Button @click="addPlanWorker(detail.scheduleName)">确定</Button>
+                <div style="margin-top: 24px">
+                  <Button type='primary' @click="addPlanWorker(detail.scheduleName)">确定</Button>
                 </div>
               </div>
             </Poptip>
@@ -103,7 +103,6 @@ export default {
       this.planDetailList.forEach(item => {
         const dateStr = item.scheduleDate
         const day = dateStr.substring(8)
-        console.log(item)
         const scheduleDetailListSet = item.scheduleDetailList
         const scheduleListCombine = this.scheduleList.map(itemTwo => {
           const haveSetItem = scheduleDetailListSet.find(itemThree => itemTwo.scheduleName === itemThree.scheduleName)
@@ -119,11 +118,10 @@ export default {
       //     })
       //   }
       // }
-      console.log(monthDayList)
+      // console.log(monthDayList)
       this.monthDayList = monthDayList
     },
     highlightDay(item) {
-      console.log(item)
       this.item = item
     },
     async deletePlanWorker(scheduleName, fullName, mobile) {
@@ -138,7 +136,8 @@ export default {
           content: this.$t('monitor.success')
         })
         await this.goSearch()
-        this.highlightDay(this.item.singleDay)
+        const highlightItem = this.monthDayList.find(day => day.scheduleDate === this.item.scheduleDate)
+        this.item = highlightItem
       }
     },
     async addPlanWorker(scheduleName) {
@@ -153,7 +152,9 @@ export default {
         this.$Message.success({
           content: this.$t('monitor.success')
         })
-        this.goSearch()
+        await this.goSearch()
+        const highlightItem = this.monthDayList.find(day => day.scheduleDate === this.item.scheduleDate)
+        this.item = highlightItem
       }
     },
     async getPlanDetailList() {

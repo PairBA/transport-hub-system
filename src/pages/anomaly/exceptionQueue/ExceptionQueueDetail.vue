@@ -16,7 +16,7 @@
         <TableWrapper>
           <Table :columns="columns"
                  :data="detailObject.list"
-                 @on-row-click="showTransHubEvent" highlight-row >
+                 @on-row-click="showTransHubEvent" highlight-row>
           </Table>
         </TableWrapper>
       </div>

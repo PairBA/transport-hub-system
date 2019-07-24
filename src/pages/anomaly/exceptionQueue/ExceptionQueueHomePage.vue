@@ -109,7 +109,8 @@ export default {
       this.$router.push({
         name: '异常排队详情',
         query: {
-          mobile, vehicleNo,
+          mobile,
+          vehicleNo,
           startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
           endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')
         }
