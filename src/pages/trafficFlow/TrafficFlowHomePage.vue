@@ -318,7 +318,6 @@ export default {
         // 构造表格前端分页数据开始
         this.doViewPage(result.data)
         // 构造表格前端分页数据结束
-        this.showSpin = false
       } else {
         if (result.code === 2006) {
           this.$Message.warning({
@@ -328,8 +327,8 @@ export default {
         this.tableListObject.tableList = []
         this.tableListObject.showTableList = []
         this.echartsInfo = null
-        this.showSpin = false
       }
+      this.showSpin = false
     },
     doViewPage(data) {
       this.tableListObject.tableList = data // 表格数据

@@ -39,11 +39,8 @@ export default {
 @import '../../theme/index.less';
 .system__spin {
   .ivu-spin-fix {
-    top: 70px;
-    height: calc(100vh - 70px);
     background-color: transparent;
     & .ivu-spin-main {
-      top: 40%;
       width: @system__spin-width;
       height: @system__spin-width;
       padding: @system__spin-padding;
