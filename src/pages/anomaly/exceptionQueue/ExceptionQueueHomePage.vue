@@ -6,14 +6,18 @@
           <FormItem label="车辆号牌">
             <Input v-model="vehicleNo" placeholder="请输入车辆号牌"/>
           </FormItem>
-          <Divider/>
-          <FormItem label="开始日期">
-            <DatePicker v-model="startDate"></DatePicker>
+          <FormItem label="时间区间：">
+            <DatePicker v-model="daterange"
+                        type="daterange"
+                        format="yyyy/MM/dd"
+                        placement="bottom-start"
+                        placeholder="请选择时间区间"
+                        :clearable="false"
+                        :editable="false"
+                        :options="options">
+            </DatePicker>
           </FormItem>
           <Divider/>
-          <FormItem label="结束日期">
-            <DatePicker v-model="endDate"></DatePicker>
-          </FormItem>
           <Button type="primary"
                   @click="goSearch">
             {{ $t("sysManage.queryBar.searchBT") }}
@@ -33,30 +37,24 @@
 </template>
 
 <script>
-import ContentLayout from '@/components/ContentLayout'
-import TableWrapper from '@/components/wrapper/TableWrapper'
-import PairPage from '@/components/common/PairPage'
-import {
-  post,
-  END_POINTS
-} from '@/api'
+import { post, END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
 export default {
-  components: {
-    ContentLayout,
-    TableWrapper,
-    PairPage
-  },
+  components: {},
   data() {
     return {
       showSpin: false,
       vehicleNo: '',
-      startDate: new Date(),
-      endDate: new Date(),
+      daterange: [new Date(), new Date()],
       list: [],
       currentPage: 1,
       pageSize: 10,
-      total: 0
+      total: 0,
+      options: {
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now()
+        }
+      }
     }
   },
   computed: {
@@ -108,7 +106,14 @@ export default {
       this.getHubStatTrailList()
     },
     goToDetail({ mobile, vehicleNo }) {
-      this.$router.push({ name: '异常排队详情', query: { mobile, vehicleNo, startDate: dateFormat(this.startDate, 'yyyy-MM-dd'), endDate: dateFormat(this.endDate, 'yyyy-MM-dd') } })
+      this.$router.push({
+        name: '异常排队详情',
+        query: {
+          mobile, vehicleNo,
+          startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
+          endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')
+        }
+      })
     },
     getPage(currentPage) {
       this.currentPage = currentPage
@@ -128,11 +133,11 @@ export default {
         pageSize: this.pageSize,
         queryVO: {
           hubCode: localStorage.getItem('hubCode'),
-          startDate: dateFormat(this.startDate, 'yyyy-MM-dd'),
-          endDate: dateFormat(this.endDate, 'yyyy-MM-dd'),
+          startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
+          endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd'),
           vehicleNo: this.vehicleNo,
           type: 'CUTQ',
-          areaCode: 'CNSCA1',
+          areaCode: localStorage.getItem('areaCode'),
           driverType: 'TAXI',
           gps: null
         },
@@ -154,5 +159,9 @@ export default {
 </script>
 
 <style lang="less">
-.exceptionQueue__homePage{}
+.exceptionQueue__homePage{
+  .ivu-date-picker {
+    width: 100%;
+  }
+}
 </style>

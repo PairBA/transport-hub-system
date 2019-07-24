@@ -3,15 +3,6 @@
     <ContentLayout :showSpin="showSpin">
       <div slot="searchCondition">
         <Form>
-          <FormItem :label="$t('sysManage.commonVar.startDateAndTime')">
-            <DatePicker v-model="startDate"
-                        type="date"
-                        format="yyyy/MM/dd"
-                        :editable="false"
-                        :clearable="false"
-                        :placeholder="$t('sysManage.queryBar.datePH')">
-            </DatePicker>
-          </FormItem>
           <FormItem :label="$t('sysManage.queryBar.terminalManufacturer')">
             <Select v-model="terminalName" :placeholder="$t('sysManage.queryBar.terminalManufacturerPH')">
               <Option :value="''">
@@ -23,15 +14,6 @@
             </Select>
           </FormItem>
           <CompanySelect/>
-          <FormItem :label="$t('sysManage.commonVar.endDateAndTime')">
-            <DatePicker v-model="endDate"
-                        type="date"
-                        format="yyyy/MM/dd"
-                        :editable="false"
-                        :clearable="false"
-                        :placeholder="$t('sysManage.queryBar.datePH')">
-            </DatePicker>
-          </FormItem>
           <FormItem :label="$t('sysManage.queryBar.issueType')">
             <Select v-model="judgeType" :placeholder="$t('sysManage.queryBar.issueTypePH')">
               <Option value=" ">{{$t("sysManage.queryBar.tripStatusSelect.ALL")}}</Option>
@@ -48,6 +30,18 @@
                    placeholder="请输入车辆号牌">
             </Input>
           </FormItem>
+          <FormItem label="时间区间：">
+            <DatePicker v-model="daterange"
+                        type="daterange"
+                        format="yyyy/MM/dd"
+                        placement="bottom-start"
+                        placeholder="请选择时间区间"
+                        :clearable="false"
+                        :editable="false"
+                        :options="options">
+            </DatePicker>
+          </FormItem>
+          <Divider/>
           <div>
             <Button type="primary"
                     style="float: left;"
@@ -93,8 +87,7 @@ export default {
   data() {
     return {
       showSpin: false,
-      startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-      endDate: new Date(),
+      daterange: [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date()],
       judgeType: '',
       hubCode: '',
       vehicleNo: '',
@@ -102,7 +95,12 @@ export default {
       gateJudgeList: [],
       total: 0,
       currentPage: 1,
-      pageSize: 10
+      pageSize: 10,
+      options: {
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now()
+        }
+      }
     }
   },
   computed: {
@@ -207,8 +205,8 @@ export default {
     async exportGate() {
       const token = localStorage.getItem('token')
       const baseUrl = process.env.VUE_APP_BASE_URL
-      const startDate = new Date(dateFormat((this.startDate), 'yyyy-MM-dd')).getTime()
-      const endDate = new Date(dateFormat((this.endDate), 'yyyy-MM-dd')).getTime()
+      const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
+      const endDate = new Date(dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')).getTime()
       const url = END_POINTS.EXPORT_GATE_JUDGE_REPORT +
         '?judgeType=' + this.judgeType +
         '&areaCode=' + localStorage.getItem('areaCode') +
@@ -221,8 +219,8 @@ export default {
       window.location.href = `${baseUrl}${url}`
     },
     async goSearch() {
-      const startDate = new Date(dateFormat((this.startDate), 'yyyy-MM-dd')).getTime()
-      const endDate = new Date(dateFormat((this.endDate), 'yyyy-MM-dd')).getTime()
+      const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
+      const endDate = new Date(dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')).getTime()
       if (startDate > endDate) {
         this.$Notice.warning({
           desc: this.$t('sysManage.tripData.warningDesc')
@@ -235,8 +233,8 @@ export default {
           pageSize: this.pageSize,
           queryVO: {
             judgeType: this.judgeType,
-            startDate: dateFormat(new Date(startDate), 'yyyy-MM-dd'),
-            endDate: dateFormat(new Date(endDate), 'yyyy-MM-dd'),
+            startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
+            endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd'),
             areaCode: this.$store.state.areaCodeForSelect,
             hubCode: localStorage.getItem('hubCode'),
             companyId: this.$store.state.companyIdForSelect,
