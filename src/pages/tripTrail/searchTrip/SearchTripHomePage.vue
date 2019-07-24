@@ -2,7 +2,7 @@
   <div class="searchTrip__homePage">
     <ContentLayout :showSpin="isShowPairSpin">
       <div slot="searchCondition">
-        <Form>
+        <Form label-position="top">
           <FormItem :label="$t('sysManage.queryBar.orgLocName')">
             <input v-model="mtsOrgLocName"
                    id="mtsOrgLocName"
