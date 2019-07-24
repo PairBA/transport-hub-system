@@ -111,6 +111,7 @@ export default {
       this.isShowModal = result
     },
     async doShowModal(row) {
+      await this.getTransHubPolygonArea()
       const hubEventListObject = await get(END_POINTS.GET_HUB_EVENT_LIST + `?hubTrailId=${row.hubTrailId}&driverType=TAXI`)
       if (hubEventListObject.success) {
         this.hubEventListObject = hubEventListObject.data
@@ -159,6 +160,32 @@ export default {
       if (result.code === 2000) {
         this.alertOnListDetail = getHubTrailTableArr(result.data)
       }
+    },
+    async getTransHubPolygonArea() {
+      const result = await get(END_POINTS.GET_TRANS_HUB_POLYGON_AREA, {
+        hubCode: localStorage.getItem('hubCode')
+      })
+      if (result.code === 2001) {
+        const areaListData = result.data
+        this.polygons = []
+        this.polygons.push({
+          path: areaListData.monitorArea.pathGpsList,
+          fillOpacity: 0.2, // 填充透明度
+          fillColor: '#F8E71C',
+          strokeColor: '#FF5252',
+          strokeWeight: 4
+        })
+        areaListData.boardAreaList.forEach(value => {
+          this.polygons.push({
+            path: value.pathGpsList,
+            fillOpacity: 0.3, // 填充透明度
+            fillColor: '#096DD9',
+            strokeColor: '#69F0AE',
+            strokeWeight: 4
+          })
+        })
+      }
+      console.log(this.polygons)
     }
   }
 }

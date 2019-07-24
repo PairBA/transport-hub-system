@@ -119,9 +119,18 @@ export default {
   watch: {
     polylines: 'renderPolylines',
     sliderPlaying: 'playSlider',
-    allGpsList: 'showSlider'
+    allGpsList: 'showSlider',
+    isShowModal: 'fit'
   },
   methods: {
+    fit() {
+      if (this.isShowModal) {
+        this.$nextTick(() => {
+          let map = this.mapManager.getMap()
+          map.setFitView()
+        })
+      }
+    },
     updatePlayerSpeed(value) {
       this.playerSpeed = value
     },
