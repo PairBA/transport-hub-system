@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       showSpin: false,
-      vehicleNo: '川ATR888',
+      vehicleNo: '',
       vehtStartDate: '',
       vehtStartHour: '',
       vehtEndDate: '',
@@ -65,6 +65,9 @@ export default {
         }
       }
     }
+  },
+  mounted() {
+    this.initQueryDate()
   },
   methods: {
     async goSearch() {
@@ -119,6 +122,23 @@ export default {
           this.timeForGpsList = []
         }
       }
+    },
+    initQueryDate() {
+      // 取到当前时间
+      let nowDate = new Date()
+      let strDateMinute = dateFormat((nowDate), 'yyyy-MM-dd hh:mm')
+      // 得到与最近的分钟时间前N个小时的时间
+      let strNearNHour = dateFormat(new Date(new Date(strDateMinute).getTime() - 60 * 60 * 1000), 'yyyy-MM-dd hh:mm')
+      // 根据两个时间来初始化页面查询条件的时间
+      let startDate = dateFormat(new Date(strNearNHour), 'yyyy-MM-dd')
+      let startTime = dateFormat(new Date(strNearNHour), 'hh:mm')
+      let endDate = dateFormat(new Date(strDateMinute), 'yyyy-MM-dd')
+      let endTime = dateFormat(new Date(strDateMinute), 'hh:mm')
+      // 初始化查询时间条件
+      this.vehtStartDate = startDate
+      this.vehtStartHour = startTime
+      this.vehtEndDate = endDate
+      this.vehtEndHour = endTime
     },
     async getTrailListForVehicle() {
       return get(END_POINTS.GET_TRAIL_LIST + `?vehicleNo=${this.vehicleNo}&driverType=TAXI&startDate=${dateFormat(new Date(this.vehtStartDate), 'yyyy-MM-dd')} ${this.vehtStartHour}:00&endDate=${dateFormat(new Date(this.vehtEndDate), 'yyyy-MM-dd')} ${this.vehtEndHour}:00&corrected=${this.vehtCorrected}`)
