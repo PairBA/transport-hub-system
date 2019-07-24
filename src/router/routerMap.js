@@ -19,7 +19,7 @@ const VehicleQueryHomePage = () => import('@/pages/focus/vehicleQuery/VehicleQue
 
 export default [
   {
-    name: '帐号管理',
+    name: '账号管理',
     path: '/accountMgmt/accountMgmtHomePage',
     component: AccountMgmtHomePage
   },

@@ -1,7 +1,8 @@
 <template>
   <div class="sub-menu">
-    <Menu ref="menu"
+    <Menu ref="subMenu"
           width="auto"
+          :active-name="activeName"
           accordion>
       <MenuItem v-for="item in subMenu" :key="item.name" :name="item.path" :to="item.path">
         {{item.name}}
@@ -12,11 +13,22 @@
 
 <script>
 export default {
-  name: 'MainMenu',
+  name: 'SubMenu',
+  data() {
+    return {
+      activeName: ''
+    }
+  },
   computed: {
     subMenu() {
       return this.$store.state.permission.subMenu
     }
+  },
+  mounted() {
+    this.activeName = this.$route.path
+    this.$nextTick(() => {
+      this.$refs.subMenu.updateActiveName()
+    })
   }
 }
 </script>

@@ -1,25 +1,22 @@
 <template>
   <div class="main-menu">
-    <Menu mode="horizontal" theme="dark" active-name="1"  @on-select="onSelectMenu">
-      <MenuItem name="1">
-        运力调度
-      </MenuItem>
-      <MenuItem name="2">
+    <Menu ref="mainMenu" mode="horizontal" theme="dark" :active-name="activeName"  @on-select="onSelectMenu">
+      <MenuItem name="anomaly">
         异常告警
       </MenuItem>
-      <MenuItem name="3">
+      <MenuItem name="focus">
         重点关注
       </MenuItem>
-      <MenuItem name="4">
+      <MenuItem name="tripTrail">
         行程轨迹
       </MenuItem>
-      <MenuItem name="5">
+      <MenuItem name="trafficFlow">
         车流量
       </MenuItem>
-      <MenuItem name="6">
+      <MenuItem name="watchDutySchedule">
         值班表
       </MenuItem>
-      <MenuItem name="7">
+      <MenuItem name="accountMgmt">
         账号管理
       </MenuItem>
     </Menu>
@@ -30,27 +27,44 @@
 import { accountMgmtMenu, watchDutySchedule, tripTrail, anomaly, trafficFlow, focus } from '@/constant/menu'
 export default {
   name: 'SubMenu',
-  computed: {
-    subMenu() {
-      return this.$store.state.permission.subMenu
+  data() {
+    return {
+      activeName: ''
     }
   },
   methods: {
     onSelectMenu(name) {
-      if (name === '7') {
+      this.activeName = name
+      if (name === 'accountMgmt') {
         this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
-      } else if (name === '6') {
+        this.$router.push({ name: accountMgmtMenu[0].name })
+      } else if (name === 'watchDutySchedule') {
         this.$store.commit('permission/updateSubMenu', watchDutySchedule)
-      } else if (name === '5') {
+        this.$router.push({ name: watchDutySchedule[0].name })
+      } else if (name === 'trafficFlow') {
         this.$store.commit('permission/updateSubMenu', trafficFlow)
-      } else if (name === '4') {
+        this.$router.push({ name: trafficFlow[0].name })
+      } else if (name === 'tripTrail') {
         this.$store.commit('permission/updateSubMenu', tripTrail)
-      } else if (name === '3') {
+        this.$router.push({ name: tripTrail[0].name })
+      } else if (name === 'focus') {
         this.$store.commit('permission/updateSubMenu', focus)
-      } else if (name === '2') {
+        this.$router.push({ name: focus[0].name })
+      } else if (name === 'anomaly') {
         this.$store.commit('permission/updateSubMenu', anomaly)
+        this.$router.push({ name: anomaly[0].name })
       }
     }
+  },
+  mounted() {
+    const path = this.$route.path
+    this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
+      return $1
+    }).substring(1)
+    this.onSelectMenu(this.activeName)
+    this.$nextTick(() => {
+      this.$refs.mainMenu.updateActiveName()
+    })
   }
 }
 </script>

@@ -1,7 +1,7 @@
 export const accountMgmtMenu = [
   {
     path: '/accountMgmt/accountMgmtHomePage',
-    name: '帐号管理'
+    name: '账号管理'
   },
   {
     path: '/accountMgmt/roleMgmtHomePage',
