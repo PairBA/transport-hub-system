@@ -122,7 +122,7 @@ export default {
   },
   async mounted() {
     await this.getRoleList()
-    this.goSearch()
+    // this.goSearch()
   },
   methods: {
     goSearch() {
