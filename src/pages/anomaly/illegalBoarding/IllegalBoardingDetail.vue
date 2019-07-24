@@ -16,26 +16,41 @@
         <TableWrapper>
           <Table :columns="columns"
                  :data="detailObject.list"
-                 @on-row-click="showTransHubEvent" highlight-row >
+                 @on-row-click="doShowModal" highlight-row >
           </Table>
         </TableWrapper>
       </div>
     </div>
+    <TrailAMap :isShowModal="isShowModal"
+               :polygons="polygons"
+               :polylines="polylines"
+               :allGpsList="hubEventListObject.allGpsList || []"
+               :timeForGpsList="hubEventListObject.timeForGpsList || []"
+               :markers="markers"
+               @on-visible-change="doCloseModal"/>
   </div>
 </template>
 
 <script>
 import { get, END_POINTS } from '@/api'
-import { dateFormat, getHubTrailTableArr } from '@/utils'
+import { dateFormat, getHubTrailTableArr, addMarkerPosition, drawTripLine } from '@/utils'
+import TrailAMap from '@/components/anomaly/TrailAMap'
 export default {
-  components: {},
+  components: {
+    TrailAMap
+  },
   data() {
     return {
       mobile: '',
       vehicleNo: '',
       startDate: '',
       endDate: '',
-      alertOnListDetail: []
+      alertOnListDetail: [],
+      isShowModal: false,
+      hubEventListObject: '',
+      polygons: [],
+      polylines: [],
+      markers: []
     }
   },
   computed: {
@@ -75,7 +90,7 @@ export default {
               },
               on: {
                 click: () => {
-                  this.showTransHubEvent(params.row)
+                  this.doShowModal(params.row)
                 }
               }
             }, '查看')
@@ -92,7 +107,44 @@ export default {
     this.getHubStatTrailList()
   },
   methods: {
-    showTransHubEvent() {
+    doCloseModal(result) {
+      this.isShowModal = result
+    },
+    async doShowModal(row) {
+      const hubEventListObject = await get(END_POINTS.GET_HUB_EVENT_LIST + `?hubTrailId=${row.hubTrailId}&driverType=TAXI`)
+      if (hubEventListObject.success) {
+        this.hubEventListObject = hubEventListObject.data
+        this.polylines = []
+        this.markers = []
+        const { hubEventList, tripLineList } = this.hubEventListObject
+        if (hubEventList.length) {
+          hubEventList.map(value => {
+            if (value.event === 'METER_ON') {
+              let marker = addMarkerPosition(value.gps, require('@/img/tripDetail/icon_green.png'), '上客时间: ' + value.updateTime + ', 行程ID：' + value.meterTripId, value.meterTripId, value.recDate)
+              this.markers.push(marker)
+            }
+            if (value.event === 'METER_OFF' || value.event === 'IN_HIRED_METER_OFF') {
+              let marker = addMarkerPosition(value.gps, require('@/img/tripDetail/icon_red.png'), '下客时间: ' + value.updateTime + '，行程ID：' + value.meterTripId, value.meterTripId, value.recDate)
+              this.markers.push(marker)
+            }
+          })
+        }
+        if (tripLineList.length) {
+          tripLineList.map(value => {
+            if (value.driverStatus === 'HIRED') {
+              let polyline = drawTripLine(value.gpsList, '#6AA84F')
+              this.polylines.push(polyline)
+            }
+            if (value.driverStatus === 'AVL' || value.driverStatus === 'PAY') {
+              let polyline = drawTripLine(value.gpsList, '#0091FF')
+              this.polylines.push(polyline)
+            }
+          })
+        }
+      } else {
+        this.hubEventListObject = ''
+      }
+      this.isShowModal = true
     },
     async getHubStatTrailList() {
       const result = await get(END_POINTS.GET_HUB_SUM_ON_ALERT_LIST_DETAIL, {

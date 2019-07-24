@@ -49,5 +49,6 @@ export default {
   // 异常排队
   GET_HUB_SUM_QCUT_LIST_DETAIL: '/api/transhub/fullscreen/getHubQcutListDetail',
   GET_HUB_SUM_ON_ALERT_LIST_DETAIL: '/api/transhub/fullscreen/getHubOnAlertListDetail',
-  EXPORT_GATE_JUDGE_REPORT: '/api/gateVehicle/exportGateJudgeReport'
+  EXPORT_GATE_JUDGE_REPORT: '/api/gateVehicle/exportGateJudgeReport',
+  GET_HUB_EVENT_LIST: 'api/transhub/trailReplay/getHubEventList'
 }
