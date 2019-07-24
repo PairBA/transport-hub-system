@@ -53,25 +53,40 @@ export default {
             return h('div', [
               h('span', {
                 style: {
+                  color: '#1890FF',
                   cursor: 'pointer'
-                },
-                on: {
-                  click: () => {
-                    this.goToDelete(params.row.id)
-                  }
-                }
-              }, '删除'),
-              h('span', {
-                style: {
-                  cursor: 'pointer',
-                  marginLeft: '12px'
                 },
                 on: {
                   click: () => {
                     this.goToEdit(params.row.id)
                   }
                 }
-              }, '修改')
+              }, this.$t('sysManage.commonVar.actionEdit')),
+              h('Poptip', {
+                style: {
+                  textAlign: 'left'
+                },
+                props: {
+                  confirm: true,
+                  placement: 'bottom-end',
+                  title: this.$t('sysManage.validateInfo.sureDelete')
+                },
+                on: {
+                  'on-ok': () => {
+                    this.goToDelete(params.row.id)
+                  },
+                  'on-cancel': () => {
+                  }
+                }
+              }, [
+                h('span', {
+                  style: {
+                    color: '#1890FF',
+                    marginLeft: '5px',
+                    cursor: 'pointer'
+                  }
+                }, this.$t('sysManage.toolBar.delete'))
+              ])
             ])
           }
         }
@@ -99,7 +114,7 @@ export default {
     },
     async getScheduleList() {
       const result = await get(END_POINTS.GET_SCHEDULE_LIST)
-      if (result.code === 2000) this.scheduleList = result.data
+      if (result.success) this.scheduleList = result.data
     }
   }
 }
