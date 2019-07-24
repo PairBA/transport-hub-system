@@ -79,10 +79,6 @@ export default {
       })
 
       if (response.success) {
-        this.$store.dispatch('login/login', {
-          username: this.username,
-          password: this.password
-        })
         // await this.$store.dispatch('permission/getResourceList')
         this.$router.push('/accountMgmt/accountMgmtHomePage')
       } else {
