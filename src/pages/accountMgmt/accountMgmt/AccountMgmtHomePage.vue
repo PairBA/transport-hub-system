@@ -66,13 +66,19 @@ export default {
       return [
         {
           title: '账号',
-          key: 'userId',
-          tooltip: true
+          key: 'userName'
         },
         {
           title: '角色',
           key: 'roleId',
-          tooltip: true
+          render: (h, params) => {
+            const roleId = params.row.roleId
+            let roleName = ''
+            const role = this.roleList.find(role => role.id === roleId)
+            if (role) roleName = role.roleName
+            return h('span', {
+            }, roleName)
+          }
         },
         {
           title: '姓名',
@@ -95,25 +101,40 @@ export default {
             return h('div', [
               h('span', {
                 style: {
+                  color: '#1890FF',
                   cursor: 'pointer'
-                },
-                on: {
-                  click: () => {
-                    this.goToDelete(params.row.userId)
-                  }
-                }
-              }, '删除'),
-              h('span', {
-                style: {
-                  cursor: 'pointer',
-                  marginLeft: '12px'
                 },
                 on: {
                   click: () => {
                     this.goToEdit(params.row.userId)
                   }
                 }
-              }, '修改')
+              }, this.$t('sysManage.commonVar.actionEdit')),
+              h('Poptip', {
+                style: {
+                  textAlign: 'left'
+                },
+                props: {
+                  confirm: true,
+                  placement: 'bottom-end',
+                  title: this.$t('sysManage.validateInfo.sureDelete')
+                },
+                on: {
+                  'on-ok': () => {
+                    this.goToDelete(params.row.userId)
+                  },
+                  'on-cancel': () => {
+                  }
+                }
+              }, [
+                h('span', {
+                  style: {
+                    color: '#1890FF',
+                    marginLeft: '5px',
+                    cursor: 'pointer'
+                  }
+                }, this.$t('sysManage.toolBar.delete'))
+              ])
             ])
           }
         }
