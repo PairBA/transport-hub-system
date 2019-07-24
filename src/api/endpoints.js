@@ -25,7 +25,7 @@ export default {
   EDIT_SCHEDULE: '/api/lawSystem/gateAlert/editSchedule',
   DELETE_SCHEDULE_BY_ID: '/api/lawSystem/gateAlert/deleteScheduleById',
   // 值班表
-  GET_PLAN_DETAIL_LIST: '/api/slAirport/gateAlert/getPlanDetailList',
+  GET_PLAN_DETAIL_LIST: '/api/lawSystem/gateAlert/getPlanDetailList',
   // 车流量统计
   GET_VEHICLE_FLOW_COUNT: '/api/vehicleFlowCount/getVehicleFlowCount',
   GET_VEHICLE_FLOW_COUNT_EXCEL: '/api/vehicleFlowCount/getVehicleFlowCountExcel',

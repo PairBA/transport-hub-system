@@ -32,7 +32,7 @@
           <Divider/>
           <div v-for="detail in item.scheduleDetailList" :key="detail.scheduleName">
             <span style="font-size:14px;color:rgba(55,66,84,1);font-weight: 500">{{detail.scheduleName}}</span>
-            <div v-for="worker in detail.scheduleWorkerList" :key="worker.fullName" class="worker">
+            <div v-for="(worker, index) in detail.scheduleWorkerList" :key="`worker_one${index}`" class="worker">
               {{worker.fullName}}{{worker.mobile}}<Icon type="ios-close-circle-outline" class="icon" @click="deletePlanWorker(detail.scheduleName, worker.fullName, worker.mobile)"/>
             </div>
             <Poptip placement="bottom">
@@ -40,10 +40,10 @@
               <div slot="content">
                 <Select v-model="fullName"
                         placeholder="请选择人员">
-                  <Option v-for="worker in planWorkerList"
-                          :value="worker.fullName"
-                          :key="worker.fullName">
-                    {{ worker.fullName }} {{ worker.mobile }}
+                  <Option v-for="(workerTwo, indexTwo) in planWorkerList"
+                          :value="workerTwo.fullName"
+                          :key="`worker_two${indexTwo}`">
+                    {{ workerTwo.fullName }} {{ workerTwo.mobile }}
                   </Option>
                 </Select>
                 <div>
@@ -71,22 +71,15 @@ export default {
       date: new Date(),
       item: '',
       planDetailList: [],
+      scheduleList: [],
       maxDay: 0,
       monthDayList: [],
       planWorkerList: [],
-      fullName: '',
-      weekList: [
-        '日',
-        '一',
-        '二',
-        '三',
-        '四',
-        '五',
-        '六'
-      ]
+      fullName: ''
     }
   },
-  mounted() {
+  async mounted() {
+    await this.getScheduleList()
     this.goSearch()
     this.getPlanWorkerList()
   },
@@ -97,7 +90,6 @@ export default {
       this.maxDay = date.getDate()
       const monthDayList = []
       date.setDate(1)
-      // const week = date.getDay()
       for (let i = 1; i <= this.maxDay; i++) {
         let scheduleDate = dateFormat(this.date, 'yyyy-MM')
         if (i < 10) {
@@ -105,12 +97,19 @@ export default {
         } else scheduleDate = scheduleDate + '-' + i
         monthDayList.push({
           scheduleDate,
-          scheduleDetailList: []
+          scheduleDetailList: this.scheduleList
         })
       }
       this.planDetailList.forEach(item => {
         const dateStr = item.scheduleDate
         const day = dateStr.substring(8)
+        console.log(item)
+        const scheduleDetailListSet = item.scheduleDetailList
+        const scheduleListCombine = this.scheduleList.map(itemTwo => {
+          const haveSetItem = scheduleDetailListSet.find(itemThree => itemTwo.scheduleName === itemThree.scheduleName)
+          return haveSetItem || itemTwo
+        })
+        item.scheduleDetailList = scheduleListCombine
         monthDayList[day - 1] = item
       })
       // if (week !== 7) {
@@ -138,7 +137,8 @@ export default {
         this.$Message.success({
           content: this.$t('monitor.success')
         })
-        this.goSearch()
+        await this.goSearch()
+        this.highlightDay(this.item.singleDay)
       }
     },
     async addPlanWorker(scheduleName) {
@@ -163,6 +163,10 @@ export default {
     async getPlanWorkerList() {
       const result = await get(END_POINTS.GET_PLAN_WORKER_LIST)
       if (result) this.planWorkerList = result.data
+    },
+    async getScheduleList() {
+      const result = await get(END_POINTS.GET_SCHEDULE_LIST)
+      if (result.success) this.scheduleList = result.data
     }
   }
 }
