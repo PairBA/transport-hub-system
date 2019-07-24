@@ -47,7 +47,7 @@ export default {
   GET_METER_TRIP_SEARCH_LIST: '/api/meterTrip/getMeterTripSearchList', // 行程查找分页查询
   GET_GPS_LIST: '/api/meterTrip/getGpsList',
   // 异常排队
-  GET_HUB_SUM_QCUT_LIST_DETAIL: 'api/transhub/fullscreen/getHubQcutListDetail',
-  GET_HUB_SUM_ON_ALERT_LIST_DETAIL: 'api/transhub/fullscreen/getHubOnAlertListDetail',
-  EXPORT_GATE_JUDGE_REPORT: 'api/gateVehicle/exportGateJudgeReport'
+  GET_HUB_SUM_QCUT_LIST_DETAIL: '/api/transhub/fullscreen/getHubQcutListDetail',
+  GET_HUB_SUM_ON_ALERT_LIST_DETAIL: '/api/transhub/fullscreen/getHubOnAlertListDetail',
+  EXPORT_GATE_JUDGE_REPORT: '/api/gateVehicle/exportGateJudgeReport'
 }

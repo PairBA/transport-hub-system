@@ -469,7 +469,9 @@ export default {
         gpsLost: 'GPS缺失',
         gpsRepeat: 'GPS重复',
         cloneVehicle: '疑似克隆车',
-        unknownVehicle: '未注册车'
+        unknownVehicle: '未注册车',
+        gpsTimeError: 'GPS时间错误',
+        noGpsUpload: '无GPS上传'
       },
       standPointStatus: {
         avl: '启用',
