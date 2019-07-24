@@ -263,6 +263,7 @@ export default {
       this.tableListObject.total = 0
       this.tableListObject.pageSize = 10
       const result = await get(END_POINTS.GET_VEHICLE_FLOW_COUNT, {
+        hubCode: localStorage.getItem('hubCode'),
         gateName: this.gateName,
         countType: this.countType,
         startTime: dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00',
@@ -325,6 +326,7 @@ export default {
       const url = END_POINTS.GET_VEHICLE_FLOW_COUNT_EXCEL +
         '?gateName=' + this.gateName +
         '&countType=' + this.countType +
+        '&hubCode=' + localStorage.getItem('hubCode') +
         '&startTime=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endTime=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token
