@@ -21,7 +21,8 @@
           <FormItem label="开始时间：">
             <DatePicker v-model="startDate"
                         type="date"
-                        placeholder="请选择日期">
+                        placeholder="请选择日期"
+                        :options="options">
             </DatePicker>
             <TimePicker v-model="startTime"
                         type="time"
@@ -32,7 +33,8 @@
           <FormItem label="结束时间：">
             <DatePicker v-model="endDate"
                         type="date"
-                        placeholder="请选择日期">
+                        placeholder="请选择日期"
+                        :options="options">
             </DatePicker>
             <TimePicker v-model="endTime"
                         type="time"
@@ -123,6 +125,11 @@ export default {
         pageSize: 10,
         total: 0,
         totalPage: 0
+      },
+      options: {
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now()
+        }
       }
     }
   },

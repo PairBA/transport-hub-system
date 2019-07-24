@@ -12,7 +12,8 @@
                         type="daterange"
                         format="yyyy/MM/dd"
                         placement="bottom-start"
-                        placeholder="请选择关注时间区间">
+                        placeholder="请选择关注时间区间"
+                        :options="options">
             </DatePicker>
           </FormItem>
           <Divider/>
@@ -116,7 +117,12 @@ export default {
       propVehicleNo: '',
       propTerminalName: '',
       propCompanyName: '',
-      confirmVehicleNo: ''
+      confirmVehicleNo: '',
+      options: {
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now()
+        }
+      }
     }
   },
   computed: {
