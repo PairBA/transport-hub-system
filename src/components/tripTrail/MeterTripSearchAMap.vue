@@ -50,7 +50,7 @@ export default {
     return {
       aMapManager,
       amapZoom: 11,
-      amapCenter: [116.393045, 39.910449],
+      amapCenter: [104.067108, 30.652374],
       events: {
         'complete': () => {
           this.initAutocomplete()

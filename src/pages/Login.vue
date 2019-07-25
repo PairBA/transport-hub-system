@@ -83,7 +83,7 @@ export default {
       })
       if (response.success) {
         // await this.$store.dispatch('permission/getResourceList')
-        this.$router.push('/accountMgmt/accountMgmtHomePage')
+        this.$router.push('/')
       } else {
         console.log('failed')
         this.loginStatus = ''
