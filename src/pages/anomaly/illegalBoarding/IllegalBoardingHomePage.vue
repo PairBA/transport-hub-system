@@ -39,6 +39,7 @@
 <script>
 import { post, END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
+const detail = require('@/img/common/detail.png')
 export default {
   components: {},
   data() {
@@ -82,17 +83,32 @@ export default {
           width: 125,
           align: 'center',
           render: (h, params) => {
-            return h('span', {
+            return h('Tooltip', {
+              props: {
+                content: '查看',
+                transfer: true,
+                placement: 'bottom'
+              },
               style: {
                 cursor: 'pointer',
-                marginLeft: '12px'
-              },
-              on: {
-                click: () => {
-                  this.goToDetail(params.row)
-                }
+                width: '30px'
               }
-            }, '查看')
+            }, [
+              h('img', {
+                style: {
+                  cursor: 'pointer',
+                  width: '30px'
+                },
+                attrs: {
+                  src: detail
+                },
+                on: {
+                  click: () => {
+                    this.goToDetail(params.row)
+                  }
+                }
+              })
+            ], '查看')
           }
         }
       ]

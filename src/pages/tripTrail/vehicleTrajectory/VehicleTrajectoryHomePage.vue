@@ -148,5 +148,9 @@ export default {
 </script>
 
 <style lang="less">
-.vehicleTrajectory__homePage{}
+.vehicleTrajectory__homePage {
+  .ivu-date-picker {
+    width: 100%;
+  }
+}
 </style>

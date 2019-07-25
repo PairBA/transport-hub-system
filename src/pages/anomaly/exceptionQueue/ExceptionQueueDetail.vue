@@ -42,6 +42,7 @@ import { get, END_POINTS } from '@/api'
 import { dateFormat, getHubTrailTableArr, addMarkerPosition, drawTripLine } from '@/utils'
 import TrailAMap from '@/components/anomaly/TrailAMap'
 import FocusModal from '@/components/modal/focus/FocusModal'
+const detail = require('@/img/common/detail.png')
 export default {
   components: {
     TrailAMap,
@@ -88,17 +89,32 @@ export default {
           width: 125,
           align: 'center',
           render: (h, params) => {
-            return h('span', {
+            return h('Tooltip', {
+              props: {
+                content: '查看',
+                transfer: true,
+                placement: 'bottom'
+              },
               style: {
                 cursor: 'pointer',
-                marginLeft: '12px'
-              },
-              on: {
-                click: () => {
-                  this.doShowModal(params.row)
-                }
+                width: '30px'
               }
-            }, '查看')
+            }, [
+              h('img', {
+                style: {
+                  cursor: 'pointer',
+                  width: '30px'
+                },
+                attrs: {
+                  src: detail
+                },
+                on: {
+                  click: () => {
+                    this.doShowModal(params.row)
+                  }
+                }
+              })
+            ], '查看')
           }
         }
       ]
