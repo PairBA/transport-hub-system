@@ -5,7 +5,7 @@ import {
 import { accountMgmtMenu, watchDutySchedule, tripTrail, anomaly, trafficFlow, focus } from '@/constant/menu'
 
 const state = {
-  homePage: '/',
+  homePage: '/login',
   homePageMenuKey: '',
   hasGetRules: false,
   activePath: '',
