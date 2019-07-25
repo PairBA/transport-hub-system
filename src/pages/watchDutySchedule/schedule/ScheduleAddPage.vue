@@ -6,7 +6,10 @@
     <div class="schedule__add-content">
       <div class="schedule__add-content-wrapper">
         <div class="schedule__add-form-wrapper">
-          <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
+          <Form ref="formValidate"
+                label-position="top"
+                :model="formValidate"
+                :rules="ruleValidate">
             <FormItem label="班次名称:" prop="scheduleName">
               <Input v-model="formValidate.scheduleName" placeholder="请输入班次名称"/>
             </FormItem>

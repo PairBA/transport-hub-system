@@ -1,15 +1,18 @@
 <template>
   <div class="roleMgmt__homePage">
-    <TableWrapper>
-      <Button type="primary"
-              @click="addRole"
-              style="margin-bottom: 12px">
-        新增角色
-      </Button>
-      <Table :columns="columns"
-             :data="roleList">
-      </Table>
-    </TableWrapper>
+    <PairBreadcrumb title="角色管理"/>
+    <div class="roleMgmt__homePage-content">
+      <TableWrapper>
+        <Button type="primary"
+                @click="addRole"
+                style="margin-bottom: 12px">
+          新增角色
+        </Button>
+        <Table :columns="columns"
+               :data="roleList">
+        </Table>
+      </TableWrapper>
+    </div>
   </div>
 </template>
 
@@ -146,7 +149,9 @@ export default {
 </script>
 
 <style lang="less">
-.roleMgmt__homePage{
-  padding: 24px;
+.roleMgmt__homePage {
+  .roleMgmt__homePage-content {
+    padding: 24px;
+  }
 }
 </style>
