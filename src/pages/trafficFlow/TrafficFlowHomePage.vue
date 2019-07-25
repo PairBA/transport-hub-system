@@ -247,7 +247,7 @@ export default {
         },
         series: [
           {
-            name:'闸口车辆数',
+            name: '闸口车辆数',
             type: 'line',
             smooth: false,
             color: '#6BB523',
@@ -260,7 +260,7 @@ export default {
             data: this.echartsInfo ? this.echartsInfo.yGate : []
           },
           {
-            name:'发车量',
+            name: '发车量',
             type: 'line',
             smooth: false,
             color: '#1F88E5',
