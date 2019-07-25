@@ -67,8 +67,6 @@ export default {
       this.$refs[name].validate(async (valid) => {
         if (valid) {
           this.editSchedule()
-        } else {
-          this.$Message.error('失败')
         }
       })
     },

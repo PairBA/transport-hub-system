@@ -72,8 +72,6 @@ export default {
             })
             this.$router.push({ name: '班次时间' })
           }
-        } else {
-          this.$Message.error('失败')
         }
       })
     },

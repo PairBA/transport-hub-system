@@ -121,8 +121,6 @@ export default {
             })
             this.$router.push({ name: '账号管理' })
           }
-        } else {
-          this.$Message.error('Fail!')
         }
       })
     }
