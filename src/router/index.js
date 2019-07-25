@@ -19,7 +19,7 @@ router.beforeEach((to, from, next) => {
       // 验证token是否有效
       store.dispatch('login/init').then(result => {
         if (result) {
-          store.dispatch('permission/getResourceList').then(() => {
+          store.dispatch('permission/getResourceListByRole').then(() => {
             const homePage = store.state.permission.homePage
             // 判断是否输入空地址，若为空且已经登录则跳转首页
             if (to.path === '/') {

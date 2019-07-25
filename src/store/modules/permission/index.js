@@ -16,10 +16,10 @@ const state = {
 }
 
 const actions = {
-  async getResourceList({
+  async getResourceListByRole({
     commit
   }) {
-    const resourceListObject = await get(END_POINTS.GET_RESOURCE_LIST + `?userId=` + localStorage.getItem('userId'))
+    const resourceListObject = await get(END_POINTS.GET_RESOURCE_LIST_BY_ROLE + `?userId=` + localStorage.getItem('userId'))
     if (resourceListObject.success) {
       // 生成菜单
       commit('updateResourceList', resourceListObject.data)

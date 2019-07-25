@@ -2,6 +2,7 @@ export default {
   LOGIN: '/api/lawSystem/auth/login',
   TOKEN_EXPIRE: '/api/lawSystem/auth/tokenExpire',
   GET_RESOURCE_LIST: '/api/lawSystem/accountManage/getResourceList',
+  GET_RESOURCE_LIST_BY_ROLE: '/api/lawSystem/auth/getResourceListByRole',
   GET_ROLE_LIST: '/api/lawSystem/accountManage/getRoleList',
   GET_COMP_LIST_FOR_SELECT_BY_AREA_CODE: 'api/dmComp/getCompListForSelectByAreaCode',
   GET_CENTER_GPS_BY_AREA_CODE: 'api/admin/commonInfo/getCenterGpsByAreaCode',
