@@ -128,31 +128,39 @@ export default {
       this.getPage(1)
     },
     async getHubStatTrailList() {
-      const result = await post(END_POINTS.GET_HUB_STAT_TRAIL_LIST, {
-        currentPage: this.currentPage,
-        orderBy: '',
-        pageSize: this.pageSize,
-        queryVO: {
-          hubCode: localStorage.getItem('hubCode'),
-          startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
-          endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd'),
-          vehicleNo: this.vehicleNo,
-          type: 'CUTQ',
-          areaCode: localStorage.getItem('areaCode'),
-          driverType: 'TAXI',
-          gps: null
-        },
-        refreshTotalRecord: true
-      })
-      if (result.code === 2001) {
-        this.currentPage = result.currentPage
-        this.pageSize = result.pageSize
-        this.list = result.data
-        this.total = result.total
+      if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
       } else {
-        this.currentPage = 1
-        this.total = 0
-        this.list = []
+        this.showSpin = true
+        const result = await post(END_POINTS.GET_HUB_STAT_TRAIL_LIST, {
+          currentPage: this.currentPage,
+          orderBy: '',
+          pageSize: this.pageSize,
+          queryVO: {
+            hubCode: localStorage.getItem('hubCode'),
+            startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
+            endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd'),
+            vehicleNo: this.vehicleNo,
+            type: 'CUTQ',
+            areaCode: localStorage.getItem('areaCode'),
+            driverType: 'TAXI',
+            gps: null
+          },
+          refreshTotalRecord: true
+        })
+        if (result.code === 2001) {
+          this.currentPage = result.currentPage
+          this.pageSize = result.pageSize
+          this.list = result.data
+          this.total = result.total
+        } else {
+          this.currentPage = 1
+          this.total = 0
+          this.list = []
+        }
+        this.showSpin = false
       }
     }
   }

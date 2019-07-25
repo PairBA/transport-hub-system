@@ -29,6 +29,11 @@
                :timeForGpsList="hubEventListObject.timeForGpsList || []"
                :markers="markers"
                @on-visible-change="doCloseModal"/>
+    <FocusModal :showFocusModal = 'showFocusModal'
+                :vehicleNo = 'vehicleNo'
+                @close-focus-modal="closeFocusModal"
+                @go-search="isVehicleFocus">
+    </FocusModal>
   </div>
 </template>
 
@@ -36,12 +41,15 @@
 import { get, END_POINTS } from '@/api'
 import { dateFormat, getHubTrailTableArr, addMarkerPosition, drawTripLine } from '@/utils'
 import TrailAMap from '@/components/anomaly/TrailAMap'
+import FocusModal from '@/components/modal/focus/FocusModal'
 export default {
   components: {
-    TrailAMap
+    TrailAMap,
+    FocusModal
   },
   data() {
     return {
+      showFocusModal: false,
       mobile: '',
       vehicleNo: '',
       startDate: '',
@@ -111,10 +119,17 @@ export default {
   },
   methods: {
     handleClick() {
-      this.isFocus ? this.cancelFocus() : this.focusVehicle()
+      if (this.isFocus) {
+        this.cancelFocus()
+      } else {
+        this.showFocusModal = true
+      }
     },
     doCloseModal(result) {
       this.isShowModal = result
+    },
+    closeFocusModal(result) {
+      this.showFocusModal = result
     },
     async doShowModal(row) {
       await this.getTransHubPolygonArea()

@@ -102,10 +102,12 @@ export default {
   },
   methods: {
     closeModal(result) {
-      this.lastTime = ''
-      this.$emit('on-visible-change', result)
-      if (this.intervalId) {
-        clearInterval(this.intervalId)
+      if (!result) {
+        this.lastTime = ''
+        this.$emit('on-visible-change', result)
+        if (this.intervalId) {
+          clearInterval(this.intervalId)
+        }
       }
     },
     isInitInterval() {
