@@ -116,13 +116,8 @@
 </template>
 
 <script>
-import {
-  get,
-  END_POINTS
-} from '@/api'
-
+import { get, END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
-
 export default {
   components: {
   },
@@ -139,7 +134,7 @@ export default {
       startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
       startTime: '00:00',
       endDate: new Date(),
-      endTime: '00:00',
+      endTime: dateFormat(new Date(), 'hh') + ':00',
       echartsInfo: null, // echarts的数据
       gateVehicleNum: 0, // 总闸口车辆数
       normalVehicleNum: 0, // 总发车辆
