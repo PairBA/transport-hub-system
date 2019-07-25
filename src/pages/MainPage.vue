@@ -31,8 +31,8 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch('login/checkLoginStatus')
-    this.$router.push('/login')
+    // await this.$store.dispatch('login/checkLoginStatus')
+    // this.$router.push('/login')
   }
 }
 </script>

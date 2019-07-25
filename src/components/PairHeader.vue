@@ -14,6 +14,31 @@
     <div class="layout-nav">
       <MainMenu/>
     </div>
+    <div style="float: right">
+      <Dropdown trigger="click"
+                @on-click="handleListClick"
+                placement="bottom-end">
+        <Avatar v-if="photo"
+                :src="photo"
+                style="cursor: pointer;"/>
+        <Avatar v-else
+                icon="md-person"
+                style="cursor: pointer;"/>
+        <a href="javascript:void(0)"
+           class="profile-user-name">
+          {{ userName }}
+          <Icon type="ios-arrow-down"></Icon>
+        </a>
+        <DropdownMenu slot="list">
+          <DropdownItem name="logout">
+            <PairIcon type="user-logout" class="icon-item"/>
+            <span>
+              {{ $t("monitor.logOut") }}
+            </span>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </div>
   </Header>
 </template>
 
@@ -26,7 +51,8 @@ export default {
   data() {
     return {
       mainTitle: localStorage.getItem('systemName'),
-      subTitle: localStorage.getItem('hubName')
+      subTitle: localStorage.getItem('hubName'),
+      userName: localStorage.getItem('userName')
     }
   },
   computed: {
@@ -37,6 +63,13 @@ export default {
   methods: {
     triggerSideMenu() {
       this.$store.commit('permission/updateShowMenu', !this.showMenu)
+    },
+    handleListClick() {
+      this.logout()
+    },
+    logout() {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
     }
   }
 }
@@ -44,6 +77,17 @@ export default {
 
 <style lang="less">
 .header {
+  .profile-user-name {
+    margin-left: 10px;
+    font-size: 16px;
+    color: #FFFFFF;
+  }
+  .icon-item {
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-right: 10px;
+  }
   .layout-nav{
     float: left;
   }

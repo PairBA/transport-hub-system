@@ -72,6 +72,9 @@ export default {
       }
     }
   },
+  mounted() {
+    this.$store.commit('permission/updateHasRule', false)
+  },
   methods: {
     async onSubmit() {
       this.loginStatus = 'load'
