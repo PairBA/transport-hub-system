@@ -91,6 +91,8 @@
                          style="height: 300px;width: 100%;">
             </PairECharts>
           </div>
+        </TableWrapper>
+        <TableWrapper style="margin-top: 24px;">
           <div>
             <div>
               <span class="traffic-flow-count-info-span">
