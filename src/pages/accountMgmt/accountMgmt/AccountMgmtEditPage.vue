@@ -117,8 +117,6 @@ export default {
       this.$refs[name].validate(async (valid) => {
         if (valid) {
           this.editUser()
-        } else {
-          this.$Message.error('失败!')
         }
       })
     },
