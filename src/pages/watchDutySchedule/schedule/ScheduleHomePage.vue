@@ -14,11 +14,10 @@
 </template>
 
 <script>
-import {
-  get,
-  END_POINTS
-} from '@/api'
+import { get, END_POINTS } from '@/api'
 import TableWrapper from '@/components/wrapper/TableWrapper'
+const deleteIcon = require('@/img/common/delete.png')
+const editIcon = require('@/img/common/edit.png')
 export default {
   components: {
     TableWrapper
@@ -51,20 +50,36 @@ export default {
           align: 'center',
           render: (h, params) => {
             return h('div', [
-              h('span', {
-                style: {
-                  color: '#1890FF',
-                  cursor: 'pointer'
+              h('Tooltip', {
+                props: {
+                  content: '编辑',
+                  transfer: true,
+                  placement: 'bottom'
                 },
-                on: {
-                  click: () => {
-                    this.goToEdit(params.row.id)
-                  }
+                style: {
+                  cursor: 'pointer',
+                  width: '30px'
                 }
-              }, this.$t('sysManage.commonVar.actionEdit')),
+              }, [
+                h('img', {
+                  style: {
+                    cursor: 'pointer',
+                    width: '30px'
+                  },
+                  attrs: {
+                    src: editIcon
+                  },
+                  on: {
+                    click: () => {
+                      this.goToEdit(params.row.id)
+                    }
+                  }
+                })
+              ], '编辑'),
               h('Poptip', {
                 style: {
-                  textAlign: 'left'
+                  textAlign: 'left',
+                  marginLeft: '12px'
                 },
                 props: {
                   confirm: true,
@@ -79,13 +94,27 @@ export default {
                   }
                 }
               }, [
-                h('span', {
+                h('Tooltip', {
+                  props: {
+                    content: '删除',
+                    transfer: true,
+                    placement: 'bottom'
+                  },
                   style: {
-                    color: '#1890FF',
-                    marginLeft: '5px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    width: '30px'
                   }
-                }, this.$t('sysManage.toolBar.delete'))
+                }, [
+                  h('img', {
+                    style: {
+                      cursor: 'pointer',
+                      width: '30px'
+                    },
+                    attrs: {
+                      src: deleteIcon
+                    }
+                  })
+                ], '删除')
               ])
             ])
           }

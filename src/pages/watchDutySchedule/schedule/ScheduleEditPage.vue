@@ -1,24 +1,34 @@
 <template>
   <div class="schedule__edit">
-    <SearchWrapper>
-      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate">
-        <FormItem label="班次名称:" prop="scheduleName">
-          <Input v-model="formValidate.scheduleName" placeholder="请输入班次名称"/>
-        </FormItem>
-        <FormItem label="开始时间:" prop="startTime">
-          <TimePicker type="time" format="HH:mm" v-model="formValidate.startTime" placeholder="请输入开始时间"></TimePicker>
-        </FormItem>
-        <FormItem label="结束时间:" prop="endTime">
-          <TimePicker type="time" format="HH:mm" v-model="formValidate.endTime" placeholder="请输入结束时间"></TimePicker>
-        </FormItem>
-        <div style="text-align: center">
-          <Button type="primary"
-                  @click="handleSubmit('formValidate')">
-            提交
-          </Button>
+    <PairBreadcrumb parentPath="/watchDutySchedule/scheduleHomePage"
+                    parentTitle="班次时间"
+                    title="编辑班次"/>
+    <div class="schedule__edit-content">
+      <div class="schedule__edit-content-wrapper">
+        <div class="schedule__edit-form-wrapper">
+          <Form ref="formValidate"
+                label-position="top"
+                :model="formValidate"
+                :rules="ruleValidate">
+            <FormItem label="班次名称:" prop="scheduleName">
+              <Input v-model="formValidate.scheduleName" placeholder="请输入班次名称"/>
+            </FormItem>
+            <FormItem label="开始时间:" prop="startTime">
+              <TimePicker type="time" format="HH:mm" v-model="formValidate.startTime" placeholder="请输入开始时间"></TimePicker>
+            </FormItem>
+            <FormItem label="结束时间:" prop="endTime">
+              <TimePicker type="time" format="HH:mm" v-model="formValidate.endTime" placeholder="请输入结束时间"></TimePicker>
+            </FormItem>
+            <div style="text-align: center">
+              <Button type="primary"
+                      @click="handleSubmit('formValidate')">
+                提交
+              </Button>
+            </div>
+          </Form>
         </div>
-      </Form>
-    </SearchWrapper>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -98,9 +108,25 @@ export default {
 </script>
 
 <style lang="less">
-.schedule__edit{
-  .ivu-form {
-    width: 25%;
+.schedule__edit {
+  .schedule__edit-content {
+    padding: 24px;
+
+    .schedule__edit-content-wrapper {
+      padding: 24px;
+      width: 100%;
+      background-color: #FFFFFF;
+      border-radius: 2px;
+
+      .schedule__edit-form-wrapper {
+        width: 200px;
+        margin: 0 auto;
+
+        .ivu-date-picker {
+          width: 100%;
+        }
+      }
+    }
   }
 }
 

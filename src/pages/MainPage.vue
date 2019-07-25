@@ -52,6 +52,7 @@ export default {
   /* 重写 primary 按钮的样式 start */
   .ivu-btn {
     font-size: 14px;
+    min-width: 87px;
   }
   .ivu-btn-primary {
     background: -webkit-linear-gradient(left, #52D3FF, #1795FF); /* Safari 5.1 - 6.0 */
@@ -61,9 +62,11 @@ export default {
   }
   /* 重写 primary 按钮的样式 end */
 }
+/* 重写 modal 组件中 primary 按钮的样式 start */
 .ivu-modal-wrap .ivu-modal {
   .ivu-btn {
     font-size: 14px;
+    min-width: 87px;
   }
   .ivu-btn-primary {
     background: -webkit-linear-gradient(left, #52D3FF, #1795FF); /* Safari 5.1 - 6.0 */
@@ -72,4 +75,5 @@ export default {
     background: linear-gradient(to right, #52D3FF, #1795FF); /* 标准的语法（必须放在最后）*/
   }
 }
+/* 重写 modal 组件中 primary 按钮的样式 end */
 </style>
