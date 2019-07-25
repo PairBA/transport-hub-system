@@ -12,7 +12,7 @@
           <div class="group-date-str">
             {{detailObject.dateStr}}
           </div>
-          <Button type="primary" style="float: right; margin-top: 12px;margin-right: 24px" @click="handleClick">{{isFocus ? '-关注' : '+关注'}}</Button>
+          <Button type="primary" v-if="showFocusBtn" style="float: right; margin-top: 12px;margin-right: 24px" @click="handleClick">{{isFocus ? '-关注' : '+关注'}}</Button>
         </div>
         <TableWrapper>
           <Table :columns="columns"
@@ -65,6 +65,12 @@ export default {
     }
   },
   computed: {
+    mainMenu() {
+      return this.$store.state.permission.mainMenu
+    },
+    showFocusBtn() {
+      return this.mainMenu.some(menu => menu.resourceKey === 'focus')
+    },
     columns() {
       return [
         {

@@ -5,37 +5,31 @@
         <Col span="12" class="left"></Col>
         <Col span="12" style="padding-left: 34px; padding-right: 34px">
           <div class="login-title">
-            出租汽车智能管理系统
+            出租汽车智慧管理执法系统
           </div>
           <Divider/>
           <div class="login-content">
             <Form label-position="top"
-                  inline
-                  @submit.prevent.native="onSubmit">
-              <div class="username-div">
-                用户名
-              </div>
-              <div style="margin-top: 10px">
-                <Input v-model="username"
+                  ref="formValidate"
+                  :model="formValidate"
+                  :rules="ruleValidate"
+                  @submit.prevent.native="handleSubmit('formValidate')">
+              <FormItem label="用户名" prop="username">
+                <Input v-model="formValidate.username"
                        id="username"
                        type="text"
                        :placeholder="$t('sysManage.loginPage.userNamePH')"
                 />
-              </div>
-              <div class="input-margin">
-                <div class="username-div">
-                  密码
-                </div>
-              </div>
-              <div class="input-margin">
-                <Input v-model="password"
+              </FormItem>
+              <FormItem label="密码" prop="password">
+                <Input v-model="formValidate.password"
                        id="password"
                        type="password"
                        :placeholder="$t('sysManage.loginPage.passwordPH')"
-                       @keyup.enter.native="onSubmit"/>
-              </div>
+                       @keyup.enter.native="handleSubmit('formValidate')"/>
+              </FormItem>
               <div class="button-margin">
-                <Button type="primary" long :loading="loginLoading" @click="onSubmit">
+                <Button type="primary" long :loading="loginLoading" @click="handleSubmit('formValidate')">
                   {{loginBtnInfo}}
                 </Button>
                 <p>{{message}}</p>
@@ -53,9 +47,19 @@ export default {
   data() {
     return {
       loginLoading: false,
-      username: '',
-      password: '',
-      captcha: '',
+      formValidate: {
+        username: '',
+        password: ''
+      },
+      ruleValidate: {
+        username: [
+          { required: true, message: '用户名不能为空', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
+        ]
+      },
       message: '',
       isReload: false,
       loginStatus: ''
@@ -76,23 +80,21 @@ export default {
     this.$store.commit('permission/updateHasRule', false)
   },
   methods: {
-    async onSubmit() {
-      this.loginStatus = 'load'
-      this.message = ''
-      this.loginLoading = true
-      const response = await this.$store.dispatch('login/login', {
-        username: this.username,
-        password: this.password
+    async handleSubmit(name) {
+      this.$refs[name].validate(async (valid) => {
+        if (valid) {
+          this.loginStatus = 'load'
+          this.message = ''
+          this.loginLoading = true
+          const response = await this.$store.dispatch('login/login', {
+            username: this.username,
+            password: this.password
+          })
+          if (response.success) {
+            this.$router.push('/')
+          }
+        }
       })
-      if (response.success) {
-        // await this.$store.dispatch('permission/getResourceList')
-        this.$router.push('/')
-      } else {
-        console.log('failed')
-        this.loginStatus = ''
-        this.loginLoading = false
-        this.message = response.msg
-      }
     }
   }
 }
@@ -112,7 +114,6 @@ export default {
     font-size: 12px;
   }
   .main-content {
-    text-align: center; /*让div内部文字居中*/
     background-color: #fff;
     box-shadow: 0 8px 12px 0 rgba(0, 58, 140, 0.2);
     border-radius: 6px;
@@ -134,6 +135,7 @@ export default {
     .login-title {
       font-size:30px;
       font-family:PingFangSC-Semibold;
+      text-align: center;
       font-weight:600;
       color:rgba(25,151,255,1);
       line-height:42px;
@@ -146,25 +148,23 @@ export default {
       border-radius: 0;
       box-shadow: none
     }
+    .ivu-form-item-label {
+      font-size: 16px;
+      font-weight: 500;
+    }
   }
   .login-content {
     padding: 34px 48px;
-  }
-  .username-div {
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: left;
-  }
-  .input-margin {
-    margin-top: 10px;
   }
   .ivu-btn-primary {
     background: linear-gradient(270deg,rgba(23,149,255,1) 0%,rgba(96,192,255,1) 100%);
     border: none;
   }
+  .ivu-btn {
+    font-size: 16px;
+  }
   .button-margin {
-    margin-top: 48px
+    margin-top: 48px;
   }
 }
 </style>
