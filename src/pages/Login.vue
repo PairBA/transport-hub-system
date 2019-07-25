@@ -1,7 +1,50 @@
 <template>
   <div class="main-login">
     <div class="main-content">
-      <div class="login-title">
+      <Row>
+        <Col span="12" class="left"></Col>
+        <Col span="12" style="padding-left: 34px; padding-right: 34px">
+          <div class="login-title">
+            出租汽车智能管理系统
+          </div>
+          <Divider/>
+          <div class="login-content">
+            <Form label-position="top"
+                  inline
+                  @submit.prevent.native="onSubmit">
+              <div class="username-div">
+                用户名
+              </div>
+              <div style="margin-top: 10px">
+                <Input v-model="username"
+                       id="username"
+                       type="text"
+                       :placeholder="$t('sysManage.loginPage.userNamePH')"
+                />
+              </div>
+              <div class="input-margin">
+                <div class="username-div">
+                  密码
+                </div>
+              </div>
+              <div class="input-margin">
+                <Input v-model="password"
+                       id="password"
+                       type="password"
+                       :placeholder="$t('sysManage.loginPage.passwordPH')"
+                       @keyup.enter.native="onSubmit"/>
+              </div>
+              <div class="button-margin">
+                <Button type="primary" long :loading="loginLoading" @click="onSubmit">
+                  {{loginBtnInfo}}
+                </Button>
+                <p>{{message}}</p>
+              </div>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+      <!--<div class="login-title">
         {{ $t("sysManage.loginPage.title") }}
       </div>
       <div class="login-content">
@@ -39,7 +82,7 @@
             <p>{{message}}</p>
           </div>
         </Form>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -109,28 +152,39 @@ export default {
     background-color: #fff;
     box-shadow: 0 8px 12px 0 rgba(0, 58, 140, 0.2);
     border-radius: 6px;
-    width: 332px;
-    height: 360px;
+    width: 912px;
+    height: 505px;
     margin: auto;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-  }
-  .login-title {
-    width: 100%;
-    height: 60px;
-    background: rgba(236, 238, 240, 1);
-    border-radius: 6px;
-    text-align: center;
-    font-size: 22px;
-    color: rgba(74, 74, 74, 1);
-    line-height: 23px;
-    padding: 16px 24px;
+    .ivu-row {
+      height: 100%;
+      .left {
+        background-image: url("../img/login-left.png");
+        height: 100%;
+      }
+    }
+    .login-title {
+      font-size:30px;
+      font-family:PingFangSC-Semibold;
+      font-weight:600;
+      color:rgba(25,151,255,1);
+      line-height:42px;
+      margin-top: 36px;
+    }
+    .ivu-input {
+      background-color: transparent !important;
+      border: none;
+      border-bottom: 1px solid  #ECEEF0;
+      border-radius: 0;
+      box-shadow: none
+    }
   }
   .login-content {
-    padding: 24px;
+    padding: 34px 48px;
   }
   .username-div {
     font-weight: bold;
@@ -141,12 +195,9 @@ export default {
   .input-margin {
     margin-top: 10px;
   }
-  .captcha-input {
-    float: left;
-    width: 50%;
-  }
-  .input-width {
-    width: 100%;
+  .ivu-btn-primary {
+    background: linear-gradient(270deg,rgba(23,149,255,1) 0%,rgba(96,192,255,1) 100%);
+    border: none;
   }
   .button-margin {
     margin-top: 48px
