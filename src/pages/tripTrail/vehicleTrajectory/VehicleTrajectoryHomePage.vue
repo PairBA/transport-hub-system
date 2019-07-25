@@ -2,21 +2,45 @@
     <div class="vehicleTrajectory__homePage">
       <ContentLayout :showSpin="showSpin">
         <div slot="searchCondition">
-          <Form>
+          <Form label-position="top">
             <FormItem label="车辆号牌">
               <Input v-model="vehicleNo" placeholder="请输入车辆号牌"/>
             </FormItem>
             <FormItem :label="$t('sysManage.commonVar.startDateAndTime')">
-              <DatePicker v-model="vehtStartDate" :editable="false" :clearable="false" type="date"
-                          :options="options" :placeholder="$t('sysManage.queryBar.datePH')" style="margin-bottom: 24px"/>
-              <TimePicker v-model="vehtStartHour" :editable="false" :clearable="false" format="HH:mm"
-                          :placeholder="$t('sysManage.queryBar.timeSelectPH')"/>
+              <DatePicker v-model="vehtStartDate"
+                          type="date"
+                          format="yyyy/MM/dd"
+                          style="float: left;"
+                          :editable="false"
+                          :clearable="false"
+                          :options="options"
+                          :placeholder="$t('sysManage.queryBar.datePH')">
+              </DatePicker>
+              <TimePicker v-model="vehtStartHour"
+                          format="HH:mm"
+                          style="float: right;"
+                          :editable="false"
+                          :clearable="false"
+                          :placeholder="$t('sysManage.queryBar.timeSelectPH')">
+              </TimePicker>
             </FormItem>
             <FormItem :label="$t('sysManage.commonVar.endDateAndTime')">
-              <DatePicker v-model="vehtEndDate" :editable="false" :clearable="false" type="date"
-                          :options="options" :placeholder="$t('sysManage.queryBar.datePH')" style="margin-bottom: 24px"/>
-              <TimePicker v-model="vehtEndHour" :editable="false" :clearable="false" format="HH:mm"
-                          :placeholder="$t('sysManage.queryBar.timeSelectPH')"/>
+              <DatePicker v-model="vehtEndDate"
+                          type="date"
+                          format="yyyy/MM/dd"
+                          style="float: left;"
+                          :editable="false"
+                          :clearable="false"
+                          :options="options"
+                          :placeholder="$t('sysManage.queryBar.datePH')">
+              </DatePicker>
+              <TimePicker v-model="vehtEndHour"
+                          format="HH:mm"
+                          style="float: right;"
+                          :editable="false"
+                          :clearable="false"
+                          :placeholder="$t('sysManage.queryBar.timeSelectPH')">
+              </TimePicker>
             </FormItem>
             <Divider/>
             <Button type="primary" @click="goSearch">
@@ -152,7 +176,7 @@ export default {
 <style lang="less">
 .vehicleTrajectory__homePage {
   .ivu-date-picker {
-    width: 100%;
+    width: 49%;
   }
 }
 </style>
