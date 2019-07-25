@@ -1,6 +1,8 @@
 <template>
     <div class="watchDutySchedule__homePage">
-      <Row :gutter="24">
+      <PairBreadcrumb :title="title"/>
+      <Row :gutter="24"
+           class="watchDutySchedule__homePage-content">
         <Col span="18" class="table">
           <DatePicker v-model="date" type="month" style="width: 200px"></DatePicker>
           <Button type="primary" @click="goSearch" style="margin-left: 24px">查询</Button>
@@ -76,6 +78,11 @@ export default {
       monthDayList: [],
       planWorkerList: [],
       fullName: ''
+    }
+  },
+  computed: {
+    title() {
+      return this.$route.name
     }
   },
   async mounted() {
@@ -177,7 +184,9 @@ export default {
 <style lang="less">
 @import '../../../theme/index.less';
 .watchDutySchedule__homePage {
-  padding: 24px;
+  .watchDutySchedule__homePage-content {
+    padding: 24px;
+  }
   .table {
     overflow-y: scroll;
     height: @watch-duty__content--height;

@@ -1,15 +1,18 @@
 <template>
   <div class="schedule_homePage">
-    <TableWrapper>
-      <Button type="primary"
-              style="margin-bottom: 12px"
-              @click="addSchedule">
-        新增班次
-      </Button>
-      <Table :columns="columns"
-             :data="scheduleList">
-      </Table>
-    </TableWrapper>
+    <PairBreadcrumb :title="title"/>
+    <div class="schedule_homePage-content">
+      <TableWrapper>
+        <Button type="primary"
+                style="margin-bottom: 12px"
+                @click="addSchedule">
+          新增班次
+        </Button>
+        <Table :columns="columns"
+               :data="scheduleList">
+        </Table>
+      </TableWrapper>
+    </div>
   </div>
 </template>
 
@@ -28,6 +31,9 @@ export default {
     }
   },
   computed: {
+    title() {
+      return this.$route.name
+    },
     columns() {
       return [
         {
@@ -153,6 +159,8 @@ export default {
 
 <style lang="less">
 .schedule_homePage {
-  padding: 24px;
+  .schedule_homePage-content {
+    padding: 24px;
+  }
 }
 </style>

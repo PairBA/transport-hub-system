@@ -33,16 +33,9 @@
 </template>
 
 <script>
-import {
-  post,
-  get,
-  END_POINTS
-} from '@/api'
-import SearchWrapper from '@/components/wrapper/SearchWrapper'
+import { post, get, END_POINTS } from '@/api'
 export default {
-  components: {
-    SearchWrapper
-  },
+  components: {},
   data() {
     return {
       id: '',
