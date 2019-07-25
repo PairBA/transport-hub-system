@@ -52,5 +52,7 @@ export default {
   GET_HUB_SUM_ON_ALERT_LIST_DETAIL: '/api/transhub/fullscreen/getHubOnAlertListDetail',
   EXPORT_GATE_JUDGE_REPORT: '/api/gateVehicle/exportGateJudgeReport',
   GET_HUB_EVENT_LIST: '/api/transhub/trailReplay/getHubEventList',
+  GET_HUB_STAT_TRAIL_CUTQ_EXCEL: '/api/transhub/fullscreen/getHubStatTrailCutqExcel',
+  GET_HUB_STAT_TRAIL_ALERTON_EXCEL: '/api/transhub/fullscreen/getHubStatTrailAlertOnExcel',
   GET_TRANS_HUB_POLYGON_AREA: '/api/transhub/polygon/getTransHubPolygonArea'
 }

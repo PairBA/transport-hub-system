@@ -18,10 +18,18 @@
             </DatePicker>
           </FormItem>
           <Divider/>
-          <Button type="primary"
-                  @click="goSearch">
-            {{ $t("sysManage.queryBar.searchBT") }}
-          </Button>
+          <div>
+            <Button type="primary"
+                    style="float: left;"
+                    @click="goSearch">
+              查询
+            </Button>
+            <Button type="primary"
+                    style="float: right;"
+                    @click="exportExcel">
+              导出excel
+            </Button>
+          </div>
         </Form>
       </div>
       <div slot="content">
@@ -177,6 +185,25 @@ export default {
           this.list = []
         }
         this.showSpin = false
+      }
+    },
+    exportExcel() {
+      if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
+      } else {
+        const token = localStorage.getItem('token')
+        const baseUrl = process.env.VUE_APP_BASE_URL
+        const url = END_POINTS.GET_HUB_STAT_TRAIL_ALERTON_EXCEL +
+          '?startDate=' + dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd') +
+          '&endDate=' + dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd') +
+          '&vehicleNo=' + this.vehicleNo +
+          '&driverType=TAXI' +
+          '&areaCode=' + localStorage.getItem('areaCode') +
+          '&hubCode=' + localStorage.getItem('hubCode') +
+          '&x-me-token=' + token
+        window.location.href = `${baseUrl}${url}`
       }
     }
   }
