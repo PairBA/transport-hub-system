@@ -8,8 +8,8 @@
             class="icon"/>
     </div>
     <div style="float: left; color: #FFF;">
-      <div style="line-height: 30px">{{subTitle}}</div>
-      <div style="line-height: 30px">{{mainTitle}}</div>
+      <div style="line-height: 39px;font-size: 23px;font-weight: 600">{{mainTitle}}</div>
+      <div style="line-height: 15px;font-size: 17px">{{subTitle}}</div>
     </div>
     <div class="layout-nav">
       <MainMenu/>
