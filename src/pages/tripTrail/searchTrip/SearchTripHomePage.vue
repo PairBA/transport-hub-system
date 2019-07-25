@@ -12,14 +12,16 @@
           <FormItem :label="$t('sysManage.meterTripSearch.boardingTimeInterval')">
             <DatePicker type="date"
                         v-model="mtsOrgDate"
-                        format="yyyy-MM-dd"
+                        format="yyyy/MM/dd"
+                        style="float: left;"
                         :editable="true"
                         :clearable="true"
-                        :placeholder="$t('sysManage.queryBar.datePH')" style="margin-bottom: 12px">
+                        :placeholder="$t('sysManage.queryBar.datePH')">
             </DatePicker>
             <TimePicker type="time"
                         v-model="mtsOrgTime"
                         format="HH:mm"
+                        style="float: right;"
                         :editable="true"
                         :clearable="true"
                         :placeholder="$t('sysManage.queryBar.timePH')">
@@ -41,15 +43,17 @@
           <FormItem :label="$t('sysManage.meterTripSearch.departureTimeInterval')">
             <DatePicker type="date"
                         v-model="mtsDestDate"
-                        format="yyyy-MM-dd"
+                        format="yyyy/MM/dd"
+                        style="float: left;"
                         :disabled="destTimeDisabled"
                         :editable="true"
                         :clearable="true"
-                        :placeholder="$t('sysManage.queryBar.datePH')" style="margin-bottom: 12px">
+                        :placeholder="$t('sysManage.queryBar.datePH')">
             </DatePicker>
             <TimePicker type="time"
                         v-model="mtsDestTime"
                         format="HH:mm"
+                        style="float: right;"
                         :disabled="destTimeDisabled"
                         :editable="true"
                         :clearable="true"
@@ -80,7 +84,7 @@
         </Form>
       </div>
       <div slot="content">
-        <Row id="jumpView" :gutter="24" style="margin-top:24px;">
+        <Row id="jumpView" :gutter="24">
           <Col span="14">
             <div class="content__card">
               <MeterTripSearchAMap @lostFoundGoSearch="goSearch">
@@ -573,7 +577,7 @@ export default {
 <style lang="less">
 .searchTrip__homePage {
   .ivu-date-picker {
-    width: 100%;
+    width: 49%;
   }
 
   .ivu-page-prev,
