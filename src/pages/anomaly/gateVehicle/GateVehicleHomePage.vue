@@ -226,7 +226,7 @@ export default {
           desc: this.$t('sysManage.tripData.warningDesc')
         })
       } else {
-        const token = localStorage.getItem('token')
+        this.showSpin = true
         const gateJudgeListObject = await post(END_POINTS.GET_GATE_JUDGE_LIST, {
           currentPage: this.currentPage,
           orderBy: '',
@@ -242,7 +242,7 @@ export default {
             vehicleNo: this.vehicleNo
           },
           refreshTotalRecord: true
-        }, token)
+        })
         if (gateJudgeListObject.code === 2001) {
           this.currentPage = gateJudgeListObject.currentPage
           this.pageSize = gateJudgeListObject.pageSize
@@ -253,6 +253,7 @@ export default {
           this.total = 0
           this.gateJudgeList = []
         }
+        this.showSpin = false
       }
     }
   }

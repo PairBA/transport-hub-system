@@ -29,6 +29,11 @@
                :timeForGpsList="hubEventListObject.timeForGpsList || []"
                :markers="markers"
                @on-visible-change="doCloseModal"/>
+    <FocusModal :showFocusModal = 'showFocusModal'
+                :vehicleNo = 'vehicleNo'
+                @close-focus-modal="closeFocusModal"
+                @go-search="isVehicleFocus">
+    </FocusModal>
   </div>
 </template>
 
@@ -36,12 +41,16 @@
 import { get, END_POINTS } from '@/api'
 import { dateFormat, getHubTrailTableArr, addMarkerPosition, drawTripLine } from '@/utils'
 import TrailAMap from '@/components/anomaly/TrailAMap'
+import FocusModal from '@/components/modal/focus/FocusModal'
+const detail = require('@/img/common/detail.png')
 export default {
   components: {
-    TrailAMap
+    TrailAMap,
+    FocusModal
   },
   data() {
     return {
+      showFocusModal: false,
       mobile: '',
       vehicleNo: '',
       startDate: '',
@@ -85,17 +94,32 @@ export default {
           width: 125,
           align: 'center',
           render: (h, params) => {
-            return h('span', {
+            return h('Tooltip', {
+              props: {
+                content: '查看',
+                transfer: true,
+                placement: 'bottom'
+              },
               style: {
                 cursor: 'pointer',
-                marginLeft: '12px'
-              },
-              on: {
-                click: () => {
-                  this.doShowModal(params.row)
-                }
+                width: '30px'
               }
-            }, '查看')
+            }, [
+              h('img', {
+                style: {
+                  cursor: 'pointer',
+                  width: '30px'
+                },
+                attrs: {
+                  src: detail
+                },
+                on: {
+                  click: () => {
+                    this.doShowModal(params.row)
+                  }
+                }
+              })
+            ], '查看')
           }
         }
       ]
@@ -111,10 +135,17 @@ export default {
   },
   methods: {
     handleClick() {
-      this.isFocus ? this.cancelFocus() : this.focusVehicle()
+      if (this.isFocus) {
+        this.cancelFocus()
+      } else {
+        this.showFocusModal = true
+      }
     },
     doCloseModal(result) {
       this.isShowModal = result
+    },
+    closeFocusModal(result) {
+      this.showFocusModal = result
     },
     async doShowModal(row) {
       await this.getTransHubPolygonArea()

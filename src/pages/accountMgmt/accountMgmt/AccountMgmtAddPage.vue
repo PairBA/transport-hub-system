@@ -1,41 +1,53 @@
 <template>
   <div class="accountMgmt__add">
-    <SearchWrapper>
-      <Form :label-width="100" ref="formValidate" :model="formValidate" :rules="ruleValidate">
-        <FormItem label="用户名:" prop="userName">
-          <Input v-model="formValidate.userName" placeholder="请输入用户名"/>
-        </FormItem>
-        <FormItem label="姓名" prop="fullName">
-          <Input v-model="formValidate.fullName" placeholder="请输入姓名"/>
-        </FormItem>
-        <FormItem label="角色" prop="roleId">
-          <Select v-model="formValidate.roleId"
-                  placeholder="请选择角色">
-            <Option v-for="item in roleList"
-                    :value="item.id"
-                    :key="item.id">
-              {{ item.roleName }}
-            </Option>
-          </Select>
-        </FormItem>
-        <FormItem label="手机号" prop="mobile">
-          <Input v-model="formValidate.mobile" placeholder="请输入手机号"/>
-        </FormItem>
-        <FormItem label="邮箱">
-          <Input v-model="formValidate.email" placeholder="请输入邮箱"/>
-        </FormItem>
-        <FormItem label="密码" prop="password">
-          <Input v-model="formValidate.password" type="password" placeholder="请输入密码"/>
-        </FormItem>
-        <FormItem label="确认密码" prop="passwordConfirm">
-          <Input v-model="formValidate.passwordConfirm" type="password" placeholder="请输入密码"/>
-        </FormItem>
-        <Button type="primary"
-                @click="handleSubmit('formValidate')">
-          提交
-        </Button>
-      </Form>
-    </SearchWrapper>
+    <PairBreadcrumb parentPath="/accountMgmt/accountMgmtHomePage"
+                    parentTitle="账号管理"
+                    title="新增账号"/>
+    <div class="accountMgmt__add-content">
+      <div class="accountMgmt__add-content-wrapper">
+        <div class="accountMgmt__add-form-wrapper">
+          <Form ref="formValidate"
+                label-position="top"
+                :model="formValidate"
+                :rules="ruleValidate">
+            <FormItem label="用户名:" prop="userName">
+              <Input v-model="formValidate.userName" placeholder="请输入用户名"/>
+            </FormItem>
+            <FormItem label="姓名" prop="fullName">
+              <Input v-model="formValidate.fullName" placeholder="请输入姓名"/>
+            </FormItem>
+            <FormItem label="角色" prop="roleId">
+              <Select v-model="formValidate.roleId"
+                      placeholder="请选择角色">
+                <Option v-for="item in roleList"
+                        :value="item.id"
+                        :key="item.id">
+                  {{ item.roleName }}
+                </Option>
+              </Select>
+            </FormItem>
+            <FormItem label="手机号" prop="mobile">
+              <Input v-model="formValidate.mobile" placeholder="请输入手机号"/>
+            </FormItem>
+            <FormItem label="邮箱">
+              <Input v-model="formValidate.email" placeholder="请输入邮箱"/>
+            </FormItem>
+            <FormItem label="密码" prop="password">
+              <Input v-model="formValidate.password" type="password" placeholder="请输入密码"/>
+            </FormItem>
+            <FormItem label="确认密码" prop="passwordConfirm">
+              <Input v-model="formValidate.passwordConfirm" type="password" placeholder="请输入密码"/>
+            </FormItem>
+            <div style="text-align: center;">
+              <Button type="primary"
+                      @click="handleSubmit('formValidate')">
+                提交
+              </Button>
+            </div>
+          </Form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -126,8 +138,26 @@ export default {
 </script>
 
 <style lang="less">
-.accountMgmt__add{
+.accountMgmt__add {
+  .accountMgmt__add-content {
+    padding: 24px;
 
+    .accountMgmt__add-content-wrapper {
+      padding: 24px;
+      width: 100%;
+      background-color: #FFFFFF;
+      border-radius: 2px;
+
+      .accountMgmt__add-form-wrapper {
+        width: 200px;
+        margin: 0 auto;
+
+        .ivu-date-picker {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 
 </style>

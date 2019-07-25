@@ -1,28 +1,27 @@
 <template>
   <div class="roleMgmt__homePage">
-    <TableWrapper>
-      <Button type="primary"
-              @click="addRole"
-              style="margin-bottom: 12px">
-        新增角色
-      </Button>
-      <Table :columns="columns"
-             :data="roleList">
-      </Table>
-    </TableWrapper>
+    <PairBreadcrumb title="角色管理"/>
+    <div class="roleMgmt__homePage-content">
+      <TableWrapper>
+        <Button type="primary"
+                @click="addRole"
+                style="margin-bottom: 12px">
+          新增角色
+        </Button>
+        <Table :columns="columns"
+               :data="roleList">
+        </Table>
+      </TableWrapper>
+    </div>
   </div>
 </template>
 
 <script>
-import {
-  get,
-  END_POINTS
-} from '@/api'
-import TableWrapper from '@/components/wrapper/TableWrapper'
+import { get, END_POINTS } from '@/api'
+const deleteIcon = require('@/img/common/delete.png')
+const editIcon = require('@/img/common/edit.png')
 export default {
-  components: {
-    TableWrapper
-  },
+  components: {},
   name: 'RoleMgmtHomePage',
   data() {
     return {
@@ -50,20 +49,36 @@ export default {
           align: 'center',
           render: (h, params) => {
             return h('div', [
-              h('span', {
-                style: {
-                  color: '#1890FF',
-                  cursor: 'pointer'
+              h('Tooltip', {
+                props: {
+                  content: '编辑',
+                  transfer: true,
+                  placement: 'bottom'
                 },
-                on: {
-                  click: () => {
-                    this.goToEdit(params.row.id)
-                  }
+                style: {
+                  cursor: 'pointer',
+                  width: '30px'
                 }
-              }, this.$t('sysManage.commonVar.actionEdit')),
+              }, [
+                h('img', {
+                  style: {
+                    cursor: 'pointer',
+                    width: '30px'
+                  },
+                  attrs: {
+                    src: editIcon
+                  },
+                  on: {
+                    click: () => {
+                      this.goToEdit(params.row.id)
+                    }
+                  }
+                })
+              ], '编辑'),
               h('Poptip', {
                 style: {
-                  textAlign: 'left'
+                  textAlign: 'left',
+                  marginLeft: '12px'
                 },
                 props: {
                   confirm: true,
@@ -78,13 +93,27 @@ export default {
                   }
                 }
               }, [
-                h('span', {
+                h('Tooltip', {
+                  props: {
+                    content: '删除',
+                    transfer: true,
+                    placement: 'bottom'
+                  },
                   style: {
-                    color: '#1890FF',
-                    marginLeft: '5px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    width: '30px'
                   }
-                }, this.$t('sysManage.toolBar.delete'))
+                }, [
+                  h('img', {
+                    style: {
+                      cursor: 'pointer',
+                      width: '30px'
+                    },
+                    attrs: {
+                      src: deleteIcon
+                    }
+                  })
+                ], '删除')
               ])
             ])
           }
@@ -120,7 +149,9 @@ export default {
 </script>
 
 <style lang="less">
-.roleMgmt__homePage{
-  padding: 24px;
+.roleMgmt__homePage {
+  .roleMgmt__homePage-content {
+    padding: 24px;
+  }
 }
 </style>

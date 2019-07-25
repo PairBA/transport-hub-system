@@ -571,50 +571,62 @@ export default {
 </script>
 
 <style lang="less">
-.searchTrip__homePage{
+.searchTrip__homePage {
+  .ivu-date-picker {
+    width: 100%;
+  }
+
   .ivu-page-prev,
   .ivu-page-next,
   .ivu-page-item-jump-prev,
   .ivu-page-item-jump-next {
-    min-width: 12px!important;
+    min-width: 12px !important;
   }
+
   .ivu-page-simple
   .ivu-page-simple-pager
   input {
     width: 35px;
   }
+
   .search-wrapper
   .ivu-input-wrapper {
     width: 125px;
   }
+
   .ivu-radio-group-button .ivu-radio-wrapper-checked {
-    background: #5584FF!important;
-    color: #FFFFFF!important;
+    background: #5584FF !important;
+    color: #FFFFFF !important;
   }
+
   .ivu-radio-group-button .ivu-radio-wrapper {
     color: #666666;
     background: #F5F6F9;
     padding: 0 5px;
   }
+
   .meter-trip-search-car-icon {
     width: 24px;
     float: left;
     margin-top: 4px;
   }
+
   .meter-trip-search-car-title {
     float: left;
     font-size: 20px;
     font-weight: 600;
     margin-left: 8px;
   }
+
   .meter-trip-search-car-line {
     width: 100%;
     height: 1px;
     background-color: #E9E9E9;
   }
+
   .meter-trip-search-content-input {
     display: inline-block;
-    width: 160px;
+    width: 100%;
     height: 32px;
     line-height: 1.5;
     padding: 4px 7px;
@@ -625,22 +637,27 @@ export default {
     position: relative;
     cursor: text;
   }
+
   .meter-trip-search-itemlist {
   }
+
   .meter-trip-search-itemlist-title {
     font-size: 14px;
     color: #333333;
     font-weight: 600;
   }
+
   .meter-trip-search-itemlist-info {
     font-size: 16px;
     color: #333333;
     font-weight: 600;
   }
+
   .meter-trip-search-itemlist-icon {
     width: 8px;
     float: right;
   }
+
   .meter-trip-search-itemlist-active {
     background-color: #F8F9FC;
     border-left: 6px solid #9D9D9D;

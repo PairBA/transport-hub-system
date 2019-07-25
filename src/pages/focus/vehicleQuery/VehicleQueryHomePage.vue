@@ -52,39 +52,13 @@
                       :vehicleNo="propVehicleNo"
                       :terminalName="propTerminalName"
                       :companyName="propCompanyName"
-                      @on-visible-change="doCloseModal"/>
-    <Modal v-model="showFocusModal"
-           width="360"
-           class="focus-modal"
-           :mask-closable="false">
-      <p slot="header"
-         class="focus-modal-title">
-        <span>加入重点关注</span>
-      </p>
-      <div style="font-size: 16px;font-weight: bold;">
-        <div style="margin-bottom: 12px;">
-          <span>车牌号码：{{confirmVehicleNo}}</span>
-        </div>
-        <div>
-          <div>备注：</div>
-          <div>
-            <Input v-model="remark"
-                   type="textarea"
-                   :rows="2"
-                   placeholder="请输入备注" />
-          </div>
-        </div>
-      </div>
-      <div slot="footer">
-        <Button type="primary"
-                size="large"
-                long
-                :loading="focusLoading"
-                @click="confirmFocus">
-          确定
-        </Button>
-      </div>
-    </Modal>
+                      @on-visible-change="doCloseModal">
+    </RealLocationAMap>
+    <FocusModal :showFocusModal = 'showFocusModal'
+                :vehicleNo = 'propVehicleNo'
+                @close-focus-modal="closeFocusModal"
+                @go-search="goSearch">
+    </FocusModal>
   </div>
 </template>
 
@@ -92,23 +66,23 @@
 import { get, post, END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
 import RealLocationAMap from '@/components/map/realLocation/RealLocationAMap'
+import FocusModal from '@/components/modal/focus/FocusModal'
 const focus = require('@/img/focus/focus.png')
 const cancelFocus = require('@/img/focus/cancelFocus.png')
 const realLocation = require('@/img/focus/realLocation.png')
 
 export default {
   components: {
-    RealLocationAMap
+    RealLocationAMap,
+    FocusModal
   },
   data() {
     return {
-      focusLoading: false,
       isShowModal: false,
       showFocusModal: false,
       showSpin: false,
       vehicleNo: '',
       focusDate: [new Date(), new Date()],
-      remark: '',
       tableListObject: {
         tableList: [],
         currentPage: 1,
@@ -119,7 +93,6 @@ export default {
       propVehicleNo: '',
       propTerminalName: '',
       propCompanyName: '',
-      confirmVehicleNo: '',
       options: {
         disabledDate(date) {
           return date && date.valueOf() > Date.now()
@@ -399,31 +372,12 @@ export default {
       this.isShowModal = result
     },
     openFocus(row) {
+      this.propVehicleNo = row.vehicleNo
       this.showFocusModal = true
-      this.confirmVehicleNo = row.vehicleNo
-      this.remark = ''
     },
-    closeFocusModal() {
-      this.showFocusModal = false
-      this.confirmVehicleNo = ''
-      this.remark = ''
-    },
-    async confirmFocus() {
-      this.focusLoading = true
-      const result = await get(END_POINTS.FOCUS_VEHICLE, {
-        areaCode: localStorage.getItem('areaCode'),
-        vehicleNo: this.confirmVehicleNo,
-        remark: this.remark
-      })
-      // console.log(result)
-      if (result.code === 2000) {
-        this.goSearch()
-        this.closeFocusModal()
-        this.$Message.success({
-          content: '关注成功！'
-        })
-      }
-      this.focusLoading = false
+    closeFocusModal(result) {
+      this.showFocusModal = result
+      this.propVehicleNo = ''
     },
     async doCancelFocus(row) {
       const result = await get(END_POINTS.CANCEL_FOCUS, {
@@ -445,15 +399,6 @@ export default {
 .vehicle-query-home-page {
   .ivu-date-picker {
     width: 100%;
-  }
-}
-.focus-modal {
-  .focus-modal-title {
-    text-align: center;
-    font-size: 24px;
-    height: 30px;
-    line-height: 30px;
-    font-weight: bold;
   }
 }
 </style>
