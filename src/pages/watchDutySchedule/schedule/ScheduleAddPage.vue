@@ -6,10 +6,13 @@
           <Input v-model="formValidate.scheduleName" placeholder="请输入班次名称"/>
         </FormItem>
         <FormItem label="开始时间:" prop="startTime">
-          <TimePicker type="time" format="HH:mm" v-model="formValidate.startTime" placeholder="请输入开始时间"></TimePicker>
+          <TimePicker type="time" format="HH:mm" @on-change="handleChange" v-model="formValidate.startTime" placeholder="请输入开始时间"></TimePicker>
         </FormItem>
         <FormItem label="结束时间:" prop="endTime">
-          <TimePicker type="time" format="HH:mm" v-model="formValidate.endTime" placeholder="请输入结束时间"></TimePicker>
+          <TimePicker type="time" :format="format"
+                      v-model="formValidate.endTime"
+                      @on-change="handleChange"
+                      placeholder="请输入结束时间"></TimePicker>
         </FormItem>
         <div style="text-align: center">
           <Button type="primary"
@@ -34,6 +37,7 @@ export default {
   },
   data() {
     return {
+      format: 'HH:mm',
       formValidate: {
         scheduleName: '',
         startTime: '',
@@ -59,7 +63,7 @@ export default {
           const result = await post(END_POINTS.ADD_SCHEDULE, {
             scheduleName: this.formValidate.scheduleName,
             startTime: this.formValidate.startTime,
-            endTime: this.formValidate.endTime
+            endTime: this.formValidate.endTime.length > 5 ? this.formValidate.endTime.substring(3) : this.formValidate.endTime
           })
           if (result.code === 2000) {
             this.$Message.success({
@@ -71,6 +75,13 @@ export default {
           this.$Message.error('失败')
         }
       })
+    },
+    handleChange() {
+      let endTime = this.formValidate.endTime
+      if (endTime.length > 5) endTime = endTime.substring(3)
+      if (endTime < this.formValidate.startTime) {
+        this.format = '次日 HH:mm'
+      } else this.format = 'HH:mm'
     }
   }
 }

@@ -41,7 +41,9 @@ export default {
           render: (h, params) => {
             const startTime = params.row.startTime
             const endTime = params.row.endTime
-            return h('span', startTime + '-' + endTime)
+            if (endTime < startTime) {
+              return h('span', startTime + ' - 次日' + endTime)
+            } else return h('span', startTime + '-' + endTime)
           }
         },
         {

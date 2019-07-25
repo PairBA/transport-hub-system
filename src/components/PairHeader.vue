@@ -18,11 +18,7 @@
       <Dropdown trigger="click"
                 @on-click="handleListClick"
                 placement="bottom-end">
-        <Avatar v-if="photo"
-                :src="photo"
-                style="cursor: pointer;"/>
-        <Avatar v-else
-                icon="md-person"
+        <Avatar icon="md-person"
                 style="cursor: pointer;"/>
         <a href="javascript:void(0)"
            class="profile-user-name">
