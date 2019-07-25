@@ -42,6 +42,7 @@ const mutations = {
     // 已经获取到权限菜单
     state.hasGetRules = true
     const mainMenu = menuList.filter(menu => menu.resourceKey)
+    state.mainMenu = mainMenu
     const firstMenu = mainMenu[0].resourceKey
     const allSubMenu = {
       accountMgmt: accountMgmtMenu,

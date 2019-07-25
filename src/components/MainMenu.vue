@@ -1,23 +1,8 @@
 <template>
   <div class="main-menu">
     <Menu ref="mainMenu" mode="horizontal" theme="dark" :active-name="activeName"  @on-select="onSelectMenu">
-      <MenuItem name="anomaly">
-        异常告警
-      </MenuItem>
-      <MenuItem name="focus">
-        重点关注
-      </MenuItem>
-      <MenuItem name="tripTrail">
-        行程轨迹
-      </MenuItem>
-      <MenuItem name="trafficFlow">
-        车流量
-      </MenuItem>
-      <MenuItem name="watchDutySchedule">
-        值班表
-      </MenuItem>
-      <MenuItem name="accountMgmt">
-        账号管理
+      <MenuItem v-for="menu in mainMenu" :key="menu.resourceKey" :name="menu.resourceKey">
+        {{menu.resourceName}}
       </MenuItem>
     </Menu>
   </div>
@@ -30,6 +15,11 @@ export default {
   data() {
     return {
       activeName: ''
+    }
+  },
+  computed: {
+    mainMenu() {
+      return this.$store.state.permission.mainMenu
     }
   },
   methods: {
