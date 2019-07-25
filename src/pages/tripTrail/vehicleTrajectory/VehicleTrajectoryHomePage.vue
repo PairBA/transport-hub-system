@@ -19,7 +19,9 @@
                           :placeholder="$t('sysManage.queryBar.timeSelectPH')"/>
             </FormItem>
             <Divider/>
-            <Button type="primary" style="margin: 0 0 24px 24px" @click="goSearch">{{$t("sysManage.queryBar.searchBT")}}</Button>
+            <Button type="primary" @click="goSearch">
+              {{$t("sysManage.queryBar.searchBT")}}
+            </Button>
           </Form>
         </div>
         <div slot="content">
