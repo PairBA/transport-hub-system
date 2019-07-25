@@ -44,45 +44,6 @@
           </div>
         </Col>
       </Row>
-      <!--<div class="login-title">
-        {{ $t("sysManage.loginPage.title") }}
-      </div>
-      <div class="login-content">
-        <Form label-position="top"
-              inline
-              @submit.prevent.native="onSubmit">
-          <div class="username-div">
-            用户名
-          </div>
-          <div style="margin-top: 10px">
-            <Input v-model="username"
-                   id="username"
-                   type="text"
-                   class="input-width"
-                   :placeholder="$t('sysManage.loginPage.userNamePH')"
-                   />
-          </div>
-          <div class="input-margin">
-            <div class="username-div">
-              密码
-            </div>
-          </div>
-          <div class="input-margin">
-            <Input v-model="password"
-                   id="password"
-                   type="password"
-                   class="input-width"
-                   :placeholder="$t('sysManage.loginPage.passwordPH')"
-                   @keyup.enter.native="onSubmit"/>
-          </div>
-          <div class="button-margin">
-            <Button type="primary" :loading="loginLoading" @click="onSubmit" class="input-width">
-              {{loginBtnInfo}}
-            </Button>
-            <p>{{message}}</p>
-          </div>
-        </Form>
-      </div>-->
     </div>
   </div>
 </template>

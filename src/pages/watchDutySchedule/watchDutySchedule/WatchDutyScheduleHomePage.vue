@@ -160,6 +160,7 @@ export default {
     async getPlanDetailList() {
       const result = await get(END_POINTS.GET_PLAN_DETAIL_LIST + `?queryMonth=${dateFormat(this.date, 'yyyy-MM')}`)
       if (result.code === 2000) this.planDetailList = result.data
+      else this.planDetailList = []
     },
     async getPlanWorkerList() {
       const result = await get(END_POINTS.GET_PLAN_WORKER_LIST)
