@@ -1,6 +1,6 @@
 <template>
   <Modal class="real-location-amap-modal"
-         width="60"
+         width="70"
          :footer-hide="true"
          :closable="false"
          :value="isShowModal"
@@ -26,7 +26,7 @@
     </Row>
     <el-amap ref="realLocationAmap"
              vid="realLocationAmap"
-             style="height: 250px;"
+             style="height: 300px;"
              :amap-manager="mapManager"
              :zoom="zoom"
              :center="center"

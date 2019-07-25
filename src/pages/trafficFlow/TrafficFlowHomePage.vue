@@ -34,6 +34,7 @@
                         placeholder="请选择时间"
                         style="float: right;"
                         :disabled-minutes="disabledMinutes"
+                        :disabled="!isHour"
                         :clearable="false"
                         :editable="false">
             </TimePicker>
@@ -54,6 +55,7 @@
                         placeholder="请选择时间"
                         style="float: right;"
                         :disabled-minutes="disabledMinutes"
+                        :disabled="!isHour"
                         :clearable="false"
                         :editable="false">
             </TimePicker>
@@ -75,8 +77,9 @@
       </div>
       <div slot="content">
         <TableWrapper>
-          <div>
-            <PairECharts id="trafficFlowECharts"
+          <div style="width: 100%;">
+            <PairECharts v-if="showEchart"
+                         id="trafficFlowECharts"
                          :title="trafficFlowECharts.title"
                          :xAxis="trafficFlowECharts.xAxis"
                          :yAxis="trafficFlowECharts.yAxis"
@@ -84,7 +87,8 @@
                          :series="trafficFlowECharts.series"
                          :grid="trafficFlowECharts.grid"
                          :color="trafficFlowECharts.color"
-                         style="height: 300px;width: 100%">
+                         :legend="trafficFlowECharts.legend"
+                         style="height: 300px;width: 100%;">
             </PairECharts>
           </div>
           <div>
@@ -129,6 +133,8 @@ export default {
     return {
       disabledMinutes: disabledMinutes,
       showSpin: false,
+      isHour: true,
+      showEchart: false,
       gateName: '',
       countType: 'HOUR',
       startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
@@ -226,6 +232,10 @@ export default {
             return `${title}${content}`
           }
         },
+        legend: {
+          data: ['闸口车辆数', '发车量'],
+          right: '20%'
+        },
         grid: {
           left: '4%',
           right: '12%',
@@ -235,6 +245,7 @@ export default {
         },
         series: [
           {
+            name:'闸口车辆数',
             type: 'line',
             smooth: false,
             color: '#6BB523',
@@ -247,6 +258,7 @@ export default {
             data: this.echartsInfo ? this.echartsInfo.yGate : []
           },
           {
+            name:'发车量',
             type: 'line',
             smooth: false,
             color: '#1F88E5',
@@ -265,7 +277,17 @@ export default {
   async mounted() {
     this.getTrafficFlowInfo()
   },
+  watch: {
+    countType: 'watchCountType'
+  },
   methods: {
+    watchCountType() {
+      if (this.countType === 'HOUR') { // 按小时统计
+        this.isHour = true
+      } else if (this.countType === 'DAY') { // 按天统计
+        this.isHour = false
+      }
+    },
     getPage(currentPage) {
       this.tableListObject.currentPage = currentPage
       this.doViewPage(this.tableListObject.tableList)
@@ -279,6 +301,7 @@ export default {
     },
     async getTrafficFlowInfo() {
       this.showSpin = true
+      this.showEchart = false
       this.tableListObject.currentPage = 1
       this.tableListObject.total = 0
       this.tableListObject.pageSize = 10
@@ -298,7 +321,11 @@ export default {
         let yGate = []
         let yNormal = []
         result.data.forEach(item => {
-          xAxis.push(dateFormat(new Date(item.time), 'yyyy-MM-dd hh:mm'))
+          if (this.countType === 'HOUR') { // 按小时统计
+            xAxis.push(dateFormat(new Date(item.time), 'yyyy-MM-dd hh:mm'))
+          } else if (this.countType === 'DAY') { // 按天统计
+            xAxis.push(dateFormat(new Date(item.time), 'yyyy-MM-dd'))
+          }
           yGate.push(item.gateVehicle)
           yNormal.push(item.normalVehicle)
           this.gateVehicleNum = this.gateVehicleNum + item.gateVehicle
@@ -323,6 +350,7 @@ export default {
         this.tableListObject.showTableList = []
         this.echartsInfo = null
       }
+      this.showEchart = true
       this.showSpin = false
     },
     doViewPage(data) {
