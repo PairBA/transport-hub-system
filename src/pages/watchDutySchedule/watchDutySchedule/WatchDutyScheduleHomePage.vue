@@ -9,7 +9,7 @@
             <Row :gutter="8">
               <Col v-for="(singleDay, index) in monthDayList" :key="index" @click.native="highlightDay(singleDay)">
                 <div class="item" :class="{ 'item-active' : singleDay.scheduleDate === item.scheduleDate}">
-                  <div class="calender-num">
+                  <div class="calender-num" :class="{ 'calender-num-active' : singleDay.scheduleDate === item.scheduleDate}">
                     {{singleDay.scheduleDate.substring(8)}}
                   </div>
                   <div style="padding: 8px" >
@@ -220,6 +220,9 @@ export default {
     background-image: url("../../../img/calendar.png");
     background-repeat: no-repeat;
     background-size: 100%;
+  }
+  .calender-num-active {
+    background-image: url("../../../img/calendar-light.png");
   }
   .single-item {
     padding: 20px 16px;
