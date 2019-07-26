@@ -73,22 +73,14 @@
 </template>
 
 <script>
-import ContentLayout from '@/components/ContentLayout'
-import TableWrapper from '@/components/wrapper/TableWrapper'
-import PairPage from '@/components/common/PairPage'
 import CompanySelect from '@/components/common/CompanySelect'
 import FocusModal from '@/components/modal/focus/FocusModal'
-import {
-  get,
-  post,
-  END_POINTS
-} from '@/api'
+import { get, post, END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
+const focus = require('@/img/focus/focus.png')
+const cancelFocus = require('@/img/focus/cancelFocus.png')
 export default {
   components: {
-    ContentLayout,
-    TableWrapper,
-    PairPage,
     CompanySelect,
     FocusModal
   },
@@ -99,7 +91,7 @@ export default {
       judgeType: '',
       hubCode: '',
       vehicleNo: '',
-      vehicleNoSearch: '',
+      vehicleNoSearch: '川A',
       terminalName: '',
       gateJudgeList: [],
       total: 0,
@@ -290,18 +282,41 @@ export default {
           width: 125,
           align: 'center',
           render: (h, params) => {
-            const focused = params.row.focused
-            return h('span', {
+            let content = ''
+            let src = ''
+            if (params.row.focused) { // 已经被关注
+              content = '取消关注'
+              src = cancelFocus
+            } else { // 未被关注
+              content = '关注'
+              src = focus
+            }
+            return h('Tooltip', {
+              props: {
+                content: content,
+                transfer: true,
+                placement: 'bottom'
+              },
               style: {
                 cursor: 'pointer',
-                color: '#1890FF'
-              },
-              on: {
-                click: () => {
-                  this.handleClick(params.row.vehicleNo, focused)
-                }
+                width: '30px'
               }
-            }, focused ? '-关注' : '+关注')
+            }, [
+              h('img', {
+                style: {
+                  cursor: 'pointer',
+                  width: '30px'
+                },
+                attrs: {
+                  src: src
+                },
+                on: {
+                  click: () => {
+                    this.handleClick(params.row.vehicleNo, params.row.focused)
+                  }
+                }
+              })
+            ], content)
           }
         })
       }

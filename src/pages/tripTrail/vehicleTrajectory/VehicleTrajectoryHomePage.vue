@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       showSpin: false,
-      vehicleNo: '',
+      vehicleNo: '川A',
       vehtStartDate: '',
       vehtStartHour: '',
       vehtEndDate: '',

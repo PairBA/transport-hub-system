@@ -81,7 +81,7 @@ export default {
       isShowModal: false,
       showFocusModal: false,
       showSpin: false,
-      vehicleNo: '',
+      vehicleNo: '川A',
       focusDate: [new Date(), new Date()],
       tableListObject: {
         tableList: [],
@@ -248,7 +248,9 @@ export default {
     }
   },
   async mounted() {
-    this.getVehicleInfo()
+    if (this.vehicleNo && this.vehicleNo !== '川A') {
+      this.getVehicleInfo()
+    }
   },
   methods: {
     getPage(currentPage) {

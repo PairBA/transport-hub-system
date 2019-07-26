@@ -1,12 +1,12 @@
 <template>
   <Modal class="trail-amap"
-         width="60"
+         width="70"
          :footer-hide="true"
          :closable="false"
          :value="isShowModal"
          @on-visible-change="closeModal">
     <PairSpin :show="showSpin"/>
-    <el-amap ref="map" vid="illegalBoardingAMap" style="height: 250px;" :zoom="zoom" :center="center" :amap-manager="mapManager" :events="events">
+    <el-amap ref="map" vid="illegalBoardingAMap" style="height: 350px;" :zoom="zoom" :center="center" :amap-manager="mapManager" :events="events">
       <el-amap-marker v-for="(marker, index) in markers" :key="index+5" :position="marker.position" :icon="marker.icon" :title="marker.title" :vid="index" :events="marker.event" zIndex="100"></el-amap-marker>
       <el-amap-marker v-if="showSliderMarker" :position="sliderMarker.position" :icon="sliderMarker.icon" :title="sliderMarker.title" zIndex="99" ></el-amap-marker>
       <el-amap-polygon v-for="(polygon, index) in polygons" :key="`polygonTrail_${index}`" :path="polygon.path" :strokeColor="polygon.strokeColor" :strokeWeight="polygon.strokeWeight" strokeStyle="dashed" :fillOpacity="0"></el-amap-polygon>

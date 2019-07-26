@@ -70,7 +70,7 @@ export default {
     return {
       isShowModal: false,
       showSpin: false,
-      vehicleNo: '',
+      vehicleNo: '川A',
       focusDate: [new Date(), new Date()],
       propVehicleNo: '',
       propTerminalName: '',

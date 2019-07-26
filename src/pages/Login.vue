@@ -93,6 +93,7 @@ export default {
           if (response.success) {
             this.$router.push('/')
           }
+          this.loginLoading = false
         }
       })
     }
