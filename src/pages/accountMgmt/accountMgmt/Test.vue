@@ -1,6 +1,9 @@
 <template>
   <div class="test-page">
-    <Menu accordion @on-open-change="showName">
+    <Menu ref="testMenu"
+          accordion
+          @on-open-change="showName"
+          :open-names="openNames">
       <Submenu v-for="item in accountMgmtMenu" :name="item.path" :key="item.path">
         <template slot="title">
           {{item.name}}
@@ -22,6 +25,7 @@ export default {
     return {
       accountMgmtMenu: accountMgmtMenu,
       showSpin: false,
+      openNames: [],
       userName: '',
       roleId: '',
       roleList: [],
@@ -34,6 +38,12 @@ export default {
         console.log(names[0])
       }
     }
+  },
+  mounted() {
+    this.openNames = ['/accountMgmt/roleMgmtHomePage']
+    this.$nextTick(() => {
+      this.$refs.testMenu.updateOpened()
+    })
   }
 }
 </script>
