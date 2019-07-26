@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       showSpin: false,
-      vehicleNo: '',
+      vehicleNo: '川A',
       daterange: [new Date(), new Date()],
       list: [],
       currentPage: 1,
@@ -123,7 +123,9 @@ export default {
     }
   },
   async mounted() {
-    this.goSearch()
+    if (this.vehicleNo && this.vehicleNo !== '川A') {
+      this.goSearch()
+    }
   },
   methods: {
     goSearch() {

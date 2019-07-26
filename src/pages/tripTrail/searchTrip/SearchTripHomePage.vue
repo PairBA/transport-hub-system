@@ -14,7 +14,7 @@
                         v-model="mtsOrgDate"
                         format="yyyy/MM/dd"
                         style="float: left;"
-                        :editable="true"
+                        :editable="false"
                         :clearable="true"
                         :placeholder="$t('sysManage.queryBar.datePH')">
             </DatePicker>
@@ -22,7 +22,7 @@
                         v-model="mtsOrgTime"
                         format="HH:mm"
                         style="float: right;"
-                        :editable="true"
+                        :editable="false"
                         :clearable="true"
                         :placeholder="$t('sysManage.queryBar.timePH')">
             </TimePicker>
@@ -46,7 +46,7 @@
                         format="yyyy/MM/dd"
                         style="float: left;"
                         :disabled="destTimeDisabled"
-                        :editable="true"
+                        :editable="false"
                         :clearable="true"
                         :placeholder="$t('sysManage.queryBar.datePH')">
             </DatePicker>
@@ -55,7 +55,7 @@
                         format="HH:mm"
                         style="float: right;"
                         :disabled="destTimeDisabled"
-                        :editable="true"
+                        :editable="false"
                         :clearable="true"
                         :placeholder="$t('sysManage.queryBar.timePH')">
             </TimePicker>

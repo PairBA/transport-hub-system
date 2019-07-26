@@ -26,7 +26,7 @@
             </Select>
           </FormItem>
           <FormItem :label="$t('sysManage.queryBar.vehicleNo')">
-            <Input v-model="vehicleNo"
+            <Input v-model="vehicleNoSearch"
                    placeholder="请输入车辆号牌">
             </Input>
           </FormItem>
@@ -64,25 +64,25 @@
         </TableWrapper>
       </div>
     </ContentLayout>
+    <FocusModal :showFocusModal = 'showFocusModal'
+                :vehicleNo="vehicleNo"
+                @close-focus-modal="closeFocusModal"
+                @go-search="goSearch">
+    </FocusModal>
   </div>
 </template>
 
 <script>
-import ContentLayout from '@/components/ContentLayout'
-import TableWrapper from '@/components/wrapper/TableWrapper'
-import PairPage from '@/components/common/PairPage'
 import CompanySelect from '@/components/common/CompanySelect'
-import {
-  post,
-  END_POINTS
-} from '@/api'
+import FocusModal from '@/components/modal/focus/FocusModal'
+import { get, post, END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
+const focus = require('@/img/focus/focus.png')
+const cancelFocus = require('@/img/focus/cancelFocus.png')
 export default {
   components: {
-    ContentLayout,
-    TableWrapper,
-    PairPage,
-    CompanySelect
+    CompanySelect,
+    FocusModal
   },
   data() {
     return {
@@ -91,6 +91,7 @@ export default {
       judgeType: '',
       hubCode: '',
       vehicleNo: '',
+      vehicleNoSearch: '川A',
       terminalName: '',
       gateJudgeList: [],
       total: 0,
@@ -100,12 +101,9 @@ export default {
         disabledDate(date) {
           return date && date.valueOf() > Date.now()
         }
-      }
-    }
-  },
-  computed: {
-    tableColumns() {
-      return [
+      },
+      showFocusModal: false,
+      tableColumns: [
         {
           title: this.$t('sysManage.gateAnalysis.gate'),
           key: 'gateName',
@@ -180,6 +178,14 @@ export default {
           }
         }
       ]
+    }
+  },
+  computed: {
+    mainMenu() {
+      return this.$store.state.permission.mainMenu
+    },
+    showFocusBtn() {
+      return this.mainMenu.some(menu => menu.resourceKey === 'focus')
     },
     terminalList() {
       return this.$store.state.terminalList
@@ -188,9 +194,21 @@ export default {
   async mounted() {
     this.$store.dispatch('getCompListForSelect')
     this.$store.dispatch('getTerminalList')
+    this.getTableColumns()
     this.goSearch()
   },
   methods: {
+    handleClick(vehicleNo, focused) {
+      this.vehicleNo = vehicleNo
+      if (focused) {
+        this.cancelFocus()
+      } else {
+        this.showFocusModal = true
+      }
+    },
+    closeFocusModal(result) {
+      this.showFocusModal = result
+    },
     getPage(currentPage) {
       this.currentPage = currentPage
       this.goSearch()
@@ -212,7 +230,7 @@ export default {
         '&areaCode=' + localStorage.getItem('areaCode') +
         '&companyId=' + this.$store.state.companyIdForSelect +
         '&startDate=' + dateFormat(new Date(startDate), 'yyyy-MM-dd') +
-        '&vehicleNo=' + this.vehicleNo +
+        '&vehicleNo=' + this.vehicleNoSearch +
         '&endDate=' + dateFormat(new Date(endDate), 'yyyy-MM-dd') +
         '&terminalName=' + this.terminalName +
         '&x-me-token=' + token
@@ -239,7 +257,7 @@ export default {
             hubCode: localStorage.getItem('hubCode'),
             companyId: this.$store.state.companyIdForSelect,
             terminalName: this.terminalName,
-            vehicleNo: this.vehicleNo
+            vehicleNo: this.vehicleNoSearch
           },
           refreshTotalRecord: true
         })
@@ -254,6 +272,64 @@ export default {
           this.gateJudgeList = []
         }
         this.showSpin = false
+      }
+    },
+    getTableColumns() {
+      if (this.showFocusBtn) {
+        this.tableColumns.push({
+          title: this.$t('sysManage.commonVar.action'),
+          key: 'action',
+          width: 125,
+          align: 'center',
+          render: (h, params) => {
+            let content = ''
+            let src = ''
+            if (params.row.focused) { // 已经被关注
+              content = '取消关注'
+              src = cancelFocus
+            } else { // 未被关注
+              content = '关注'
+              src = focus
+            }
+            return h('Tooltip', {
+              props: {
+                content: content,
+                transfer: true,
+                placement: 'bottom'
+              },
+              style: {
+                cursor: 'pointer',
+                width: '30px'
+              }
+            }, [
+              h('img', {
+                style: {
+                  cursor: 'pointer',
+                  width: '30px'
+                },
+                attrs: {
+                  src: src
+                },
+                on: {
+                  click: () => {
+                    this.handleClick(params.row.vehicleNo, params.row.focused)
+                  }
+                }
+              })
+            ], content)
+          }
+        })
+      }
+    },
+    async cancelFocus() {
+      const result = await get(END_POINTS.CANCEL_FOCUS, {
+        vehicleNo: this.vehicleNo
+      })
+      if (result.code === 2000) {
+        this.$Message.success({
+          content: '成功取消关注！'
+        })
+        this.goSearch()
       }
     }
   }

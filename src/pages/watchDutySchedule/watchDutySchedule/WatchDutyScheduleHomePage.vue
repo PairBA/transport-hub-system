@@ -42,6 +42,7 @@
                 <div slot="content">
                   <Select v-model="fullName"
                           placeholder="请选择人员"
+                          filterable
                           @on-change="addPlanWorker(detail.scheduleName)">
                     <Option v-for="(workerTwo, indexTwo) in planWorkerList"
                             :value="workerTwo.fullName"
@@ -87,6 +88,8 @@ export default {
   async mounted() {
     await this.getScheduleList()
     await this.goSearch()
+    const today = dateFormat(new Date(), 'yyyy-MM-dd')
+    this.item = this.monthDayList.find(day => day.scheduleDate === today)
     this.getPlanWorkerList()
   },
   methods: {
@@ -96,7 +99,7 @@ export default {
       this.maxDay = date.getDate()
       const monthDayList = []
       date.setDate(1)
-      const week = date.getDay()
+      let week = date.getDay()
       for (let i = 1; i <= this.maxDay; i++) {
         let scheduleDate = dateFormat(this.date, 'yyyy-MM')
         if (i < 10) {
@@ -118,9 +121,9 @@ export default {
         item.scheduleDetailList = scheduleListCombine
         monthDayList[day - 1] = item
       })
-      this.item = monthDayList[0]
-      if (week !== 7) {
-        for (let i = 2; i <= week; i++) {
+      if (week === 0) week = 7
+      if (week !== 1) {
+        for (let i = 1; i < week; i++) {
           monthDayList.unshift({
             scheduleDate: ''
           })
