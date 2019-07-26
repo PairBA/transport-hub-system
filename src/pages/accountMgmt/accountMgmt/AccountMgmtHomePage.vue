@@ -27,13 +27,11 @@
       </div>
       <div slot="content">
         <TableWrapper>
-          <Button style="margin-bottom: 12px" type="primary" icon="md-add"
+          <Button style="margin-bottom: 12px"
+                  type="primary"
+                  icon="md-add"
                   @click="addAccount">
             新增账号
-          </Button>
-          <Button style="margin-bottom: 12px" type="primary" icon="md-add"
-                  @click="testpage">
-            测试
           </Button>
           <Table :columns="columns"
                  :data="userList">
@@ -179,9 +177,6 @@ export default {
     },
     addAccount() {
       this.$router.push({ name: '新增账号' })
-    },
-    testpage() {
-      this.$router.push({ name: '测试' })
     },
     goToEdit(userId) {
       this.$router.push({ name: '修改账号', query: { userId } })

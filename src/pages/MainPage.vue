@@ -44,9 +44,36 @@ export default {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
-
+  .ivu-layout-header {
+    padding: 0;
+  }
   .system__layout {
     height: @system__content--height;
+    .ivu-layout-sider {
+      padding: 10px;
+      min-width: 280px!important;
+    }
+    .ivu-menu {
+      width: 260px!important;
+    }
+    .ivu-menu-submenu {
+      &:not(:first-child) {
+        margin-top: 12px;
+      }
+    }
+    .ivu-menu-submenu-title {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      color: #FFFFFF;
+      background-color: #1997FF;
+    }
+    .ivu-menu-vertical.ivu-menu-light:after {
+      width: 0;
+    }
+    .ivu-menu-vertical .ivu-menu-item:hover,
+    .ivu-menu-vertical .ivu-menu-submenu-title:hover {
+      color: #FFFFFF;
+    }
   }
 
   /* 重写 primary 按钮的样式 start */
