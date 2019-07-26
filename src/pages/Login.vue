@@ -87,8 +87,8 @@ export default {
           this.message = ''
           this.loginLoading = true
           const response = await this.$store.dispatch('login/login', {
-            username: this.username,
-            password: this.password
+            username: this.formValidate.username,
+            password: this.formValidate.password
           })
           if (response.success) {
             this.$router.push('/')

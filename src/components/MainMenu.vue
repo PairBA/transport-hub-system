@@ -84,7 +84,7 @@ export default {
   }
   .ivu-menu-item-active {
     background:linear-gradient(270deg,rgba(23,149,255,1) 0%,rgba(82,211,255,1) 100%);
-    box-shadow:0px 2px 4px 0px rgba(15,120,238,1);
+    box-shadow:0px 7px 5px 0px #1795ff;
   }
   .ivu-menu-item {
     margin-left: 24px;
