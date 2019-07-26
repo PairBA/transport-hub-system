@@ -12,7 +12,7 @@
           <router-view></router-view>
         </Content>
       </Layout>
-<!--      <Footer/>-->
+      <Footer/>
     </Layout>
   </div>
 </template>
@@ -20,10 +20,12 @@
 <script>
 import SubMenu from '@/components/SubMenu'
 import PairHeader from '@/components/PairHeader'
+import Footer from '@/components/Footer'
 export default {
   components: {
     SubMenu,
-    PairHeader
+    PairHeader,
+    Footer
   },
   computed: {
     showMenu() {
