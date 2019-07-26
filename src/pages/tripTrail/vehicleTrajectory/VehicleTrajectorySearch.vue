@@ -57,7 +57,7 @@ import { dateFormat, drawTripLine } from '@/utils'
 export default {
   data() {
     return {
-      vehicleNo: '',
+      vehicleNo: '川A',
       vehtStartDate: '',
       vehtStartHour: '',
       vehtEndDate: '',
