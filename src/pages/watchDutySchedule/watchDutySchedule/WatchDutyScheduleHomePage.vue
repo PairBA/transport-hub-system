@@ -8,7 +8,7 @@
           <Col span="18" class="table">
             <Row :gutter="8">
               <Col v-for="(singleDay, index) in monthDayList" :key="index" @click.native="highlightDay(singleDay)">
-                <div class="item" :class="{ 'item-active' : singleDay.scheduleDate === item.scheduleDate}">
+                <div class="item" :class="{ 'item-active' : singleDay.scheduleDate === item.scheduleDate, 'item-hidden' : !singleDay.scheduleDate}">
                   <div class="calender-num" :class="{ 'calender-num-active' : singleDay.scheduleDate === item.scheduleDate}">
                     {{singleDay.scheduleDate.substring(8)}}
                   </div>
@@ -87,7 +87,6 @@ export default {
   async mounted() {
     await this.getScheduleList()
     await this.goSearch()
-    this.item = this.monthDayList[0]
     this.getPlanWorkerList()
   },
   methods: {
@@ -97,6 +96,7 @@ export default {
       this.maxDay = date.getDate()
       const monthDayList = []
       date.setDate(1)
+      const week = date.getDay()
       for (let i = 1; i <= this.maxDay; i++) {
         let scheduleDate = dateFormat(this.date, 'yyyy-MM')
         if (i < 10) {
@@ -118,14 +118,14 @@ export default {
         item.scheduleDetailList = scheduleListCombine
         monthDayList[day - 1] = item
       })
-      // if (week !== 7) {
-      //   for (let i = 1; i <= week; i++) {
-      //     monthDayList.unshift({
-      //       scheduleDate: '.'
-      //     })
-      //   }
-      // }
-      // console.log(monthDayList)
+      this.item = monthDayList[0]
+      if (week !== 7) {
+        for (let i = 2; i <= week; i++) {
+          monthDayList.unshift({
+            scheduleDate: ''
+          })
+        }
+      }
       this.monthDayList = monthDayList
     },
     highlightDay(item) {
@@ -209,6 +209,10 @@ export default {
   }
   .item-active {
     border: 1px solid rgba(51,143,244,1);
+  }
+  .item-hidden {
+    background-color: transparent;
+    border: none;
   }
   .calender-num {
     font-size:30px;
