@@ -206,9 +206,9 @@ export default {
     this.goSearch()
   },
   methods: {
-    handleClick(vehicleNo, isFocused) {
+    handleClick(vehicleNo, focused) {
       this.vehicleNo = vehicleNo
-      if (isFocused) {
+      if (focused) {
         this.cancelFocus()
       } else {
         this.showFocusModal = true
@@ -290,7 +290,7 @@ export default {
           width: 125,
           align: 'center',
           render: (h, params) => {
-            const isFocused = params.row.isFocused
+            const focused = params.row.focused
             return h('span', {
               style: {
                 cursor: 'pointer',
@@ -298,10 +298,10 @@ export default {
               },
               on: {
                 click: () => {
-                  this.handleClick(params.row.vehicleNo, isFocused)
+                  this.handleClick(params.row.vehicleNo, focused)
                 }
               }
-            }, isFocused ? '-关注' : '+关注')
+            }, focused ? '-关注' : '+关注')
           }
         })
       }
