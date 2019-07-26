@@ -45,7 +45,7 @@ export default {
   methods: {
     openChange(names) {
       if (names.length) { // 打开菜单时执行
-        this.$router.push({ path: names[0]})
+        this.$router.push({ path: names[0] })
       }
     },
     reInitSubMenu() {
@@ -53,7 +53,7 @@ export default {
         this.openNames = [this.openNamesFromMain]
         this.$nextTick(() => {
           this.$refs.subMenu.updateOpened()
-          this.$router.push({ path: this.openNamesFromMain})
+          this.$router.push({ path: this.openNamesFromMain })
         })
       }
     }

@@ -71,14 +71,6 @@ export default {
     }
   },
   computed: {
-    showSpin: {
-      get() {
-        return this.$store.state.search.showSpin
-      },
-      set(value) {
-        this.$store.commit('search/updateShowSpin', value)
-      }
-    },
     tripStatusAndGpsInfo: {
       get() {
         return this.$store.state.search.vehTraObj.tripStatusAndGpsInfo
@@ -156,7 +148,7 @@ export default {
           content: this.$t('sysManage.vehicleTrajectory.moreThanOneDay')
         })
       } else {
-        this.showSpin = true
+        this.$store.commit('search/updateShowSpin', true)
         const response = await get(END_POINTS.GET_TRAIL_LIST, {
           vehicleNo: this.vehicleNo,
           driverType: 'TAXI',
@@ -186,7 +178,7 @@ export default {
           this.allGpsList = []
           this.timeForGpsList = []
         }
-        this.showSpin = false
+        this.$store.commit('search/updateShowSpin', false)
       }
     }
   },
