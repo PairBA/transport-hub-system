@@ -1,61 +1,60 @@
 <template>
     <div class="watchDutySchedule__homePage">
       <PairBreadcrumb :title="title"/>
-      <Row :gutter="24"
-           class="watchDutySchedule__homePage-content">
-        <Col span="18" class="table">
-          <DatePicker v-model="date" type="month" style="width: 200px"></DatePicker>
-          <Button type="primary" @click="goSearch" style="margin-left: 24px">查询</Button>
-          <Row :gutter="8" style="margin-top: 24px">
-            <Col v-for="(singleDay, index) in monthDayList" :key="index" @click.native="highlightDay(singleDay)">
-              <div class="item">
-                <div class="calender-num">
-                  {{singleDay.scheduleDate.substring(8)}}
-                </div>
-                <div style="padding: 8px" >
-                  <div v-for="(oneItem, indexForOne) in singleDay.scheduleDetailList" :key="`singleDay_${indexForOne}`">
-                    <div style="font-size: 12px">{{oneItem.scheduleName}}</div>
-                    <div v-if="oneItem.scheduleWorkerList">
+      <div class="watchDutySchedule__homePage-content">
+        <DatePicker v-model="date" type="month" :clearable="false" @on-change="goSearch" style="width: 200px;margin-bottom: 24px"></DatePicker>
+        <Button type="primary" @click="goSearch" style="margin-left: 24px">查询</Button>
+        <Row :gutter="24">
+          <Col span="18" class="table">
+            <Row :gutter="8">
+              <Col v-for="(singleDay, index) in monthDayList" :key="index" @click.native="highlightDay(singleDay)">
+                <div class="item" :class="{ 'item-active' : singleDay.scheduleDate === item.scheduleDate}">
+                  <div class="calender-num">
+                    {{singleDay.scheduleDate.substring(8)}}
+                  </div>
+                  <div style="padding: 8px" >
+                    <div v-for="(oneItem, indexForOne) in singleDay.scheduleDetailList" :key="`singleDay_${indexForOne}`">
+                      <div style="font-size: 12px">{{oneItem.scheduleName}}</div>
+                      <div v-if="oneItem.scheduleWorkerList">
                         <span style="font-size: 14px; font-weight: 600" v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
                       {{worker.fullName}}
                         </span>
-                    </div>
-                    <div v-else>
-                      暂无排班
+                      </div>
+                      <div v-else>
+                        暂无排班
+                      </div>
                     </div>
                   </div>
                 </div>
+              </Col>
+            </Row>
+          </Col>
+          <Col span="6" class="single-item content__card">
+            <div style="color:rgba(108,117,125,1);font-size:16px;">{{item.scheduleDate}}</div>
+            <Divider/>
+            <div v-for="detail in item.scheduleDetailList" :key="detail.scheduleName">
+              <span style="font-size:14px;color:rgba(55,66,84,1);font-weight: 500">{{detail.scheduleName}}</span>
+              <div v-for="(worker, index) in detail.scheduleWorkerList" :key="`worker_one${index}`" class="worker">
+                {{worker.fullName}}{{worker.mobile}}<Icon type="ios-close-circle-outline" class="icon" @click="deletePlanWorker(detail.scheduleName, worker.fullName, worker.mobile)"/>
               </div>
-            </Col>
-          </Row>
-        </Col>
-        <Col span="6" class="single-item content__card">
-          <div style="color:rgba(108,117,125,1);font-size:16px;">{{item.scheduleDate}}</div>
-          <Divider/>
-          <div v-for="detail in item.scheduleDetailList" :key="detail.scheduleName">
-            <span style="font-size:14px;color:rgba(55,66,84,1);font-weight: 500">{{detail.scheduleName}}</span>
-            <div v-for="(worker, index) in detail.scheduleWorkerList" :key="`worker_one${index}`" class="worker">
-              {{worker.fullName}}{{worker.mobile}}<Icon type="ios-close-circle-outline" class="icon" @click="deletePlanWorker(detail.scheduleName, worker.fullName, worker.mobile)"/>
-            </div>
-            <Poptip placement="bottom">
-              <Button icon="md-add" long style="margin-top: 12px;margin-bottom: 12px">新增值班人员</Button>
-              <div slot="content">
-                <Select v-model="fullName"
-                        placeholder="请选择人员">
-                  <Option v-for="(workerTwo, indexTwo) in planWorkerList"
-                          :value="workerTwo.fullName"
-                          :key="`worker_two${indexTwo}`">
-                    {{ workerTwo.fullName }} {{ workerTwo.mobile }}
-                  </Option>
-                </Select>
-                <div style="margin-top: 24px">
-                  <Button type='primary' @click="addPlanWorker(detail.scheduleName)">确定</Button>
+              <Poptip placement="bottom-start">
+                <Button icon="md-add" long style="margin-top: 12px;margin-bottom: 12px">新增值班人员</Button>
+                <div slot="content">
+                  <Select v-model="fullName"
+                          placeholder="请选择人员"
+                          @on-change="addPlanWorker(detail.scheduleName)">
+                    <Option v-for="(workerTwo, indexTwo) in planWorkerList"
+                            :value="workerTwo.fullName"
+                            :key="`worker_two${indexTwo}`">
+                      {{ workerTwo.fullName }} {{ workerTwo.mobile }}
+                    </Option>
+                  </Select>
                 </div>
-              </div>
-            </Poptip>
-          </div>
-        </Col>
-      </Row>
+              </Poptip>
+            </div>
+          </Col>
+        </Row>
+      </div>
     </div>
 </template>
 
@@ -87,7 +86,8 @@ export default {
   },
   async mounted() {
     await this.getScheduleList()
-    this.goSearch()
+    await this.goSearch()
+    this.item = this.monthDayList[0]
     this.getPlanWorkerList()
   },
   methods: {
@@ -205,6 +205,10 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    border-radius: 8px;
+  }
+  .item-active {
+    border: 1px solid rgba(51,143,244,1);
   }
   .calender-num {
     font-size:30px;
