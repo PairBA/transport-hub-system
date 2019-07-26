@@ -10,7 +10,6 @@ const ScheduleAddPage = () => import('@/pages/watchDutySchedule/schedule/Schedul
 const ScheduleEditPage = () => import('@/pages/watchDutySchedule/schedule/ScheduleEditPage')
 const ExceptionQueueDetail = () => import('@/pages/anomaly/exceptionQueue/ExceptionQueueDetail')
 const IllegalBoardingDetail = () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingDetail')
-const Test = () => import('@/pages/accountMgmt/accountMgmt/Test.vue')
 export const routerCommon = {
   path: '/',
   component: MainPage,
@@ -55,11 +54,6 @@ export const routerCommon = {
       path: '/anomaly/illegalBoardingDetail',
       name: '违规上客详情',
       component: IllegalBoardingDetail
-    },
-    {
-      path: '/accountMgmt/Test',
-      name: '测试',
-      component: Test
     }
   ]
 }
