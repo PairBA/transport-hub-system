@@ -51,6 +51,24 @@
 import { dateFormat } from '@/utils'
 export default {
   computed: {
+    showSpin() {
+      return this.$store.state.search.showSpin
+    },
+    showEchart() {
+      return this.$store.state.search.traFloObj.showEchart
+    },
+    gateVehicleNum() {
+      return this.$store.state.search.traFloObj.gateVehicleNum
+    },
+    normalVehicleNum() {
+      return this.$store.state.search.traFloObj.normalVehicleNum
+    },
+    echartsInfo() {
+      return this.$store.state.search.traFloObj.echartsInfo
+    },
+    tableListObject() {
+      return this.$store.state.search.traFloObj.tableListObject
+    },
     columns() {
       return [
         {
@@ -166,12 +184,30 @@ export default {
   },
   methods: {
     getPage(currentPage) {
-      this.tableListObject.currentPage = currentPage
+      this.$store.commit('search/updateTraFloObjTableListObjectCurrentPage', currentPage)
       this.doViewPage(this.tableListObject.tableList)
     },
     changeSize(pageSize) {
-      this.tableListObject.pageSize = pageSize
+      this.$store.commit('search/updateTraFloObjTableListObjectPageSize', pageSize)
       this.getPage(1)
+    },
+    doViewPage(data) {
+      this.$store.commit('search/updateTraFloObjTableListObjectTableList', data) // 表格数据
+      this.$store.commit('search/updateTraFloObjTableListObjectTotal', data.length) // 数据总数
+      this.$store.commit('search/updateTraFloObjTableListObjectTotalPage',
+        Math.ceil(this.tableListObject.total / this.tableListObject.pageSize)
+      )
+      // 当前页不大于总页数
+      if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
+        let showTableList = [] // 显示的列表
+        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
+             i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ?
+               (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+             i++) {
+          showTableList.push(this.tableListObject.tableList[i - 1])
+        }
+        this.$store.commit('search/updateTraFloObjTableListObjectShowTableList', showTableList)
+      }
     }
   }
 }
@@ -179,9 +215,6 @@ export default {
 
 <style lang="less">
 .traffic-flow-home-page {
-  .ivu-date-picker {
-    width: 49%;
-  }
   .traffic-flow-count-info-span {
     font-size: 16px;
     height: 32px;

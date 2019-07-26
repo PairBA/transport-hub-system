@@ -41,7 +41,7 @@ export const trafficFlow = [
   {
     name: '车流量统计',
     path: '/trafficFlow/TrafficFlowHomePage',
-    search: ''
+    search: 'TrafficFlowSearch'
   }
 ]
 

@@ -103,6 +103,9 @@ export default {
     }
   },
   computed: {
+    tableListObject() {
+      return this.$store.state.search.traFloObj.tableListObject
+    }
   },
   watch: {
     countType: 'watchCountType'
@@ -121,9 +124,9 @@ export default {
     async getTrafficFlowInfo() {
       this.$store.commit('search/updateShowSpin', true)
       this.$store.commit('search/updateTraFloObjShowEchart', false)
-      this.tableListObject.currentPage = 1
-      this.tableListObject.total = 0
-      this.tableListObject.pageSize = 10
+      this.$store.commit('search/updateTraFloObjTableListObjectCurrentPage', 1)
+      this.$store.commit('search/updateTraFloObjTableListObjectTotal', 0)
+      this.$store.commit('search/updateTraFloObjTableListObjectPageSize', 10)
       const result = await get(END_POINTS.GET_VEHICLE_FLOW_COUNT, {
         hubCode: localStorage.getItem('hubCode'),
         gateName: this.gateName,
@@ -133,12 +136,14 @@ export default {
       })
       if (result.code === 2001) {
         // 开始构造echarts数据
-        this.echartsInfo = null
-        this.gateVehicleNum = 0
-        this.normalVehicleNum = 0
+        this.$store.commit('search/updateTraFloObjEchartsInfo', null)
+        this.$store.commit('search/updateTraFloObjGateVehicleNum', 0)
+        this.$store.commit('search/updateTraFloObjNormalVehicleNum', 0)
         let xAxis = []
         let yGate = []
         let yNormal = []
+        let gateVehicleNum = 0
+        let normalVehicleNum = 0
         result.data.forEach(item => {
           if (this.countType === 'HOUR') { // 按小时统计
             xAxis.push(dateFormat(new Date(item.time), 'yyyy-MM-dd hh:mm'))
@@ -147,14 +152,16 @@ export default {
           }
           yGate.push(item.gateVehicle)
           yNormal.push(item.normalVehicle)
-          this.gateVehicleNum = this.gateVehicleNum + item.gateVehicle
-          this.normalVehicleNum = this.normalVehicleNum + item.normalVehicle
+          gateVehicleNum = gateVehicleNum + item.gateVehicle
+          normalVehicleNum = normalVehicleNum + item.normalVehicle
         })
-        this.echartsInfo = {
+        this.$store.commit('search/updateTraFloObjGateVehicleNum', gateVehicleNum)
+        this.$store.commit('search/updateTraFloObjNormalVehicleNum', normalVehicleNum)
+        this.$store.commit('search/updateTraFloObjEchartsInfo', {
           xAxis: xAxis,
           yGate: yGate,
           yNormal: yNormal
-        }
+        })
         // 构造echarts数据结束
         // 构造表格前端分页数据开始
         this.doViewPage(result.data)
@@ -165,25 +172,29 @@ export default {
             content: result.msg + '！'
           })
         }
-        this.tableListObject.tableList = []
-        this.tableListObject.showTableList = []
-        this.echartsInfo = null
+        this.$store.commit('search/updateTraFloObjTableListObjectTableList', []) // 表格数据
+        this.$store.commit('search/updateTraFloObjTableListObjectShowTableList', []) // 表格展示的数据
+        this.$store.commit('search/updateTraFloObjEchartsInfo', null) // 图表对象
       }
       this.$store.commit('search/updateTraFloObjShowEchart', true)
       this.$store.commit('search/updateShowSpin', false)
     },
     doViewPage(data) {
-      this.tableListObject.tableList = data // 表格数据
-      this.tableListObject.total = data.length // 数据总数
-      this.tableListObject.totalPage = Math.ceil(this.tableListObject.total / this.tableListObject.pageSize) // 总页数
+      this.$store.commit('search/updateTraFloObjTableListObjectTableList', data) // 表格数据
+      this.$store.commit('search/updateTraFloObjTableListObjectTotal', data.length) // 数据总数
+      this.$store.commit('search/updateTraFloObjTableListObjectTotalPage',
+        Math.ceil(this.tableListObject.total / this.tableListObject.pageSize)
+      )
       // 当前页不大于总页数
       if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
-        this.tableListObject.showTableList = [] // 清空显示的列表
+        let showTableList = [] // 显示的列表
         for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
-             i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
-             i++) {
-          this.tableListObject.showTableList.push(this.tableListObject.tableList[i - 1])
+          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ?
+          (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+          i++) {
+          showTableList.push(this.tableListObject.tableList[i - 1])
         }
+        this.$store.commit('search/updateTraFloObjTableListObjectShowTableList', showTableList)
       }
     },
     async exportExcel() {
@@ -199,7 +210,7 @@ export default {
       window.location.href = `${baseUrl}${url}`
     }
   },
-  async mounted() {
+  mounted() {
     this.getTrafficFlowInfo()
   }
 }
@@ -207,6 +218,8 @@ export default {
 
 <style lang="less">
 .traffic-flow-search {
-
+  .ivu-date-picker {
+    width: 49%;
+  }
 }
 </style>

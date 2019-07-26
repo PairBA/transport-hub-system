@@ -49,6 +49,30 @@ const mutations = {
   },
   updateTraFloObjEchartsInfo(state, value) {
     state.traFloObj.echartsInfo = value
+  },
+  updateTraFloObjGateVehicleNum(state, value) {
+    state.traFloObj.gateVehicleNum = value
+  },
+  updateTraFloObjNormalVehicleNum(state, value) {
+    state.traFloObj.normalVehicleNum = value
+  },
+  updateTraFloObjTableListObjectTableList(state, value) {
+    state.traFloObj.tableListObject.tableList = value
+  },
+  updateTraFloObjTableListObjectShowTableList(state, value) {
+    state.traFloObj.tableListObject.showTableList = value
+  },
+  updateTraFloObjTableListObjectCurrentPage(state, value) {
+    state.traFloObj.tableListObject.currentPage = value
+  },
+  updateTraFloObjTableListObjectPageSize(state, value) {
+    state.traFloObj.tableListObject.pageSize = value
+  },
+  updateTraFloObjTableListObjectTotal(state, value) {
+    state.traFloObj.tableListObject.total = value
+  },
+  updateTraFloObjTableListObjectTotalPage(state, value) {
+    state.traFloObj.tableListObject.totalPage = value
   }
 }
 
