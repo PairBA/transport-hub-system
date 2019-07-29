@@ -86,19 +86,23 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.pair-page{
+<style lang="less">
+.pair-page {
   margin-right: 20px;
   overflow: hidden;
 
-  .page-button{
+  .ivu-btn {
+    min-width: auto!important;
+  }
+
+  .page-button {
     float: right;
     margin-top: 20px;
-    margin-left:10px;
+    margin-left: 10px;
     line-height: 32px;
   }
 
-  .page-content{
+  .page-content {
     float: right;
     margin-top: 20px;
   }
