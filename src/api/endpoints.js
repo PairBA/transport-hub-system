@@ -38,6 +38,7 @@ export default {
   GET_LAST_TRAIL_LIST: '/api/vehicle/trail/getLastTrailList',
   CANCEL_FOCUS: '/api/transhub/fullscreen/cancelFocus',
   IS_VEHICLE_FOCUS: '/api/transhub/fullscreen/isVehicleFocus',
+  GET_VEHICLE_INFO_BY_NO: '/api/dmVehicle/getVehicleInfoByNo',
   FOCUS_VEHICLE: '/api/transhub/fullscreen/focusVehicle',
   GET_PLAN_WORKER_LIST: '/api/lawSystem/gateAlert/getPlanWorkerList',
   ADD_PLAN_WORKER: '/api/lawSystem/gateAlert/addPlanWorker',

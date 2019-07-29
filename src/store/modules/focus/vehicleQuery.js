@@ -34,6 +34,13 @@ const actions = {
     commit('updateHubStatTrailList', result)
     return result
   },
+  async getVehicleInfoByNo({ commit, state }) {
+    const result = await get(END_POINTS.GET_VEHICLE_INFO_BY_NO, {
+      vehicleNo: state.vehicleNo
+    })
+    commit('updateVehicleInfoByNo', result)
+    return result
+  },
   async isVehicleFocus({ commit, state }) {
     const result = await get(END_POINTS.IS_VEHICLE_FOCUS, {
       vehicleNo: state.vehicleNo
@@ -96,6 +103,35 @@ const mutations = {
       state.tableListObject.currentPage = 1
     }
   },
+  updateVehicleInfoByNo(state, result) {
+    if (result.code === 2001) {
+      let realLocation = false
+      if (result.data.companyName && result.data.terminalName) {
+        realLocation = true
+      }
+      state.tableListObject.tableList = [
+        {
+          vehicleNo: result.data.vehicleNo,
+          companyName: result.data.companyName,
+          terminalName: result.data.terminalName,
+          focus: result.data.focus, // 是否被关注
+          realLocation: realLocation, // 是否显示实时位置操作
+          sumOn: 0, // 发车量
+          sumOnAlert: 0, // 违规上客
+          sumQcut: 0 // 异常排队
+        }
+      ]
+      state.tableListObject.showTableList = state.tableListObject.tableList
+      state.tableListObject.currentPage = 1
+      state.tableListObject.totalPage = 1
+      state.tableListObject.total = 1
+    } else {
+      state.tableListObject.tableList = []
+      state.tableListObject.showTableList = []
+      state.tableListObject.total = 0
+      state.tableListObject.currentPage = 1
+    }
+  },
   updateIsVehicleFocus(state, result) {
     let focus = false
     if (result.code === 2000) {
@@ -103,7 +139,7 @@ const mutations = {
     }
     state.tableListObject.tableList = [
       {
-        vehicleNo: this.vehicleNo,
+        vehicleNo: state.vehicleNo,
         companyName: '',
         terminalName: '',
         focus: focus, // 是否被关注
@@ -114,9 +150,9 @@ const mutations = {
       }
     ]
     state.tableListObject.showTableList = state.tableListObject.tableList
-    this.tableListObject.currentPage = 1
-    this.tableListObject.totalPage = 1
-    this.tableListObject.total = 1
+    state.tableListObject.currentPage = 1
+    state.tableListObject.totalPage = 1
+    state.tableListObject.total = 1
   }
 }
 

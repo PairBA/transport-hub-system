@@ -254,9 +254,12 @@ export default {
       } else {
         this.$store.commit('search/updateShowSpin', true)
         const result = await this.$store.dispatch('vehicleQuery/getHubStatTrailList')
-        if (result.code === 2006) {
+        if (result.code === 2006 || result.data.length === 0) {
           if (this.vehicleNo && this.vehicleNo !== '川A') {
-            await this.$store.dispatch('vehicleQuery/isVehicleFocus')
+            const resultNo = await this.$store.dispatch('vehicleQuery/getVehicleInfoByNo')
+            if (resultNo.code === 2006) {
+              await this.$store.dispatch('vehicleQuery/isVehicleFocus')
+            }
           }
         }
         this.$store.commit('search/updateShowSpin', false)
