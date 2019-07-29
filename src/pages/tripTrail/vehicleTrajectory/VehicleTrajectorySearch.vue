@@ -3,7 +3,9 @@
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="车辆号牌">
-          <Input v-model="vehicleNo" placeholder="请输入车辆号牌"/>
+          <Input v-model="vehicleNo"
+                 placeholder="请输入车辆号牌"
+                 :clearable="true"/>
         </FormItem>
         <FormItem :label="$t('sysManage.commonVar.startDateAndTime')">
           <DatePicker v-model="vehtStartDate"

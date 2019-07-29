@@ -4,7 +4,8 @@
       <Form label-position="top">
         <FormItem label="车牌号：">
           <Input v-model="vehicleNo"
-                 placeholder="请输入车牌号"/>
+                 placeholder="请输入车牌号"
+                 :clearable="true"/>
         </FormItem>
         <FormItem label="关注时间：">
           <DatePicker v-model="focusDate"

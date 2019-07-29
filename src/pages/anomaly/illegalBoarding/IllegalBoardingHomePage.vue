@@ -4,7 +4,9 @@
       <div slot="searchCondition">
         <Form>
           <FormItem label="车辆号牌">
-            <Input v-model="vehicleNo" placeholder="请输入车辆号牌"/>
+            <Input v-model="vehicleNo"
+                   placeholder="请输入车辆号牌"
+                   :clearable="true"/>
           </FormItem>
           <FormItem label="时间区间：">
             <DatePicker v-model="daterange"
