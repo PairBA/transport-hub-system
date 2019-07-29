@@ -13,5 +13,7 @@ export default {
 <style lang="less">
 .menu-search-wrapper {
   padding: 12px;
+  max-height: 500px;
+  overflow-y: scroll;
 }
 </style>

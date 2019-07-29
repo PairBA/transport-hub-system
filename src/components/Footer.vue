@@ -20,7 +20,7 @@ export default {
   .ivu-layout-footer {
     padding: 0;
     text-align: center;
-    line-height: 30px;
+    line-height: 34px;
     background-color: rgba(216,222,235,1);
     font-weight:500;
     color:rgba(102,117,141,1);

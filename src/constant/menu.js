@@ -33,7 +33,7 @@ export const tripTrail = [
   {
     name: '行程查找',
     path: '/tripTrail/searchTripHomePage',
-    search: ''
+    search: 'SearchTripCondition'
   }
 ]
 

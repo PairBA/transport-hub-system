@@ -54,8 +54,6 @@ export default {
       events: {
         'complete': () => {
           this.initAutocomplete()
-          this.initQuery()
-          this.isAddMarker()
         },
         init: (map) => {
           // 设置地图的皮肤
@@ -225,34 +223,6 @@ export default {
       let gpsLb = [centerLng - lngStep / 2, centerLat - latStep / 2] // 左下角的点
       let gpsRt = [centerLng + lngStep / 2, centerLat + latStep / 2] // 右上角的点
       return [gpsLb, gpsRt]
-    },
-    initQuery() {
-      let isLostFoundOpen = false
-      let orgName = this.$route.query.orgName
-      let orgLng = this.$route.query.orgLng
-      let orgLat = this.$route.query.orgLat
-      if (orgName && orgLng && orgLat) {
-        this.orgBounds = this.computePolygonsByCenter([parseFloat(orgLng), parseFloat(orgLat)])
-        this.amapCenter = this.mtsOrgLocGps
-        // 根据中心点添加下客点marker
-        this.addOrgMarker(this.mtsOrgLocGps)
-        this.amapZoom = 11
-        isLostFoundOpen = true
-      }
-      let destName = this.$route.query.destName
-      let destLng = this.$route.query.destLng
-      let destLat = this.$route.query.destLat
-      if (destName && destLng && destLat) {
-        this.destBounds = this.computePolygonsByCenter([parseFloat(destLng), parseFloat(destLat)])
-        this.amapCenter = this.mtsDestLocGps
-        // 根据中心点添加下客点marker
-        this.addDestMarker(this.mtsDestLocGps)
-        this.amapZoom = 11
-        isLostFoundOpen = true
-      }
-      if (isLostFoundOpen) {
-        this.$emit('lostFoundGoSearch')
-      }
     },
     addOrgMarker(orgGps) {
       let map = this.aMapManager.getMap()
