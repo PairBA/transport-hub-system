@@ -64,8 +64,8 @@ const mutations = {
         if (currentPage <= totalPage) {
           state.tableListObject.showTableList = [] // 清空显示的列表
           for (let i = pageSize * (currentPage - 1) + 1;
-               i <= ((total > pageSize * currentPage) ? (pageSize * currentPage) : (total));
-               i++) {
+            i <= ((total > pageSize * currentPage) ? (pageSize * currentPage) : (total));
+            i++) {
             state.tableListObject.showTableList.push(state.tableListObject.tableList[i - 1])
           }
         }

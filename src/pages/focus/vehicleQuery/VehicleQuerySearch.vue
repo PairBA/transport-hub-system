@@ -1,17 +1,17 @@
 <template>
-  <div class="focus-search">
+  <div class="vehicle-query-search">
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="车牌号：">
           <Input v-model="vehicleNo"
                  placeholder="请输入车牌号"/>
         </FormItem>
-        <FormItem label="关注时间：">
+        <FormItem label="时间区间：">
           <DatePicker v-model="focusDate"
                       type="daterange"
                       format="yyyy/MM/dd"
                       placement="bottom-start"
-                      placeholder="请选择关注时间区间"
+                      placeholder="请选择时间区间"
                       :clearable="false"
                       :editable="false"
                       :options="options">
@@ -20,7 +20,7 @@
         <Divider/>
         <div style="text-align: center;">
           <Button type="primary"
-                  @click="focusSearch">
+                  @click="vehicleQuerySearch">
             查询
           </Button>
           <Button type="primary"
@@ -51,35 +51,35 @@ export default {
   computed: {
     vehicleNo: {
       get() {
-        return this.$store.state.focus.vehicleNo
+        return this.$store.state.vehicleQuery.vehicleNo
       },
       set(value) {
-        this.$store.commit('focus/updateVehicleNo', value)
+        this.$store.commit('vehicleQuery/updateVehicleNo', value)
       }
     },
     focusDate: {
       get() {
-        return this.$store.state.focus.focusDate
+        return this.$store.state.vehicleQuery.focusDate
       },
       set(value) {
-        this.$store.commit('focus/updateFocusDate', value)
+        this.$store.commit('vehicleQuery/updateFocusDate', value)
       }
     }
   },
   methods: {
-    async focusSearch() {
+    async vehicleQuerySearch() {
       if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
         this.$Message.warning({
           content: '时间间隔不能大于7天！'
         })
       } else {
         this.$store.commit('search/updateShowSpin', true)
-        this.$store.commit('focus/updateTableListObjectCurrentPage', 1)
-        const result = await this.$store.dispatch('focus/getHubFocusVehicleList')
+        this.$store.commit('vehicleQuery/updateTableListObjectCurrentPage', 1)
+        const result = await this.$store.dispatch('vehicleQuery/getHubStatTrailList')
         if (result.code === 2006) {
-          this.$Message.warning({
-            content: result.msg + '！'
-          })
+          if (this.vehicleNo && this.vehicleNo !== '川A') {
+            await this.$store.dispatch('vehicleQuery/isVehicleFocus')
+          }
         }
         this.$store.commit('search/updateShowSpin', false)
       }
@@ -92,13 +92,13 @@ export default {
       } else {
         const token = localStorage.getItem('token')
         const baseUrl = process.env.VUE_APP_BASE_URL
-        const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
+        const url = END_POINTS.GET_HUB_STAT_TRAIL_ALL_EXCEL +
           '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
           '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
-          '&areaCode=' + localStorage.getItem('areaCode') +
-          '&hubCode=' + localStorage.getItem('hubCode') +
           '&vehicleNo=' + this.vehicleNo +
           '&driverType=TAXI' +
+          '&areaCode=' + localStorage.getItem('areaCode') +
+          '&hubCode=' + localStorage.getItem('hubCode') +
           '&x-me-token=' + token
         window.location.href = `${baseUrl}${url}`
       }
@@ -108,7 +108,7 @@ export default {
 </script>
 
 <style lang="less">
-.focus-search {
+.vehicle-query-search {
   .ivu-date-picker {
     width: 100%;
   }

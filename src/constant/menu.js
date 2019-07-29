@@ -54,7 +54,7 @@ export const focus = [
   {
     name: '车辆查询',
     path: '/focus/VehicleQueryHomePage',
-    search: ''
+    search: 'VehicleQuerySearch'
   }
 ]
 

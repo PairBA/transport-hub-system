@@ -181,9 +181,9 @@ export default {
       if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
         let showList = []
         for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
-             i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage)
-               ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
-             i++) {
+          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage)
+            ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+          i++) {
           showList.push(this.tableListObject.tableList[i - 1])
         }
         this.$store.commit('focus/updateTableListObjectShowTableList', showList)

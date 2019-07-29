@@ -57,6 +57,7 @@ export default {
       min-width: 280px!important;
       box-shadow:6px 0 12px 0 rgba(202,207,209,0.4);
       overflow-y: scroll;
+      overflow-x: hidden;
     }
     .ivu-menu {
       width: 260px!important;
@@ -105,6 +106,9 @@ export default {
     }
     .ivu-menu-vertical.ivu-menu-light:after {
       width: 0;
+    }
+    .ivu-menu-vertical .ivu-menu-submenu-title-icon {
+      right: 12px;
     }
   }
 
