@@ -141,7 +141,7 @@ export default {
               let title = params[0].axisValue + '<br />'
               let content = ''
               params.forEach(item => {
-                  content = `${content}${item.marker}${item.seriesName}: ${item.data} （车次）<br />`
+                content = `${content}${item.marker}${item.seriesName}: ${item.data} （车次）<br />`
               })
               return `${title}${content}`
             } else {

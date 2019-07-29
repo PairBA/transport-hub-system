@@ -184,13 +184,11 @@
 </template>
 
 <script>
-import ContentLayout from '@/components/ContentLayout'
 import MeterTripSearchAMap from '@/components/tripTrail/MeterTripSearchAMap'
 import { dateFormat } from '../../../utils'
 
 export default {
   components: {
-    ContentLayout,
     MeterTripSearchAMap
   },
   data() {
