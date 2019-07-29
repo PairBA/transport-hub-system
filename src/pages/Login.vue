@@ -93,9 +93,10 @@ export default {
           if (response.success) {
             this.loginStatus = 'success'
             this.$router.push('/')
+          } else {
+            this.loginStatus = ''
+            this.loginLoading = false
           }
-          this.loginStatus = ''
-          this.loginLoading = false
         }
       })
     }
