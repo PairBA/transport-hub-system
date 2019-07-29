@@ -42,10 +42,12 @@
           </TimePicker>
         </FormItem>
         <Divider/>
-        <Button type="primary"
-                @click="goSearch">
-          {{$t("sysManage.queryBar.searchBT")}}
-        </Button>
+        <div style="text-align: center;">
+          <Button type="primary"
+                  @click="goSearch">
+            {{$t("sysManage.queryBar.searchBT")}}
+          </Button>
+        </div>
       </Form>
     </MenuSearchWrapper>
   </div>

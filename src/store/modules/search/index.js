@@ -10,6 +10,7 @@ const state = {
   },
   // 车流量相关的数据对象
   traFloObj: {
+    countType: 'HOUR', // 统计方式
     showEchart: false, // 是否显示图表
     echartsInfo: null, // echarts的数据
     gateVehicleNum: 0, // 总闸口车辆数
@@ -44,6 +45,9 @@ const mutations = {
     state.vehTraObj.timeForGpsList = value
   },
   // 车流量相关的数据对象
+  updateTraFloObjCountType(state, value) {
+    state.traFloObj.countType = value
+  },
   updateTraFloObjShowEchart(state, value) {
     state.traFloObj.showEchart = value
   },

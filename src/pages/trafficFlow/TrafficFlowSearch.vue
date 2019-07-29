@@ -60,19 +60,17 @@
           </TimePicker>
         </FormItem>
         <Divider/>
-        <div>
+        <div style="text-align: center;">
           <Button type="primary"
-                  style="float: left;"
                   @click="goSearch">
             查询
           </Button>
           <Button type="primary"
-                  style="float: right;"
+                  style="margin-left: 24px;"
                   @click="exportExcel">
             导出excel
           </Button>
         </div>
-        <div style="clear: both;"></div>
       </Form>
     </MenuSearchWrapper>
   </div>
@@ -113,6 +111,7 @@ export default {
   },
   methods: {
     watchCountType() {
+      this.$store.commit('search/updateTraFloObjCountType', this.countType)
       if (this.countType === 'HOUR') { // 按小时统计
         this.isHour = true
       } else if (this.countType === 'DAY') { // 按天统计
@@ -190,8 +189,8 @@ export default {
       if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
         let showTableList = [] // 显示的列表
         for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
-          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ?
-          (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage)
+            ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
           i++) {
           showTableList.push(this.tableListObject.tableList[i - 1])
         }

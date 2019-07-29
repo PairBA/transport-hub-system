@@ -3,7 +3,7 @@
     <PairSpin :show="showSpin"/>
     <Row>
       <PairBreadcrumb :title="title"/>
-      <Content style="padding: 24px">
+      <Content class="content-layout-content">
         <slot></slot>
       </Content>
     </Row>
@@ -30,12 +30,8 @@ export default {
 <style lang="less">
 @import '../theme/index.less';
 .content-layout {
-  .search-condition {
-    height: @system__content--height;
-    box-shadow: 6px 0px 12px 0px rgba(202,207,209,0.4);
-    background: rgba(243,244,248,1);
-    padding: 28px;
+  .content-layout-content {
+    padding: 24px;
   }
 }
-
 </style>
