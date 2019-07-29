@@ -103,7 +103,8 @@ export default {
           '&areaCode=' + localStorage.getItem('areaCode') +
           '&hubCode=' + localStorage.getItem('hubCode') +
           '&x-me-token=' + token
-        window.location.href = `${baseUrl}${url}`
+        // window.location.href = `${baseUrl}${url}`
+        window.open(`${baseUrl}${url}`)
       }
     }
   }

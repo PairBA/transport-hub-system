@@ -234,7 +234,8 @@ export default {
         '&endDate=' + dateFormat(new Date(endDate), 'yyyy-MM-dd') +
         '&terminalName=' + this.terminalName +
         '&x-me-token=' + token
-      window.location.href = `${baseUrl}${url}`
+      // window.location.href = `${baseUrl}${url}`
+      window.open(`${baseUrl}${url}`)
     },
     async goSearch() {
       const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()

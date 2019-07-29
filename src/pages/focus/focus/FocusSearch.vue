@@ -100,7 +100,8 @@ export default {
           '&vehicleNo=' + this.vehicleNo +
           '&driverType=TAXI' +
           '&x-me-token=' + token
-        window.location.href = `${baseUrl}${url}`
+        // window.location.href = `${baseUrl}${url}`
+        window.open(`${baseUrl}${url}`)
       }
     }
   }

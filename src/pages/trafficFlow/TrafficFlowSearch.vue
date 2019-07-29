@@ -207,7 +207,8 @@ export default {
         '&startTime=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endTime=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token
-      window.location.href = `${baseUrl}${url}`
+      // window.location.href = `${baseUrl}${url}`
+      window.open(`${baseUrl}${url}`)
     }
   },
   mounted() {
