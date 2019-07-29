@@ -84,7 +84,6 @@ export default {
       }
       ul {
         background-color: #FFFFFF;
-        overflow: hidden;
       }
     }
     .ivu-menu-opened {

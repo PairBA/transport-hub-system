@@ -1,72 +1,39 @@
 <template>
   <div class="exceptionQueue__homePage">
     <ContentLayout :showSpin="showSpin">
-      <div slot="searchCondition">
-        <Form>
-          <FormItem label="车辆号牌">
-            <Input v-model="vehicleNo" placeholder="请输入车辆号牌"/>
-          </FormItem>
-          <FormItem label="时间区间：">
-            <DatePicker v-model="daterange"
-                        type="daterange"
-                        format="yyyy/MM/dd"
-                        placement="bottom-start"
-                        placeholder="请选择时间区间"
-                        :clearable="false"
-                        :editable="false"
-                        :options="options">
-            </DatePicker>
-          </FormItem>
-          <Divider/>
-          <div>
-            <Button type="primary"
-                    style="float: left;"
-                    @click="goSearch">
-              查询
-            </Button>
-            <Button type="primary"
-                    style="float: right;"
-                    @click="exportExcel">
-              导出excel
-            </Button>
-          </div>
-        </Form>
-      </div>
-      <div slot="content">
-        <TableWrapper>
-          <Table :columns="columns"
-                 :data="list">
-          </Table>
-          <PairPage id="trailList" :total="total" :current="currentPage" :page-size="pageSize" @on-change="getPage" @on-page-size-change="changeSize"></PairPage>
-        </TableWrapper>
-      </div>
+      <TableWrapper>
+        <Table :columns="columns"
+               :data="list">
+        </Table>
+        <PairPage id="trailList" :total="total" :current="currentPage" :page-size="pageSize" @on-change="getPage" @on-page-size-change="changeSize"></PairPage>
+      </TableWrapper>
     </ContentLayout>
   </div>
 </template>
 
 <script>
-import { post, END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
 const detail = require('@/img/common/detail.png')
 export default {
   components: {},
   data() {
     return {
-      showSpin: false,
-      vehicleNo: '川A',
-      daterange: [new Date(), new Date()],
-      list: [],
-      currentPage: 1,
-      pageSize: 10,
-      total: 0,
-      options: {
-        disabledDate(date) {
-          return date && date.valueOf() > Date.now()
-        }
-      }
+      showSpin: false
     }
   },
   computed: {
+    list() {
+      return this.$store.state.exceptionQueue.list
+    },
+    currentPage() {
+      return this.$store.state.exceptionQueue.currentPage
+    },
+    pageSize() {
+      return this.$store.state.exceptionQueue.pageSize
+    },
+    total() {
+      return this.$store.state.exceptionQueue.total
+    },
     columns() {
       return [
         {
@@ -122,10 +89,7 @@ export default {
       ]
     }
   },
-  async mounted() {
-    if (this.vehicleNo && this.vehicleNo !== '川A') {
-      this.goSearch()
-    }
+  mounted() {
   },
   methods: {
     goSearch() {
@@ -143,14 +107,10 @@ export default {
       })
     },
     getPage(currentPage) {
-      this.currentPage = currentPage
-      this.goSearch()
+      this.$store.dispatch('exceptionQueue/getHubStatTrailList', { currentPage })
     },
     changeSize(pageSize) {
-      this.pageSize = pageSize
-      this.getPage(1)
-    },
-    initPage() {
+      this.$store.commit('exceptionQueue/updatePageSize', pageSize)
       this.getPage(1)
     },
     async getHubStatTrailList() {
@@ -160,52 +120,8 @@ export default {
         })
       } else {
         this.showSpin = true
-        const result = await post(END_POINTS.GET_HUB_STAT_TRAIL_LIST, {
-          currentPage: this.currentPage,
-          orderBy: '',
-          pageSize: this.pageSize,
-          queryVO: {
-            hubCode: localStorage.getItem('hubCode'),
-            startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
-            endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd'),
-            vehicleNo: this.vehicleNo,
-            type: 'CUTQ',
-            areaCode: localStorage.getItem('areaCode'),
-            driverType: 'TAXI',
-            gps: null
-          },
-          refreshTotalRecord: true
-        })
-        if (result.code === 2001) {
-          this.currentPage = result.currentPage
-          this.pageSize = result.pageSize
-          this.list = result.data
-          this.total = result.total
-        } else {
-          this.currentPage = 1
-          this.total = 0
-          this.list = []
-        }
+        await this.$store.dispatch('exceptionQueue/getHubStatTrailList', { currentPage: 1 })
         this.showSpin = false
-      }
-    },
-    exportExcel() {
-      if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
-        this.$Message.warning({
-          content: '时间间隔不能大于7天！'
-        })
-      } else {
-        const token = localStorage.getItem('token')
-        const baseUrl = process.env.VUE_APP_BASE_URL
-        const url = END_POINTS.GET_HUB_STAT_TRAIL_CUTQ_EXCEL +
-          '?startDate=' + dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd') +
-          '&endDate=' + dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd') +
-          '&vehicleNo=' + this.vehicleNo +
-          '&driverType=TAXI' +
-          '&areaCode=' + localStorage.getItem('areaCode') +
-          '&hubCode=' + localStorage.getItem('hubCode') +
-          '&x-me-token=' + token
-        window.location.href = `${baseUrl}${url}`
       }
     }
   }

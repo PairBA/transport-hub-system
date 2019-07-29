@@ -62,7 +62,7 @@ export const anomaly = [
   {
     name: '异常排队',
     path: '/anomaly/exceptionQueueHomePage',
-    search: ''
+    search: 'ExceptionQueueCondition'
   },
   {
     name: '闸口异常车辆',
