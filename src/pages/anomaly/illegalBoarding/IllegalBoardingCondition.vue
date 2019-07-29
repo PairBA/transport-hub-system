@@ -1,5 +1,5 @@
 <template>
-  <div class="exception-queue__condition">
+  <div class="illegal-boarding__condition">
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="车辆号牌">
@@ -49,26 +49,18 @@ export default {
   computed: {
     vehicleNo: {
       get() {
-        return this.$store.state.exceptionQueue.vehicleNo
+        return this.$store.state.illegalBoarding.vehicleNo
       },
       set(value) {
-        this.$store.commit('exceptionQueue/updateVehicleNo', value)
+        this.$store.commit('illegalBoarding/updateVehicleNo', value)
       }
     },
     daterange: {
       get() {
-        return this.$store.state.exceptionQueue.daterange
+        return this.$store.state.illegalBoarding.daterange
       },
       set(value) {
-        this.$store.commit('exceptionQueue/updateDaterange', value)
-      }
-    },
-    showSpin: {
-      get() {
-        return this.$store.state.search.showSpin
-      },
-      set(value) {
-        this.$store.commit('search/updateShowSpin', value)
+        this.$store.commit('illegalBoarding/updateDaterange', value)
       }
     }
   },
@@ -80,7 +72,7 @@ export default {
         })
       } else {
         this.showSpin = true
-        await this.$store.dispatch('exceptionQueue/getHubStatTrailList', { currentPage: 1 })
+        await this.$store.dispatch('illegalBoarding/getHubStatTrailList', { currentPage: 1 })
         this.showSpin = false
       }
     },
@@ -108,7 +100,7 @@ export default {
 </script>
 
 <style lang="less">
-.exception-queue__condition {
+.illegal-boarding__condition {
   .ivu-date-picker {
     width: 98%;
   }

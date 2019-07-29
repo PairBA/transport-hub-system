@@ -16,12 +16,15 @@ import { dateFormat } from '@/utils'
 const detail = require('@/img/common/detail.png')
 export default {
   components: {},
-  data() {
-    return {
-      showSpin: false
-    }
-  },
   computed: {
+    showSpin: {
+      get() {
+        return this.$store.state.search.showSpin
+      },
+      set(value) {
+        this.$store.commit('search/updateShowSpin', value)
+      }
+    },
     list() {
       return this.$store.state.exceptionQueue.list
     },

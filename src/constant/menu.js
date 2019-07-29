@@ -72,6 +72,6 @@ export const anomaly = [
   {
     name: '违规上客',
     path: '/anomaly/illegalBoardingHomePage',
-    search: ''
+    search: 'IllegalBoardingCondition'
   }
 ]

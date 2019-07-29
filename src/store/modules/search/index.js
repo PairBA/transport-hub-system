@@ -22,6 +22,10 @@ const state = {
       total: 0,
       totalPage: 0
     }
+  },
+  // 异常告警，异常排队
+  exceptionQueueObj: {
+
   }
 }
 
