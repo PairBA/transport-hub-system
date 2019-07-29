@@ -139,6 +139,7 @@ export default {
         this.$Message.success({
           content: this.$t('monitor.success')
         })
+        this.$router.push({ name: '账号管理' })
       }
     }
   }

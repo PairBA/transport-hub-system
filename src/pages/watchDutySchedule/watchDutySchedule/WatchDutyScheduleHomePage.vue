@@ -166,6 +166,7 @@ export default {
         const highlightItem = this.monthDayList.find(day => day.scheduleDate === this.item.scheduleDate)
         this.item = highlightItem
       }
+      this.fullName = ''
     },
     async getPlanDetailList() {
       const result = await get(END_POINTS.GET_PLAN_DETAIL_LIST + `?queryMonth=${dateFormat(this.date, 'yyyy-MM')}`)

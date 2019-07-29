@@ -91,8 +91,10 @@ export default {
             password: this.formValidate.password
           })
           if (response.success) {
+            this.loginStatus = 'success'
             this.$router.push('/')
           }
+          this.loginStatus = ''
           this.loginLoading = false
         }
       })
