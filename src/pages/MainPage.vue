@@ -46,9 +46,66 @@ export default {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
-
+  .ivu-layout-header {
+    padding: 0;
+  }
   .system__layout {
     height: @system__content--height;
+    .ivu-layout-sider {
+      padding: 10px;
+      background-color: #F3F4F8;
+      min-width: 280px!important;
+      box-shadow:6px 0 12px 0 rgba(202,207,209,0.4);
+    }
+    .ivu-menu {
+      width: 260px!important;
+    }
+    .ivu-menu-light {
+      background-color: #F3F4F8;
+    }
+    .ivu-menu-submenu {
+      &:not(:first-child) {
+        margin-top: 12px;
+      }
+      .ivu-menu-submenu-title {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        color: #869099;
+        background-color: #FFFFFF;
+        font-size: 14px;
+        padding: 8px 24px;
+        font-weight: 500;
+      }
+      .ivu-menu-vertical .ivu-menu-item:hover,
+      .ivu-menu-vertical .ivu-menu-submenu-title:hover {
+        color: #869099;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      ul {
+        background-color: #FFFFFF;
+        overflow: hidden;
+      }
+    }
+    .ivu-menu-opened {
+      .ivu-menu-submenu-title {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        padding: 8px 24px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #FFFFFF;
+        background-color: #1997FF;
+      }
+      .ivu-menu-vertical .ivu-menu-item:hover,
+      .ivu-menu-vertical .ivu-menu-submenu-title:hover {
+        color: #FFFFFF;
+        font-size: 14px;
+      }
+    }
+    .ivu-menu-vertical.ivu-menu-light:after {
+      width: 0;
+    }
   }
 
   /* 重写 primary 按钮的样式 start */

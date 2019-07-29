@@ -1,7 +1,13 @@
 <template>
   <div class="main-menu">
-    <Menu ref="mainMenu" mode="horizontal" theme="dark" :active-name="activeName"  @on-select="onSelectMenu">
-      <MenuItem v-for="menu in mainMenu" :key="menu.resourceKey" :name="menu.resourceKey">
+    <Menu ref="mainMenu"
+          mode="horizontal"
+          theme="dark"
+          :active-name="activeName"
+          @on-select="onSelectMenu">
+      <MenuItem v-for="menu in mainMenu"
+                :key="menu.resourceKey"
+                :name="menu.resourceKey">
         {{menu.resourceName}}
       </MenuItem>
     </Menu>
@@ -9,7 +15,15 @@
 </template>
 
 <script>
-import { accountMgmtMenu, watchDutySchedule, tripTrail, anomaly, trafficFlow, focus } from '@/constant/menu'
+import {
+  accountMgmtMenu,
+  watchDutySchedule,
+  tripTrail,
+  anomaly,
+  trafficFlow,
+  focus
+} from '@/constant/menu'
+
 export default {
   name: 'SubMenu',
   data() {
@@ -27,22 +41,28 @@ export default {
       this.activeName = name
       if (name === 'accountMgmt') {
         this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
-        this.$router.push({ name: accountMgmtMenu[0].name })
+        this.$store.commit('permission/updateOpenNamesFromMain', accountMgmtMenu[0].path)
+        // this.$router.push({ name: accountMgmtMenu[0].name })
       } else if (name === 'watchDutySchedule') {
         this.$store.commit('permission/updateSubMenu', watchDutySchedule)
-        this.$router.push({ name: watchDutySchedule[0].name })
+        this.$store.commit('permission/updateOpenNamesFromMain', watchDutySchedule[0].path)
+        // this.$router.push({ name: watchDutySchedule[0].name })
       } else if (name === 'trafficFlow') {
         this.$store.commit('permission/updateSubMenu', trafficFlow)
-        this.$router.push({ name: trafficFlow[0].name })
+        this.$store.commit('permission/updateOpenNamesFromMain', trafficFlow[0].path)
+        // this.$router.push({ name: trafficFlow[0].name })
       } else if (name === 'tripTrail') {
         this.$store.commit('permission/updateSubMenu', tripTrail)
-        this.$router.push({ name: tripTrail[0].name })
+        this.$store.commit('permission/updateOpenNamesFromMain', tripTrail[0].path)
+        // this.$router.push({ name: tripTrail[0].name })
       } else if (name === 'focus') {
         this.$store.commit('permission/updateSubMenu', focus)
-        this.$router.push({ name: focus[0].name })
+        this.$store.commit('permission/updateOpenNamesFromMain', focus[0].path)
+        // this.$router.push({ name: focus[0].name })
       } else if (name === 'anomaly') {
         this.$store.commit('permission/updateSubMenu', anomaly)
-        this.$router.push({ name: anomaly[0].name })
+        this.$store.commit('permission/updateOpenNamesFromMain', anomaly[0].path)
+        // this.$router.push({ name: anomaly[0].name })
       }
     },
     getSelectMenu(name) {

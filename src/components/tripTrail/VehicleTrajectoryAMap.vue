@@ -110,7 +110,6 @@ export default {
       this.sliderPlaying = !this.sliderPlaying
     },
     renderVehicleTripLine() {
-      console.log(this.polylines)
       let aMap = this.lineManager.getMap()
       aMap.remove(this.vehtPolylinesCache)
       this.vehtPolylinesCache = this.polylines.map(value => {

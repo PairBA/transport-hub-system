@@ -12,7 +12,8 @@ const state = {
   resourceList: [],
   showMenu: true,
   subMenu: [],
-  mainMenu: []
+  mainMenu: [],
+  openNamesFromMain: ''
 }
 
 const actions = {
@@ -61,6 +62,9 @@ const mutations = {
   },
   updateSubMenu(state, value) {
     state.subMenu = value
+  },
+  updateOpenNamesFromMain(state, value) {
+    state.openNamesFromMain = value
   }
 }
 

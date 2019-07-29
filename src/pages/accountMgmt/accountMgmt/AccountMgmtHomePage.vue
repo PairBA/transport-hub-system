@@ -27,7 +27,9 @@
       </div>
       <div slot="content">
         <TableWrapper>
-          <Button style="margin-bottom: 12px" type="primary" icon="md-add"
+          <Button style="margin-bottom: 12px"
+                  type="primary"
+                  icon="md-add"
                   @click="addAccount">
             新增账号
           </Button>

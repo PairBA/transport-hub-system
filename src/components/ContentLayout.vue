@@ -2,15 +2,10 @@
   <Layout class="content-layout">
     <PairSpin :show="showSpin"/>
     <Row>
-      <Col span="6" class="search-condition">
-        <slot name="searchCondition"></slot>
-      </Col>
-      <Col span="18">
-        <PairBreadcrumb :title="title"/>
-        <Content style="padding: 24px">
-          <slot name="content"></slot>
-        </Content>
-      </Col>
+      <PairBreadcrumb :title="title"/>
+      <Content style="padding: 24px">
+        <slot></slot>
+      </Content>
     </Row>
   </Layout>
 </template>

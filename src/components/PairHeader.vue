@@ -1,20 +1,18 @@
 <template>
-  <Header :style="{width: '100%'}" class="header">
-    <div class="menu-icon-wrapper">
-      <Icon type="md-menu"
-            color="#FFF"
-            size="30"
-            @click="triggerSideMenu"
-            class="icon"/>
-    </div>
-    <div style="float: left; color: #FFF;">
-      <div style="line-height: 39px;font-size: 23px;font-weight: 600">{{mainTitle}}</div>
-      <div style="line-height: 15px;font-size: 17px">{{subTitle}}</div>
+  <Header :style="{width: '100%'}"
+          class="header">
+    <div class="header-title">
+      <div class="header-title-top">
+        {{mainTitle}}
+      </div>
+      <div class="header-title-bottom">
+        {{subTitle}}
+      </div>
     </div>
     <div class="layout-nav">
       <MainMenu/>
     </div>
-    <div style="float: right">
+    <div class="header-user">
       <Dropdown trigger="click"
                 @on-click="handleListClick"
                 placement="bottom-end">
@@ -57,9 +55,6 @@ export default {
     }
   },
   methods: {
-    triggerSideMenu() {
-      this.$store.commit('permission/updateShowMenu', !this.showMenu)
-    },
     handleListClick() {
       this.logout()
     },
@@ -73,24 +68,57 @@ export default {
 
 <style lang="less">
 .header {
+  .header-title {
+    text-align: center;
+    float: left;
+    background: rgba(255,255,255,0.141);
+    width: 280px;
+    height: 64px;
+
+    .header-title-top {
+      line-height: 39px;
+      color: #FFFFFF;
+      font-size: 23px;
+      font-weight: 600;
+    }
+
+    .header-title-bottom {
+      color: #FFFFFF;
+      line-height: 15px;
+      font-size: 17px;
+    }
+  }
+
+  .header-user {
+    background:rgba(255,255,255,0.141);
+    padding: 0 24px;
+    float: right;
+    border-top-left-radius: 48px;
+    border-bottom-left-radius: 48px;
+  }
+
   .profile-user-name {
     margin-left: 10px;
     font-size: 16px;
     color: #FFFFFF;
   }
+
   .icon-item {
     width: 15px;
     height: 15px;
     float: left;
     margin-right: 10px;
   }
-  .layout-nav{
+
+  .layout-nav {
     float: left;
   }
+
   .menu-icon-wrapper {
     display: block;
     float: left;
     width: 54px;
+
     .icon {
       cursor: pointer;
     }
