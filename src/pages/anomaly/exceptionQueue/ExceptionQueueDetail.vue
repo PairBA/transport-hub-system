@@ -6,6 +6,7 @@
     <div class="exception-queue-detail-content">
       <div v-for="(detailObject, index) in hubSumListDetail" :key="`trailDetail__${index}`">
         <div class="exception-queue-detail-group-title">
+          <img src="../../../img/vehicle.png" class="icon-vehicle"/>
           <div class="group-vehicle-no">
             {{vehicleNo}}
           </div>
@@ -14,7 +15,7 @@
           </div>
           <Button type="primary" v-if="showFocusBtn" style="float: right; margin-top: 12px;margin-right: 24px" @click="handleClick">{{isFocus ? '-关注' : '+关注'}}</Button>
         </div>
-        <TableWrapper>
+        <TableWrapper style="box-shadow:0px 4px 12px -4px rgba(168,176,185,0.5);">
           <Table :columns="columns"
                  :data="detailObject.list"
                  @on-row-click="doShowModal" highlight-row>
@@ -265,27 +266,31 @@ export default {
   .exception-queue-detail-content {
     padding: 24px;
     .exception-queue-detail-group-title {
-      height: 60px;
-      line-height: 60px;
-      background-color: #A5BDE5;
-      color: #FFFFFF;
+      line-height: 62px;
+      background-color: #FFFFFF;
+      color: #66758D;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
+      box-shadow:0px 4px 12px -4px rgba(168,176,185,0.5);
+      .icon-vehicle {
+        width: 32px;
+        margin: 14px 20px;
+        float: left;
+      }
 
       .group-vehicle-no {
         display: inline-block;
-        height: 32px;
-        font-size: 18px;
-        line-height: 32px;
-        margin-left: 24px;
+        font-size: 20px;
+        margin-left: -10px;
+        font-weight: 600;
       }
 
       .group-date-str {
         display: inline-block;
-        height: 32px;
         font-size: 16px;
-        line-height: 32px;
         margin-left: 48px;
+        font-weight:600;
+        color: #A6ACBA;
       }
       .ivu-btn-primary {
         background:rgba(25,152,255,1);
