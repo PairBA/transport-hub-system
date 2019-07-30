@@ -1,5 +1,6 @@
 import {
   post,
+  get,
   END_POINTS
 } from '@/api'
 import { dateFormat } from '@/utils'
@@ -9,7 +10,8 @@ const state = {
   list: [],
   currentPage: 1,
   pageSize: 10,
-  total: 0
+  total: 0,
+  graphData: ''
 }
 const actions = {
   async getHubStatTrailList({
@@ -34,9 +36,28 @@ const actions = {
       refreshTotalRecord: true
     })
     commit('updateIllegalBoarding', result)
+  },
+  async getHubStatTrailGraph({
+    commit,
+    state
+  }) {
+    const result = await get(END_POINTS.GET_HUB_STAT_TRAIL_GRAPH, {
+      hubCode: localStorage.getItem('hubCode'),
+      startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
+      endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
+      vehicleNo: state.vehicleNo,
+      type: 'ALERT_ON',
+      areaCode: localStorage.getItem('areaCode'),
+      driverType: 'TAXI',
+      gps: null
+    })
+    commit('updateGraph', result)
   }
 }
 const mutations = {
+  updateGraph(state, value) {
+    state.graphData = value
+  },
   updateDaterange(state, value) {
     state.daterange = value
   },

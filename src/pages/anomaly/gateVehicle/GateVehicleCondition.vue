@@ -14,7 +14,7 @@
         </FormItem>
         <CompanySelect/>
         <FormItem :label="$t('sysManage.queryBar.issueType')">
-          <Select v-model="judgeType" :placeholder="$t('sysManage.queryBar.issueTypePH')">
+          <Select v-model="judgeType" multiple :placeholder="$t('sysManage.queryBar.issueTypePH')">
             <Option value=" ">{{$t("sysManage.queryBar.tripStatusSelect.ALL")}}</Option>
             <Option :value="'GPS_LOST'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsLost') }}</Option>
             <Option :value="'GPS_REPEAT'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsRepeat') }}</Option>

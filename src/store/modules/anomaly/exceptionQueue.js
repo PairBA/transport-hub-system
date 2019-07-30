@@ -1,6 +1,7 @@
 import {
   post,
-  END_POINTS
+  END_POINTS,
+  get
 } from '@/api'
 import { dateFormat } from '@/utils'
 const state = {
@@ -34,6 +35,22 @@ const actions = {
       refreshTotalRecord: true
     })
     commit('updateExceptionQueue', result)
+  },
+  async getHubStatTrailGraph({
+    commit,
+    state
+  }) {
+    const result = await get(END_POINTS.GET_HUB_STAT_TRAIL_GRAPH, {
+      hubCode: localStorage.getItem('hubCode'),
+      startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
+      endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
+      vehicleNo: state.vehicleNo,
+      type: 'ALERT_ON',
+      areaCode: localStorage.getItem('areaCode'),
+      driverType: 'TAXI',
+      gps: null
+    })
+    commit('updateGraph', result)
   }
 }
 const mutations = {

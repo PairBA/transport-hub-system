@@ -54,5 +54,7 @@ export default {
   GET_HUB_EVENT_LIST: '/api/transhub/trailReplay/getHubEventList',
   GET_HUB_STAT_TRAIL_CUTQ_EXCEL: '/api/transhub/fullscreen/getHubStatTrailCutqExcel',
   GET_HUB_STAT_TRAIL_ALERTON_EXCEL: '/api/transhub/fullscreen/getHubStatTrailAlertOnExcel',
-  GET_TRANS_HUB_POLYGON_AREA: '/api/transhub/polygon/getTransHubPolygonArea'
+  GET_TRANS_HUB_POLYGON_AREA: '/api/transhub/polygon/getTransHubPolygonArea',
+  GET_HUB_STAT_TRAIL_GRAPH: '/api/lawSystem/graph/getHubStatTrailGraph',
+  GET_GATE_JUDGE_GRAPH: '/api/lawSystem/graph/getGateJudgeGraph'
 }
