@@ -48,7 +48,7 @@
 
 <script>
 import { post, END_POINTS } from '@/api'
-import { dateFormat } from '@/utils'
+import { dateFormat, downloadFile } from '@/utils'
 const detail = require('@/img/common/detail.png')
 export default {
   components: {},
@@ -208,7 +208,8 @@ export default {
           '&hubCode=' + localStorage.getItem('hubCode') +
           '&x-me-token=' + token
         // window.location.href = `${baseUrl}${url}`
-        window.open(`${baseUrl}${url}`)
+        // window.open(`${baseUrl}${url}`)
+        downloadFile(`${baseUrl}${url}`)
       }
     }
   }

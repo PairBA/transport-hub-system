@@ -37,7 +37,7 @@
 
 <script>
 import { END_POINTS } from '@/api'
-import { dateFormat } from '@/utils'
+import { dateFormat, downloadFile } from '@/utils'
 
 export default {
   data() {
@@ -105,7 +105,8 @@ export default {
           '&hubCode=' + localStorage.getItem('hubCode') +
           '&x-me-token=' + token
         // window.location.href = `${baseUrl}${url}`
-        window.open(`${baseUrl}${url}`)
+        // window.open(`${baseUrl}${url}`)
+        downloadFile(`${baseUrl}${url}`)
       }
     }
   }

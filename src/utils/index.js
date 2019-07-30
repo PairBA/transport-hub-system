@@ -22,6 +22,7 @@ export const numFormat = (value) => {
   const intPart = Number(value).toFixed(0) // 获取整数部分
   return intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') // 将整数部分逢三一断
 }
+
 // 将div全屏
 export const launchIntoFullscreen = (element) => {
   element.style.width = screen.width + 'px'
@@ -36,6 +37,7 @@ export const launchIntoFullscreen = (element) => {
     element.msRequestFullscreen()
   }
 }
+
 // 退出按钮事件全屏
 export const exitFullscreen = (element) => {
   element.style.width = null
@@ -69,30 +71,6 @@ export const dealDuration = (duration) => {
   return dealDuration
 }
 
-// 根据menuKey从resourceList中获取url
-export const getUrlByMenuKey = (resourceList, menuKey) => {
-  let url = ''
-  resourceList.forEach(res => {
-    let menu = res.children.find(item => item.menuKey === menuKey)
-    if (menu) {
-      url = menu.url
-    }
-  })
-  return url
-}
-
-// 根据menuKey从resourceList中获取name
-export const getNameByMenuKey = (resourceList, menuKey) => {
-  let name = ''
-  resourceList.forEach(res => {
-    let menu = res.children.find(item => item.menuKey === menuKey)
-    if (menu) {
-      name = menu.name
-    }
-  })
-  return name
-}
-
 // 通过格子的数据获取到格子的边界点
 export const getRectangleByStepAndGridCode = (gridCode, lngStep, latStep) => {
   const gridCodeArr = gridCode.split('::')
@@ -104,6 +82,7 @@ export const getRectangleByStepAndGridCode = (gridCode, lngStep, latStep) => {
 }
 
 export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
 /**
  * 根据当前日期获取上一个月
  * return “2018-01”
@@ -119,14 +98,7 @@ export const getPreMonth = () => {
   month = month < 10 ? '0' + month : month
   return `${year}-${month}`
 }
-export const formatIntDateToStr = (dateInt) => {
-  if (dateInt && dateInt > 0) {
-    let dateStr = dateInt.toString()
-    return dateStr.slice(0, 4) + '/' + dateStr.slice(4, 6) + '/' + dateStr.slice(6) + ' 00:00:00'
-  } else {
-    return ''
-  }
-}
+
 export const addMarker = (eventGps, iconUrl, title, color, size, paddingSize) => {
   let eventGpsNew = eventGps
   if (!Array.isArray(eventGps)) eventGpsNew = [eventGps.lng, eventGps.lat]
@@ -150,6 +122,7 @@ export const addMarkerPosition = (eventGps, iconUrl, title, meterTripId, recDate
   }
   return marker
 }
+
 export const addMarkerPositionForGmap = (eventGps, iconUrl, title, meterTripId, recDate) => {
   let marker = {
     position: { lat: eventGps[1], lng: eventGps[0] },
@@ -160,6 +133,7 @@ export const addMarkerPositionForGmap = (eventGps, iconUrl, title, meterTripId, 
   }
   return marker
 }
+
 export const addMarkerPositionForRealGmap = (eventGps, iconUrl, vehicleNo, driverStatus) => {
   let marker = {
     position: { lat: eventGps[1], lng: eventGps[0] },
@@ -195,13 +169,6 @@ export const drawTripLine = (lineArr, lineColor) => {
   return polyline
 }
 
-export const formatDateForHour = (date) => {
-  const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-  const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-
-  return `${hour}:${minute}`
-}
-
 export const getVehicleNo = (value, areaCode) => {
   let vehicleNo = value
   const charactersReg = new RegExp('^[\u4e00-\u9fa5]')
@@ -211,9 +178,11 @@ export const getVehicleNo = (value, areaCode) => {
   }
   return vehicleNo
 }
+
 export const getVehicleNoPrefix = (areaCode) => {
   return provinceCode[areaCode.substring(0, 4)] + areaCode.substring(4, 5)
 }
+
 export const getHubTrailTableArr = hubTrailList => {
   const resultArr = []
   const map = {}
@@ -231,6 +200,7 @@ export const getHubTrailTableArr = hubTrailList => {
   })
   return resultArr
 }
+
 export const getAMapPathByPathStr = pathStr => {
   let pathArr = []
   if (pathStr) {
@@ -242,12 +212,6 @@ export const getAMapPathByPathStr = pathStr => {
   return pathArr
 }
 
-export const gradient = [
-  'rgba(0, 255, 0, 0)',
-  '#ffea00',
-  'red'
-]
-
 export const renderHeader = (h, params) => {
   return h('Tooltip', {
     props: {
@@ -258,15 +222,17 @@ export const renderHeader = (h, params) => {
   }, params.column.title)
 }
 
-// 根据索引值获取色值（4个色值）
-export const getColorByIndex = (index) => {
-  let color = '#0091FF'
-  switch (index) {
-    case 0: color = '#0091FF'; break
-    case 1: color = '#70DC40'; break
-    case 2: color = '#FBA301'; break
-    case 3: color = '#FB3030'; break
-    default: color = '#FB3030'
+// 文件下载
+export const downloadFile = url => {
+  // 删除多余的 iframe
+  let downloadFileIframe = document.getElementById('downloadFileIframe')
+  if (downloadFileIframe) {
+    document.body.removeChild(downloadFileIframe)
   }
-  return color
+  // 创建本次下载的 iframe
+  let iframe = document.createElement('iframe')
+  iframe.id = 'downloadFileIframe'
+  iframe.style.display = 'none'
+  iframe.src = url
+  document.body.appendChild(iframe)
 }

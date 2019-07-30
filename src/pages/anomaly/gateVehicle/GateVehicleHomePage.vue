@@ -76,7 +76,7 @@
 import CompanySelect from '@/components/common/CompanySelect'
 import FocusModal from '@/components/modal/focus/FocusModal'
 import { get, post, END_POINTS } from '@/api'
-import { dateFormat } from '@/utils'
+import { dateFormat, downloadFile } from '@/utils'
 const focus = require('@/img/focus/focus.png')
 const cancelFocus = require('@/img/focus/cancelFocus.png')
 export default {
@@ -235,7 +235,8 @@ export default {
         '&terminalName=' + this.terminalName +
         '&x-me-token=' + token
       // window.location.href = `${baseUrl}${url}`
-      window.open(`${baseUrl}${url}`)
+      // window.open(`${baseUrl}${url}`)
+      downloadFile(`${baseUrl}${url}`)
     },
     async goSearch() {
       const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
