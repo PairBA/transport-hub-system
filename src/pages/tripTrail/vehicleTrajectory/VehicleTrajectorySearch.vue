@@ -167,17 +167,18 @@ export default {
           this.tripStatusAndGpsInfo = value.tripLineList
           this.allGpsList = value.allGpsList
           this.timeForGpsList = value.timeForGpsList
-          this.polylines = []
+          const polylinsArr = []
           this.tripStatusAndGpsInfo.map(value => {
             if (value.driverStatus === 'HIRED') {
               let polyline = drawTripLine(value.gpsList, '#6AA84F')
-              this.polylines.push(polyline)
+              polylinsArr.push(polyline)
             }
             if (value.driverStatus === 'AVL' || value.driverStatus === 'PAY') {
               let polyline = drawTripLine(value.gpsList, '#0091FF')
-              this.polylines.push(polyline)
+              polylinsArr.push(polyline)
             }
           })
+          this.polylines = polylinsArr
         } else {
           this.tripStatusAndGpsInfo = []
           this.polylines = []
