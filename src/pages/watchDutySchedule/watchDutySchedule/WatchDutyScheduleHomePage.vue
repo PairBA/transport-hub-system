@@ -35,7 +35,7 @@
             <div v-for="detail in item.scheduleDetailList" :key="detail.scheduleName">
               <span style="font-size:14px;color:rgba(55,66,84,1);font-weight: 500">{{detail.scheduleName}}</span>
               <div v-for="(worker, index) in detail.scheduleWorkerList" :key="`worker_one${index}`" class="worker">
-                {{worker.fullName}}{{worker.mobile}}<Icon type="ios-close-circle-outline" class="icon" @click="deletePlanWorker(detail.scheduleName, worker.fullName, worker.mobile)"/>
+                {{worker.fullName}}{{worker.mobile}}<PairIcon type="delete" class="icon" @click="deletePlanWorker(detail.scheduleName, worker.fullName, worker.mobile)"/>
               </div>
               <Poptip placement="bottom-start">
                 <Button icon="md-add" long style="margin-top: 12px;margin-bottom: 12px">新增值班人员</Button>
@@ -242,6 +242,7 @@ export default {
       float: right;
       font-size: 16px;
       cursor: pointer;
+      width: 16px;
     }
   }
   .worker {
