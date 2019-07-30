@@ -17,8 +17,7 @@ export default {
   exceptionQueue,
   illegalBoarding,
   gateVehicle,
-  accountMgmt
-  search,
+  accountMgmt,
   focus,
   vehicleQuery
 }

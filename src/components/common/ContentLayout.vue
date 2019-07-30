@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../theme/customized.less';
+@import '../../theme/customized.less';
 .content-layout {
   .content-layout-content {
     padding: 24px;
