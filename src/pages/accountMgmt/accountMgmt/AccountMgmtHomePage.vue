@@ -1,43 +1,17 @@
 <template>
   <div class="accountMgmt__homePage">
     <ContentLayout :showSpin="showSpin">
-      <div slot="searchCondition">
-        <Form>
-          <FormItem label="角色">
-            <Select v-model="roleId"
-                    placeholder="请选择角色">
-              <Option v-for="item in roleList"
-                      :value="item.id"
-                      :key="item.id">
-                {{ item.roleName }}
-              </Option>
-            </Select>
-          </FormItem>
-          <Divider/>
-          <FormItem label="账号名称">
-            <Input v-model="userName" placeholder="请输入账号名称"/>
-          </FormItem>
-          <Divider/>
-          <Button type="primary"
-                  class="taxi-company-home-page-search-btn"
-                  @click="goSearch">
-            {{ $t("sysManage.queryBar.searchBT") }}
-          </Button>
-        </Form>
-      </div>
-      <div slot="content">
-        <TableWrapper>
-          <Button style="margin-bottom: 12px"
-                  type="primary"
-                  icon="md-add"
-                  @click="addAccount">
-            新增账号
-          </Button>
-          <Table :columns="columns"
-                 :data="userList">
-          </Table>
-        </TableWrapper>
-      </div>
+      <TableWrapper>
+        <Button style="margin-bottom: 12px"
+                type="primary"
+                icon="md-add"
+                @click="addAccount">
+          新增账号
+        </Button>
+        <Table :columns="columns"
+               :data="userList">
+        </Table>
+      </TableWrapper>
     </ContentLayout>
   </div>
 </template>
@@ -48,16 +22,21 @@ const deleteIcon = require('@/img/common/delete.png')
 const editIcon = require('@/img/common/edit.png')
 export default {
   components: {},
-  data() {
-    return {
-      showSpin: false,
-      userName: '',
-      roleId: '',
-      roleList: [],
-      userList: []
-    }
-  },
   computed: {
+    userList() {
+      return this.$store.state.accountMgmt.userList
+    },
+    roleList() {
+      return this.$store.state.accountMgmt.roleList
+    },
+    showSpin: {
+      get() {
+        return this.$store.state.search.showSpin
+      },
+      set(value) {
+        this.$store.commit('search/updateShowSpin', value)
+      }
+    },
     columns() {
       return [
         {
@@ -167,14 +146,7 @@ export default {
       ]
     }
   },
-  async mounted() {
-    await this.getRoleList()
-    this.goSearch()
-  },
   methods: {
-    goSearch() {
-      this.getUserList()
-    },
     addAccount() {
       this.$router.push({ name: '新增账号' })
     },
@@ -190,18 +162,10 @@ export default {
         this.goSearch()
       }
     },
-    async getRoleList() {
-      const result = await get(END_POINTS.GET_ROLE_LIST)
-      if (result.code === 2000) this.roleList = result.data
-    },
-    async getUserList() {
-      const result = await get(END_POINTS.GET_USER_LIST, {
-        userName: this.userName,
-        roleId: this.roleId,
-        hubCode: localStorage.getItem('hubCode')
-      })
-      if (result.code === 2000) this.userList = result.data
-      else this.userList = []
+    async goSearch() {
+      this.showSpin = true
+      await this.$store.dispatch('accountMgmt/getUserList')
+      this.showSpin = false
     }
   }
 }

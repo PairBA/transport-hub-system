@@ -2,7 +2,7 @@ import {
   get,
   END_POINTS
 } from '@/api'
-import { accountMgmtMenu, watchDutySchedule, tripTrail, anomaly, trafficFlow, focus } from '@/constant/menu'
+import { accountMgmt, watchDutySchedule, tripTrail, anomaly, trafficFlow, focus } from '@/constant/menu'
 
 const state = {
   homePage: '/login',
@@ -46,7 +46,7 @@ const mutations = {
     state.mainMenu = mainMenu
     const firstMenu = mainMenu[0].resourceKey
     const allSubMenu = {
-      accountMgmt: accountMgmtMenu,
+      accountMgmt,
       watchDutySchedule,
       tripTrail,
       anomaly,

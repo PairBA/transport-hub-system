@@ -4,5 +4,6 @@ export const searchComponentsReg = {
   TrafficFlowSearch: () => import('@/pages/trafficFlow/TrafficFlowSearch.vue'),
   ExceptionQueueCondition: () => import('@/pages/anomaly/exceptionQueue/ExceptionQueueCondition.vue'),
   IllegalBoardingCondition: () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingCondition.vue'),
-  GateVehicleCondition: () => import('@/pages/anomaly/gateVehicle/GateVehicleCondition.vue')
+  GateVehicleCondition: () => import('@/pages/anomaly/gateVehicle/GateVehicleCondition.vue'),
+  AccountMgmtCondition: () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtCondition.vue')
 }

@@ -1,8 +1,8 @@
-export const accountMgmtMenu = [
+export const accountMgmt = [
   {
     name: '账号管理',
     path: '/accountMgmt/accountMgmtHomePage',
-    search: ''
+    search: 'AccountMgmtCondition'
   },
   {
     name: '角色管理',

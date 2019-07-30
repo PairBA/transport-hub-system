@@ -16,7 +16,7 @@
 
 <script>
 import {
-  accountMgmtMenu,
+  accountMgmt,
   watchDutySchedule,
   tripTrail,
   anomaly,
@@ -40,8 +40,8 @@ export default {
     onSelectMenu(name) {
       this.activeName = name
       if (name === 'accountMgmt') {
-        this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
-        this.$store.commit('permission/updateOpenNamesFromMain', accountMgmtMenu[0].path)
+        this.$store.commit('permission/updateSubMenu', accountMgmt)
+        this.$store.commit('permission/updateOpenNamesFromMain', accountMgmt[0].path)
         // this.$router.push({ name: accountMgmtMenu[0].name })
       } else if (name === 'watchDutySchedule') {
         this.$store.commit('permission/updateSubMenu', watchDutySchedule)
@@ -68,7 +68,7 @@ export default {
     getSelectMenu(name) {
       this.activeName = name
       if (name === 'accountMgmt') {
-        this.$store.commit('permission/updateSubMenu', accountMgmtMenu)
+        this.$store.commit('permission/updateSubMenu', accountMgmt)
       } else if (name === 'watchDutySchedule') {
         this.$store.commit('permission/updateSubMenu', watchDutySchedule)
       } else if (name === 'trafficFlow') {

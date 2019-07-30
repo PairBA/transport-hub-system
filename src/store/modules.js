@@ -5,6 +5,7 @@ import search from './modules/search'
 import exceptionQueue from './modules/anomaly/exceptionQueue'
 import illegalBoarding from './modules/anomaly/illegalBoarding'
 import gateVehicle from './modules/anomaly/gateVehicle'
+import accountMgmt from './modules/accountMgmt/accountMgmt'
 
 export default {
   login,
@@ -13,5 +14,6 @@ export default {
   search,
   exceptionQueue,
   illegalBoarding,
-  gateVehicle
+  gateVehicle,
+  accountMgmt
 }
