@@ -13,5 +13,8 @@ export default {
 <style lang="less">
 .menu-search-wrapper {
   padding: 12px;
+  .ivu-form-item {
+    margin-bottom: 14px;
+  }
 }
 </style>

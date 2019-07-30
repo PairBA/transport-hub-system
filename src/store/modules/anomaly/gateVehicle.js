@@ -5,7 +5,7 @@ import {
 import { dateFormat } from '@/utils'
 const state = {
   daterange: [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date()],
-  judgeType: [],
+  judgeType: '',
   vehicleNo: '',
   terminalName: '',
   gateJudgeList: [],
@@ -24,7 +24,7 @@ const actions = {
       orderBy: '',
       pageSize: state.pageSize,
       queryVO: {
-        judgeType: state.judgeType.join('::'),
+        judgeType: state.judgeType,
         startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
         endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
         areaCode: rootState.areaCodeForSelect,

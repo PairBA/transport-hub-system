@@ -14,7 +14,7 @@
         </FormItem>
         <CompanySelect/>
         <FormItem :label="$t('sysManage.queryBar.issueType')">
-          <Select v-model="judgeType" multiple :placeholder="$t('sysManage.queryBar.issueTypePH')">
+          <Select v-model="judgeType" :placeholder="$t('sysManage.queryBar.issueTypePH')">
             <Option value=" ">{{$t("sysManage.queryBar.tripStatusSelect.ALL")}}</Option>
             <Option :value="'GPS_LOST'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsLost') }}</Option>
             <Option :value="'GPS_REPEAT'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsRepeat') }}</Option>
@@ -58,7 +58,7 @@
 
 <script>
 import { END_POINTS } from '@/api'
-import { dateFormat } from '@/utils'
+import { dateFormat, downloadFile } from '@/utils'
 import CompanySelect from '@/components/common/CompanySelect'
 import VehicleInput from '@/components/common/VehicleInput'
 export default {
@@ -148,7 +148,8 @@ export default {
         '&endDate=' + dateFormat(new Date(endDate), 'yyyy-MM-dd') +
         '&terminalName=' + this.terminalName +
         '&x-me-token=' + token
-      window.location.href = `${baseUrl}${url}`
+      downloadFile(`${baseUrl}${url}`)
+      // window.location.href = `${baseUrl}${url}`
     }
   }
 }

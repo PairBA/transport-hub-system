@@ -25,6 +25,14 @@ export default {
         this.$store.commit('search/updateShowSpin', value)
       }
     },
+    daterange: {
+      get() {
+        return this.$store.state.exceptionQueue.daterange
+      },
+      set(value) {
+        this.$store.commit('exceptionQueue/updateDaterange', value)
+      }
+    },
     list() {
       return this.$store.state.exceptionQueue.list
     },
