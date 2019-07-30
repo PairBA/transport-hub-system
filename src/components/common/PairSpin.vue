@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style lang="less" >
-@import '../../theme/index.less';
+@import '../../theme/customized.less';
 .system__spin {
   .ivu-spin-fix {
     background-color: transparent;

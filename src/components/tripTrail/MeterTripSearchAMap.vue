@@ -285,7 +285,6 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../theme/index.less';
 .meter-trip-search-amap {
   height: 600px;
 }

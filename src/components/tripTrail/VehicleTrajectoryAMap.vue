@@ -147,7 +147,6 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../theme/index.less';
 .vehicle-trajectory-amap-page {
   .ivu-slider-bar {
     height: 6px;

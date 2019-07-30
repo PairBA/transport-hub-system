@@ -186,7 +186,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../theme/index.less';
+@import '../../../theme/customized.less';
 .watchDutySchedule__homePage {
   .watchDutySchedule__homePage-content {
     padding: 24px;

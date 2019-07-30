@@ -39,7 +39,7 @@ export default {
 }
 </script>
 <style lang="less">
-@import '../theme/index.less';
+@import '../theme/customized.less';
 .main-page {
   border: 1px solid #d7dde4;
   background: #f5f7f9;

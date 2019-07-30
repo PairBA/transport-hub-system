@@ -4,7 +4,7 @@
   </div>
 </template>
 <style lang="less">
-@import '../../theme/index.less';
+@import '../../theme/customized.less';
 
 .search-wrapper{
   margin-bottom: @layout__padding;

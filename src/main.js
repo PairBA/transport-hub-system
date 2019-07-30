@@ -5,7 +5,6 @@ import store from './store'
 import iView from 'iview'
 import i18n from './i18n'
 import './custom'
-import 'iview/dist/styles/iview.css'
 import './theme/index.less'
 import PairIcon from './icons'
 

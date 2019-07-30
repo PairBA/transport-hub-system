@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../theme/index.less';
+@import '../theme/customized.less';
 .content-layout {
   .search-condition {
     height: @system__content--height;
