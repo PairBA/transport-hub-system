@@ -35,7 +35,7 @@
 
 <script>
 import { END_POINTS } from '@/api'
-import { dateFormat } from '@/utils'
+import { dateFormat, downloadFile } from '@/utils'
 import VehicleInput from '@/components/common/VehicleInput'
 export default {
   components: {
@@ -104,7 +104,8 @@ export default {
           '&areaCode=' + localStorage.getItem('areaCode') +
           '&hubCode=' + localStorage.getItem('hubCode') +
           '&x-me-token=' + token
-        window.location.href = `${baseUrl}${url}`
+        downloadFile(`${baseUrl}${url}`)
+        // window.location.href = `${baseUrl}${url}`
       }
     }
   }
