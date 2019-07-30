@@ -67,7 +67,7 @@ export const anomaly = [
   {
     name: '闸口异常车辆',
     path: '/anomaly/gateVehicleHomePage',
-    search: ''
+    search: 'GateVehicleCondition'
   },
   {
     name: '违规上客',

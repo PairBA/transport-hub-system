@@ -3,5 +3,6 @@ export const searchComponentsReg = {
   SearchTripCondition: () => import('@/pages/tripTrail/searchTrip/SearchTripCondition.vue'),
   TrafficFlowSearch: () => import('@/pages/trafficFlow/TrafficFlowSearch.vue'),
   ExceptionQueueCondition: () => import('@/pages/anomaly/exceptionQueue/ExceptionQueueCondition.vue'),
-  IllegalBoardingCondition: () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingCondition.vue')
+  IllegalBoardingCondition: () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingCondition.vue'),
+  GateVehicleCondition: () => import('@/pages/anomaly/gateVehicle/GateVehicleCondition.vue')
 }
