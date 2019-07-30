@@ -69,6 +69,66 @@ export default {
 
 <style lang="less">
 .sub-menu {
+  .ivu-menu {
+    width: 260px !important;
+  }
+
+  .ivu-menu-light {
+    background-color: #F3F4F8;
+  }
+
+  .ivu-menu-submenu {
+    &:not(:first-child) {
+      margin-top: 12px;
+    }
+
+    .ivu-menu-submenu-title {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      color: #869099;
+      background-color: #FFFFFF;
+      font-size: 14px;
+      padding: 8px 24px;
+      font-weight: 500;
+    }
+
+    .ivu-menu-vertical .ivu-menu-item:hover,
+    .ivu-menu-vertical .ivu-menu-submenu-title:hover {
+      color: #869099;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    ul {
+      background-color: #FFFFFF;
+    }
+  }
+
+  .ivu-menu-opened {
+    .ivu-menu-submenu-title {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      padding: 8px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #FFFFFF;
+      background-color: #1997FF;
+    }
+
+    .ivu-menu-vertical .ivu-menu-item:hover,
+    .ivu-menu-vertical .ivu-menu-submenu-title:hover {
+      color: #FFFFFF;
+      font-size: 14px;
+    }
+  }
+
+  .ivu-menu-vertical.ivu-menu-light:after {
+    width: 0;
+  }
+
+  .ivu-menu-vertical .ivu-menu-submenu-title-icon {
+    right: 12px;
+  }
 }
 
 </style>

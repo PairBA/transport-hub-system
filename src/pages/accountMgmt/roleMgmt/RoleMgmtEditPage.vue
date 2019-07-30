@@ -6,12 +6,15 @@
     <div class="accountMgmt__add-content">
       <div class="accountMgmt__add-content-wrapper">
         <div class="accountMgmt__add-form-wrapper">
-          <Form label-position="top">
-            <FormItem label="角色:">
-              <Input v-model="roleName" placeholder="请输入角色"/>
+          <Form ref="formValidate"
+                label-position="top"
+                :model="formValidate"
+                :rules="ruleValidate">
+            <FormItem label="角色:" prop="roleName">
+              <Input v-model="formValidate.roleName" placeholder="请输入角色"/>
             </FormItem>
-            <FormItem label="权限:">
-              <CheckboxGroup v-model="resourceIdList">
+            <FormItem label="权限:" prop="resourceIdList">
+              <CheckboxGroup v-model="formValidate.resourceIdList">
                 <Checkbox v-for="resource in resourceList"
                           :label="resource.id"
                           :key="resource.id">
@@ -21,7 +24,7 @@
             </FormItem>
             <div style="text-align: center;">
               <Button type="primary"
-                      @click="submit">
+                      @click="handleSubmit('formValidate')">
                 提交
               </Button>
             </div>
@@ -39,8 +42,18 @@ export default {
   data() {
     return {
       id: '',
-      roleName: '',
-      resourceIdList: [],
+      formValidate: {
+        roleName: '',
+        resourceIdList: []
+      },
+      ruleValidate: {
+        roleName: [
+          { required: true, message: '角色不能为空', trigger: 'blur' }
+        ],
+        resourceIdList: [
+          { required: true, type: 'array', min: 1, message: '请选择至少一个权限', trigger: 'change' }
+        ]
+      },
       resourceList: []
     }
   },
@@ -50,8 +63,12 @@ export default {
     this.getRoleById(this.id)
   },
   methods: {
-    async submit() {
-      this.editRole()
+    async handleSubmit(name) {
+      this.$refs[name].validate(async (valid) => {
+        if (valid) {
+          this.editRole()
+        }
+      })
     },
     async getResourceList() {
       const result = await get(END_POINTS.GET_RESOURCE_LIST)
@@ -60,15 +77,15 @@ export default {
     async getRoleById(id) {
       const result = await get(END_POINTS.GET_ROLE_BY_ID + `?roleId=${id}`)
       if (result.code === 2000) {
-        this.resourceIdList = result.data.resourceIdList
-        this.roleName = result.data.roleName
+        this.formValidate.resourceIdList = result.data.resourceIdList
+        this.formValidate.roleName = result.data.roleName
       }
     },
     async editRole() {
       const result = await post(END_POINTS.EDIT_ROLE, {
         id: this.id,
-        roleName: this.roleName,
-        resourceIdList: this.resourceIdList
+        roleName: this.formValidate.roleName,
+        resourceIdList: this.formValidate.resourceIdList
       })
       if (result.code === 2000) {
         this.$Message.success({

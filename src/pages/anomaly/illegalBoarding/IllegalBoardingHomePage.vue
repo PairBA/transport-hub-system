@@ -34,6 +34,14 @@ export default {
         this.$store.commit('search/updateShowSpin', value)
       }
     },
+    daterange: {
+      get() {
+        return this.$store.state.illegalBoarding.daterange
+      },
+      set(value) {
+        this.$store.commit('illegalBoarding/updateDaterange', value)
+      }
+    },
     list() {
       return this.$store.state.illegalBoarding.list
     },
