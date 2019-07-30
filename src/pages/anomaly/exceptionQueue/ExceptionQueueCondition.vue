@@ -3,7 +3,7 @@
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="车辆号牌">
-          <Input v-model="vehicleNo" placeholder="请输入车辆号牌"/>
+          <VehicleInput v-model="vehicleNo"/>
         </FormItem>
         <FormItem label="时间区间：">
           <DatePicker v-model="daterange"
@@ -36,7 +36,11 @@
 <script>
 import { END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
+import VehicleInput from '@/components/common/VehicleInput'
 export default {
+  components: {
+    VehicleInput
+  },
   data() {
     return {
       options: {

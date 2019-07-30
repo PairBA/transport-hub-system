@@ -3,7 +3,7 @@
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="车辆号牌">
-          <Input v-model="vehicleNo" placeholder="请输入车辆号牌"/>
+          <VehicleInput v-model="vehicleNo"/>
         </FormItem>
         <FormItem :label="$t('sysManage.commonVar.startDateAndTime')">
           <DatePicker v-model="vehtStartDate"
@@ -56,7 +56,11 @@
 <script>
 import { get, END_POINTS } from '@/api'
 import { dateFormat, drawTripLine } from '@/utils'
+import VehicleInput from '@/components/common/VehicleInput'
 export default {
+  components: {
+    VehicleInput
+  },
   data() {
     return {
       vehicleNo: '川A',

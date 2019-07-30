@@ -21,7 +21,6 @@ import { get, END_POINTS } from '@/api'
 const deleteIcon = require('@/img/common/delete.png')
 const editIcon = require('@/img/common/edit.png')
 export default {
-  components: {},
   computed: {
     userList() {
       return this.$store.state.accountMgmt.userList

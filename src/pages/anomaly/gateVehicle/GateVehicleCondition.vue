@@ -25,9 +25,7 @@
           </Select>
         </FormItem>
         <FormItem :label="$t('sysManage.queryBar.vehicleNo')">
-          <Input v-model="vehicleNo"
-                 placeholder="请输入车辆号牌">
-          </Input>
+          <VehicleInput v-model="vehicleNo"/>
         </FormItem>
         <FormItem label="时间区间：">
           <DatePicker v-model="daterange"
@@ -62,9 +60,11 @@
 import { END_POINTS } from '@/api'
 import { dateFormat } from '@/utils'
 import CompanySelect from '@/components/common/CompanySelect'
+import VehicleInput from '@/components/common/VehicleInput'
 export default {
   components: {
-    CompanySelect
+    CompanySelect,
+    VehicleInput
   },
   data() {
     return {
