@@ -63,7 +63,7 @@ export default {
       background-color: #F3F4F8;
       min-width: 280px !important;
       box-shadow: 6px 0 12px 0 rgba(202, 207, 209, 0.4);
-      overflow-y: scroll;
+      // overflow-y: scroll;
     }
   }
 
