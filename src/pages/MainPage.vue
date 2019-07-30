@@ -51,6 +51,10 @@ export default {
     padding: 0;
   }
 
+  .ivu-divider-horizontal {
+    margin: 14px 0;
+  }
+
   .system__layout {
     height: @system__content--height;
 
