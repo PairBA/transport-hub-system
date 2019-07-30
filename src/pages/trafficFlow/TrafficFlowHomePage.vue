@@ -3,7 +3,7 @@
     <ContentLayout :showSpin="showSpin">
       <div>
         <TableWrapper>
-          <div style="width: 100%;">
+          <div>
             <PairECharts v-if="showEchart"
                          id="trafficFlowECharts"
                          :title="trafficFlowECharts.title"
@@ -53,6 +53,9 @@ export default {
   computed: {
     showSpin() {
       return this.$store.state.search.showSpin
+    },
+    countType() {
+      return this.$store.state.search.traFloObj.countType
     },
     showEchart() {
       return this.$store.state.search.traFloObj.showEchart
@@ -134,10 +137,16 @@ export default {
             animation: false
           },
           formatter: params => {
-            let title = params[0].axisValue + '<br />'
-            let content = params[0].marker + '闸口车辆数：' + params[0].data + ' （车次）<br />' +
-                          params[1].marker + '发车量：' + params[1].data + ' （车次）'
-            return `${title}${content}`
+            if (params && params.length) {
+              let title = params[0].axisValue + '<br />'
+              let content = ''
+              params.forEach(item => {
+                content = `${content}${item.marker}${item.seriesName}: ${item.data} （车次）<br />`
+              })
+              return `${title}${content}`
+            } else {
+              return ''
+            }
           }
         },
         legend: {
@@ -145,8 +154,8 @@ export default {
           right: '20%'
         },
         grid: {
-          left: '4%',
-          right: '12%',
+          left: '6%',
+          right: '6%',
           top: 60,
           bottom: 30,
           containLabel: true
@@ -200,7 +209,10 @@ export default {
       // 当前页不大于总页数
       if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
         let showTableList = [] // 显示的列表
-        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1; i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total)); i++) {
+        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
+          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage)
+            ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+          i++) {
           showTableList.push(this.tableListObject.tableList[i - 1])
         }
         this.$store.commit('search/updateTraFloObjTableListObjectShowTableList', showTableList)

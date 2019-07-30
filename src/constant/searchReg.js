@@ -6,4 +6,7 @@ export const searchComponentsReg = {
   IllegalBoardingCondition: () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingCondition.vue'),
   GateVehicleCondition: () => import('@/pages/anomaly/gateVehicle/GateVehicleCondition.vue'),
   AccountMgmtCondition: () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtCondition.vue')
+  TrafficFlowSearch: () => import('@/pages/trafficFlow/TrafficFlowSearch.vue'),
+  FocusSearch: () => import('@/pages/focus/focus/FocusSearch.vue'),
+  VehicleQuerySearch: () => import('@/pages/focus/vehicleQuery/VehicleQuerySearch.vue')
 }

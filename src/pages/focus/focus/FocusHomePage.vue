@@ -1,51 +1,18 @@
 <template>
   <div class="focus-home-page">
     <ContentLayout :showSpin="showSpin">
-      <div slot="searchCondition">
-        <Form label-position="top">
-          <FormItem label="车牌号：">
-            <Input v-model="vehicleNo" placeholder="请输入车牌号"/>
-          </FormItem>
-          <FormItem label="关注时间：">
-            <DatePicker v-model="focusDate"
-                        type="daterange"
-                        format="yyyy/MM/dd"
-                        placement="bottom-start"
-                        placeholder="请选择关注时间区间"
-                        :clearable="false"
-                        :editable="false"
-                        :options="options">
-            </DatePicker>
-          </FormItem>
-          <Divider/>
-          <div>
-            <Button type="primary"
-                    style="float: left;"
-                    @click="goSearch">
-              查询
-            </Button>
-            <Button type="primary"
-                    style="float: right;"
-                    @click="exportExcel">
-              导出excel
-            </Button>
-          </div>
-        </Form>
-      </div>
-      <div slot="content">
-        <TableWrapper>
-          <Table :columns="columns"
-                 :data="tableListObject.tableList">
-          </Table>
-          <PairPage id="focusListPage"
-                    :total="tableListObject.total"
-                    :current="tableListObject.currentPage"
-                    :page-size="tableListObject.pageSize"
-                    @on-change="getPage"
-                    @on-page-size-change="changeSize">
-          </PairPage>
-        </TableWrapper>
-      </div>
+      <TableWrapper>
+        <Table :columns="columns"
+               :data="tableListObject.showTableList">
+        </Table>
+        <PairPage id="focusListPage"
+                  :total="tableListObject.total"
+                  :current="tableListObject.currentPage"
+                  :page-size="tableListObject.pageSize"
+                  @on-change="getPage"
+                  @on-page-size-change="changeSize">
+        </PairPage>
+      </TableWrapper>
     </ContentLayout>
     <RealLocationAMap :isShowModal="isShowModal"
                       :vehicleNo="propVehicleNo"
@@ -69,28 +36,24 @@ export default {
   data() {
     return {
       isShowModal: false,
-      showSpin: false,
-      vehicleNo: '川A',
-      focusDate: [new Date(), new Date()],
       propVehicleNo: '',
       propTerminalName: '',
-      propCompanyName: '',
-      tableListObject: { // 前端分页的表格数据对象
-        tableList: [],
-        showTableList: [],
-        currentPage: 1,
-        pageSize: 10,
-        total: 0,
-        totalPage: 0
-      },
-      options: {
-        disabledDate(date) {
-          return date && date.valueOf() > Date.now()
-        }
-      }
+      propCompanyName: ''
     }
   },
   computed: {
+    showSpin() {
+      return this.$store.state.search.showSpin
+    },
+    tableListObject() {
+      return this.$store.state.focus.tableListObject
+    },
+    vehicleNo() {
+      return this.$store.state.focus.vehicleNo
+    },
+    focusDate() {
+      return this.$store.state.focus.focusDate
+    },
     columns() {
       return [
         {
@@ -136,7 +99,6 @@ export default {
           // tooltip: true,
           renderHeader,
           render: (h, params) => {
-            // console.log(params)
             return h('span', dateFormat(new Date(params.row.focusTime), 'yyyy-MM-dd hh:mm'))
           }
         },
@@ -212,98 +174,51 @@ export default {
       ]
     }
   },
-  async mounted() {
-    this.getFocusInfo()
-  },
   methods: {
     getPage(currentPage) {
-      this.tableListObject.currentPage = currentPage
-      this.doViewPage(this.tableListObject.tableList)
+      this.$store.commit('focus/updateTableListObjectCurrentPage', currentPage)
+      // 重新计算显示的列表数据
+      if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
+        let showList = []
+        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
+          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage)
+            ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+          i++) {
+          showList.push(this.tableListObject.tableList[i - 1])
+        }
+        this.$store.commit('focus/updateTableListObjectShowTableList', showList)
+      }
     },
     changeSize(pageSize) {
-      this.tableListObject.pageSize = pageSize
+      this.$store.commit('focus/updateTableListObjectPageSize', pageSize)
       this.getPage(1)
-    },
-    goSearch() {
-      this.getFocusInfo()
-    },
-    async getFocusInfo() {
-      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
-        this.$Message.warning({
-          content: '时间间隔不能大于7天！'
-        })
-      } else {
-        this.showSpin = true
-        this.tableListObject.currentPage = 1
-        this.tableListObject.total = 0
-        this.tableListObject.pageSize = 10
-        const result = await get(END_POINTS.GET_HUB_FOCUS_VEHICLE_LIST, {
-          startDate: dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd'),
-          endDate: dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd'),
-          areaCode: localStorage.getItem('areaCode'),
-          hubCode: localStorage.getItem('hubCode'),
-          vehicleNo: this.vehicleNo,
-          driverType: 'TAXI'
-        })
-        // console.log(result)
-        if (result.code === 2000) {
-          this.doViewPage(result.data) // 表格数据
-          this.showSpin = false
-        } else {
-          if (result.code === 2006) {
-            this.$Message.warning({
-              content: result.msg + '！'
-            })
-          }
-          this.tableListObject.tableList = []
-          this.tableListObject.showTableList = []
-          this.showSpin = false
-        }
-      }
-    },
-    doViewPage(data) {
-      this.tableListObject.tableList = data // 表格数据
-      this.tableListObject.total = data.length // 数据总数
-      this.tableListObject.totalPage = Math.ceil(this.tableListObject.total / this.tableListObject.pageSize) // 总页数
-      // 当前页不大于总页数
-      if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
-        this.tableListObject.showTableList = [] // 清空显示的列表
-        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
-          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
-          i++) {
-          this.tableListObject.showTableList.push(this.tableListObject.tableList[i - 1])
-        }
-      }
-    },
-    exportExcel() {
-      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
-        this.$Message.warning({
-          content: '时间间隔不能大于7天！'
-        })
-      } else {
-        const token = localStorage.getItem('token')
-        const baseUrl = process.env.VUE_APP_BASE_URL
-        const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
-          '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
-          '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
-          '&areaCode=' + localStorage.getItem('areaCode') +
-          '&hubCode=' + localStorage.getItem('hubCode') +
-          '&vehicleNo=' + this.vehicleNo +
-          '&driverType=TAXI' +
-          '&x-me-token=' + token
-        window.location.href = `${baseUrl}${url}`
-      }
     },
     async doCancelFocus(row) {
       const result = await get(END_POINTS.CANCEL_FOCUS, {
         vehicleNo: row.vehicleNo
       })
-      // console.log(result)
       if (result.code === 2000) {
-        this.goSearch()
+        this.reFocusSearch()
         this.$Message.success({
           content: '成功取消关注！'
         })
+      }
+    },
+    async reFocusSearch() {
+      if (new Date(this.focusDate[1]).getTime() - new Date(this.focusDate[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
+      } else {
+        this.$store.commit('search/updateShowSpin', true)
+        this.$store.commit('focus/updateTableListObjectCurrentPage', 1)
+        const result = await this.$store.dispatch('focus/getHubFocusVehicleList')
+        if (result.code === 2006) {
+          this.$Message.warning({
+            content: result.msg + '！'
+          })
+        }
+        this.$store.commit('search/updateShowSpin', false)
       }
     },
     doShowModal(row) {
@@ -321,8 +236,5 @@ export default {
 
 <style lang="less">
 .focus-home-page {
-  .ivu-date-picker {
-    width: 100%;
-  }
 }
 </style>

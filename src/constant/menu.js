@@ -49,12 +49,12 @@ export const focus = [
   {
     name: '重点关注',
     path: '/focus/FocusHomePage',
-    search: ''
+    search: 'FocusSearch'
   },
   {
     name: '车辆查询',
     path: '/focus/VehicleQueryHomePage',
-    search: ''
+    search: 'VehicleQuerySearch'
   }
 ]
 

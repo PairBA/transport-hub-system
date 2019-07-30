@@ -100,12 +100,10 @@
 </template>
 
 <script>
-import ContentLayout from '@/components/ContentLayout'
 import MeterTripSearchAMap from '@/components/tripTrail/MeterTripSearchAMap'
 
 export default {
   components: {
-    ContentLayout,
     MeterTripSearchAMap
   },
   data() {

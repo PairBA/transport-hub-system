@@ -32,7 +32,7 @@
                       format="HH:mm"
                       placeholder="请选择时间"
                       style="float: right;"
-                      :disabled-minutes="disabledMinutes"
+                      :steps="[1, 60]"
                       :disabled="!isHour"
                       :clearable="false"
                       :editable="false">
@@ -53,26 +53,24 @@
                       format="HH:mm"
                       placeholder="请选择时间"
                       style="float: right;"
-                      :disabled-minutes="disabledMinutes"
+                      :steps="[1, 60]"
                       :disabled="!isHour"
                       :clearable="false"
                       :editable="false">
           </TimePicker>
         </FormItem>
         <Divider/>
-        <div>
+        <div style="text-align: center;">
           <Button type="primary"
-                  style="float: left;"
                   @click="goSearch">
             查询
           </Button>
           <Button type="primary"
-                  style="float: right;"
+                  style="margin-left: 24px;"
                   @click="exportExcel">
             导出excel
           </Button>
         </div>
-        <div style="clear: both;"></div>
       </Form>
     </MenuSearchWrapper>
   </div>
@@ -80,7 +78,7 @@
 
 <script>
 import { get, END_POINTS } from '@/api'
-import { dateFormat } from '@/utils'
+import { dateFormat, downloadFile } from '@/utils'
 export default {
   data() {
     const disabledMinutes = []
@@ -113,6 +111,7 @@ export default {
   },
   methods: {
     watchCountType() {
+      this.$store.commit('search/updateTraFloObjCountType', this.countType)
       if (this.countType === 'HOUR') { // 按小时统计
         this.isHour = true
       } else if (this.countType === 'DAY') { // 按天统计
@@ -189,7 +188,10 @@ export default {
       // 当前页不大于总页数
       if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
         let showTableList = [] // 显示的列表
-        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1; i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage) ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total)); i++) {
+        for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
+          i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage)
+            ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
+          i++) {
           showTableList.push(this.tableListObject.tableList[i - 1])
         }
         this.$store.commit('search/updateTraFloObjTableListObjectShowTableList', showTableList)
@@ -205,7 +207,9 @@ export default {
         '&startTime=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endTime=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token
-      window.location.href = `${baseUrl}${url}`
+      // window.location.href = `${baseUrl}${url}`
+      // window.open(`${baseUrl}${url}`)
+      downloadFile(`${baseUrl}${url}`)
     }
   },
   mounted() {
