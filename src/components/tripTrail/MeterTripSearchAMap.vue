@@ -44,15 +44,8 @@ VueAMap.initAMapApiLoader({
   key: '7bfb1994e208f200c2cd63a626f74868',
   plugin: [
     'AMap.Autocomplete',
-    'AMap.PlaceSearch',
     'AMap.Scale',
-    'AMap.OverView',
-    'AMap.ToolBar',
-    'AMap.MapType',
-    'AMap.PolyEditor',
     'AMap.RectangleEditor',
-    'AMap.CircleEditor',
-    'AMap.Heatmap',
     'AMap.Polyline'
   ],
   v: '1.4.4'
