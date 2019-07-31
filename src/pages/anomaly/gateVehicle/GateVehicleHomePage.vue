@@ -50,11 +50,6 @@ export default {
           tooltip: true
         },
         {
-          title: this.$t('sysManage.gateAnalysis.company'),
-          key: 'companyName',
-          tooltip: true
-        },
-        {
           title: this.$t('sysManage.queryBar.terminalManufacturer'),
           key: 'terminalName'
         },
