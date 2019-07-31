@@ -390,6 +390,8 @@ export default {
   mounted() {
     this.meterTripLineCache = ''
     this.meterTripMarkers = []
+    this.orgBounds = []
+    this.destBounds = []
   }
 }
 </script>
