@@ -1,6 +1,16 @@
 <template>
   <div class="illegalBoarding__homePage">
     <ContentLayout :showSpin="showSpin">
+      <div class="content__card" style="margin-bottom: 24px">
+        <PairECharts id="illegalECharts"
+                     :xAxis="illegalECharts.xAxis"
+                     :yAxis="illegalECharts.yAxis"
+                     :tooltip="illegalECharts.tooltip"
+                     :series="illegalECharts.series"
+                     :grid="illegalECharts.grid"
+                     style="height: 300px;width: 100%;">
+        </PairECharts>
+      </div>
       <TableWrapper>
         <Table :columns="columns"
                :data="list">
@@ -53,6 +63,59 @@ export default {
     },
     total() {
       return this.$store.state.illegalBoarding.total
+    },
+    graphData() {
+      return this.$store.state.illegalBoarding.graphData
+    },
+    illegalECharts() {
+      return {
+        xAxis: {
+          type: 'category',
+          data: this.graphData ? this.graphData.xAxis : [],
+          name: '时间',
+          boundaryGap: false,
+          nameTextStyle: {
+            fontSize: 16
+          },
+          axisTick: {
+            alignWithLabel: true
+          }
+        },
+        yAxis: {
+          nameGap: 16,
+          type: 'value',
+          name: '车次',
+          nameTextStyle: {
+            fontSize: 16
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: 'dashed'
+            }
+          }
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '6%',
+          right: '6%',
+          top: 60,
+          bottom: 30,
+          containLabel: true
+        },
+        series: [
+          {
+            name: '车次',
+            type: 'bar',
+            smooth: false,
+            color: '#1F88E5',
+            hoverAnimation: false,
+            data: this.graphData ? this.graphData.yAxis : []
+          }
+        ]
+      }
     },
     columns() {
       return [

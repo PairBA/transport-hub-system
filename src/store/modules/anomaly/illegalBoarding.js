@@ -56,7 +56,7 @@ const actions = {
 }
 const mutations = {
   updateGraph(state, value) {
-    state.graphData = value
+    state.graphData = value.code === 2000 ? value.data : ''
   },
   updateDaterange(state, value) {
     state.daterange = value

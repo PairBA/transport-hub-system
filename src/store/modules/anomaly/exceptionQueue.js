@@ -10,7 +10,8 @@ const state = {
   list: [],
   currentPage: 1,
   pageSize: 10,
-  total: 0
+  total: 0,
+  graphData: ''
 }
 const actions = {
   async getHubStatTrailList({
@@ -45,7 +46,7 @@ const actions = {
       startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
       endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
       vehicleNo: state.vehicleNo,
-      type: 'ALERT_ON',
+      type: 'CUTQ',
       areaCode: localStorage.getItem('areaCode'),
       driverType: 'TAXI',
       gps: null
@@ -54,6 +55,9 @@ const actions = {
   }
 }
 const mutations = {
+  updateGraph(state, value) {
+    state.graphData = value.code === 2000 ? value.data : ''
+  },
   updateDaterange(state, value) {
     state.daterange = value
   },

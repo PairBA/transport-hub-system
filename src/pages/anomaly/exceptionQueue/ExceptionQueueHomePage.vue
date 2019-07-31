@@ -1,6 +1,16 @@
 <template>
   <div class="exceptionQueue__homePage">
     <ContentLayout :showSpin="showSpin">
+      <div class="content__card" style="margin-bottom: 24px">
+        <PairECharts id="exceptionQueueECharts"
+                     :xAxis="exceptionQueueECharts.xAxis"
+                     :yAxis="exceptionQueueECharts.yAxis"
+                     :tooltip="exceptionQueueECharts.tooltip"
+                     :series="exceptionQueueECharts.series"
+                     :grid="exceptionQueueECharts.grid"
+                     style="height: 300px;width: 100%;">
+        </PairECharts>
+      </div>
       <TableWrapper>
         <Table :columns="columns"
                :data="list">
@@ -33,6 +43,9 @@ export default {
         this.$store.commit('exceptionQueue/updateDaterange', value)
       }
     },
+    graphData() {
+      return this.$store.state.exceptionQueue.graphData
+    },
     list() {
       return this.$store.state.exceptionQueue.list
     },
@@ -44,6 +57,56 @@ export default {
     },
     total() {
       return this.$store.state.exceptionQueue.total
+    },
+    exceptionQueueECharts() {
+      return {
+        xAxis: {
+          type: 'category',
+          data: this.graphData ? this.graphData.xAxis : [],
+          name: '时间',
+          boundaryGap: false,
+          nameTextStyle: {
+            fontSize: 16
+          },
+          axisTick: {
+            alignWithLabel: true
+          }
+        },
+        yAxis: {
+          nameGap: 16,
+          type: 'value',
+          name: '车次',
+          nameTextStyle: {
+            fontSize: 16
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: 'dashed'
+            }
+          }
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '6%',
+          right: '6%',
+          top: 60,
+          bottom: 30,
+          containLabel: true
+        },
+        series: [
+          {
+            name: '车次',
+            type: 'bar',
+            smooth: false,
+            color: '#1F88E5',
+            hoverAnimation: false,
+            data: this.graphData ? this.graphData.yAxis : []
+          }
+        ]
+      }
     },
     columns() {
       return [
