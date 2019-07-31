@@ -11,16 +11,17 @@
                 <div class="item" :class="{ 'item-active' : singleDay.scheduleDate === item.scheduleDate, 'item-hidden' : !singleDay.scheduleDate}">
                   <div class="calender-num" :class="{ 'calender-num-active' : singleDay.scheduleDate === item.scheduleDate}">
                     {{singleDay.scheduleDate.substring(8)}}
+                    <img class="today" v-if="dateFormat(todayTime, 'yyyy-MM-dd') === singleDay.scheduleDate" src="../../../img/today-tag.png"/>
                   </div>
                   <div style="padding: 8px" >
                     <div v-for="(oneItem, indexForOne) in singleDay.scheduleDetailList" :key="`singleDay_${indexForOne}`">
-                      <div style="font-size: 12px">{{oneItem.scheduleName}}</div>
+                      <div style="font-size: 12px; color: #4A5158">{{oneItem.scheduleName}}</div>
                       <div v-if="oneItem.scheduleWorkerList">
-                        <span style="font-size: 14px; font-weight: 600" v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
+                        <span :style="{ color: singleDay.scheduleDate === item.scheduleDate ? '#338FF4' : '#374254', fontSize: '14px', fontWeight: 600 }" v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
                       {{worker.fullName}}
                         </span>
                       </div>
-                      <div v-else>
+                      <div style="color: #A8AAB7; font-size: 14px" v-else>
                         暂无排班
                       </div>
                     </div>
@@ -30,7 +31,8 @@
             </Row>
           </Col>
           <Col span="6" class="single-item content__card">
-            <div style="color:rgba(108,117,125,1);font-size:16px;">{{item.scheduleDate}}</div>
+            <img style="float: left;width: 15px;margin-top: 4px;margin-right: 8px" src="../../../img/icon/calendar.png"/>
+            <div style="color:rgba(108,117,125,1);font-size:16px;font-weight: 500">{{item.scheduleDate}}</div>
             <Divider/>
             <div v-for="detail in item.scheduleDetailList" :key="detail.scheduleName">
               <span style="font-size:14px;color:rgba(55,66,84,1);font-weight: 500">{{detail.scheduleName}}</span>
@@ -70,6 +72,7 @@ import {
 export default {
   data() {
     return {
+      todayTime: new Date(),
       date: new Date(),
       item: '',
       planDetailList: [],
@@ -93,6 +96,9 @@ export default {
     this.getPlanWorkerList()
   },
   methods: {
+    dateFormat(date, format) {
+      return dateFormat(date, format)
+    },
     async goSearch() {
       await this.getPlanDetailList()
       const date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0)
@@ -247,7 +253,7 @@ export default {
     }
   }
   .worker {
-    background:rgba(245,248,255,1);
+    background:#F5F8FF;
     border-radius:2px;
     padding: 6px 14px;
     font-size:14px;
@@ -255,12 +261,20 @@ export default {
     font-weight:500;
     color:rgba(102,117,141,1);
     margin-top: 12px;
+    &:hover {
+      background:#D8DEEB;
+    }
   }
   .ivu-poptip {
     width: 100%;
     .ivu-poptip-rel {
       width: 100%;
     }
+  }
+  .today {
+    height: 36px;
+    position: absolute;
+    left: 4px;
   }
 }
 </style>

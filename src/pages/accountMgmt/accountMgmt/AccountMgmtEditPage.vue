@@ -39,6 +39,9 @@
               <Input v-model="formValidate.passwordConfirm" type="password" placeholder="请输入密码"/>
             </FormItem>
             <div style="text-align: center;">
+              <Button @click="goBack()" style="margin-right: 12px">
+                返回
+              </Button>
               <Button type="primary"
                       @click="handleSubmit('formValidate')">
                 提交
@@ -141,6 +144,9 @@ export default {
         })
         this.$router.push({ name: '账号管理' })
       }
+    },
+    goBack() {
+      this.$router.go(-1)
     }
   }
 }
