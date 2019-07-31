@@ -235,10 +235,7 @@ export default {
         })
       })
     },
-    computePolygonsByCenter(centerGps, multiple) {
-      if (!multiple) {
-        multiple = 1
-      }
+    computePolygonsByCenter(centerGps, multiple = 1) {
       let lngStep = 0.0234 // 经度默认边长系数（深圳步长）
       let latStep = 0.0162 // 纬度默认边长系数（深圳步长）
       if (this.gpsStepList.length) { // 如果从数据库中得到了步长，设置为数据库中的值
@@ -345,7 +342,7 @@ export default {
           // 根据中心点计算格子的边界
           this.orgBounds = this.computePolygonsByCenter([this.orgMarker.getPosition().lng, this.orgMarker.getPosition().lat], 2)
           this.$Message.warning({
-            content: '范围过大,将以允许的最大值查询!'
+            content: '已达允许的最大范围!'
           })
         }
       })
@@ -361,7 +358,7 @@ export default {
           // 根据中心点计算格子的边界
           this.destBounds = this.computePolygonsByCenter([this.destMarker.getPosition().lng, this.destMarker.getPosition().lat], 2)
           this.$Message.warning({
-            content: '范围过大,将以允许的最大值查询!'
+            content: '已达允许的最大范围!'
           })
         }
       })
