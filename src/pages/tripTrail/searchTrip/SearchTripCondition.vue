@@ -342,8 +342,19 @@ export default {
     position: relative;
     cursor: text;
   }
+
   .ivu-date-picker {
     width: 49%;
+  }
+
+  .ivu-radio-group-button {
+    .ivu-radio-wrapper {
+      color: #BFBFBF;
+    }
+
+    .ivu-radio-wrapper-checked {
+      color: #2A9EF6;
+    }
   }
 }
 </style>
