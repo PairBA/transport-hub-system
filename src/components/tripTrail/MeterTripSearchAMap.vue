@@ -235,7 +235,10 @@ export default {
         })
       })
     },
-    computePolygonsByCenter(centerGps) {
+    computePolygonsByCenter(centerGps, multiple) {
+      if (!multiple) {
+        multiple = 1
+      }
       let lngStep = 0.0234 // 经度默认边长系数（深圳步长）
       let latStep = 0.0162 // 纬度默认边长系数（深圳步长）
       if (this.gpsStepList.length) { // 如果从数据库中得到了步长，设置为数据库中的值
@@ -249,8 +252,8 @@ export default {
       }
       let centerLng = centerGps[0] // 中心点经度
       let centerLat = centerGps[1] // 中心点纬度
-      let gpsLb = [centerLng - lngStep / 2, centerLat - latStep / 2] // 左下角的点
-      let gpsRt = [centerLng + lngStep / 2, centerLat + latStep / 2] // 右上角的点
+      let gpsLb = [centerLng - lngStep / 2 * multiple, centerLat - latStep / 2 * multiple] // 左下角的点
+      let gpsRt = [centerLng + lngStep / 2 * multiple, centerLat + latStep / 2 * multiple] // 右上角的点
       return [gpsLb, gpsRt]
     },
     addOrgMarker(orgGps) {
@@ -339,6 +342,8 @@ export default {
         if (this.getLimitBounds(orgRectang.getBounds()).length) {
           this.orgBounds = this.getLimitBounds(orgRectang.getBounds())
         } else {
+          // 根据中心点计算格子的边界
+          this.orgBounds = this.computePolygonsByCenter([this.orgMarker.getPosition().lng, this.orgMarker.getPosition().lat], 2)
           this.$Message.warning({
             content: '范围过大,将以允许的最大值查询!'
           })
@@ -353,6 +358,8 @@ export default {
         if (this.getLimitBounds(destRetangle.getBounds()).length) {
           this.destBounds = this.getLimitBounds(destRetangle.getBounds())
         } else {
+          // 根据中心点计算格子的边界
+          this.destBounds = this.computePolygonsByCenter([this.destMarker.getPosition().lng, this.destMarker.getPosition().lat], 2)
           this.$Message.warning({
             content: '范围过大,将以允许的最大值查询!'
           })
