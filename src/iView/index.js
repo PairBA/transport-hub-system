@@ -51,7 +51,8 @@ import {
   Message,
   Badge,
   Steps,
-  Step
+  Step,
+  Footer
 } from 'iview'
 
 Vue.component('Alert', Alert)
@@ -106,6 +107,7 @@ Vue.component('Poptip', Poptip)
 Vue.component('Badge', Badge)
 Vue.component('Steps', Steps)
 Vue.component('Step', Step)
+Vue.component('Footer', Footer)
 
 Vue.prototype.$Modal = Modal
 Vue.prototype.$Notice = Notice

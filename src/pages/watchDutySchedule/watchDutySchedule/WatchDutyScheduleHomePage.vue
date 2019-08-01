@@ -235,6 +235,7 @@ export default {
     background-image: url("../../../img/calendar.png");
     background-repeat: no-repeat;
     background-size: 100%;
+    padding-right: 8px;
   }
   .calender-num-active {
     background-image: url("../../../img/calendar-light.png");

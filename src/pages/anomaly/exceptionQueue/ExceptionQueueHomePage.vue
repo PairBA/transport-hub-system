@@ -64,7 +64,6 @@ export default {
           type: 'category',
           data: this.graphData ? this.graphData.xAxis : [],
           name: '时间',
-          boundaryGap: false,
           nameTextStyle: {
             fontSize: 16
           },
@@ -78,12 +77,6 @@ export default {
           name: '车次',
           nameTextStyle: {
             fontSize: 16
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              type: 'dashed'
-            }
           }
         },
         tooltip: {
