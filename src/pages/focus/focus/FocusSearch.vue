@@ -49,7 +49,7 @@ const baseUrl = process.env.VUE_APP_BASE_URL
 export default {
   data() {
     return {
-      importUrl: `${baseUrl + END_POINTS.UPLOAD_WORKER_LIST}`,
+      importUrl: `${baseUrl + END_POINTS.UPLOAD_FOCUS_VEHICLE_LIST}`,
       headers: {
         'x-me-token': localStorage.getItem('token')
       },
