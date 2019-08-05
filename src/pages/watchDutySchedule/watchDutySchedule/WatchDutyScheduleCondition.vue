@@ -15,6 +15,7 @@
           模版导出
         </Button>
         <Upload style="float: right"
+                id="uploadFile" name="uploadFile"
                 :action="importUrl"
                 :headers="headers">
           <Button>数据导入</Button>

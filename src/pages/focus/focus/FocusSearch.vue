@@ -34,6 +34,7 @@
         </Button>
         <Upload style="float: right"
                 :action="importUrl"
+                id="uploadFile" name="uploadFile"
                 :headers="headers">
           <Button>数据导入</Button>
         </Upload>

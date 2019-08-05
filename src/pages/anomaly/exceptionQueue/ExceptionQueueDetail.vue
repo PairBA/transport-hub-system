@@ -70,7 +70,7 @@ export default {
       return this.$store.state.permission.mainMenu
     },
     showFocusBtn() {
-      return this.mainMenu.some(menu => menu.resourceKey === 'focus')
+      return this.$store.state.permission.focusRule
     },
     columns() {
       return [
