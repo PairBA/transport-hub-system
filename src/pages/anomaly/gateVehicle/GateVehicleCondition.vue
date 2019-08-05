@@ -14,7 +14,7 @@
         </FormItem>
         <CompanySelect/>
         <FormItem :label="$t('sysManage.queryBar.issueType')">
-          <Select v-model="judgeType" :placeholder="$t('sysManage.queryBar.issueTypePH')">
+          <Select v-model="judgeType" multiple :placeholder="$t('sysManage.queryBar.issueTypePH')">
             <Option value=" ">{{$t("sysManage.queryBar.tripStatusSelect.ALL")}}</Option>
             <Option :value="'GPS_LOST'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsLost') }}</Option>
             <Option :value="'GPS_REPEAT'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsRepeat') }}</Option>
@@ -131,16 +131,19 @@ export default {
       } else {
         this.showSpin = true
         await this.$store.dispatch('gateVehicle/getGateJudgeList', { currentPage: 1 })
+        await this.$store.dispatch('gateVehicle/getGateJudgeGraph')
         this.showSpin = false
       }
     },
     exportGate() {
+      let judgeType = this.judgeType.join('::')
+      if (this.judgeType.some(item => item === ' ')) judgeType = ' '
       const token = localStorage.getItem('token')
       const baseUrl = process.env.VUE_APP_BASE_URL
       const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
       const endDate = new Date(dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')).getTime()
       const url = END_POINTS.EXPORT_GATE_JUDGE_REPORT +
-        '?judgeType=' + this.judgeType +
+        '?judgeType=' + judgeType +
         '&areaCode=' + localStorage.getItem('areaCode') +
         '&companyId=' + this.$store.state.companyIdForSelect +
         '&startDate=' + dateFormat(new Date(startDate), 'yyyy-MM-dd') +

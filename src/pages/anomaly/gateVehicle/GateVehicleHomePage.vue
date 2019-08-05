@@ -1,6 +1,16 @@
 <template>
   <div class="gateVehicle__homePage">
     <ContentLayout :showSpin="showSpin">
+      <div class="content__card" style="margin-bottom: 24px">
+        <PairECharts id="gateECharts"
+                     :xAxis="gateECharts.xAxis"
+                     :yAxis="gateECharts.yAxis"
+                     :tooltip="gateECharts.tooltip"
+                     :series="gateECharts.series"
+                     :grid="gateECharts.grid"
+                     style="height: 300px;width: 100%;">
+        </PairECharts>
+      </div>
       <TableWrapper>
         <Table :columns="tableColumns" :data="gateJudgeList"/>
         <PairPage id="gateJudgeList" :total="total" :current="currentPage" :page-size="pageSize" @on-change="getPage" @on-page-size-change="changeSize"></PairPage>
@@ -37,11 +47,6 @@ export default {
         {
           title: this.$t('sysManage.commonVar.vehicleNo'),
           key: 'vehicleNo',
-          tooltip: true
-        },
-        {
-          title: this.$t('sysManage.gateAnalysis.company'),
-          key: 'companyName',
           tooltip: true
         },
         {
@@ -139,6 +144,52 @@ export default {
       set(value) {
         this.$store.commit('gateVehicle/updateDaterange', value)
       }
+    },
+    graphData() {
+      return this.$store.state.gateVehicle.graphData
+    },
+    gateECharts() {
+      return {
+        xAxis: {
+          type: 'category',
+          data: this.graphData ? this.graphData.xAxis : [],
+          name: '时间',
+          nameTextStyle: {
+            fontSize: 16
+          },
+          axisTick: {
+            alignWithLabel: true
+          }
+        },
+        yAxis: {
+          nameGap: 16,
+          type: 'value',
+          name: '车次',
+          nameTextStyle: {
+            fontSize: 16
+          }
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '6%',
+          right: '6%',
+          top: 60,
+          bottom: 30,
+          containLabel: true
+        },
+        series: [
+          {
+            name: '车次',
+            type: 'bar',
+            smooth: false,
+            color: '#1F88E5',
+            hoverAnimation: false,
+            data: this.graphData ? this.graphData.yAxis : []
+          }
+        ]
+      }
     }
   },
   async mounted() {
@@ -176,6 +227,7 @@ export default {
       } else {
         this.showSpin = true
         await this.$store.dispatch('gateVehicle/getGateJudgeList', { currentPage: 1 })
+        await this.$store.dispatch('gateVehicle/getGateJudgeGraph')
         this.showSpin = false
       }
     },

@@ -51,6 +51,14 @@ export default {
     }
   },
   computed: {
+    showSpin: {
+      get() {
+        return this.$store.state.search.showSpin
+      },
+      set(value) {
+        this.$store.commit('search/updateShowSpin', value)
+      }
+    },
     vehicleNo: {
       get() {
         return this.$store.state.illegalBoarding.vehicleNo
@@ -77,6 +85,7 @@ export default {
       } else {
         this.showSpin = true
         await this.$store.dispatch('illegalBoarding/getHubStatTrailList', { currentPage: 1 })
+        await this.$store.dispatch('illegalBoarding/getHubStatTrailGraph')
         this.showSpin = false
       }
     },

@@ -32,6 +32,8 @@
                 <Button type="primary" long :loading="loginLoading" @click="handleSubmit('formValidate')">
                   {{loginBtnInfo}}
                 </Button>
+                <div class="btn-filter">
+                </div>
                 <p>{{message}}</p>
               </div>
             </Form>
@@ -113,7 +115,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
+  z-index: 0;
   form {
     font-size: 12px;
   }
@@ -129,6 +131,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: -2;
     .ivu-row {
       height: 100%;
       .left {
@@ -164,11 +167,27 @@ export default {
     background: linear-gradient(270deg,rgba(23,149,255,1) 0%,rgba(96,192,255,1) 100%);
     border: none;
   }
+  .btn-filter {
+    width: 96%;
+    height: 32px;
+    background:linear-gradient(270deg,rgba(23,149,255,1) 0%,rgba(96,192,255,1) 100%);
+    border-radius:2px;
+    filter:blur(5px);
+    margin: 0 auto;
+    position: absolute;
+    top: 9px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0.5;
+    z-index: -1;
+  }
   .ivu-btn {
     font-size: 16px;
   }
   .button-margin {
     margin-top: 48px;
+    position: relative;
   }
 }
 </style>

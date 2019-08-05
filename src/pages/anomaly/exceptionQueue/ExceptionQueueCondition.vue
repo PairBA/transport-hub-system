@@ -85,6 +85,7 @@ export default {
       } else {
         this.showSpin = true
         await this.$store.dispatch('exceptionQueue/getHubStatTrailList', { currentPage: 1 })
+        await this.$store.dispatch('exceptionQueue/getHubStatTrailGraph')
         this.showSpin = false
       }
     },
