@@ -62,6 +62,7 @@ export default {
   }
   .speed-dropdown-title {
     font-size: 14px;
+    font-weight: 500;
   }
 }
 </style>
