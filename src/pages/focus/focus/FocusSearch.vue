@@ -19,17 +19,24 @@
           </DatePicker>
         </FormItem>
         <Divider/>
-        <div style="text-align: center;">
-          <Button type="primary"
-                  @click="focusSearch">
-            查询
-          </Button>
-          <Button type="primary"
-                  style="margin-left: 24px;"
-                  @click="exportExcel">
-            导出excel
-          </Button>
-        </div>
+        <Button type="primary"
+                @click="focusSearch">
+          查询
+        </Button>
+        <Button type="primary"
+                style="float: right;"
+                @click="exportExcel">
+          导出excel
+        </Button>
+        <Divider/>
+        <Button @click="exportModel">
+          模版导出
+        </Button>
+        <Upload style="float: right"
+                :action="importUrl"
+                :headers="headers">
+          <Button>数据导入</Button>
+        </Upload>
       </Form>
     </MenuSearchWrapper>
   </div>
@@ -38,10 +45,14 @@
 <script>
 import { END_POINTS } from '@/api'
 import { dateFormat, downloadFile } from '@/utils'
-
+const baseUrl = process.env.VUE_APP_BASE_URL
 export default {
   data() {
     return {
+      importUrl: `${baseUrl + END_POINTS.UPLOAD_WORKER_LIST}`,
+      headers: {
+        'x-me-token': localStorage.getItem('token')
+      },
       options: {
         disabledDate(date) {
           return date && date.valueOf() > Date.now()
@@ -105,6 +116,9 @@ export default {
         // window.open(`${baseUrl}${url}`)
         downloadFile(`${baseUrl}${url}`)
       }
+    },
+    exportModel() {
+      window.location.href = 'https://ossapi.paircity.com/template/%E9%87%8D%E7%82%B9%E5%85%B3%E6%B3%A8%E8%BD%A6%E8%BE%86%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'
     }
   }
 }

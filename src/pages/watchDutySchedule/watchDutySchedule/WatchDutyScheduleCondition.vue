@@ -14,7 +14,8 @@
         <Button @click="exportModel">
           模版导出
         </Button>
-        <Upload :action="importUrl"
+        <Upload style="float: right"
+                :action="importUrl"
                 :headers="headers">
           <Button>数据导入</Button>
         </Upload>
@@ -33,7 +34,7 @@ const baseUrl = process.env.VUE_APP_BASE_URL
 export default {
   data() {
     return {
-      importUrl: `${baseUrl + END_POINTS.UPLOAD_WORKER_LIST}`,
+      importUrl: `${baseUrl + END_POINTS.UPLOAD_FOCUS_VEHICLE_LIST}`,
       headers: {
         'x-me-token': localStorage.getItem('token')
       }
@@ -105,9 +106,6 @@ export default {
     },
     exportModel() {
       window.location.href = 'https://ossapi.paircity.com/template/%E5%80%BC%E7%8F%AD%E8%A1%A8%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'
-    },
-    importData() {
-
     }
   }
 }
