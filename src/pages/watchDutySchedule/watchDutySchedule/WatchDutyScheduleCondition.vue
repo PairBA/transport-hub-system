@@ -10,6 +10,14 @@
                 @click="goSearch">
           {{$t("sysManage.queryBar.searchBT")}}
         </Button>
+        <Divider/>
+        <Button @click="exportModel">
+          模版导出
+        </Button>
+        <Upload :action="importUrl"
+                :headers="headers">
+          <Button>数据导入</Button>
+        </Upload>
       </Form>
     </MenuSearchWrapper>
   </div>
@@ -17,8 +25,20 @@
 
 <script>
 import { dateFormat } from '@/utils'
+import {
+  END_POINTS
+} from '@/api'
 import cloneDeep from 'clone-deep'
+const baseUrl = process.env.VUE_APP_BASE_URL
 export default {
+  data() {
+    return {
+      importUrl: `${baseUrl + END_POINTS.UPLOAD_WORKER_LIST}`,
+      headers: {
+        'x-me-token': localStorage.getItem('token')
+      }
+    }
+  },
   computed: {
     date: {
       get() {
@@ -82,6 +102,12 @@ export default {
         }
       }
       this.monthDayList = monthDayList
+    },
+    exportModel() {
+      window.location.href = 'https://ossapi.paircity.com/template/%E5%80%BC%E7%8F%AD%E8%A1%A8%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'
+    },
+    importData() {
+
     }
   }
 }
