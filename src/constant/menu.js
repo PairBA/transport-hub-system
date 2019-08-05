@@ -15,7 +15,7 @@ export const watchDutySchedule = [
   {
     name: '值班表',
     path: '/watchDutySchedule/watchDutyScheduleHomePage',
-    search: ''
+    search: 'WatchDutyScheduleCondition'
   },
   {
     name: '班次时间',
