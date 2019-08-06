@@ -11,15 +11,16 @@
           {{$t("sysManage.queryBar.searchBT")}}
         </Button>
         <Divider/>
-        <Button @click="exportModel">
-          模版导出
-        </Button>
-        <Upload style="float: right"
-                id="uploadFile" name="uploadFile"
-                :action="importUrl"
-                :headers="headers">
-          <Button>数据导入</Button>
-        </Upload>
+        <div>
+          <Button @click="exportModel" style="float: right">
+            模版导出
+          </Button>
+          <Upload id="uploadFile" name="uploadFile"
+                  :action="importUrl"
+                  :headers="headers">
+            <Button>数据导入</Button>
+          </Upload>
+        </div>
       </Form>
     </MenuSearchWrapper>
   </div>

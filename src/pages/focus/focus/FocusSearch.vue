@@ -29,15 +29,16 @@
           导出excel
         </Button>
         <Divider/>
-        <Button @click="exportModel">
-          模版导出
-        </Button>
-        <Upload style="float: right"
-                :action="importUrl"
-                id="uploadFile" name="uploadFile"
-                :headers="headers">
-          <Button>数据导入</Button>
-        </Upload>
+        <div>
+          <Button @click="exportModel" style="float: right">
+            模版导出
+          </Button>
+          <Upload :action="importUrl"
+                  id="uploadFile" name="uploadFile"
+                  :headers="headers">
+            <Button>数据导入</Button>
+          </Upload>
+        </div>
       </Form>
     </MenuSearchWrapper>
   </div>
