@@ -1,3 +1,11 @@
+export const capacityScheduling = [
+  {
+    name: '运力调度',
+    path: '/capacityScheduling/capacitySchedulingHomePage',
+    search: ''
+  }
+]
+
 export const accountMgmt = [
   {
     name: '账号管理',

@@ -16,6 +16,7 @@
 
 <script>
 import {
+  capacityScheduling,
   accountMgmt,
   watchDutySchedule,
   tripTrail,
@@ -63,6 +64,9 @@ export default {
         this.$store.commit('permission/updateSubMenu', anomaly)
         this.$store.commit('permission/updateOpenNamesFromMain', anomaly[0].path)
         // this.$router.push({ name: anomaly[0].name })
+      } else if (name === 'capacityScheduling') {
+        this.$store.commit('permission/updateSubMenu', capacityScheduling)
+        this.$store.commit('permission/updateOpenNamesFromMain', capacityScheduling[0].path)
       }
     },
     getSelectMenu(name) {
@@ -79,6 +83,8 @@ export default {
         this.$store.commit('permission/updateSubMenu', focus)
       } else if (name === 'anomaly') {
         this.$store.commit('permission/updateSubMenu', anomaly)
+      } else if (name === 'capacityScheduling') {
+        this.$store.commit('permission/updateSubMenu', capacityScheduling)
       }
     }
   },

@@ -16,7 +16,8 @@ const TrafficFlowHomePage = () => import('@/pages/trafficFlow/TrafficFlowHomePag
 // 重点关注
 const FocusHomePage = () => import('@/pages/focus/focus/FocusHomePage')
 const VehicleQueryHomePage = () => import('@/pages/focus/vehicleQuery/VehicleQueryHomePage')
-
+// 运力调度
+const CapacitySchedulingHomePage = () => import('@/pages/capacityScheduling/CapacitySchedulingHomePage')
 export default [
   {
     name: '账号管理',
@@ -77,5 +78,10 @@ export default [
     name: '车辆查询',
     path: '/focus/VehicleQueryHomePage',
     component: VehicleQueryHomePage
+  },
+  {
+    name: '运力调度',
+    path: '/capacityScheduling/capacitySchedulingHomePage',
+    component: CapacitySchedulingHomePage
   }
 ]

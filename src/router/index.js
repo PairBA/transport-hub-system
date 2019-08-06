@@ -18,6 +18,7 @@ router.beforeEach((to, from, next) => {
     if (!store.state.permission.hasGetRules) {
       // 验证token是否有效
       store.dispatch('login/init').then(result => {
+        console.log(result)
         if (result) {
           store.dispatch('permission/getResourceListByRole').then(() => {
             const homePage = store.state.permission.homePage
