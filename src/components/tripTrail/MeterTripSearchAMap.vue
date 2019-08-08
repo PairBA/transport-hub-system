@@ -263,6 +263,7 @@ export default {
       this.orgMarker.on('dragend', (dragend) => {
         // 根据中心点计算格子的边界
         this.orgBounds = this.computePolygonsByCenter([dragend.lnglat.lng, dragend.lnglat.lat])
+        this.orgMarker.setPosition([dragend.lnglat.lng, dragend.lnglat.lat])
       })
       map.add(this.orgMarker)
     },
@@ -283,6 +284,7 @@ export default {
       this.destMarker.on('dragend', (dragend) => {
         // 根据中心点计算格子的边界
         this.destBounds = this.computePolygonsByCenter([dragend.lnglat.lng, dragend.lnglat.lat])
+        this.destMarker.setPosition([dragend.lnglat.lng, dragend.lnglat.lat])
       })
       map.add(this.destMarker)
     },
