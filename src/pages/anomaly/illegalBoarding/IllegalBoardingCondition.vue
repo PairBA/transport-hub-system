@@ -97,7 +97,7 @@ export default {
       } else {
         const token = localStorage.getItem('token')
         const baseUrl = process.env.VUE_APP_BASE_URL
-        const url = END_POINTS.GET_HUB_STAT_TRAIL_CUTQ_EXCEL +
+        const url = END_POINTS.GET_HUB_STAT_TRAIL_ALERTON_EXCEL +
           '?startDate=' + dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd') +
           '&endDate=' + dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd') +
           '&vehicleNo=' + this.vehicleNo +
