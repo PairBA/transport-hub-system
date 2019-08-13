@@ -5,7 +5,7 @@
         <Col span="12" class="left"></Col>
         <Col span="12" style="padding-left: 34px; padding-right: 34px">
           <div class="login-title">
-            出租汽车智慧管理执法系统
+            出租汽车大数据执法系统
           </div>
           <Divider/>
           <div class="login-content">

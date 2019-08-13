@@ -7,17 +7,6 @@
                  placeholder="请输入车牌号"
                  :clearable="true"/>
         </FormItem>
-        <FormItem label="关注时间：">
-          <DatePicker v-model="focusDate"
-                      type="daterange"
-                      format="yyyy/MM/dd"
-                      placement="bottom-start"
-                      placeholder="请选择关注时间区间"
-                      :clearable="false"
-                      :editable="false"
-                      :options="options">
-          </DatePicker>
-        </FormItem>
         <Divider/>
         <Button type="primary"
                 @click="focusSearch">
