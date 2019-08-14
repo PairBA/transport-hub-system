@@ -14,7 +14,7 @@ const state = {
 
 const getters = {
   isLoggedin: (state) => {
-    return localStorage.getItem('token') || state.isLoggedin
+    return localStorage.getItem('hub-token') || state.isLoggedin
   }
 }
 
@@ -70,7 +70,7 @@ const mutations = {
     hubName,
     systemName
   }) {
-    localStorage.setItem('token', token)
+    localStorage.setItem('hub-token', token)
     localStorage.setItem('userName', userName)
     localStorage.setItem('userId', userId)
     localStorage.setItem('areaCode', areaCode)
@@ -83,7 +83,7 @@ const mutations = {
   },
 
   logout(state) {
-    localStorage.removeItem('token')
+    localStorage.removeItem('hub-token')
     localStorage.removeItem('userName')
     localStorage.removeItem('email')
     localStorage.removeItem('mobile')

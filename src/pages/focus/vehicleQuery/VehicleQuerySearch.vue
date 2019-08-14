@@ -96,7 +96,7 @@ export default {
           content: '时间间隔不能大于7天！'
         })
       } else {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('hub-token')
         const baseUrl = process.env.VUE_APP_BASE_URL
         const url = END_POINTS.GET_HUB_STAT_TRAIL_ALL_EXCEL +
           '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +

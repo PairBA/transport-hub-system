@@ -38,7 +38,7 @@ export default {
     return {
       importUrl: `${baseUrl + END_POINTS.UPLOAD_WORKER_LIST}`,
       headers: {
-        'x-me-token': localStorage.getItem('token')
+        'x-me-token': localStorage.getItem('hub-token')
       }
     }
   },

@@ -56,7 +56,7 @@ export default {
     return {
       importUrl: `${baseUrl + END_POINTS.UPLOAD_FOCUS_VEHICLE_LIST}`,
       headers: {
-        'x-me-token': localStorage.getItem('token')
+        'x-me-token': localStorage.getItem('hub-token')
       },
       options: {
         disabledDate(date) {
@@ -107,7 +107,7 @@ export default {
           content: '时间间隔不能大于7天！'
         })
       } else {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('hub-token')
         const baseUrl = process.env.VUE_APP_BASE_URL
         const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
           '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
