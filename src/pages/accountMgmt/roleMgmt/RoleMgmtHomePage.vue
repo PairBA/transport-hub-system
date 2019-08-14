@@ -48,6 +48,7 @@ export default {
           width: 125,
           align: 'center',
           render: (h, params) => {
+            if (params.row.id === '1') return h('div', '')
             return h('div', [
               h('Tooltip', {
                 props: {
