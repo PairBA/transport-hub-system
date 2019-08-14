@@ -43,7 +43,7 @@ const mutations = {
   updateResourceList(state, menuList) {
     // 已经获取到权限菜单
     state.hasGetRules = true
-    state.focusRule = menuList.some(menu => menu.resourceKey === 'vehicleFocusManage')
+    state.focusRule = menuList.some(menu => menu.resourceName === '关注车辆')
     const mainMenu = menuList.filter(menu => menu.resourceKey)
     state.mainMenu = mainMenu
     const firstMenu = mainMenu[0].resourceKey
