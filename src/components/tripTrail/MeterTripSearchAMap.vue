@@ -71,7 +71,8 @@ export default {
       orgMarker: '',
       destMarker: '',
       orgRectangleEditorTool: null,
-      destRectangleEditorTool: null
+      destRectangleEditorTool: null,
+      canShowMsg: true
     }
   },
   computed: {
@@ -328,34 +329,46 @@ export default {
     },
     getOrgEditorBounds(orgRectang) {
       let map = this.aMapManager.getMap()
-      this.orgRectangleEditorTool = new AMap.RectangleEditor(map, orgRectang)
-      this.orgRectangleEditorTool.open()
-      this.orgRectangleEditorTool.on('adjust', (e) => {
-        if (this.getLimitBounds(orgRectang.getBounds()).length) {
-          this.orgBounds = this.getLimitBounds(orgRectang.getBounds())
-        } else {
-          // 根据中心点计算格子的边界
-          this.orgBounds = this.computePolygonsByCenter([this.orgMarker.getPosition().lng, this.orgMarker.getPosition().lat], 2)
-          this.$Message.warning({
-            content: '已达允许的最大范围!'
-          })
-        }
+      map.plugin(['AMap.RectangleEditor'], () => {
+        this.orgRectangleEditorTool = new AMap.RectangleEditor(map, orgRectang)
+        this.orgRectangleEditorTool.open()
+        this.orgRectangleEditorTool.on('adjust', (e) => {
+          if (this.getLimitBounds(orgRectang.getBounds()).length) {
+            this.canShowMsg = true
+            this.orgBounds = this.getLimitBounds(orgRectang.getBounds())
+          } else {
+            // 根据中心点计算格子的边界
+            this.orgBounds = this.computePolygonsByCenter([this.orgMarker.getPosition().lng, this.orgMarker.getPosition().lat], 2)
+            if (this.canShowMsg) {
+              this.canShowMsg = false
+              this.$Message.warning({
+                content: '已达允许的最大范围!'
+              })
+            }
+          }
+        })
       })
     },
     getDestEditorBounds(destRetangle) {
       let map = this.aMapManager.getMap()
-      this.destRectangleEditorTool = new AMap.RectangleEditor(map, destRetangle)
-      this.destRectangleEditorTool.open()
-      this.destRectangleEditorTool.on('adjust', (e) => {
-        if (this.getLimitBounds(destRetangle.getBounds()).length) {
-          this.destBounds = this.getLimitBounds(destRetangle.getBounds())
-        } else {
-          // 根据中心点计算格子的边界
-          this.destBounds = this.computePolygonsByCenter([this.destMarker.getPosition().lng, this.destMarker.getPosition().lat], 2)
-          this.$Message.warning({
-            content: '已达允许的最大范围!'
-          })
-        }
+      map.plugin(['AMap.RectangleEditor'], () => {
+        this.destRectangleEditorTool = new AMap.RectangleEditor(map, destRetangle)
+        this.destRectangleEditorTool.open()
+        this.destRectangleEditorTool.on('adjust', (e) => {
+          if (this.getLimitBounds(destRetangle.getBounds()).length) {
+            this.canShowMsg = true
+            this.destBounds = this.getLimitBounds(destRetangle.getBounds())
+          } else {
+            // 根据中心点计算格子的边界
+            this.destBounds = this.computePolygonsByCenter([this.destMarker.getPosition().lng, this.destMarker.getPosition().lat], 2)
+            if (this.canShowMsg) {
+              this.canShowMsg = false
+              this.$Message.warning({
+                content: '已达允许的最大范围!'
+              })
+            }
+          }
+        })
       })
     },
     getLimitBounds(bounds) {
