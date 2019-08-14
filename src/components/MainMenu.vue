@@ -102,16 +102,20 @@ export default {
     line-height: 40px;
     padding: 12px;
   }
+
   .ivu-menu-item-active {
-    background: linear-gradient(270deg,rgba(23,149,255,1) 0%,rgba(82,211,255,1) 100%);
-    box-shadow: 0 14px 8px -8px #1795ff;
+    background: linear-gradient(270deg, rgba(23, 149, 255, 1) 0%, rgba(82, 211, 255, 1) 100%);
+    box-shadow: 0 14px 4px -8px #1795ff;
   }
+
   .ivu-menu-item {
-    border-radius:20px;
+    border-radius: 20px;
+
     &:not(:first-child) {
       margin-left: 24px;
     }
   }
+
   .ivu-menu-horizontal {
     height: 64px;
   }

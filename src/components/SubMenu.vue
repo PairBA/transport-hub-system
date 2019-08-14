@@ -5,6 +5,7 @@
           @on-open-change="openChange"
           :open-names="openNames">
       <Submenu v-for="item in subMenu"
+               :class="{ 'submenu-title-icon' : !item.search}"
                :name="item.path"
                :key="item.path">
         <template slot="title">
@@ -128,6 +129,12 @@ export default {
 
   .ivu-menu-vertical .ivu-menu-submenu-title-icon {
     right: 12px;
+  }
+
+  .submenu-title-icon {
+    .ivu-menu-submenu-title .ivu-menu-submenu-title-icon {
+      display: none;
+    }
   }
 }
 

@@ -27,7 +27,7 @@
                 <Row style="padding: 0 16px;">
                   <Row class="meter-trip-search-itemlist-title"
                        style="margin-top: 16px;">
-                    <span style="float: left;font-size: 18px;font-weight: bold;color: #333333;margin-right: 15px;line-height: 18px;">
+                    <span style="float: left;font-size: 18px;font-weight: bold;color: #107AEF;margin-right: 15px;line-height: 18px;">
                       {{item.vehicleNo}}
                     </span>
                     <span style="float: left;">
@@ -194,7 +194,6 @@ export default {
       this.showSpin = false
     },
     getPage(currentPage) {
-      this.isShowPairSpin = true
       this.currentPage = currentPage
       // 当前页不大于总页数
       if (currentPage <= this.meterTripListObject.totalPage) {
@@ -205,7 +204,6 @@ export default {
         }
         this.showMeterTripList = showList
       }
-      this.isShowPairSpin = false
     },
     gotoInfoPage(meterTripId, recDate) {
       this.$router.push({ path: '/transactionRecord/meterTripDetail', query: { meterTripId: meterTripId, recDate: recDate, driverType: this.driverType } })
