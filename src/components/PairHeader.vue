@@ -59,7 +59,7 @@ export default {
       this.logout()
     },
     logout() {
-      localStorage.removeItem('token')
+      localStorage.removeItem('hub-token')
       this.$router.push('/login')
     }
   }
