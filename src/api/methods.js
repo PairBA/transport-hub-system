@@ -1,5 +1,4 @@
 import axios from 'axios'
-import router from '../router'
 import { Message } from 'iview'
 
 const baseUrl = process.env.VUE_APP_BASE_URL
@@ -8,8 +7,9 @@ axios.interceptors.response.use((response) => {
   // Do something with response data
   const responseData = response.data
   if (responseData.code === 4001 || responseData.code === 4007) {
-    localStorage.removeItem('hub-token')
-    router.push('/login')
+    Message.error({
+      content: '您没有访问权限。'
+    })
   } else return response
 }, (error) => {
   // Do something with response error

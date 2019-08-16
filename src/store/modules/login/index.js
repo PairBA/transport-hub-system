@@ -1,6 +1,7 @@
 import {
   get,
   post,
+  deleteSend,
   END_POINTS
 } from '@/api'
 
@@ -31,6 +32,9 @@ const actions = {
       })
     }
     return responseData
+  },
+  async logout() {
+    return deleteSend(END_POINTS.LOGOUT)
   },
   async init({ commit }) {
     const responseData = await get(END_POINTS.TOKEN_EXPIRE)

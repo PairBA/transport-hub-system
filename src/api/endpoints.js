@@ -1,5 +1,6 @@
 export default {
   LOGIN: '/api/lawSystem/auth/login',
+  LOGOUT: '/api/lawSystem/auth/logout',
   TOKEN_EXPIRE: '/api/lawSystem/auth/tokenExpire',
   GET_RESOURCE_LIST: '/api/lawSystem/accountManage/getResourceList',
   GET_RESOURCE_LIST_BY_ROLE: '/api/lawSystem/auth/getResourceListByRole',
