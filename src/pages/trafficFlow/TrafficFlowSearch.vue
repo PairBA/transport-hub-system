@@ -5,7 +5,7 @@
         <FormItem label="闸口：">
           <Select v-model="gateName"
                   placeholder="请选择闸口">
-            <Option value="' '">全部</Option>
+            <Option value="">全部</Option>
             <Option value="T1">T1</Option>
             <Option value="T2">T2</Option>
           </Select>
@@ -127,9 +127,10 @@ export default {
       this.$store.commit('search/updateTraFloObjTableListObjectCurrentPage', 1)
       this.$store.commit('search/updateTraFloObjTableListObjectTotal', 0)
       this.$store.commit('search/updateTraFloObjTableListObjectPageSize', 10)
+      let gateName = typeof this.gateName === 'undefined' ? '' : this.gateName
       const result = await get(END_POINTS.GET_VEHICLE_FLOW_COUNT, {
         hubCode: localStorage.getItem('hubCode'),
-        gateName: this.gateName,
+        gateName: gateName,
         countType: this.countType,
         startTime: dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00',
         endTime: dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00'
@@ -200,13 +201,15 @@ export default {
     async exportExcel() {
       const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
+      let gateName = typeof this.gateName === 'undefined' ? '' : this.gateName
       const url = END_POINTS.GET_VEHICLE_FLOW_COUNT_EXCEL +
-        '?gateName=' + this.gateName +
+        '?gateName=' + gateName +
         '&countType=' + this.countType +
         '&hubCode=' + localStorage.getItem('hubCode') +
         '&startTime=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endTime=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token
+      console.log(`${baseUrl}${url}`)
       downloadFile(`${baseUrl}${url}`)
     }
   },
