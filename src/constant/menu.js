@@ -23,7 +23,7 @@ export const watchDutySchedule = [
   {
     name: '值班表',
     path: '/watchDutySchedule/watchDutyScheduleHomePage',
-    search: ''
+    search: 'WatchDutyScheduleCondition'
   },
   {
     name: '班次时间',
@@ -60,7 +60,7 @@ export const focus = [
     search: 'FocusSearch'
   },
   {
-    name: '车辆查询',
+    name: '加入重点关注',
     path: '/focus/VehicleQueryHomePage',
     search: 'VehicleQuerySearch'
   }

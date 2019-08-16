@@ -50,6 +50,10 @@ export default {
           tooltip: true
         },
         {
+          title: '公司',
+          key: 'companyName'
+        },
+        {
           title: this.$t('sysManage.queryBar.terminalManufacturer'),
           key: 'terminalName'
         },

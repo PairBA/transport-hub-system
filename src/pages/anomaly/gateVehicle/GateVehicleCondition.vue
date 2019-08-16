@@ -138,7 +138,7 @@ export default {
     exportGate() {
       let judgeType = this.judgeType.join('::')
       if (this.judgeType.some(item => item === ' ')) judgeType = ' '
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
       const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
       const endDate = new Date(dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')).getTime()

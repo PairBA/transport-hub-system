@@ -2,8 +2,6 @@
     <div class="watchDutySchedule__homePage">
       <PairBreadcrumb :title="title"/>
       <div class="watchDutySchedule__homePage-content">
-        <DatePicker v-model="date" type="month" :clearable="false" @on-change="goSearch" style="width: 200px;margin-bottom: 24px"></DatePicker>
-        <Button type="primary" @click="goSearch" style="margin-left: 24px">查询</Button>
         <Row :gutter="24">
           <Col span="18" class="table">
             <Row :gutter="8">
@@ -69,44 +67,59 @@ import {
 import {
   dateFormat
 } from '@/utils'
+import cloneDeep from 'clone-deep'
 export default {
   data() {
     return {
       todayTime: new Date(),
-      date: new Date(),
       item: '',
-      planDetailList: [],
-      scheduleList: [],
-      maxDay: 0,
-      monthDayList: [],
-      planWorkerList: [],
       fullName: ''
     }
   },
   computed: {
     title() {
       return this.$route.name
+    },
+    date() {
+      return this.$store.state.watchDutySchedule.date
+    },
+    scheduleList() {
+      return this.$store.state.watchDutySchedule.scheduleList
+    },
+    planDetailList() {
+      return this.$store.state.watchDutySchedule.planDetailList
+    },
+    planWorkerList() {
+      return this.$store.state.watchDutySchedule.planWorkerList
+    },
+    monthDayList: {
+      get() {
+        return this.$store.state.watchDutySchedule.monthDayList
+      },
+      set(value) {
+        this.$store.commit('watchDutySchedule/updateMonthDayList', value)
+      }
     }
   },
   async mounted() {
-    await this.getScheduleList()
+    await this.$store.dispatch('watchDutySchedule/getScheduleList')
     await this.goSearch()
     const today = dateFormat(new Date(), 'yyyy-MM-dd')
     this.item = this.monthDayList.find(day => day.scheduleDate === today)
-    this.getPlanWorkerList()
+    await this.$store.dispatch('watchDutySchedule/getPlanWorkerList')
   },
   methods: {
     dateFormat(date, format) {
       return dateFormat(date, format)
     },
     async goSearch() {
-      await this.getPlanDetailList()
+      await this.$store.dispatch('watchDutySchedule/getPlanDetailList')
       const date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0)
-      this.maxDay = date.getDate()
+      const maxDay = date.getDate()
       const monthDayList = []
       date.setDate(1)
       let week = date.getDay()
-      for (let i = 1; i <= this.maxDay; i++) {
+      for (let i = 1; i <= maxDay; i++) {
         let scheduleDate = dateFormat(this.date, 'yyyy-MM')
         if (i < 10) {
           scheduleDate = scheduleDate + '-0' + i
@@ -124,8 +137,9 @@ export default {
           const haveSetItem = scheduleDetailListSet.find(itemThree => itemTwo.scheduleName === itemThree.scheduleName)
           return haveSetItem || itemTwo
         })
-        item.scheduleDetailList = scheduleListCombine
-        monthDayList[day - 1] = item
+        const cloneItem = cloneDeep(item)
+        cloneItem.scheduleDetailList = scheduleListCombine
+        monthDayList[day - 1] = cloneItem
       })
       if (week === 0) week = 7
       if (week !== 1) {
@@ -174,19 +188,6 @@ export default {
         this.item = highlightItem
       }
       this.fullName = ''
-    },
-    async getPlanDetailList() {
-      const result = await get(END_POINTS.GET_PLAN_DETAIL_LIST + `?queryMonth=${dateFormat(this.date, 'yyyy-MM')}`)
-      if (result.code === 2000) this.planDetailList = result.data
-      else this.planDetailList = []
-    },
-    async getPlanWorkerList() {
-      const result = await get(END_POINTS.GET_PLAN_WORKER_LIST)
-      if (result) this.planWorkerList = result.data
-    },
-    async getScheduleList() {
-      const result = await get(END_POINTS.GET_SCHEDULE_LIST)
-      if (result.success) this.scheduleList = result.data
     }
   }
 }

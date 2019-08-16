@@ -38,6 +38,7 @@ export default {
   GET_LAST_TRAIL_LIST: '/api/vehicle/trail/getLastTrailList',
   CANCEL_FOCUS: '/api/transhub/fullscreen/cancelFocus',
   IS_VEHICLE_FOCUS: '/api/transhub/fullscreen/isVehicleFocus',
+  UPLOAD_FOCUS_VEHICLE_LIST: '/api/transhub/fullscreen/uploadFocusVehicleList',
   GET_VEHICLE_INFO_BY_NO: '/api/dmVehicle/getVehicleInfoByNo',
   FOCUS_VEHICLE: '/api/transhub/fullscreen/focusVehicle',
   GET_PLAN_WORKER_LIST: '/api/lawSystem/gateAlert/getPlanWorkerList',
@@ -57,5 +58,6 @@ export default {
   GET_HUB_STAT_TRAIL_ALERTON_EXCEL: '/api/transhub/fullscreen/getHubStatTrailAlertOnExcel',
   GET_TRANS_HUB_POLYGON_AREA: '/api/transhub/polygon/getTransHubPolygonArea',
   GET_HUB_STAT_TRAIL_GRAPH: '/api/lawSystem/graph/getHubStatTrailGraph',
-  GET_GATE_JUDGE_GRAPH: '/api/lawSystem/graph/getGateJudgeGraph'
+  GET_GATE_JUDGE_GRAPH: '/api/lawSystem/graph/getGateJudgeGraph',
+  UPLOAD_WORKER_LIST: '/api/lawSystem/gateAlert/uploadWorkerList'
 }

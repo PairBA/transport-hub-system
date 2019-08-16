@@ -75,7 +75,7 @@ export default [
     component: FocusHomePage
   },
   {
-    name: '车辆查询',
+    name: '加入重点关注',
     path: '/focus/VehicleQueryHomePage',
     component: VehicleQueryHomePage
   },

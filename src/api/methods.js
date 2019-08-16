@@ -8,7 +8,7 @@ axios.interceptors.response.use((response) => {
   // Do something with response data
   const responseData = response.data
   if (responseData.code === 4001 || responseData.code === 4007) {
-    localStorage.removeItem('token')
+    localStorage.removeItem('hub-token')
     router.push('/login')
   } else return response
 }, (error) => {
@@ -31,7 +31,7 @@ export async function send(url, {
       method,
       headers: {
         'me-client-type': 'me-client/web',
-        'x-me-token': localStorage.getItem('token'),
+        'x-me-token': localStorage.getItem('hub-token'),
         ...headers
       },
       data,

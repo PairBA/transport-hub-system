@@ -117,6 +117,14 @@ export default {
           key: 'vehicleNo'
         },
         {
+          title: '公司',
+          key: 'companyName'
+        },
+        {
+          title: '终端厂商',
+          key: 'terminalName'
+        },
+        {
           title: '进场车次',
           key: 'sumIn'
         },

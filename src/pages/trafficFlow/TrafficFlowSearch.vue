@@ -198,7 +198,7 @@ export default {
       }
     },
     async exportExcel() {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
       const url = END_POINTS.GET_VEHICLE_FLOW_COUNT_EXCEL +
         '?gateName=' + this.gateName +

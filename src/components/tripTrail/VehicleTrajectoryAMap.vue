@@ -13,23 +13,21 @@
         </el-amap-marker>
       </el-amap>
     </div>
-    <Row v-if="isShowSlider" class="vehicle-trajectory-player-row">
-      <Col span="1">
-        <div @click="toggleReplay" class="vehicle-trajectory-player-btn">
-          <Icon type="ios-play" :size="10" v-show="!sliderPlaying" color="white"></Icon>
-          <Icon type="ios-pause" :size="10" v-show="sliderPlaying" color="white"></Icon>
-        </div>
-      </Col>
-      <Col span="18" class="vehicle-trajectory-player-slider">
+    <div v-if="isShowSlider" class="vehicle-trajectory-player-row">
+      <div @click="toggleReplay" class="vehicle-trajectory-player-btn">
+        <Icon type="ios-play" :size="12" v-show="!sliderPlaying" color="white" style="vertical-align: top"></Icon>
+        <Icon type="ios-pause" :size="12" v-show="sliderPlaying" color="white" style="vertical-align: top"></Icon>
+      </div>
+      <div class="vehicle-trajectory-player-slider">
         <Slider v-model="sliderValue" :max="sliderMax"></Slider>
-      </Col>
-      <Col span="4" class="vehicle-trajectory-player-slidertime">
-        <span>{{ sliderTime }}</span>
-      </Col>
-      <Col span="1" class="vehicle-trajectory-player-speed">
+      </div>
+      <div class="vehicle-trajectory-player-slidertime">
+        {{ sliderTime }}
+      </div>
+      <div class="vehicle-trajectory-player-speed">
         <PlayerSpeed :playerSpeed="playerSpeed" @updatePlayerSpeed="updatePlayerSpeed"></PlayerSpeed>
-      </Col>
-    </Row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -153,6 +151,8 @@ export default {
   }
   .ivu-slider-wrap {
     height: 6px;
+    background-color: #D8DEEB;
+    border-radius:3px;
   }
   .vehicle-trajectory-amap-container {
     height: 480px;
@@ -160,29 +160,35 @@ export default {
   .vehicle-trajectory-player-row {
     width: 100%;
     height: 40px;
+    display: flex;
+    background-color: rgba(131,184,244,0.2);
+    margin-top: 12px;
+    padding-right: 12px;
+    padding-left: 12px;
   }
   .vehicle-trajectory-player-btn {
     width: 24px;
     height: 24px;
-    padding: 3px;
     border-radius: 50%;
-    background-color: rgba(168,170,183,1);
-    margin: 8px auto;
+    padding: 6px;
+    background:linear-gradient(270deg,rgba(23,149,255,1) 0%,rgba(82,211,255,1) 100%);
+    box-shadow:0px 1px 4px 0px rgba(43,164,255,0.5);
+    margin: auto 12px auto 0;
     text-align: center;
-    vertical-align: middle;
     cursor: pointer;
   }
   .vehicle-trajectory-player-slider {
-    margin-top: 1px;
+    width: 75%;
   }
   .vehicle-trajectory-player-slidertime {
     text-align: center;
-    padding: 10px;
-    font-size: 14px;
-    color: #333333;
+    line-height: 40px;
+    margin-left: 12px;
+    font-size: 16px;
+    color: rgba(134,144,153,1);
   }
   .vehicle-trajectory-player-speed {
-    margin-top: 10px;
+    margin: auto;
   }
 }
 </style>

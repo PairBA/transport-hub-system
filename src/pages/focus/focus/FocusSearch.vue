@@ -3,32 +3,39 @@
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="车牌号：">
-          <Input v-model="vehicleNo"
-                 placeholder="请输入车牌号"
-                 :clearable="true"/>
+          <VehicleInput v-model="vehicleNo"/>
         </FormItem>
-        <FormItem label="关注时间：">
+        <FormItem label="时间区间：">
           <DatePicker v-model="focusDate"
                       type="daterange"
                       format="yyyy/MM/dd"
                       placement="bottom-start"
-                      placeholder="请选择关注时间区间"
+                      placeholder="请选择时间区间"
                       :clearable="false"
                       :editable="false"
                       :options="options">
           </DatePicker>
         </FormItem>
         <Divider/>
-        <div style="text-align: center;">
-          <Button type="primary"
-                  @click="focusSearch">
-            查询
+        <Button type="primary"
+                @click="focusSearch">
+          查询
+        </Button>
+        <Button type="primary"
+                style="float: right;"
+                @click="exportExcel">
+          导出excel
+        </Button>
+        <Divider/>
+        <div>
+          <Button @click="exportModel" style="float: right">
+            模版导出
           </Button>
-          <Button type="primary"
-                  style="margin-left: 24px;"
-                  @click="exportExcel">
-            导出excel
-          </Button>
+          <Upload :action="importUrl"
+                  id="uploadFile" name="uploadFile"
+                  :headers="headers">
+            <Button>数据导入</Button>
+          </Upload>
         </div>
       </Form>
     </MenuSearchWrapper>
@@ -38,10 +45,19 @@
 <script>
 import { END_POINTS } from '@/api'
 import { dateFormat, downloadFile } from '@/utils'
+import VehicleInput from '@/components/common/VehicleInput'
 
+const baseUrl = process.env.VUE_APP_BASE_URL
 export default {
+  components: {
+    VehicleInput
+  },
   data() {
     return {
+      importUrl: `${baseUrl + END_POINTS.UPLOAD_FOCUS_VEHICLE_LIST}`,
+      headers: {
+        'x-me-token': localStorage.getItem('hub-token')
+      },
       options: {
         disabledDate(date) {
           return date && date.valueOf() > Date.now()
@@ -91,7 +107,7 @@ export default {
           content: '时间间隔不能大于7天！'
         })
       } else {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('hub-token')
         const baseUrl = process.env.VUE_APP_BASE_URL
         const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
           '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
@@ -105,6 +121,9 @@ export default {
         // window.open(`${baseUrl}${url}`)
         downloadFile(`${baseUrl}${url}`)
       }
+    },
+    exportModel() {
+      window.location.href = 'https://ossapi.paircity.com/template/%E9%87%8D%E7%82%B9%E5%85%B3%E6%B3%A8%E8%BD%A6%E8%BE%86%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'
     }
   }
 }

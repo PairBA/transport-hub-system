@@ -3,9 +3,7 @@
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="车牌号：">
-          <Input v-model="vehicleNo"
-                 placeholder="请输入车牌号"
-                 :clearable="true"/>
+          <VehicleInput v-model="vehicleNo"/>
         </FormItem>
         <FormItem label="时间区间：">
           <DatePicker v-model="focusDate"
@@ -38,8 +36,12 @@
 <script>
 import { END_POINTS } from '@/api'
 import { dateFormat, downloadFile } from '@/utils'
+import VehicleInput from '@/components/common/VehicleInput'
 
 export default {
+  components: {
+    VehicleInput
+  },
   data() {
     return {
       options: {
@@ -94,7 +96,7 @@ export default {
           content: '时间间隔不能大于7天！'
         })
       } else {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('hub-token')
         const baseUrl = process.env.VUE_APP_BASE_URL
         const url = END_POINTS.GET_HUB_STAT_TRAIL_ALL_EXCEL +
           '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
