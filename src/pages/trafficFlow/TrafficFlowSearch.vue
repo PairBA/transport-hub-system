@@ -5,7 +5,7 @@
         <FormItem label="闸口：">
           <Select v-model="gateName"
                   placeholder="请选择闸口">
-            <Option value="">全部</Option>
+            <Option value="' '">全部</Option>
             <Option value="T1">T1</Option>
             <Option value="T2">T2</Option>
           </Select>
@@ -111,7 +111,6 @@ export default {
   },
   methods: {
     watchCountType() {
-      this.$store.commit('search/updateTraFloObjCountType', this.countType)
       if (this.countType === 'HOUR') { // 按小时统计
         this.isHour = true
       } else if (this.countType === 'DAY') { // 按天统计
@@ -120,6 +119,7 @@ export default {
     },
     goSearch() {
       this.getTrafficFlowInfo()
+      this.$store.commit('search/updateTraFloObjCountType', this.countType)
     },
     async getTrafficFlowInfo() {
       this.$store.commit('search/updateShowSpin', true)
@@ -207,8 +207,6 @@ export default {
         '&startTime=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endTime=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token
-      // window.location.href = `${baseUrl}${url}`
-      // window.open(`${baseUrl}${url}`)
       downloadFile(`${baseUrl}${url}`)
     }
   },
