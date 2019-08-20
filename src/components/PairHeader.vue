@@ -59,6 +59,7 @@ export default {
       this.logout()
     },
     logout() {
+      this.$store.dispatch('login/logout')
       localStorage.removeItem('hub-token')
       this.$router.push('/login')
     }
