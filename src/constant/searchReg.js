@@ -8,5 +8,6 @@ export const searchComponentsReg = {
   AccountMgmtCondition: () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtCondition.vue'),
   FocusSearch: () => import('@/pages/focus/focus/FocusSearch.vue'),
   VehicleQuerySearch: () => import('@/pages/focus/vehicleQuery/VehicleQuerySearch.vue'),
-  WatchDutyScheduleCondition: () => import('@/pages/watchDutySchedule/watchDutySchedule/WatchDutyScheduleCondition.vue')
+  WatchDutyScheduleCondition: () => import('@/pages/watchDutySchedule/watchDutySchedule/WatchDutyScheduleCondition.vue'),
+  CapacitySchedulingCondition: () => import('@/pages/capacityScheduling/CapacitySchedulingCondition.vue')
 }

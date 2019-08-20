@@ -2,7 +2,7 @@ export const capacityScheduling = [
   {
     name: '运力调度',
     path: '/capacityScheduling/capacitySchedulingHomePage',
-    search: ''
+    search: 'CapacitySchedulingCondition'
   }
 ]
 

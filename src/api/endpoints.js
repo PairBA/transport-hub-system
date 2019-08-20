@@ -59,5 +59,11 @@ export default {
   GET_TRANS_HUB_POLYGON_AREA: '/api/transhub/polygon/getTransHubPolygonArea',
   GET_HUB_STAT_TRAIL_GRAPH: '/api/lawSystem/graph/getHubStatTrailGraph',
   GET_GATE_JUDGE_GRAPH: '/api/lawSystem/graph/getGateJudgeGraph',
-  UPLOAD_WORKER_LIST: '/api/lawSystem/gateAlert/uploadWorkerList'
+  UPLOAD_WORKER_LIST: '/api/lawSystem/gateAlert/uploadWorkerList',
+  // 运力保障
+  GET_TRANSPORT_NOTIFY_CONFIG: 'api/transhub/config/getTransportNotifyConfig',
+  GET_DYNAMIC_DATA: 'api/transhub/est/getDynamicData',
+  UPDATE_HUB_NOTIFY_CONFIG: 'api/transhub/config/updateTransportNotifyConfig',
+  UPDATE_HUB_NOTIFY_TYPE: 'api/transhub/config/updateTransportNotifyType',
+  NOTIFY_DRIVER_BY_MAN: 'api/transhub/est/notifyDriverByMan'
 }

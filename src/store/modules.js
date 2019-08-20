@@ -9,6 +9,7 @@ import illegalBoarding from './modules/anomaly/illegalBoarding'
 import gateVehicle from './modules/anomaly/gateVehicle'
 import accountMgmt from './modules/accountMgmt/accountMgmt'
 import watchDutySchedule from './modules/watchDutySchedule/watchDutySchedule'
+import capacityScheduling from './modules/capacityScheduling/'
 
 export default {
   login,
@@ -21,5 +22,6 @@ export default {
   accountMgmt,
   focus,
   vehicleQuery,
-  watchDutySchedule
+  watchDutySchedule,
+  capacityScheduling
 }
