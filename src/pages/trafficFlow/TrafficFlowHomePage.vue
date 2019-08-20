@@ -79,7 +79,6 @@ export default {
           key: 'time',
           tooltip: true,
           render: (h, params) => {
-            // console.log(params)
             let time = params.row.time
             let content = ''
             if (this.countType === 'HOUR') {

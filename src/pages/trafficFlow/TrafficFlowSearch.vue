@@ -111,7 +111,6 @@ export default {
   },
   methods: {
     watchCountType() {
-      this.$store.commit('search/updateTraFloObjCountType', this.countType)
       if (this.countType === 'HOUR') { // 按小时统计
         this.isHour = true
       } else if (this.countType === 'DAY') { // 按天统计
@@ -120,6 +119,7 @@ export default {
     },
     goSearch() {
       this.getTrafficFlowInfo()
+      this.$store.commit('search/updateTraFloObjCountType', this.countType)
     },
     async getTrafficFlowInfo() {
       this.$store.commit('search/updateShowSpin', true)
@@ -127,9 +127,10 @@ export default {
       this.$store.commit('search/updateTraFloObjTableListObjectCurrentPage', 1)
       this.$store.commit('search/updateTraFloObjTableListObjectTotal', 0)
       this.$store.commit('search/updateTraFloObjTableListObjectPageSize', 10)
+      let gateName = typeof this.gateName === 'undefined' ? '' : this.gateName
       const result = await get(END_POINTS.GET_VEHICLE_FLOW_COUNT, {
         hubCode: localStorage.getItem('hubCode'),
-        gateName: this.gateName,
+        gateName: gateName,
         countType: this.countType,
         startTime: dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00',
         endTime: dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00'
@@ -200,15 +201,15 @@ export default {
     async exportExcel() {
       const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
+      let gateName = typeof this.gateName === 'undefined' ? '' : this.gateName
       const url = END_POINTS.GET_VEHICLE_FLOW_COUNT_EXCEL +
-        '?gateName=' + this.gateName +
+        '?gateName=' + gateName +
         '&countType=' + this.countType +
         '&hubCode=' + localStorage.getItem('hubCode') +
         '&startTime=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endTime=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token
-      // window.location.href = `${baseUrl}${url}`
-      // window.open(`${baseUrl}${url}`)
+      console.log(`${baseUrl}${url}`)
       downloadFile(`${baseUrl}${url}`)
     }
   },
