@@ -32,6 +32,9 @@
 <script>
 export default {
   computed: {
+    routerName() {
+      return this.$route.name
+    },
     roleList() {
       return this.$store.state.accountMgmt.roleList
     },
@@ -60,12 +63,11 @@ export default {
       }
     }
   },
-  async mounted() {
-    await this.$store.dispatch('accountMgmt/getRoleList')
-    this.goSearch()
-  },
   methods: {
     async goSearch() {
+      if (this.routerName !== '账号管理') {
+        this.$router.push({ name: '账号管理' })
+      }
       this.showSpin = true
       await this.$store.dispatch('accountMgmt/getUserList')
       this.showSpin = false

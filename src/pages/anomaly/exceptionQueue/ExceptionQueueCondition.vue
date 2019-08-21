@@ -51,6 +51,9 @@ export default {
     }
   },
   computed: {
+    routerName() {
+      return this.$route.name
+    },
     vehicleNo: {
       get() {
         return this.$store.state.exceptionQueue.vehicleNo
@@ -83,6 +86,9 @@ export default {
           content: '时间间隔不能大于7天！'
         })
       } else {
+        if (this.routerName !== '异常排队') {
+          this.$router.push({ name: '异常排队' })
+        }
         this.showSpin = true
         await this.$store.dispatch('exceptionQueue/getHubStatTrailList', { currentPage: 1 })
         await this.$store.dispatch('exceptionQueue/getHubStatTrailGraph')
