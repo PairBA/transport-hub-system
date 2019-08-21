@@ -51,6 +51,9 @@ export default {
     }
   },
   computed: {
+    routerName() {
+      return this.$route.name
+    },
     showSpin: {
       get() {
         return this.$store.state.search.showSpin
@@ -83,6 +86,9 @@ export default {
           content: '时间间隔不能大于7天！'
         })
       } else {
+        if (this.routerName !== '违规上客') {
+          this.$router.push({ name: '违规上客' })
+        }
         this.showSpin = true
         await this.$store.dispatch('illegalBoarding/getHubStatTrailList', { currentPage: 1 })
         await this.$store.dispatch('illegalBoarding/getHubStatTrailGraph')

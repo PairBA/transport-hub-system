@@ -164,8 +164,6 @@ export default {
       ]
     }
   },
-  mounted() {
-  },
   methods: {
     goSearch() {
       this.getHubStatTrailList()

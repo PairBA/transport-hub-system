@@ -145,6 +145,10 @@ export default {
       ]
     }
   },
+  async mounted() {
+    await this.$store.dispatch('accountMgmt/getRoleList')
+    this.goSearch()
+  },
   methods: {
     addAccount() {
       this.$router.push({ name: '新增账号' })
