@@ -30,7 +30,8 @@
             </div>
             <div>
               <Table :columns="columns"
-                     :data="tableListObject.showTableList">
+                     :data="tableListObject.showTableList"
+                     @on-row-click="handleClick">
               </Table>
               <PairPage id="trafficFlowListPage"
                         :total="tableListObject.total"
@@ -51,6 +52,9 @@
 import { dateFormat } from '@/utils'
 export default {
   computed: {
+    gateName() {
+      return this.$store.state.gateVehicleSearch.gateName
+    },
     showSpin() {
       return this.$store.state.search.showSpin
     },
@@ -216,6 +220,9 @@ export default {
         }
         this.$store.commit('search/updateTraFloObjTableListObjectShowTableList', showTableList)
       }
+    },
+    handleClick({ time }) {
+      this.$router.push({ name: '闸口车辆查询', query: { time, gateName: this.gateName } })
     }
   }
 }

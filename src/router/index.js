@@ -21,7 +21,6 @@ router.beforeEach((to, from, next) => {
         if (result) {
           store.dispatch('permission/getResourceListByRole').then(() => {
             const homePage = store.state.permission.homePage
-            console.log(homePage)
             // 判断是否输入空地址，若为空且已经登录则跳转首页
             if (to.path === '/') {
               next({ path: homePage, replace: true })

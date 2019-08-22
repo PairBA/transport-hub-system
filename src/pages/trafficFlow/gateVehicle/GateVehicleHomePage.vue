@@ -1,11 +1,11 @@
 <template>
   <div class="gateVehicleSearch__homePage">
     <ContentLayout :showSpin="showSpin">
-      <TableWrapper style="margin-top: 24px;">
+      <TableWrapper>
         <Table :columns="columns"
                :data="list">
         </Table>
-        <PairPage id="trafficFlowListPage"
+        <PairPage id="vehicleListPage"
                   :total="total"
                   :current="currentPage"
                   :page-size="pageSize"
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { dateFormat } from '../../../utils'
+
 export default {
   computed: {
     showSpin() {
@@ -59,6 +61,19 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    const time = this.$route.query.time
+    const gateName = this.$route.query.gateName
+    if (time) {
+      const endTime = time + 1000 * 60 * 60
+      this.$store.commit('gateVehicleSearch/updateGateName', gateName)
+      this.$store.commit('gateVehicleSearch/updateStartDate', new Date(time))
+      this.$store.commit('gateVehicleSearch/updateStartTime', dateFormat(new Date(time), 'hh:mm'))
+      this.$store.commit('gateVehicleSearch/updateEndDate', new Date(endTime))
+      this.$store.commit('gateVehicleSearch/updateEndTime', dateFormat(new Date(endTime), 'hh:mm'))
+    }
+    this.getPage(1)
   },
   methods: {
     getPage(currentPage) {

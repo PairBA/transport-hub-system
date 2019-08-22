@@ -88,7 +88,6 @@ export default {
     return {
       disabledMinutes: disabledMinutes,
       isHour: true,
-      gateName: '',
       countType: 'HOUR',
       startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
       startTime: '00:00',
@@ -102,6 +101,14 @@ export default {
     }
   },
   computed: {
+    gateName: {
+      get() {
+        return this.$store.state.gateVehicleSearch.gateName
+      },
+      set(value) {
+        this.$store.commit('gateVehicleSearch/updateGateName', value)
+      }
+    },
     tableListObject() {
       return this.$store.state.search.traFloObj.tableListObject
     }

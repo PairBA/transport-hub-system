@@ -10,7 +10,10 @@ const state = {
   startTime: '00:00',
   endDate: new Date(),
   endTime: dateFormat(new Date(), 'hh') + ':00',
-  list: []
+  list: [],
+  total: 0,
+  currentPage: 1,
+  pageSize: 10
 }
 const actions = {
   async getGateVehicleList({

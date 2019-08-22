@@ -29,7 +29,6 @@
                       placeholder="请选择时间"
                       style="float: right;"
                       :steps="[1, 60]"
-                      :disabled="!isHour"
                       :clearable="false"
                       :editable="false">
           </TimePicker>
@@ -50,7 +49,6 @@
                       placeholder="请选择时间"
                       style="float: right;"
                       :steps="[1, 60]"
-                      :disabled="!isHour"
                       :clearable="false"
                       :editable="false">
           </TimePicker>
@@ -172,9 +170,6 @@ export default {
         '&x-me-token=' + token
       downloadFile(`${baseUrl}${url}`)
     }
-  },
-  mounted() {
-    this.getTrafficFlowInfo()
   }
 }
 </script>
