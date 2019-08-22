@@ -60,5 +60,8 @@ export default {
   GET_TRANS_HUB_POLYGON_AREA: '/api/transhub/polygon/getTransHubPolygonArea',
   GET_HUB_STAT_TRAIL_GRAPH: '/api/lawSystem/graph/getHubStatTrailGraph',
   GET_GATE_JUDGE_GRAPH: '/api/lawSystem/graph/getGateJudgeGraph',
-  UPLOAD_WORKER_LIST: '/api/lawSystem/gateAlert/uploadWorkerList'
+  UPLOAD_WORKER_LIST: '/api/lawSystem/gateAlert/uploadWorkerList',
+  // 闸口车辆查询
+  GET_GATE_VEHICLE_LIST: '/api/gateVehicle/getGateVehicleList',
+  EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList'
 }

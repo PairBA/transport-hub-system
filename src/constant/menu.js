@@ -42,6 +42,11 @@ export const trafficFlow = [
     name: '车流量统计',
     path: '/trafficFlow/TrafficFlowHomePage',
     search: 'TrafficFlowSearch'
+  },
+  {
+    name: '闸口车辆查询',
+    path: '/trafficFlow/gateVehicleHomePage',
+    search: 'GateVehicleSearchCondition'
   }
 ]
 
