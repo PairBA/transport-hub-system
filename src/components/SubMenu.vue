@@ -3,6 +3,7 @@
     <Menu ref="subMenu"
           accordion
           @on-open-change="openChange"
+          :active-name="activePath"
           :open-names="openNames">
       <Submenu v-for="item in subMenu"
                :class="{ 'submenu-title-icon' : !item.search}"
@@ -38,16 +39,31 @@ export default {
     },
     openNamesFromMain() {
       return this.$store.state.permission.openNamesFromMain
+    },
+    activePath: {
+      get() {
+        return this.$store.state.permission.activePath
+      },
+      set(value) {
+        this.$store.commit('permission/updateActivePath', value)
+      }
     }
   },
   watch: {
-    openNamesFromMain: 'reInitSubMenu'
+    openNamesFromMain: 'reInitSubMenu',
+    activePath: 'computedLastOpenedMenus'
   },
   methods: {
     openChange(names) {
       if (names.length) { // 打开菜单时执行
         this.$router.push({ path: names[0] })
       }
+    },
+    computedLastOpenedMenus() {
+      this.openNames = [this.activePath]
+      this.$nextTick(() => {
+        this.$refs.subMenu.updateOpened()
+      })
     },
     reInitSubMenu() {
       if (this.openNamesFromMain) { // 有二级菜单路由时才触发

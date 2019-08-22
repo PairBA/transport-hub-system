@@ -222,6 +222,7 @@ export default {
       }
     },
     handleClick({ time }) {
+      this.$store.commit('permission/updateActivePath', '/trafficFlow/gateVehicleHomePage')
       this.$router.push({ name: '闸口车辆查询', query: { time, gateName: this.gateName } })
     }
   }
