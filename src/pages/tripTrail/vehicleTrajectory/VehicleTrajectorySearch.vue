@@ -137,7 +137,7 @@ export default {
       let endDateTime = dateFormat(new Date(endDate), 'yyyy-MM-dd') + ' ' + endTime
       let startTimeStamp = new Date(startDateTime).getTime()
       let endTimeStamp = new Date(endDateTime).getTime()
-      if (!this.vehicleNo) {
+      if (!this.vehicleNo || this.vehicleNo === '川A') {
         this.$Message.warning({
           content: this.$t('sysManage.queryBar.vehicleNoPH')
         })
@@ -156,7 +156,7 @@ export default {
       } else {
         this.$store.commit('search/updateShowSpin', true)
         const response = await get(END_POINTS.GET_TRAIL_LIST, {
-          vehicleNo: this.vehicleNo,
+          vehicleNo: this.vehicleNo === '川A' ? '' : this.vehicleNo,
           driverType: 'TAXI',
           startDate: dateFormat(new Date(this.vehtStartDate), 'yyyy-MM-dd') + ' ' + this.vehtStartHour + ':00',
           endDate: dateFormat(new Date(this.vehtEndDate), 'yyyy-MM-dd') + ' ' + this.vehtEndHour + ':00',

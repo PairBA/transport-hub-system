@@ -27,7 +27,7 @@ const actions = {
         endDate: dateFormat(new Date(state.focusDate[1]), 'yyyy-MM-dd'),
         hubCode: localStorage.getItem('hubCode'),
         type: 'ALL',
-        vehicleNo: state.vehicleNo
+        vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo
       },
       refreshTotalRecord: true
     })
@@ -36,14 +36,14 @@ const actions = {
   },
   async getVehicleInfoByNo({ commit, state }) {
     const result = await get(END_POINTS.GET_VEHICLE_INFO_BY_NO, {
-      vehicleNo: state.vehicleNo
+      vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo
     })
     commit('updateVehicleInfoByNo', result)
     return result
   },
   async isVehicleFocus({ commit, state }) {
     const result = await get(END_POINTS.IS_VEHICLE_FOCUS, {
-      vehicleNo: state.vehicleNo
+      vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo
     })
     commit('updateIsVehicleFocus', result)
     return result

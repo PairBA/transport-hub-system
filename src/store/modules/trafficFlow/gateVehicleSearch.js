@@ -29,7 +29,7 @@ const actions = {
         gateName: state.gateName,
         startDate: dateFormat(state.startDate, 'yyyy-MM-dd') + ' ' + state.startTime,
         endDate: dateFormat(state.endDate, 'yyyy-MM-dd') + ' ' + state.endTime,
-        vehicleNo: state.vehicleNo
+        vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo
       },
       refreshTotalRecord: true
     })

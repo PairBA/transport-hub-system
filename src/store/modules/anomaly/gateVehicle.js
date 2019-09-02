@@ -35,7 +35,7 @@ const actions = {
         hubCode: localStorage.getItem('hubCode'),
         companyId: rootState.companyIdForSelect,
         terminalName: state.terminalName,
-        vehicleNo: state.vehicleNo
+        vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo
       },
       refreshTotalRecord: true
     })
@@ -56,7 +56,7 @@ const actions = {
       hubCode: localStorage.getItem('hubCode'),
       companyId: rootState.companyIdForSelect,
       terminalName: state.terminalName,
-      vehicleNo: state.vehicleNo
+      vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo
     })
     commit('updateGraph', result)
   }
