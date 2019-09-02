@@ -235,13 +235,23 @@ const mutations = {
           if (value.duration) {
             duration = dealDuration(value.duration)
           }
+          let orgGps = []
+          if (value.orgLng && value.orgLat) {
+            orgGps = [value.orgLng, value.orgLat]
+          }
+          let destGps = []
+          if (value.destLng && value.destLat) {
+            destGps = [value.destLng, value.destLat]
+          }
           return {
             meterTripId: value.meterTripId, // meterTripId
             companyName: value.companyName,
             terminalName: value.terminalName,
             vehicleNo: value.vehicleNo, // 车辆号牌
+            orgGps: orgGps, // 上客点gps
             orgLocName: value.orgLocName, // 上客点地址
             timeDBoard: timeDBoard, // 上车时间
+            destGps: destGps, // 下客点gps
             destLocName: value.destLocName, // 下客点地址
             timeDAlight: timeDAlight, // 下车时间
             distance: distance, // 实际行驶距离（公里）

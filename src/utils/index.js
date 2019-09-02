@@ -236,3 +236,26 @@ export const downloadFile = url => {
   iframe.src = url
   document.body.appendChild(iframe)
 }
+
+/**
+ * 高德地图根据经纬度数组返回地址名
+ *
+ * @param lngLat
+ *    经纬度数组，如：[116.396574, 39.992706]
+ * @param callback
+ *    回调执行的方法
+ */
+export const AMapGeocoder = (lngLat, callback) => {
+  if (!lngLat && lngLat.length !== 2) {
+    throw new Error('Invalid param lngLat is not a gps array!')
+  }
+  if (!callback && typeof callback !== 'function') {
+    throw new Error('Invalid param callback is not a function!')
+  }
+  AMap.plugin('AMap.Geocoder', () => {
+    const geocoder = new AMap.Geocoder({
+      radius: 500 // lngLat为中心点的范围，单位：米
+    })
+    geocoder.getAddress(lngLat, callback)
+  })
+}

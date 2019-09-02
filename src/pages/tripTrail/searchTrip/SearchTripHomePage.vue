@@ -19,7 +19,7 @@
             </Row>
             <div class="meter-trip-search-car-line"></div>
             <div class="meter-trip-search-itemlist">
-              <div v-for="item in showMeterTripList"
+              <div v-for="item in showMeterTripListInPage"
                    :class="{ 'meter-trip-search-itemlist-active' : activeItemId === item.meterTripId}"
                    @click="activeItem(item.meterTripId, item.recDate, item.activeTripStatus)"
                    :id="item.meterTripId"
@@ -35,10 +35,6 @@
                       {{$t("sysManage.unit.km")}}&nbsp;
                       {{item.duration}}
                       {{$t("sysManage.unit.minute")}}
-                    </span>
-                    <span style="float: right;color: #2A9EF6;cursor: pointer;"
-                          @click="gotoInfoPage(item.meterTripId, item.recDate)">
-                      {{$t("sysManage.commonVar.actionInfo")}}
                     </span>
                   </Row>
                   <div style="font-size:16px;line-height:21px;margin-top: 4px">
@@ -100,7 +96,9 @@
 </template>
 
 <script>
+import cloneDeep from 'clone-deep'
 import MeterTripSearchAMap from '@/components/tripTrail/MeterTripSearchAMap'
+import { AMapGeocoder } from '@/utils'
 
 export default {
   components: {
@@ -110,7 +108,8 @@ export default {
     return {
       activeItemId: '',
       parentPath: '',
-      parentTitle: ''
+      parentTitle: '',
+      showMeterTripListInPage: []
     }
   },
   computed: {
@@ -176,6 +175,9 @@ export default {
       }
     }
   },
+  watch: {
+    showMeterTripList: 'initAddress'
+  },
   methods: {
     async activeItem(meterTripId, recDate, activeTripStatus) {
       this.showSpin = true
@@ -205,8 +207,32 @@ export default {
         this.showMeterTripList = showList
       }
     },
-    gotoInfoPage(meterTripId, recDate) {
-      this.$router.push({ path: '/transactionRecord/meterTripDetail', query: { meterTripId: meterTripId, recDate: recDate, driverType: this.driverType } })
+    initAddress() {
+      if (this.showMeterTripList.length) {
+        this.showMeterTripListInPage = cloneDeep(this.showMeterTripList)
+        this.showMeterTripListInPage.forEach(item => {
+          if (!item.orgLocName) { // 没有上客点地址时自己根据gps解析地址
+            AMapGeocoder(item.orgGps, (status, result) => {
+              if (status === 'complete' && result.info === 'OK') {
+                item['orgLocName'] = result.regeocode.formattedAddress
+              } else {
+                item['orgLocName'] = ''
+              }
+            })
+          }
+          if (!item.destLocName) { // 没有下客点地址时自己根据gps解析地址
+            AMapGeocoder(item.destGps, (status, result) => {
+              if (status === 'complete' && result.info === 'OK') {
+                item['destLocName'] = result.regeocode.formattedAddress
+              } else {
+                item['destLocName'] = ''
+              }
+            })
+          }
+        })
+      } else {
+        this.showMeterTripListInPage = []
+      }
     }
   },
   async mounted() {
