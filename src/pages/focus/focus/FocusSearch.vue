@@ -125,6 +125,9 @@ export default {
     exportModel() {
       window.location.href = 'https://ossapi.paircity.com/template/%E9%87%8D%E7%82%B9%E5%85%B3%E6%B3%A8%E8%BD%A6%E8%BE%86%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'
     }
+  },
+  mounted() {
+    this.focusSearch()
   }
 }
 </script>
