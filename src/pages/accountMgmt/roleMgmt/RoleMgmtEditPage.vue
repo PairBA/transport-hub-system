@@ -13,14 +13,11 @@
             <FormItem label="角色:" prop="roleName">
               <Input v-model="formValidate.roleName" placeholder="请输入角色"/>
             </FormItem>
-            <FormItem label="权限:" prop="resourceIdList">
-              <CheckboxGroup v-model="formValidate.resourceIdList">
-                <Checkbox v-for="resource in resourceList"
-                          :label="resource.id"
-                          :key="resource.id">
-                  {{resource.resourceName}}
-                </Checkbox>
-              </CheckboxGroup>
+            <FormItem :label="'执法系统功能'">
+              <Tree :data="manageMenuIdList" ref="lawTree" show-checkbox multiple></Tree>
+            </FormItem>
+            <FormItem :label="'小程序功能'">
+              <Tree :data="appletMenuIdList" ref="appTree" show-checkbox multiple></Tree>
             </FormItem>
             <div style="text-align: center;">
               <Button type="primary"
@@ -42,6 +39,8 @@ export default {
   data() {
     return {
       id: '',
+      manageMenuIdList: [],
+      appletMenuIdList: [],
       formValidate: {
         roleName: '',
         resourceIdList: []
@@ -57,10 +56,14 @@ export default {
       resourceList: []
     }
   },
-  mounted() {
-    this.getResourceList()
+  async mounted() {
+    const lawTreeData = await this.getManageTreeForLawRole()
+    const appTreeData = await this.getAppletTreeForLawRole()
     this.id = this.$route.query.id
-    this.getRoleById(this.id)
+    const result = await this.getRoleById(this.id)
+    this.formValidate.roleName = result.data.roleName
+    this.manageMenuIdList = this.renderTreeData(lawTreeData, result.data.manageMenuIdList)
+    this.appletMenuIdList = this.renderTreeData(appTreeData, result.data.appletMenuIdList)
   },
   methods: {
     async handleSubmit(name) {
@@ -70,28 +73,91 @@ export default {
         }
       })
     },
-    async getResourceList() {
-      const result = await get(END_POINTS.GET_RESOURCE_LIST)
-      if (result.code === 2000) this.resourceList = result.data
+    getTreeList(selectMenuIdList) {
+      return selectMenuIdList.map(value => {
+        return value.id
+      })
+    },
+    renderTreeData(allList, idList) {
+      let levelOneList = []
+      allList.menuList.forEach(value => {
+        if (value.pId === '0') {
+          levelOneList.push(value)
+        }
+      })
+      return levelOneList.map(value => {
+        let checkedLevelOne = false
+        if (idList.length > 0) {
+          idList.forEach(id => {
+            if (value.id === id) {
+              checkedLevelOne = true
+            }
+          })
+        }
+        let levelTwoList = []
+        allList.menuList.forEach(valueTwo => {
+          let checkedLevelTwo = false
+          if (valueTwo.pId === value.id) {
+            if (idList.length > 0) {
+              idList.forEach(id => {
+                if (valueTwo.id === id) {
+                  checkedLevelTwo = true
+                }
+              })
+            }
+            levelTwoList.push({
+              id: valueTwo.id,
+              pId: valueTwo.pId,
+              title: valueTwo.name,
+              checked: checkedLevelTwo
+            })
+            checkedLevelOne = false
+          }
+        })
+        return {
+          id: value.id,
+          pId: value.pId,
+          title: value.name,
+          expand: true,
+          checked: checkedLevelOne,
+          children: levelTwoList
+        }
+      })
     },
     async getRoleById(id) {
       const result = await get(END_POINTS.GET_ROLE_BY_ID + `?roleId=${id}`)
       if (result.code === 2000) {
-        this.formValidate.resourceIdList = result.data.resourceIdList
-        this.formValidate.roleName = result.data.roleName
+        return result
       }
     },
     async editRole() {
+      let selectMenuIdList = this.$refs.lawTree.getCheckedNodes()
+      const manageMenuIdList = this.getTreeList(selectMenuIdList)
+      let list = this.$refs.appTree.getCheckedNodes()
+      const appletMenuIdList = this.getTreeList(list)
       const result = await post(END_POINTS.EDIT_ROLE, {
         id: this.id,
         roleName: this.formValidate.roleName,
-        resourceIdList: this.formValidate.resourceIdList
+        manageMenuIdList,
+        appletMenuIdList
       })
       if (result.code === 2000) {
         this.$Message.success({
           content: this.$t('monitor.success')
         })
         this.$router.push({ name: '角色管理' })
+      }
+    },
+    async getManageTreeForLawRole() {
+      const responseData = await get(END_POINTS.GET_MANAGE_TREE_FOR_LAW_ROLE + `?roleId=${localStorage.getItem('roleId')}`)
+      if (responseData.success) {
+        return responseData.data
+      }
+    },
+    async getAppletTreeForLawRole() {
+      const responseData = await get(END_POINTS.GET_APPLET_TREE_FOR_LAW_ROLE + `?roleId=${localStorage.getItem('roleId')}`)
+      if (responseData.success) {
+        return responseData.data
       }
     }
   }

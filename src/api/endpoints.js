@@ -15,11 +15,14 @@ export default {
   DELETE_USER_BY_ID: '/api/lawSystem/accountManage/deleteUserById',
   GET_USER_BY_ID: '/api/lawSystem/accountManage/getUserById',
   EDIT_USER: '/api/lawSystem/accountManage/editUser',
+  GET_ROLE_LIST_FOR_SELECT: '/api/lawSystem/accountManage/getRoleListForSelect',
   // 角色管理
   ADD_ROLE: '/api/lawSystem/accountManage/addRole',
   GET_ROLE_BY_ID: '/api/lawSystem/accountManage/getRoleById',
   EDIT_ROLE: '/api/lawSystem/accountManage/editRole',
   DELETE_ROLE_BY_ID: '/api/lawSystem/accountManage/deleteRoleById',
+  GET_MANAGE_TREE_FOR_LAW_ROLE: 'api/lawSystem/meManage/getManageTreeForLawRole',
+  GET_APPLET_TREE_FOR_LAW_ROLE: 'api/lawSystem/meManage/getAppletTreeForLawRole',
   // 班次
   GET_SCHEDULE_LIST: '/api/lawSystem/gateAlert/getScheduleList',
   ADD_SCHEDULE: '/api/lawSystem/gateAlert/addSchedule',

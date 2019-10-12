@@ -6,7 +6,7 @@
           <Select v-model="roleId"
                   :clearable="true"
                   placeholder="请选择角色">
-            <Option v-for="item in roleList"
+            <Option v-for="item in roleListForselect"
                     :value="item.id"
                     :key="item.id">
               {{ item.roleName }}
@@ -35,8 +35,8 @@ export default {
     routerName() {
       return this.$route.name
     },
-    roleList() {
-      return this.$store.state.accountMgmt.roleList
+    roleListForselect() {
+      return this.$store.state.accountMgmt.roleListForselect
     },
     roleId: {
       get() {

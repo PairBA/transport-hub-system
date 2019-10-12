@@ -39,7 +39,11 @@ export default {
           title: '权限',
           key: 'resourceNameList',
           render: (h, params) => {
-            return h('span', params.row.resourceNameList.join('|'))
+            const { manageMenuNameList, appletMenuNameList } = params.row
+            return h('div', [
+              h('div', '执法系统功能：' + manageMenuNameList.join('|')),
+              h('div', '小程序功能：' + appletMenuNameList.join('|'))
+            ])
           }
         },
         {
@@ -142,7 +146,7 @@ export default {
       }
     },
     async getRoleList() {
-      const result = await get(END_POINTS.GET_ROLE_LIST)
+      const result = await get(END_POINTS.GET_ROLE_LIST + `?configId=${localStorage.getItem('configId')}`)
       if (result.code === 2000) this.roleList = result.data
     }
   }

@@ -69,18 +69,19 @@ const mutations = {
     userId,
     token,
     areaCode,
-    hubCode,
-    roleName,
-    hubName,
-    systemName
+    configId,
+    hubCodeAndNameList,
+    systemName,
+    roleId
   }) {
     localStorage.setItem('hub-token', token)
     localStorage.setItem('userName', userName)
     localStorage.setItem('userId', userId)
     localStorage.setItem('areaCode', areaCode)
-    localStorage.setItem('hubCode', hubCode)
-    localStorage.setItem('hubName', hubName)
+    localStorage.setItem('configId', configId)
+    localStorage.setItem('hubCodeAndNameList', hubCodeAndNameList.join(';'))
     localStorage.setItem('systemName', systemName)
+    localStorage.setItem('roleId', roleId)
 
     state.userName = userName
     state.isLoggedin = true

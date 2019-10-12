@@ -26,7 +26,7 @@ export default {
       return this.$store.state.accountMgmt.userList
     },
     roleList() {
-      return this.$store.state.accountMgmt.roleList
+      return this.$store.state.accountMgmt.roleListForselect
     },
     showSpin: {
       get() {
@@ -146,7 +146,7 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch('accountMgmt/getRoleList')
+    await this.$store.dispatch('accountMgmt/getRoleListForSelect')
     this.goSearch()
   },
   methods: {

@@ -6,7 +6,8 @@ const state = {
   userName: '',
   roleId: '',
   userList: [],
-  roleList: []
+  roleList: [],
+  roleListForselect: []
 }
 const actions = {
   async getUserList({
@@ -16,7 +17,7 @@ const actions = {
     const result = await get(END_POINTS.GET_USER_LIST, {
       userName: state.userName,
       roleId: state.roleId,
-      hubCode: localStorage.getItem('hubCode')
+      configId: localStorage.getItem('configId')
     })
     commit('updateUserList', result)
   },
@@ -24,8 +25,15 @@ const actions = {
     commit,
     state
   }) {
-    const result = await get(END_POINTS.GET_ROLE_LIST)
+    const result = await get(END_POINTS.GET_ROLE_LIST + `?configId=${localStorage.getItem('configId')}`)
     commit('updateRoleList', result)
+  },
+  async getRoleListForSelect({
+    commit,
+    state
+  }) {
+    const result = await get(END_POINTS.GET_ROLE_LIST_FOR_SELECT + `?configId=${localStorage.getItem('configId')}`)
+    commit('updateRoleListForSelect', result)
   }
 }
 const mutations = {
@@ -42,6 +50,10 @@ const mutations = {
   updateRoleList(state, value) {
     if (value.code === 2000) state.roleList = value.data
     else state.roleList = []
+  },
+  updateRoleListForSelect(state, value) {
+    if (value.code === 2000) state.roleListForselect = value.data
+    else state.roleListForselect = []
   }
 }
 
