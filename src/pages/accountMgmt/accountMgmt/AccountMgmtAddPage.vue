@@ -94,7 +94,7 @@ export default {
   },
   methods: {
     async getRoleList() {
-      const result = await get(END_POINTS.GET_ROLE_LIST)
+      const result = await get(END_POINTS.GET_ROLE_LIST_FOR_SELECT + `?configId=${localStorage.getItem('configId')}`)
       if (result.code === 2000) this.roleList = result.data
     },
     async handleSubmit(name) {
@@ -107,7 +107,6 @@ export default {
       this.$refs[name].validate(async (valid) => {
         if (valid) {
           const result = await post(END_POINTS.ADD_USER, {
-            hubCode: localStorage.getItem('hubCode'),
             userName: this.formValidate.userName,
             fullName: this.formValidate.fullName,
             roleId: this.formValidate.roleId,

@@ -62,6 +62,7 @@ export default {
       this.$refs[name].validate(async (valid) => {
         if (valid) {
           const result = await post(END_POINTS.ADD_SCHEDULE, {
+            configId: localStorage.getItem('configId'),
             scheduleName: this.formValidate.scheduleName,
             startTime: this.formValidate.startTime,
             endTime: this.formValidate.endTime.length > 5 ? this.formValidate.endTime.substring(3) : this.formValidate.endTime

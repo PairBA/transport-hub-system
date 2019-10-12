@@ -155,9 +155,11 @@ export default {
       this.item = item
     },
     async deletePlanWorker(scheduleName, fullName, mobile) {
+      const scheduleId = this.scheduleList.find(schedule => schedule.scheduleName === scheduleName).id
       const result = await get(END_POINTS.DELETE_PLAN_WORKER, {
         scheduleDate: this.item.scheduleDate,
         scheduleName,
+        scheduleId,
         fullName,
         mobile
       })
@@ -171,11 +173,13 @@ export default {
       }
     },
     async addPlanWorker(scheduleName) {
+      const scheduleId = this.scheduleList.find(schedule => schedule.scheduleName === scheduleName).id
       const worker = this.planWorkerList.find(worker => worker.fullName === this.fullName)
       if (!worker) return
       const result = await get(END_POINTS.ADD_PLAN_WORKER, {
         scheduleDate: this.item.scheduleDate,
         scheduleName,
+        scheduleId,
         fullName: worker.fullName,
         mobile: worker.mobile
       })

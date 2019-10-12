@@ -14,21 +14,21 @@ const actions = {
   async getScheduleList({
     commit
   }) {
-    const result = await get(END_POINTS.GET_SCHEDULE_LIST)
+    const result = await get(END_POINTS.GET_SCHEDULE_LIST + `?configId=${localStorage.getItem('configId')}`)
     commit('updateScheduleList', result)
   },
   async getPlanDetailList({
     commit,
     state
   }) {
-    const result = await get(END_POINTS.GET_PLAN_DETAIL_LIST + `?queryMonth=${dateFormat(state.date, 'yyyy-MM')}`)
+    const result = await get(END_POINTS.GET_PLAN_DETAIL_LIST + `?queryMonth=${dateFormat(state.date, 'yyyy-MM')}&configId=${localStorage.getItem('configId')}`)
     commit('updatePlanDetailList', result)
   },
   async getPlanWorkerList({
     commit,
     state
   }) {
-    const result = await get(END_POINTS.GET_PLAN_WORKER_LIST)
+    const result = await get(END_POINTS.GET_PLAN_WORKER_LIST + `?configId=${localStorage.getItem('configId')}`)
     if (result) this.planWorkerList = result.data
     commit('updatePlanWorkerList', result)
   }
