@@ -2,6 +2,13 @@
   <div class="exception-queue__condition">
     <MenuSearchWrapper>
       <Form label-position="top">
+        <FormItem label="交通枢纽：">
+          <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
+            <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
+              {{ item.hubName }}
+            </Option>
+          </Select>
+        </FormItem>
         <FormItem :label="$t('sysManage.queryBar.terminalManufacturer')">
           <Select v-model="terminalName" :placeholder="$t('sysManage.queryBar.terminalManufacturerPH')">
             <Option :value="''">
@@ -76,6 +83,23 @@ export default {
     }
   },
   computed: {
+    hubCode: {
+      set(value) {
+        this.$store.commit('updateHubCode', value)
+      },
+      get() {
+        return this.$store.state.hubCode
+      }
+    },
+    hubList() {
+      return localStorage.getItem('hubCodeAndNameList').split(';').map(hub => {
+        const hubArr = hub.split(',')
+        return {
+          hubCode: hubArr[0],
+          hubName: hubArr[1]
+        }
+      })
+    },
     vehicleNo: {
       get() {
         return this.$store.state.gateVehicle.vehicleNo
@@ -120,6 +144,11 @@ export default {
       return this.$store.state.terminalList
     }
   },
+  mounted() {
+    if (!this.hubCode) {
+      this.$store.commit('updateHubCode', this.hubList[0].hubCode)
+    }
+  },
   methods: {
     async goSearch() {
       const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
@@ -149,6 +178,7 @@ export default {
         '&startDate=' + dateFormat(new Date(startDate), 'yyyy-MM-dd') +
         '&vehicleNo=' + this.vehicleNo +
         '&endDate=' + dateFormat(new Date(endDate), 'yyyy-MM-dd') +
+        '&hubCode=' + this.hubCode +
         '&terminalName=' + this.terminalName +
         '&x-me-token=' + token
       downloadFile(`${baseUrl}${url}`)

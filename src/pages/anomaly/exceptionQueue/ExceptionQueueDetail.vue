@@ -72,6 +72,9 @@ export default {
     showFocusBtn() {
       return this.$store.state.permission.focusRule
     },
+    hubCode() {
+      return this.$store.state.hubCode
+    },
     columns() {
       return [
         {
@@ -146,7 +149,7 @@ export default {
     async getHubStatTrailList() {
       const result = await get(END_POINTS.GET_HUB_SUM_QCUT_LIST_DETAIL, {
         areaCode: localStorage.getItem('areaCode'),
-        hubCode: localStorage.getItem('hubCode'),
+        hubCode: this.hubCode,
         startDate: this.startDate,
         endDate: this.endDate,
         mobile: this.mobile,
@@ -202,7 +205,7 @@ export default {
     },
     async getTransHubPolygonArea() {
       const result = await get(END_POINTS.GET_TRANS_HUB_POLYGON_AREA, {
-        hubCode: localStorage.getItem('hubCode')
+        hubCode: this.hubCode
       })
       if (result.code === 2001) {
         const areaListData = result.data

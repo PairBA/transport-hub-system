@@ -2,6 +2,13 @@
   <div class="focus-search">
     <MenuSearchWrapper>
       <Form label-position="top">
+        <FormItem label="交通枢纽：">
+          <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
+            <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
+              {{ item.hubName }}
+            </Option>
+          </Select>
+        </FormItem>
         <FormItem label="车牌号：">
           <VehicleInput v-model="vehicleNo"/>
         </FormItem>
@@ -33,6 +40,7 @@
           </Button>
           <Upload :action="importUrl"
                   id="uploadFile" name="uploadFile"
+                  :data="param"
                   :headers="headers">
             <Button>数据导入</Button>
           </Upload>
@@ -54,6 +62,10 @@ export default {
   },
   data() {
     return {
+      param: {
+        hubCode: 'CNSCA1',
+        configId: 12
+      },
       importUrl: `${baseUrl + END_POINTS.UPLOAD_FOCUS_VEHICLE_LIST}`,
       headers: {
         'x-me-token': localStorage.getItem('hub-token')
@@ -66,6 +78,23 @@ export default {
     }
   },
   computed: {
+    hubCode: {
+      set(value) {
+        this.$store.commit('updateHubCode', value)
+      },
+      get() {
+        return this.$store.state.hubCode
+      }
+    },
+    hubList() {
+      return localStorage.getItem('hubCodeAndNameList').split(';').map(hub => {
+        const hubArr = hub.split(',')
+        return {
+          hubCode: hubArr[0],
+          hubName: hubArr[1]
+        }
+      })
+    },
     vehicleNo: {
       get() {
         return this.$store.state.focus.vehicleNo
@@ -82,6 +111,12 @@ export default {
         this.$store.commit('focus/updateFocusDate', value)
       }
     }
+  },
+  mounted() {
+    if (!this.hubCode) {
+      this.$store.commit('updateHubCode', this.hubList[0].hubCode)
+    }
+    this.focusSearch()
   },
   methods: {
     async focusSearch() {
@@ -113,7 +148,7 @@ export default {
           '?startDate=' + dateFormat(new Date(this.focusDate[0]), 'yyyy-MM-dd') +
           '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
           '&areaCode=' + localStorage.getItem('areaCode') +
-          '&hubCode=' + localStorage.getItem('hubCode') +
+          '&hubCode=' + this.hubCode +
           '&vehicleNo=' + this.vehicleNo +
           '&driverType=TAXI' +
           '&x-me-token=' + token
@@ -125,9 +160,6 @@ export default {
     exportModel() {
       window.location.href = 'https://ossapi.paircity.com/template/%E9%87%8D%E7%82%B9%E5%85%B3%E6%B3%A8%E8%BD%A6%E8%BE%86%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'
     }
-  },
-  mounted() {
-    this.focusSearch()
   }
 }
 </script>

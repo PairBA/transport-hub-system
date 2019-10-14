@@ -16,7 +16,7 @@ const state = {
 }
 
 const actions = {
-  async getHubStatTrailList({ commit, state }) {
+  async getHubStatTrailList({ commit, state, rootState }) {
     const result = await post(END_POINTS.GET_HUB_STAT_TRAIL_LIST, {
       currentPage: state.tableListObject.currentPage,
       pageSize: state.tableListObject.pageSize,
@@ -25,7 +25,7 @@ const actions = {
         driverType: 'TAXI',
         startDate: dateFormat(new Date(state.focusDate[0]), 'yyyy-MM-dd'),
         endDate: dateFormat(new Date(state.focusDate[1]), 'yyyy-MM-dd'),
-        hubCode: localStorage.getItem('hubCode'),
+        hubCode: rootState.hubCode,
         type: 'ALL',
         vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo
       },

@@ -2,6 +2,13 @@
   <div class="gate-vehicle-search">
     <MenuSearchWrapper>
       <Form label-position="top">
+        <FormItem label="交通枢纽：">
+          <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
+            <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
+              {{ item.hubName }}
+            </Option>
+          </Select>
+        </FormItem>
         <FormItem label="闸口：">
           <Select v-model="gateName"
                   placeholder="请选择闸口">
@@ -95,6 +102,23 @@ export default {
     }
   },
   computed: {
+    hubCode: {
+      set(value) {
+        this.$store.commit('updateHubCode', value)
+      },
+      get() {
+        return this.$store.state.hubCode
+      }
+    },
+    hubList() {
+      return localStorage.getItem('hubCodeAndNameList').split(';').map(hub => {
+        const hubArr = hub.split(',')
+        return {
+          hubCode: hubArr[0],
+          hubName: hubArr[1]
+        }
+      })
+    },
     showSpin: {
       get() {
         return this.$store.state.search.showSpin
@@ -152,6 +176,11 @@ export default {
       }
     }
   },
+  mounted() {
+    if (!this.hubCode) {
+      this.$store.commit('updateHubCode', this.hubList[0].hubCode)
+    }
+  },
   methods: {
     async goSearch() {
       this.showSpin = true
@@ -164,7 +193,7 @@ export default {
       const url = END_POINTS.EXPORT_GATE_VEHICLE_LIST +
         '?gateName=' + this.gateName +
         '&vehicleNo=' + this.vehicleNo +
-        '&hubCode=' + localStorage.getItem('hubCode') +
+        '&hubCode=' + this.hubCode +
         '&startDate=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endDate=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token

@@ -2,6 +2,13 @@
   <div class="traffic-flow-search">
     <MenuSearchWrapper>
       <Form label-position="top">
+        <FormItem label="交通枢纽：">
+          <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
+            <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
+              {{ item.hubName }}
+            </Option>
+          </Select>
+        </FormItem>
         <FormItem label="闸口：">
           <Select v-model="gateName"
                   placeholder="请选择闸口">
@@ -101,6 +108,23 @@ export default {
     }
   },
   computed: {
+    hubCode: {
+      set(value) {
+        this.$store.commit('updateHubCode', value)
+      },
+      get() {
+        return this.$store.state.hubCode
+      }
+    },
+    hubList() {
+      return localStorage.getItem('hubCodeAndNameList').split(';').map(hub => {
+        const hubArr = hub.split(',')
+        return {
+          hubCode: hubArr[0],
+          hubName: hubArr[1]
+        }
+      })
+    },
     gateName: {
       get() {
         return this.$store.state.gateVehicleSearch.gateName
@@ -136,7 +160,7 @@ export default {
       this.$store.commit('search/updateTraFloObjTableListObjectPageSize', 10)
       let gateName = typeof this.gateName === 'undefined' ? '' : this.gateName
       const result = await get(END_POINTS.GET_VEHICLE_FLOW_COUNT, {
-        hubCode: localStorage.getItem('hubCode'),
+        hubCode: this.hubCode,
         gateName: gateName,
         countType: this.countType,
         startTime: dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00',
@@ -212,15 +236,17 @@ export default {
       const url = END_POINTS.GET_VEHICLE_FLOW_COUNT_EXCEL +
         '?gateName=' + gateName +
         '&countType=' + this.countType +
-        '&hubCode=' + localStorage.getItem('hubCode') +
+        '&hubCode=' + this.hubCode +
         '&startTime=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endTime=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
         '&x-me-token=' + token
-      console.log(`${baseUrl}${url}`)
       downloadFile(`${baseUrl}${url}`)
     }
   },
   mounted() {
+    if (!this.hubCode) {
+      this.$store.commit('updateHubCode', this.hubList[0].hubCode)
+    }
     this.getTrafficFlowInfo()
   }
 }

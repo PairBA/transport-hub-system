@@ -24,7 +24,7 @@ const actions = {
       orderBy: '',
       pageSize: state.pageSize,
       queryVO: {
-        hubCode: localStorage.getItem('hubCode'),
+        hubCode: rootState.hubCode,
         startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
         endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
         vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo,
@@ -39,10 +39,11 @@ const actions = {
   },
   async getHubStatTrailGraph({
     commit,
-    state
+    state,
+    rootState
   }) {
     const result = await get(END_POINTS.GET_HUB_STAT_TRAIL_GRAPH, {
-      hubCode: localStorage.getItem('hubCode'),
+      hubCode: rootState.hubCode,
       startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
       endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
       vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo,

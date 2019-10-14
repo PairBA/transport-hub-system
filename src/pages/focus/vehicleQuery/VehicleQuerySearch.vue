@@ -2,6 +2,13 @@
   <div class="vehicle-query-search">
     <MenuSearchWrapper>
       <Form label-position="top">
+        <FormItem label="交通枢纽：">
+          <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
+            <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
+              {{ item.hubName }}
+            </Option>
+          </Select>
+        </FormItem>
         <FormItem label="车牌号：">
           <VehicleInput v-model="vehicleNo"/>
         </FormItem>
@@ -52,6 +59,23 @@ export default {
     }
   },
   computed: {
+    hubCode: {
+      set(value) {
+        this.$store.commit('updateHubCode', value)
+      },
+      get() {
+        return this.$store.state.hubCode
+      }
+    },
+    hubList() {
+      return localStorage.getItem('hubCodeAndNameList').split(';').map(hub => {
+        const hubArr = hub.split(',')
+        return {
+          hubCode: hubArr[0],
+          hubName: hubArr[1]
+        }
+      })
+    },
     vehicleNo: {
       get() {
         return this.$store.state.vehicleQuery.vehicleNo
@@ -67,6 +91,11 @@ export default {
       set(value) {
         this.$store.commit('vehicleQuery/updateFocusDate', value)
       }
+    }
+  },
+  mounted() {
+    if (!this.hubCode) {
+      this.$store.commit('updateHubCode', this.hubList[0].hubCode)
     }
   },
   methods: {
@@ -104,7 +133,7 @@ export default {
           '&vehicleNo=' + this.vehicleNo +
           '&driverType=TAXI' +
           '&areaCode=' + localStorage.getItem('areaCode') +
-          '&hubCode=' + localStorage.getItem('hubCode') +
+          '&hubCode=' + this.hubCode +
           '&x-me-token=' + token
         // window.location.href = `${baseUrl}${url}`
         // window.open(`${baseUrl}${url}`)

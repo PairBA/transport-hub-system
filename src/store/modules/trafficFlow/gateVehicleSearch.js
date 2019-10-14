@@ -18,14 +18,15 @@ const state = {
 const actions = {
   async getGateVehicleList({
     commit,
-    state
+    state,
+    rootState
   }, { currentPage }) {
     const result = await post(END_POINTS.GET_GATE_VEHICLE_LIST, {
       currentPage,
       orderBy: '',
       pageSize: state.pageSize,
       queryVO: {
-        hubCode: localStorage.getItem('hubCode'),
+        hubCode: rootState.hubCode,
         gateName: state.gateName,
         startDate: dateFormat(state.startDate, 'yyyy-MM-dd') + ' ' + state.startTime,
         endDate: dateFormat(state.endDate, 'yyyy-MM-dd') + ' ' + state.endTime,

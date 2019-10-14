@@ -80,7 +80,6 @@ const mutations = {
     localStorage.setItem('areaCode', areaCode)
     localStorage.setItem('configId', configId)
     localStorage.setItem('hubCodeAndNameList', hubCodeAndNameList.join(';'))
-    localStorage.setItem('hubCode', hubCodeAndNameList[0].split(',')[0])
     localStorage.setItem('systemName', systemName)
     localStorage.setItem('roleId', roleId)
 

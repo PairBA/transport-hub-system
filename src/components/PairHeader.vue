@@ -13,11 +13,6 @@
       <MainMenu/>
     </div>
     <div class="header-user">
-      <Select v-model="hubCode" :placeholder="'请输入交通枢纽'" style="width: 145px;margin-right: 10px">
-        <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
-          {{ item.hubName }}
-        </Option>
-      </Select>
       <Dropdown trigger="click"
                 @on-click="handleListClick"
                 placement="bottom-end">
@@ -58,16 +53,11 @@ export default {
     showMenu() {
       return this.$store.state.permission.showMenu
     },
-    subTitle() {
-      return this.hubCodeAndNameList.split(';')[0].split(',')[1]
+    hubCode() {
+      return this.$store.state.hubCode
     },
-    hubCode: {
-      set(value) {
-        localStorage.setItem('hubCode', value)
-      },
-      get() {
-        return localStorage.getItem('hubCode')
-      }
+    subTitle() {
+      return this.hubList.find(hub => hub.hubCode === this.hubCode) ? this.hubList.find(hub => hub.hubCode === this.hubCode).hubName : ''
     },
     hubList() {
       return this.hubCodeAndNameList.split(';').map(hub => {
@@ -121,22 +111,6 @@ export default {
     float: right;
     border-top-left-radius: 48px;
     border-bottom-left-radius: 48px;
-    .ivu-select-selection {
-      background:rgba(255,255,255,0.1);
-      border-radius:15px;
-      border:1px solid rgba(176,214,255,1);
-      font-size:13px;
-      font-family:PingFangSC-Regular,PingFangSC;
-      font-weight:400;
-      color:rgba(255,255,255,1);
-      line-height:18px;
-    }
-    .ivu-select-single .ivu-select-selection .ivu-select-placeholder {
-      color:rgba(255,255,255,1);
-    }
-    .ivu-select-arrow {
-      color: white;
-    }
   }
 
   .profile-user-name {

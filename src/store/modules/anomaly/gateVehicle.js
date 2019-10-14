@@ -32,7 +32,7 @@ const actions = {
         startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
         endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
         areaCode: rootState.areaCodeForSelect,
-        hubCode: localStorage.getItem('hubCode'),
+        hubCode: rootState.hubCode,
         companyId: rootState.companyIdForSelect,
         terminalName: state.terminalName,
         vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo
@@ -53,7 +53,7 @@ const actions = {
       startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
       endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
       areaCode: rootState.areaCodeForSelect,
-      hubCode: localStorage.getItem('hubCode'),
+      hubCode: rootState.hubCode,
       companyId: rootState.companyIdForSelect,
       terminalName: state.terminalName,
       vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo

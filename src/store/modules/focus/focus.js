@@ -16,12 +16,12 @@ const state = {
 }
 
 const actions = {
-  async getHubFocusVehicleList({ commit, state }) {
+  async getHubFocusVehicleList({ commit, state, rootState }) {
     const result = await get(END_POINTS.GET_HUB_FOCUS_VEHICLE_LIST, {
       startDate: dateFormat(new Date(state.focusDate[0]), 'yyyy-MM-dd'),
       endDate: dateFormat(new Date(state.focusDate[1]), 'yyyy-MM-dd'),
       areaCode: localStorage.getItem('areaCode'),
-      hubCode: localStorage.getItem('hubCode'),
+      hubCode: rootState.hubCode,
       configId: localStorage.getItem('configId'),
       vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo,
       driverType: 'TAXI',

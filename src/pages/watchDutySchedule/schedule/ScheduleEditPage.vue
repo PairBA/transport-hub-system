@@ -82,6 +82,7 @@ export default {
     async editSchedule() {
       const result = await post(END_POINTS.EDIT_SCHEDULE, {
         id: this.id,
+        configId: localStorage.getItem('configId'),
         scheduleName: this.formValidate.scheduleName,
         startTime: this.formValidate.startTime,
         endTime: this.formValidate.endTime

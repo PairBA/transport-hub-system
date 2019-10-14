@@ -1,5 +1,6 @@
 const state = {
   areaCodeForSelect: 'CNSCA1',
+  hubCode: '',
   companyIdForSelect: '',
   companyListForSelect: [],
   terminalList: [],

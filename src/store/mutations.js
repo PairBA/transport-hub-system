@@ -11,6 +11,9 @@ const mutations = {
   },
   updateCenterGps(state, centerGps) {
     state.center = centerGps
+  },
+  updateHubCode(state, hubCode) {
+    state.hubCode = hubCode
   }
 }
 export default mutations
