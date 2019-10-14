@@ -62,10 +62,6 @@ export default {
   },
   data() {
     return {
-      param: {
-        hubCode: 'CNSCA1',
-        configId: 12
-      },
       importUrl: `${baseUrl + END_POINTS.UPLOAD_FOCUS_VEHICLE_LIST}`,
       headers: {
         'x-me-token': localStorage.getItem('hub-token')
@@ -78,6 +74,12 @@ export default {
     }
   },
   computed: {
+    param() {
+      return {
+        hubCode: this.hubCode,
+        configId: localStorage.getItem('configId')
+      }
+    },
     hubCode: {
       set(value) {
         this.$store.commit('updateHubCode', value)
