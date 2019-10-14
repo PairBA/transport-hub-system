@@ -51,8 +51,7 @@ export default {
     return {
       mainTitle: localStorage.getItem('systemName'),
       hubCodeAndNameList: localStorage.getItem('hubCodeAndNameList'),
-      userName: localStorage.getItem('userName'),
-      hubCode: ''
+      userName: localStorage.getItem('userName')
     }
   },
   computed: {
@@ -61,6 +60,14 @@ export default {
     },
     subTitle() {
       return this.hubCodeAndNameList.split(';')[0].split(',')[1]
+    },
+    hubCode: {
+      set(value) {
+        localStorage.setItem('hubCode', value)
+      },
+      get() {
+        return localStorage.getItem('hubCode')
+      }
     },
     hubList() {
       return this.hubCodeAndNameList.split(';').map(hub => {

@@ -150,7 +150,7 @@ export default {
       this.$router.push({ name: '编辑班次', query: { id } })
     },
     async getScheduleList() {
-      const result = await get(END_POINTS.GET_SCHEDULE_LIST)
+      const result = await get(END_POINTS.GET_SCHEDULE_LIST + `?configId=${localStorage.getItem('configId')}`)
       if (result.success) this.scheduleList = result.data
     }
   }

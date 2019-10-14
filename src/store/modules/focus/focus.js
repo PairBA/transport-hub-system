@@ -22,6 +22,7 @@ const actions = {
       endDate: dateFormat(new Date(state.focusDate[1]), 'yyyy-MM-dd'),
       areaCode: localStorage.getItem('areaCode'),
       hubCode: localStorage.getItem('hubCode'),
+      configId: localStorage.getItem('configId'),
       vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo,
       driverType: 'TAXI',
       allFocusList: true
