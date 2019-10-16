@@ -8,8 +8,24 @@
 export default {
   data() {
     return {
-      mainTitle: localStorage.getItem('systemName'),
-      subTitle: localStorage.getItem('hubName')
+      mainTitle: localStorage.getItem('systemName')
+    }
+  },
+  computed: {
+    hubCode() {
+      return this.$store.state.hubCode
+    },
+    subTitle() {
+      return this.hubList.find(hub => hub.hubCode === this.hubCode) ? this.hubList.find(hub => hub.hubCode === this.hubCode).hubName : ''
+    },
+    hubList() {
+      return localStorage.getItem('hubCodeAndNameList').split(';').map(hub => {
+        const hubArr = hub.split(',')
+        return {
+          hubCode: hubArr[0],
+          hubName: hubArr[1]
+        }
+      })
     }
   }
 }

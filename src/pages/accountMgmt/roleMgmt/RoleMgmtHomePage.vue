@@ -52,7 +52,7 @@ export default {
           width: 125,
           align: 'center',
           render: (h, params) => {
-            if (params.row.id === '2') return h('div', '')
+            if (params.row.roleName === '默认管理员') return h('div', '')
             return h('div', [
               h('Tooltip', {
                 props: {
