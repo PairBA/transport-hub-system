@@ -133,6 +133,7 @@ export default {
           '&vehicleNo=' + this.vehicleNo +
           '&driverType=TAXI' +
           '&areaCode=' + localStorage.getItem('areaCode') +
+          '&configId=' + localStorage.getItem('configId') +
           '&hubCode=' + this.hubCode +
           '&x-me-token=' + token
         // window.location.href = `${baseUrl}${url}`

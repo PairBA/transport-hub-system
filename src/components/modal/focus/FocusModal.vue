@@ -53,6 +53,11 @@ export default {
       remark: ''
     }
   },
+  computed: {
+    hubCode() {
+      return this.$store.state.hubCode
+    }
+  },
   methods: {
     closeModal(result) {
       if (!result) {
@@ -65,7 +70,9 @@ export default {
       const result = await get(END_POINTS.FOCUS_VEHICLE, {
         areaCode: localStorage.getItem('areaCode'),
         vehicleNo: this.vehicleNo,
-        remark: this.remark
+        hubCode: this.hubCode,
+        remark: this.remark,
+        configId: localStorage.getItem('configId')
       })
       if (result.code === 2000) {
         this.$emit('go-search')

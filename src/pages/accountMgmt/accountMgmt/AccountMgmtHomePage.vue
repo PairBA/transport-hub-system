@@ -44,15 +44,7 @@ export default {
         },
         {
           title: '角色',
-          key: 'roleId',
-          render: (h, params) => {
-            const roleId = params.row.roleId
-            let roleName = ''
-            const role = this.roleList.find(role => role.id === roleId)
-            if (role) roleName = role.roleName
-            return h('span', {
-            }, roleName)
-          }
+          key: 'roleName'
         },
         {
           title: '姓名',
