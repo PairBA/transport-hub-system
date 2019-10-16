@@ -188,11 +188,12 @@ export default {
       this.showSpin = false
     },
     async exportExcel() {
+      const vehicleNo = this.vehicleNo === '川A' ? '' : this.vehicleNo
       const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
       const url = END_POINTS.EXPORT_GATE_VEHICLE_LIST +
         '?gateName=' + this.gateName +
-        '&vehicleNo=' + this.vehicleNo +
+        '&vehicleNo=' + vehicleNo +
         '&hubCode=' + this.hubCode +
         '&startDate=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endDate=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
