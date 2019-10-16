@@ -64,6 +64,10 @@ export default {
   GET_HUB_STAT_TRAIL_GRAPH: '/api/lawSystem/graph/getHubStatTrailGraph',
   GET_GATE_JUDGE_GRAPH: '/api/lawSystem/graph/getGateJudgeGraph',
   UPLOAD_WORKER_LIST: '/api/lawSystem/gateAlert/uploadWorkerList',
+  // GPS异常统计
+  GET_GPS_ERROR_STAT_LIST: '/api/gateVehicle/getGpsErrorStatList',
+  EXPORT_GPS_ERROR_STAT_LIST: '/api/gateVehicle/exportGpsErrorStatList',
+  GET_GPS_POINT_COUNT: 'api/gpsQuality/getGpsPointCount',
   // 闸口车辆查询
   GET_GATE_VEHICLE_LIST: '/api/gateVehicle/getGateVehicleList',
   EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList'

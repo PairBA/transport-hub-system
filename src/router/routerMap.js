@@ -11,6 +11,7 @@ const SearchTripHomePage = () => import('@/pages/tripTrail/searchTrip/SearchTrip
 const ExceptionQueueHomePage = () => import('@/pages/anomaly/exceptionQueue/ExceptionQueueHomePage')
 const GateVehicleHomePage = () => import('@/pages/anomaly/gateVehicle/GateVehicleHomePage')
 const IllegalBoardingHomePage = () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingHomePage')
+const GpsAnomalyHomePage = () => import('@/pages/anomaly/gpsAnomaly/GpsAnomalyHomePage')
 // 车流量
 const TrafficFlowHomePage = () => import('@/pages/trafficFlow/TrafficFlowHomePage')
 const GateVehicleSearchHomePage = () => import('@/pages/trafficFlow/gateVehicle/GateVehicleHomePage')
@@ -111,6 +112,12 @@ export const anomaly = [
     path: '/anomaly/illegalBoardingHomePage',
     search: 'IllegalBoardingCondition',
     component: IllegalBoardingHomePage
+  },
+  {
+    name: 'GPS异常统计',
+    path: '/anomaly/gpsAnomalyHomePage',
+    search: 'GpsAnomalyCondition',
+    component: GpsAnomalyHomePage
   }
 ]
 

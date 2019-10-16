@@ -7,6 +7,8 @@ import vehicleQuery from './modules/focus/vehicleQuery'
 import exceptionQueue from './modules/anomaly/exceptionQueue'
 import illegalBoarding from './modules/anomaly/illegalBoarding'
 import gateVehicle from './modules/anomaly/gateVehicle'
+import gpsAnomaly from './modules/anomaly/gpsAnomaly'
+import gpsOnlineTime from './modules/anomaly/gpsOnlineTime'
 import accountMgmt from './modules/accountMgmt/accountMgmt'
 import watchDutySchedule from './modules/watchDutySchedule/watchDutySchedule'
 import gateVehicleSearch from './modules/trafficFlow/gateVehicleSearch'
@@ -19,6 +21,8 @@ export default {
   exceptionQueue,
   illegalBoarding,
   gateVehicle,
+  gpsAnomaly,
+  gpsOnlineTime,
   accountMgmt,
   focus,
   vehicleQuery,
