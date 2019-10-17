@@ -70,7 +70,6 @@ export default {
         this.openNames = [this.openNamesFromMain]
         this.$nextTick(() => {
           this.$refs.subMenu.updateOpened()
-          this.$router.push({ path: this.openNamesFromMain })
         })
       }
     }

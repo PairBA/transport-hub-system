@@ -1,5 +1,5 @@
 <template>
-  <div class="illegalBoarding__homePage">
+  <div class="gpsAbnomal__homePage">
     <ContentLayout :showSpin="showSpin">
       <TableWrapper>
         <Table :columns="columns"
@@ -101,7 +101,7 @@ export default {
               },
               on: {
                 click: () => {
-                  this.goToDetail(params.row)
+                  this.goToDetail(params.row.vehicleNo)
                 }
               }
             }, 'GPS在线时间')
@@ -115,7 +115,10 @@ export default {
     this.$store.dispatch('getTerminalList')
   },
   methods: {
-    goToDetail() {},
+    goToDetail(vehicleNo) {
+      this.$store.commit('permission/updateOpenNamesFromMain', '/anomaly/gpsOnlineHomePage')
+      this.$router.push({ name: 'GPS在线时间', query: { vehicleNo } })
+    },
     goSearch() {
       this.getGpsErrorStatList()
     },
@@ -142,9 +145,6 @@ export default {
 </script>
 
 <style lang="less">
-.illegalBoarding__homePage{
-  .ivu-date-picker {
-    width: 100%;
-  }
+.gpsAbnomal__homePage{
 }
 </style>

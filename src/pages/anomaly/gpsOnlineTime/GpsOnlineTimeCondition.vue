@@ -1,8 +1,7 @@
 <template>
-  <div class="gps-error__condition">
+  <div class="gps-onlineTime__condition">
     <MenuSearchWrapper>
       <Form label-position="top">
-        <CompanySelect/>
         <FormItem label="车辆号牌">
           <VehicleInput v-model="vehicleNo"/>
         </FormItem>
@@ -50,11 +49,6 @@
                   @click="goSearch">
             查询
           </Button>
-          <Button type="primary"
-                  style="margin-left: 24px"
-                  @click="exportExcel">
-            导出excel
-          </Button>
         </div>
       </Form>
     </MenuSearchWrapper>
@@ -64,12 +58,10 @@
 <script>
 import { END_POINTS, get } from '@/api'
 import { dateFormat } from '@/utils'
-import CompanySelect from '@/components/common/CompanySelect'
 import VehicleInput from '@/components/common/VehicleInput'
 export default {
   components: {
-    VehicleInput,
-    CompanySelect
+    VehicleInput
   },
   data() {
     const disableMinutes = []
@@ -108,17 +100,31 @@ export default {
     }
   },
   mounted() {
+    const vehicleNo = this.$route.query.vehicleNo
+    console.log(vehicleNo)
+    if (vehicleNo) {
+      this.vehicleNo = vehicleNo || ''
+      this.goSearch()
+    }
   },
   methods: {
     async goSearch() {
-      if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+      const startDate = new Date(`${dateFormat(this.startDate, 'yyyy-MM-dd')} ${this.startHour}:00`).getTime()
+      const endDate = new Date(`${dateFormat(this.endDate, 'yyyy-MM-dd')} ${this.endHour}:00`).getTime()
+      if (startDate > endDate) {
         this.$Message.warning({
-          content: '时间间隔不能大于7天！'
+          content: this.$t('sysManage.tripData.warningDesc')
+        })
+      } else if (endDate - startDate > 14 * 24 * 60 * 60 * 1000) { // 时间间隔大于14天
+        this.$Message.warning({
+          content: this.$t('sysManage.queryBar.notGt14Day')
+        })
+      } else if (!this.vehicleNo) {
+        this.$Message.warning({
+          content: this.$t('sysManage.queryBar.vehicleNoPH')
         })
       } else {
-        this.showSpin = true
-        await this.$store.dispatch('gpsAnomaly/getGpsErrorStatList', { currentPage: 1 })
-        this.showSpin = false
+        this.getGPSGraphData()
       }
     },
     async getGPSGraphData() {
@@ -126,7 +132,7 @@ export default {
       const GPSGraphObject = await get(END_POINTS.GET_GPS_POINT_COUNT, {
         areaCode: this.$store.state.areaCodeForSelect,
         vehicleNo: this.vehicleNo,
-        stateDate: dateFormat(this.startDate, 'yyyy-MM-dd ') + this.startHour,
+        startDate: dateFormat(this.startDate, 'yyyy-MM-dd ') + this.startHour,
         endDate: dateFormat(this.endDate, 'yyyy-MM-dd ') + this.endHour
       })
       if (GPSGraphObject.success) {
@@ -148,9 +154,9 @@ export default {
 </script>
 
 <style lang="less">
-.gps-error__condition {
+.gps-onlineTime__condition {
   .ivu-date-picker {
-    width: 98%;
+    width: 49%;
   }
 }
 </style>

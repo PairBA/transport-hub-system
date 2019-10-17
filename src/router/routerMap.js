@@ -12,6 +12,7 @@ const ExceptionQueueHomePage = () => import('@/pages/anomaly/exceptionQueue/Exce
 const GateVehicleHomePage = () => import('@/pages/anomaly/gateVehicle/GateVehicleHomePage')
 const IllegalBoardingHomePage = () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingHomePage')
 const GpsAnomalyHomePage = () => import('@/pages/anomaly/gpsAnomaly/GpsAnomalyHomePage')
+const GpsOnlineTimeHomePage = () => import('@/pages/anomaly/gpsOnlineTime/GpsOnlineTimeHomePage')
 // 车流量
 const TrafficFlowHomePage = () => import('@/pages/trafficFlow/TrafficFlowHomePage')
 const GateVehicleSearchHomePage = () => import('@/pages/trafficFlow/gateVehicle/GateVehicleHomePage')
@@ -118,6 +119,12 @@ export const anomaly = [
     path: '/anomaly/gpsAnomalyHomePage',
     search: 'GpsAnomalyCondition',
     component: GpsAnomalyHomePage
+  },
+  {
+    name: 'GPS在线时间',
+    path: '/anomaly/gpsOnlineHomePage',
+    search: 'GpsOnlineTimeCondition',
+    component: GpsOnlineTimeHomePage
   }
 ]
 
