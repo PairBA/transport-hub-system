@@ -29,11 +29,6 @@
                   @click="vehicleQuerySearch">
             查询
           </Button>
-          <Button type="primary"
-                  style="margin-left: 24px;"
-                  @click="exportExcel">
-            导出excel
-          </Button>
         </div>
       </Form>
     </MenuSearchWrapper>
