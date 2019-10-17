@@ -12,7 +12,7 @@
                      :tooltip="GPSGraphData.tooltip"
                      :grid="GPSGraphData.grid"
                      :color="GPSGraphData.color"
-                     style="height: 300px;width: 100%"></PairECharts>
+                     style="height: 350px;width: 100%"></PairECharts>
       </div>
     </ContentLayout>
   </div>
@@ -131,7 +131,12 @@ export default {
 .gpsOnlineTime__homePage{
   .title {
     text-align: center;
-    background-color: #9D9D9D;
+    background-color: #F5F8FF;
+    font-size:16px;
+    font-family:PingFangSC-Semibold,PingFangSC;
+    font-weight:600;
+    color:rgba(170,181,200,1);
+    line-height: 45px;
   }
 }
 </style>

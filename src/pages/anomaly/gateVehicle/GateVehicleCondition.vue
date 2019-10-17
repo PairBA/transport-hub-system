@@ -9,6 +9,14 @@
             </Option>
           </Select>
         </FormItem>
+        <FormItem label="闸口：">
+          <Select v-model="gateName"
+                  placeholder="请选择闸口">
+            <Option value="">全部</Option>
+            <Option value="T1">T1</Option>
+            <Option value="T2">T2</Option>
+          </Select>
+        </FormItem>
         <FormItem :label="$t('sysManage.queryBar.terminalManufacturer')">
           <Select v-model="terminalName" :placeholder="$t('sysManage.queryBar.terminalManufacturerPH')">
             <Option :value="''">
@@ -34,16 +42,43 @@
         <FormItem :label="$t('sysManage.queryBar.vehicleNo')">
           <VehicleInput v-model="vehicleNo"/>
         </FormItem>
-        <FormItem label="时间区间：">
-          <DatePicker v-model="daterange"
-                      type="daterange"
+        <FormItem :label="$t('sysManage.commonVar.startDateAndTime')">
+          <DatePicker v-model="startDate"
+                      type="date"
                       format="yyyy/MM/dd"
-                      placement="bottom-start"
-                      placeholder="请选择时间区间"
-                      :clearable="false"
+                      style="float: left;"
                       :editable="false"
-                      :options="options">
+                      :clearable="false"
+                      :options="options"
+                      :placeholder="$t('sysManage.queryBar.datePH')">
           </DatePicker>
+          <TimePicker v-model="startTime"
+                      format="HH:mm"
+                      style="float: right;"
+                      :editable="false"
+                      :clearable="false"
+                      :disabled-minutes="disabledMinutes"
+                      :placeholder="$t('sysManage.queryBar.timeSelectPH')">
+          </TimePicker>
+        </FormItem>
+        <FormItem :label="$t('sysManage.commonVar.endDateAndTime')">
+          <DatePicker v-model="endDate"
+                      type="date"
+                      format="yyyy/MM/dd"
+                      style="float: left;"
+                      :editable="false"
+                      :clearable="false"
+                      :options="options"
+                      :placeholder="$t('sysManage.queryBar.datePH')">
+          </DatePicker>
+          <TimePicker v-model="endTime"
+                      format="HH:mm"
+                      style="float: right;"
+                      :editable="false"
+                      :disabled-minutes="disabledMinutes"
+                      :clearable="false"
+                      :placeholder="$t('sysManage.queryBar.timeSelectPH')">
+          </TimePicker>
         </FormItem>
         <Divider/>
         <div style="text-align: center">
@@ -74,7 +109,12 @@ export default {
     VehicleInput
   },
   data() {
+    const disabledMinutes = []
+    for (let i = 0; i < 60; i++) {
+      disabledMinutes.push(i)
+    }
     return {
+      disabledMinutes,
       options: {
         disabledDate(date) {
           return date && date.valueOf() > Date.now()
@@ -108,12 +148,36 @@ export default {
         this.$store.commit('gateVehicle/updateVehicleNo', value)
       }
     },
-    daterange: {
+    startDate: {
       get() {
-        return this.$store.state.gateVehicle.daterange
+        return this.$store.state.gateVehicle.startDate
       },
       set(value) {
-        this.$store.commit('gateVehicle/updateDaterange', value)
+        this.$store.commit('gateVehicle/updateStartDate', value)
+      }
+    },
+    endDate: {
+      get() {
+        return this.$store.state.gateVehicle.endDate
+      },
+      set(value) {
+        this.$store.commit('gateVehicle/updateEndDate', value)
+      }
+    },
+    startTime: {
+      get() {
+        return this.$store.state.gateVehicle.startTime
+      },
+      set(value) {
+        this.$store.commit('gateVehicle/updateStartTime', value)
+      }
+    },
+    endTime: {
+      get() {
+        return this.$store.state.gateVehicle.endTime
+      },
+      set(value) {
+        this.$store.commit('gateVehicle/updateEndTime', value)
       }
     },
     judgeType: {
@@ -122,6 +186,14 @@ export default {
       },
       set(value) {
         this.$store.commit('gateVehicle/updateJudgeType', value)
+      }
+    },
+    gateName: {
+      get() {
+        return this.$store.state.gateVehicle.gateName
+      },
+      set(value) {
+        this.$store.commit('gateVehicle/updateGateName', value)
       }
     },
     terminalName: {
@@ -151,8 +223,8 @@ export default {
   },
   methods: {
     async goSearch() {
-      const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
-      const endDate = new Date(dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')).getTime()
+      const startDate = new Date(dateFormat(this.startDate, 'yyyy-MM-dd') + ' ' + this.startTime).getTime()
+      const endDate = new Date(dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime).getTime()
       if (startDate > endDate) {
         this.$Notice.warning({
           desc: this.$t('sysManage.tripData.warningDesc')
@@ -169,17 +241,16 @@ export default {
       if (this.judgeType.some(item => item === ' ')) judgeType = ' '
       const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
-      const startDate = new Date(dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd')).getTime()
-      const endDate = new Date(dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')).getTime()
       const url = END_POINTS.EXPORT_GATE_JUDGE_REPORT +
         '?judgeType=' + judgeType +
         '&areaCode=' + localStorage.getItem('areaCode') +
         '&companyId=' + this.$store.state.companyIdForSelect +
-        '&startDate=' + dateFormat(new Date(startDate), 'yyyy-MM-dd') +
+        '&startDate=' + dateFormat(this.startDate, 'yyyy-MM-dd') + ' ' + this.startTime +
         '&vehicleNo=' + this.vehicleNo +
-        '&endDate=' + dateFormat(new Date(endDate), 'yyyy-MM-dd') +
+        '&endDate=' + dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime +
         '&hubCode=' + this.hubCode +
         '&terminalName=' + this.terminalName +
+        '&gateName=' + this.gateName +
         '&x-me-token=' + token
       downloadFile(`${baseUrl}${url}`)
       // window.location.href = `${baseUrl}${url}`
@@ -191,7 +262,7 @@ export default {
 <style lang="less">
 .exception-queue__condition {
   .ivu-date-picker {
-    width: 98%;
+    width: 49%;
   }
 }
 </style>
