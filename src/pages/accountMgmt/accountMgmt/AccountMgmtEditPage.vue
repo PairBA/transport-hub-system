@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     async getRoleList() {
-      const result = await get(END_POINTS.GET_ROLE_LIST)
+      const result = await get(END_POINTS.GET_ROLE_LIST + `?configId=${localStorage.getItem('configId')}`)
       if (result.code === 2000) this.roleList = result.data
     },
     async handleSubmit(name) {

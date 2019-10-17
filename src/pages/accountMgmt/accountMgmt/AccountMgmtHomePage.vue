@@ -144,6 +144,12 @@ export default {
   },
   methods: {
     addAccount() {
+      if (!this.roleList.length) {
+        this.$Message.warning({
+          content: '请先添加角色，再新增账号'
+        })
+        return
+      }
       this.$router.push({ name: '新增账号' })
     },
     goToEdit(userId) {
