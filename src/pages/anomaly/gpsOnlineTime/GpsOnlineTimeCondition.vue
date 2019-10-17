@@ -101,7 +101,6 @@ export default {
   },
   mounted() {
     const vehicleNo = this.$route.query.vehicleNo
-    console.log(vehicleNo)
     if (vehicleNo) {
       this.vehicleNo = vehicleNo || ''
       this.goSearch()
