@@ -41,6 +41,9 @@ export default {
         this.$store.commit('search/updateShowSpin', value)
       }
     },
+    hubCode() {
+      return this.$store.state.hubCode
+    },
     daterange: {
       get() {
         return this.$store.state.exceptionQueue.daterange
@@ -185,6 +188,7 @@ export default {
         query: {
           mobile,
           vehicleNo,
+          hubCode: this.hubCode,
           startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
           endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')
         }

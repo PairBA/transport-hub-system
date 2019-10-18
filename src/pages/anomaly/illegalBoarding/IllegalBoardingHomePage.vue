@@ -38,6 +38,9 @@ export default {
     }
   },
   computed: {
+    hubCode() {
+      return this.$store.state.hubCode
+    },
     showSpin: {
       get() {
         return this.$store.state.search.showSpin
@@ -194,7 +197,8 @@ export default {
           mobile,
           vehicleNo,
           startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
-          endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')
+          endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd'),
+          hubCode: this.hubCode
         }
       })
     },

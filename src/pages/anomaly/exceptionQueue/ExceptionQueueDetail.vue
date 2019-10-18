@@ -135,6 +135,7 @@ export default {
     this.vehicleNo = this.$route.query.vehicleNo
     this.startDate = this.$route.query.startDate
     this.endDate = this.$route.query.endDate
+    this.$store.commit('updateHubCode', this.$route.query.hubCode)
     this.getHubStatTrailList()
     this.isVehicleFocus()
   },
