@@ -3,6 +3,7 @@
     <ContentLayout :showSpin="showSpin">
       <div class="content__card" style="margin-bottom: 24px">
         <PairECharts id="exceptionQueueECharts"
+                     v-if="showEchart"
                      :xAxis="exceptionQueueECharts.xAxis"
                      :yAxis="exceptionQueueECharts.yAxis"
                      :tooltip="exceptionQueueECharts.tooltip"
@@ -26,6 +27,11 @@ import { dateFormat } from '@/utils'
 const detail = require('@/img/common/detail.png')
 export default {
   components: {},
+  data() {
+    return {
+      showEchart: false
+    }
+  },
   computed: {
     showSpin: {
       get() {
@@ -163,6 +169,11 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.showEchart = true
+    })
   },
   methods: {
     goSearch() {

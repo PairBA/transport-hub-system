@@ -3,6 +3,7 @@
     <ContentLayout :showSpin="showSpin">
       <div class="content__card" style="margin-bottom: 24px">
         <PairECharts id="illegalECharts"
+                     v-if="showEchart"
                      :xAxis="illegalECharts.xAxis"
                      :yAxis="illegalECharts.yAxis"
                      :tooltip="illegalECharts.tooltip"
@@ -32,7 +33,8 @@ export default {
         disabledDate(date) {
           return date && date.valueOf() > Date.now()
         }
-      }
+      },
+      showEchart: false
     }
   },
   computed: {
@@ -177,6 +179,9 @@ export default {
     if (this.vehicleNo && this.vehicleNo !== '川A') {
       this.goSearch()
     }
+    this.$nextTick(() => {
+      this.showEchart = true
+    })
   },
   methods: {
     goSearch() {
