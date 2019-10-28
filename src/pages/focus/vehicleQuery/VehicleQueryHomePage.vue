@@ -54,6 +54,9 @@ export default {
     showSpin() {
       return this.$store.state.search.showSpin
     },
+    showFocusBtn() {
+      return this.$store.state.permission.focusRule
+    },
     tableListObject() {
       return this.$store.state.vehicleQuery.tableListObject
     },
@@ -110,39 +113,104 @@ export default {
               content = '关注'
               src = focus
             }
-            if (params.row.realLocation) { // 显示实时地图
-              return h('div', [
-                h('Tooltip', {
-                  props: {
-                    content: content,
-                    transfer: true,
-                    placement: 'bottom'
-                  },
-                  style: {
-                    cursor: 'pointer',
-                    width: '30px'
-                  }
-                }, [
-                  h('img', {
+            if (this.showFocusBtn) {
+              if (params.row.realLocation) { // 显示实时地图
+                return h('div', [
+                  h('Tooltip', {
+                    props: {
+                      content: content,
+                      transfer: true,
+                      placement: 'bottom'
+                    },
                     style: {
                       cursor: 'pointer',
                       width: '30px'
-                    },
-                    attrs: {
-                      src: src
-                    },
-                    on: {
-                      click: () => {
-                        if (params.row.focus) { // 已经被关注
-                          this.doCancelFocus(params.row)
-                        } else { // 未被关注
-                          this.openFocus(params.row)
+                    }
+                  }, [
+                    h('img', {
+                      style: {
+                        cursor: 'pointer',
+                        width: '30px'
+                      },
+                      attrs: {
+                        src: src
+                      },
+                      on: {
+                        click: () => {
+                          if (params.row.focus) { // 已经被关注
+                            this.doCancelFocus(params.row)
+                          } else { // 未被关注
+                            this.openFocus(params.row)
+                          }
                         }
                       }
+                    })
+                  ], content),
+                  h('Tooltip', {
+                    props: {
+                      content: '实时位置',
+                      transfer: true,
+                      placement: 'bottom'
+                    },
+                    style: {
+                      cursor: 'pointer',
+                      width: '30px',
+                      marginLeft: '12px'
                     }
-                  })
-                ], content),
-                h('Tooltip', {
+                  }, [
+                    h('img', {
+                      style: {
+                        cursor: 'pointer',
+                        width: '30px'
+                      },
+                      attrs: {
+                        src: realLocation
+                      },
+                      on: {
+                        click: () => {
+                          this.doShowModal(params.row)
+                        }
+                      }
+                    })
+                  ], '实时位置')
+                ])
+              } else {
+                return h('div', [
+                  h('Tooltip', {
+                    props: {
+                      content: content,
+                      transfer: true,
+                      placement: 'bottom'
+                    },
+                    style: {
+                      cursor: 'pointer',
+                      width: '30px'
+                    }
+                  }, [
+                    h('img', {
+                      style: {
+                        cursor: 'pointer',
+                        width: '30px'
+                      },
+                      attrs: {
+                        src: src
+                      },
+                      on: {
+                        click: () => {
+                          if (params.row.focus) { // 已经被关注
+                            this.doCancelFocus(params.row)
+                          } else { // 未被关注
+                            this.openFocus(params.row)
+                          }
+                        }
+                      }
+                    })
+                  ], content)
+                ])
+              }
+            } else {
+              if (params.row.realLocation) { // 显示实时地图
+                return h('Tooltip', {
                   props: {
                     content: '实时位置',
                     transfer: true,
@@ -169,40 +237,7 @@ export default {
                     }
                   })
                 ], '实时位置')
-              ])
-            } else {
-              return h('div', [
-                h('Tooltip', {
-                  props: {
-                    content: content,
-                    transfer: true,
-                    placement: 'bottom'
-                  },
-                  style: {
-                    cursor: 'pointer',
-                    width: '30px'
-                  }
-                }, [
-                  h('img', {
-                    style: {
-                      cursor: 'pointer',
-                      width: '30px'
-                    },
-                    attrs: {
-                      src: src
-                    },
-                    on: {
-                      click: () => {
-                        if (params.row.focus) { // 已经被关注
-                          this.doCancelFocus(params.row)
-                        } else { // 未被关注
-                          this.openFocus(params.row)
-                        }
-                      }
-                    }
-                  })
-                ], content)
-              ])
+              }
             }
           }
         }

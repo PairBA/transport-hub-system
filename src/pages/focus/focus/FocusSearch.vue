@@ -144,6 +144,7 @@ export default {
           content: '时间间隔不能大于7天！'
         })
       } else {
+        const vehicleNo = this.vehicleNo === '川A' ? '' : this.vehicleNo
         const token = localStorage.getItem('hub-token')
         const baseUrl = process.env.VUE_APP_BASE_URL
         const url = END_POINTS.GET_HUB_FOCUS_VEHICLE_EXCEL +
@@ -151,7 +152,8 @@ export default {
           '&endDate=' + dateFormat(new Date(this.focusDate[1]), 'yyyy-MM-dd') +
           '&areaCode=' + localStorage.getItem('areaCode') +
           '&hubCode=' + this.hubCode +
-          '&vehicleNo=' + this.vehicleNo +
+          '&configId=' + localStorage.getItem('configId') +
+          '&vehicleNo=' + vehicleNo +
           '&driverType=TAXI' +
           '&x-me-token=' + token
         // window.location.href = `${baseUrl}${url}`

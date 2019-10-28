@@ -29,11 +29,6 @@
                   @click="vehicleQuerySearch">
             查询
           </Button>
-          <Button type="primary"
-                  style="margin-left: 24px;"
-                  @click="exportExcel">
-            导出excel
-          </Button>
         </div>
       </Form>
     </MenuSearchWrapper>
@@ -133,6 +128,7 @@ export default {
           '&vehicleNo=' + this.vehicleNo +
           '&driverType=TAXI' +
           '&areaCode=' + localStorage.getItem('areaCode') +
+          '&configId=' + localStorage.getItem('configId') +
           '&hubCode=' + this.hubCode +
           '&x-me-token=' + token
         // window.location.href = `${baseUrl}${url}`

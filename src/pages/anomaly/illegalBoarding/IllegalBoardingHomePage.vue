@@ -3,6 +3,7 @@
     <ContentLayout :showSpin="showSpin">
       <div class="content__card" style="margin-bottom: 24px">
         <PairECharts id="illegalECharts"
+                     v-if="showEchart"
                      :xAxis="illegalECharts.xAxis"
                      :yAxis="illegalECharts.yAxis"
                      :tooltip="illegalECharts.tooltip"
@@ -32,10 +33,14 @@ export default {
         disabledDate(date) {
           return date && date.valueOf() > Date.now()
         }
-      }
+      },
+      showEchart: false
     }
   },
   computed: {
+    hubCode() {
+      return this.$store.state.hubCode
+    },
     showSpin: {
       get() {
         return this.$store.state.search.showSpin
@@ -177,6 +182,9 @@ export default {
     if (this.vehicleNo && this.vehicleNo !== '川A') {
       this.goSearch()
     }
+    this.$nextTick(() => {
+      this.showEchart = true
+    })
   },
   methods: {
     goSearch() {
@@ -189,7 +197,8 @@ export default {
           mobile,
           vehicleNo,
           startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
-          endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')
+          endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd'),
+          hubCode: this.hubCode
         }
       })
     },

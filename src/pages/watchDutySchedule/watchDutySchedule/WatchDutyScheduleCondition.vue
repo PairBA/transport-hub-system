@@ -17,6 +17,7 @@
           </Button>
           <Upload id="uploadFile" name="uploadFile"
                   :action="importUrl"
+                  :data="param"
                   :headers="headers">
             <Button>数据导入</Button>
           </Upload>
@@ -43,6 +44,15 @@ export default {
     }
   },
   computed: {
+    hubCode() {
+      return this.$store.state.hubCode
+    },
+    param() {
+      return {
+        hubCode: this.hubCode,
+        configId: localStorage.getItem('configId')
+      }
+    },
     date: {
       get() {
         return this.$store.state.watchDutySchedule.date

@@ -114,6 +114,12 @@ export default {
             email: this.formValidate.email,
             password: this.formValidate.password
           })
+          if (result.code === 6011) {
+            this.$Message.warning({
+              content: '该用户名已经存在'
+            })
+            return
+          }
           if (result.code === 2000) {
             this.$Message.success({
               content: this.$t('monitor.success')

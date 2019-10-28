@@ -44,15 +44,7 @@ export default {
         },
         {
           title: '角色',
-          key: 'roleId',
-          render: (h, params) => {
-            const roleId = params.row.roleId
-            let roleName = ''
-            const role = this.roleList.find(role => role.id === roleId)
-            if (role) roleName = role.roleName
-            return h('span', {
-            }, roleName)
-          }
+          key: 'roleName'
         },
         {
           title: '姓名',
@@ -152,6 +144,12 @@ export default {
   },
   methods: {
     addAccount() {
+      if (!this.roleList.length) {
+        this.$Message.warning({
+          content: '请先添加角色，再新增账号'
+        })
+        return
+      }
       this.$router.push({ name: '新增账号' })
     },
     goToEdit(userId) {

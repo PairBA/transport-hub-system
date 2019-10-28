@@ -3,6 +3,7 @@
     <ContentLayout :showSpin="showSpin">
       <div class="content__card" style="margin-bottom: 24px">
         <PairECharts id="exceptionQueueECharts"
+                     v-if="showEchart"
                      :xAxis="exceptionQueueECharts.xAxis"
                      :yAxis="exceptionQueueECharts.yAxis"
                      :tooltip="exceptionQueueECharts.tooltip"
@@ -26,6 +27,11 @@ import { dateFormat } from '@/utils'
 const detail = require('@/img/common/detail.png')
 export default {
   components: {},
+  data() {
+    return {
+      showEchart: false
+    }
+  },
   computed: {
     showSpin: {
       get() {
@@ -34,6 +40,9 @@ export default {
       set(value) {
         this.$store.commit('search/updateShowSpin', value)
       }
+    },
+    hubCode() {
+      return this.$store.state.hubCode
     },
     daterange: {
       get() {
@@ -164,6 +173,11 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.$nextTick(() => {
+      this.showEchart = true
+    })
+  },
   methods: {
     goSearch() {
       this.getHubStatTrailList()
@@ -174,6 +188,7 @@ export default {
         query: {
           mobile,
           vehicleNo,
+          hubCode: this.hubCode,
           startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
           endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')
         }

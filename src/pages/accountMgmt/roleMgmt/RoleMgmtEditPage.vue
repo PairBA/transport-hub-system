@@ -74,9 +74,21 @@ export default {
       })
     },
     getTreeList(selectMenuIdList) {
-      return selectMenuIdList.map(value => {
+      let parentMenuIdList = []
+      selectMenuIdList.forEach(value => {
+        if (parentMenuIdList.indexOf(value.pId) === -1) {
+          parentMenuIdList.push(value.pId)
+        }
+      })
+      selectMenuIdList = selectMenuIdList.map(value => {
         return value.id
       })
+      parentMenuIdList.forEach(val => {
+        if (selectMenuIdList.indexOf(val) === -1) {
+          selectMenuIdList.push(val)
+        }
+      })
+      return selectMenuIdList
     },
     renderTreeData(allList, idList) {
       let levelOneList = []
