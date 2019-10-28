@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     companyId() {
-      return this.$store.state.companyId
+      return this.$store.state.companyIdForSelect
     },
     routerName() {
       return this.$route.name
