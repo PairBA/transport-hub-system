@@ -2,7 +2,7 @@
   <div class="gpsOnlineTime__homePage">
     <ContentLayout :showSpin="showSpin">
       <div class="content__card">
-        <div class="title">GPS在线时间</div>
+        <div class="title">GPS在线时长</div>
         <PairECharts :id="'GPSGraphData'"
                      v-if="showEchart"
                      :title="GPSGraphData.title"
@@ -45,8 +45,25 @@ export default {
     this.$nextTick(() => {
       this.showEchart = true
     })
+    const vehicleNo = this.$route.query.vehicleNo
+    if (vehicleNo) {
+      this.$store.commit('gpsOnlineTime/updateVehicleNo', vehicleNo || '')
+      this.goSearch()
+    }
   },
   methods: {
+    async goSearch() {
+      this.showSpin = true
+      const GPSGraphObject = await this.$store.dispatch('gpsOnlineTime/getGpsPointCount')
+      if (GPSGraphObject.success) {
+        if (GPSGraphObject.code === 2006) {
+          this.$Message.warning({
+            content: GPSGraphObject.msg
+          })
+        }
+      }
+      this.showSpin = false
+    },
     getChart(chartData) {
       return {
         title: {

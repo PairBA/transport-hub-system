@@ -104,7 +104,7 @@ export default {
                   this.goToDetail(params.row.vehicleNo)
                 }
               }
-            }, 'GPS在线时间')
+            }, 'GPS在线时长')
           }
         }
       ]
@@ -117,7 +117,7 @@ export default {
   methods: {
     goToDetail(vehicleNo) {
       this.$store.commit('permission/updateOpenNamesFromMain', '/anomaly/gpsOnlineHomePage')
-      this.$router.push({ name: 'GPS在线时间', query: { vehicleNo } })
+      this.$router.push({ name: 'GPS在线时长', query: { vehicleNo } })
     },
     goSearch() {
       this.getGpsErrorStatList()

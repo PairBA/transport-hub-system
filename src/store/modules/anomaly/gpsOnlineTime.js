@@ -1,34 +1,49 @@
 import {
-  post,
+  get,
   END_POINTS
 } from '@/api'
 import { dateFormat } from '@/utils'
 const state = {
-  GPSGraphData: ''
+  GPSGraphData: '',
+  startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+  endDate: new Date(),
+  startHour: '00:00',
+  endHour: '23:59',
+  vehicleNo: ''
 }
 const actions = {
-  async getGpsErrorStatList({
+  async getGpsPointCount({
     commit,
-    state,
-    rootState
-  }, { currentPage }) {
-    const result = await post(END_POINTS.GET_GPS_ERROR_STAT_LIST, {
-      currentPage,
-      orderBy: '',
-      pageSize: state.pageSize,
-      queryVO: {
-        startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
-        endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
-        vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo,
-        terminalName: state.terminalName,
-        companyId: rootState.companyId
-      },
-      refreshTotalRecord: true
+    state
+  }) {
+    const result = await get(END_POINTS.GET_GPS_POINT_COUNT, {
+      areaCode: localStorage.getItem('areaCode'),
+      vehicleNo: state.vehicleNo,
+      startDate: dateFormat(state.startDate, 'yyyy-MM-dd ') + state.startHour,
+      endDate: dateFormat(state.endDate, 'yyyy-MM-dd ') + state.endHour
     })
-    commit('updateGpsErrorStat', result)
+    if (result.success) {
+      commit('updateGPSGraphData', result.data)
+      return result
+    }
   }
 }
 const mutations = {
+  updateStartDate(state, value) {
+    state.startDate = value
+  },
+  updateStartHour(state, value) {
+    state.startHour = value
+  },
+  updateEndDate(state, value) {
+    state.endDate = value
+  },
+  updateEndHour(state, value) {
+    state.endHour = value
+  },
+  updateVehicleNo(state, value) {
+    state.vehicleNo = value
+  },
   updateGPSGraphData(state, GPSGraphData) {
     state.GPSGraphData = GPSGraphData
   }

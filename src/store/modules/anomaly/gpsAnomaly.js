@@ -7,7 +7,7 @@ const state = {
   vehicleNo: '',
   terminalName: '',
   daterange: [new Date(), new Date()],
-  list: [ { vehicleNo: 'chuanafsfa' } ],
+  list: [],
   currentPage: 1,
   pageSize: 10,
   total: 0,
@@ -24,8 +24,9 @@ const actions = {
       orderBy: '',
       pageSize: state.pageSize,
       queryVO: {
-        startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd'),
-        endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd'),
+        startDate: dateFormat(new Date(state.daterange[0]), 'yyyy-MM-dd') + ' 00:00',
+        endDate: dateFormat(new Date(state.daterange[1]), 'yyyy-MM-dd') + ' 23:59',
+        areaCode: localStorage.getItem('areaCode'),
         vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo,
         terminalName: state.terminalName,
         companyId: rootState.companyId

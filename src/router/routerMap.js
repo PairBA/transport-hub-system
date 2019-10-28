@@ -121,7 +121,7 @@ export const anomaly = [
     component: GpsAnomalyHomePage
   },
   {
-    name: 'GPS在线时间',
+    name: 'GPS在线时长',
     path: '/anomaly/gpsOnlineHomePage',
     search: 'GpsOnlineTimeCondition',
     component: GpsOnlineTimeHomePage

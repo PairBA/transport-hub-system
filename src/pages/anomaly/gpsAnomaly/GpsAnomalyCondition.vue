@@ -107,6 +107,7 @@ export default {
     }
   },
   mounted() {
+    this.goSearch()
   },
   methods: {
     async goSearch() {
@@ -129,8 +130,9 @@ export default {
         const token = localStorage.getItem('hub-token')
         const baseUrl = process.env.VUE_APP_BASE_URL
         const url = END_POINTS.EXPORT_GPS_ERROR_STAT_LIST +
-          '?startDate=' + dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd') +
-          '&endDate=' + dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd') +
+          '?startDate=' + dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd') + ' 00:00' +
+          '&areaCode=' + localStorage.getItem('areaCode') +
+          '&endDate=' + dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd') + ' 23:59' +
           '&vehicleNo=' + this.vehicleNo +
           '&terminalName=' + this.terminalName +
           '&companyId=' + this.companyId +

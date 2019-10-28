@@ -20,7 +20,6 @@
                       style="float: right;"
                       :editable="false"
                       :clearable="false"
-                      :disabled-minutes="disableMinutes"
                       :placeholder="$t('sysManage.queryBar.timeSelectPH')">
           </TimePicker>
         </FormItem>
@@ -38,7 +37,6 @@
                       format="HH:mm"
                       style="float: right;"
                       :editable="false"
-                      :disabled-minutes="disableMinutes"
                       :clearable="false"
                       :placeholder="$t('sysManage.queryBar.timeSelectPH')">
           </TimePicker>
@@ -56,7 +54,6 @@
 </template>
 
 <script>
-import { END_POINTS, get } from '@/api'
 import { dateFormat } from '@/utils'
 import VehicleInput from '@/components/common/VehicleInput'
 export default {
@@ -68,17 +65,9 @@ export default {
     for (let i = 0; i < 60; i++) {
       disableMinutes.push(i)
     }
-    const today = new Date(new Date().getTime() - 24 * 60 * 60 * 1000)
-    const formatToday = dateFormat(today, 'yyyy-MM-dd hh') + '12:00'
-    const formatTodayForHour = dateFormat(today, 'yyyy-MM-dd hh') + '00:00'
     return {
       disableMinutes,
       showEchart: false,
-      vehicleNo: '',
-      startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-      endDate: new Date(),
-      startHour: new Date(formatToday),
-      endHour: new Date(formatTodayForHour),
       options: {
         disabledDate(date) {
           return date && date.valueOf() > Date.now()
@@ -97,14 +86,49 @@ export default {
       set(value) {
         this.$store.commit('search/updateShowSpin', value)
       }
+    },
+    vehicleNo: {
+      get() {
+        return this.$store.state.gpsOnlineTime.vehicleNo
+      },
+      set(value) {
+        this.$store.commit('gpsOnlineTime/updateVehicleNo', value)
+      }
+    },
+    startDate: {
+      get() {
+        return this.$store.state.gpsOnlineTime.startDate
+      },
+      set(value) {
+        this.$store.commit('gpsOnlineTime/updateStartDate', value)
+      }
+    },
+    endDate: {
+      get() {
+        return this.$store.state.gpsOnlineTime.endDate
+      },
+      set(value) {
+        this.$store.commit('gpsOnlineTime/updateEndDate', value)
+      }
+    },
+    startHour: {
+      get() {
+        return this.$store.state.gpsOnlineTime.startHour
+      },
+      set(value) {
+        this.$store.commit('gpsOnlineTime/updateStartHour', value)
+      }
+    },
+    endHour: {
+      get() {
+        return this.$store.state.gpsOnlineTime.endHour
+      },
+      set(value) {
+        this.$store.commit('gpsOnlineTime/updateEndHour', value)
+      }
     }
   },
   mounted() {
-    const vehicleNo = this.$route.query.vehicleNo
-    if (vehicleNo) {
-      this.vehicleNo = vehicleNo || ''
-      this.goSearch()
-    }
   },
   methods: {
     async goSearch() {
@@ -123,30 +147,17 @@ export default {
           content: this.$t('sysManage.queryBar.vehicleNoPH')
         })
       } else {
-        this.getGPSGraphData()
-      }
-    },
-    async getGPSGraphData() {
-      this.showSpin = true
-      const GPSGraphObject = await get(END_POINTS.GET_GPS_POINT_COUNT, {
-        areaCode: this.$store.state.areaCodeForSelect,
-        vehicleNo: this.vehicleNo,
-        startDate: dateFormat(this.startDate, 'yyyy-MM-dd ') + this.startHour,
-        endDate: dateFormat(this.endDate, 'yyyy-MM-dd ') + this.endHour
-      })
-      if (GPSGraphObject.success) {
-        if (GPSGraphObject.code === 2006) {
-          this.$Message.warning({
-            content: GPSGraphObject.msg
-          })
+        this.showSpin = true
+        const GPSGraphObject = await this.$store.dispatch('gpsOnlineTime/getGpsPointCount')
+        if (GPSGraphObject.success) {
+          if (GPSGraphObject.code === 2006) {
+            this.$Message.warning({
+              content: GPSGraphObject.msg
+            })
+          }
         }
-        this.$store.commit('gpsOnlineTime/updateGPSGraphData', GPSGraphObject.data)
-      } else {
-        this.$Message.warning({
-          content: GPSGraphObject.msg
-        })
+        this.showSpin = false
       }
-      this.showSpin = false
     }
   }
 }
