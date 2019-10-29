@@ -4,7 +4,7 @@
                     parentTitle="违规上客"
                     :title="vehicleNo"/>
     <div class="illegal-boarding-detail-content">
-      <div v-for="(detailObject, index) in alertOnListDetail" :key="`alertDetail__${index}`">
+      <div v-for="(detailObject, index) in alertOnListDetail" :key="`alertDetail__${index}`" class="trail-card">
         <div class="illegal-boarding-detail-group-title">
           <img src="../../../img/vehicle.png" class="icon-vehicle"/>
           <div class="group-vehicle-no">
@@ -274,6 +274,9 @@ export default {
 .illegal-boarding-detail {
   .illegal-boarding-detail-content {
     padding: 24px;
+    .trail-card {
+      margin-bottom: 24px;
+    }
     .illegal-boarding-detail-group-title {
       line-height: 62px;
       background-color: #FFFFFF;

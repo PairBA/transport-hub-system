@@ -4,7 +4,7 @@
                     parentTitle="异常排队"
                     :title="vehicleNo"/>
     <div class="exception-queue-detail-content">
-      <div v-for="(detailObject, index) in hubSumListDetail" :key="`trailDetail__${index}`">
+      <div v-for="(detailObject, index) in hubSumListDetail" :key="`trailDetail__${index}`" class="trail-card">
         <div class="exception-queue-detail-group-title">
           <img src="../../../img/vehicle.png" class="icon-vehicle"/>
           <div class="group-vehicle-no">
@@ -269,6 +269,9 @@ export default {
 .exception-queue-detail {
   .exception-queue-detail-content {
     padding: 24px;
+    .trail-card{
+      margin-bottom: 24px;
+    }
     .exception-queue-detail-group-title {
       line-height: 62px;
       background-color: #FFFFFF;

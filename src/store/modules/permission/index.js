@@ -2,7 +2,7 @@ import {
   get,
   END_POINTS
 } from '@/api'
-import { accountMgmt, watchDutySchedule, tripTrail, anomaly, trafficFlow, focus } from '@/router/routerMap'
+import { lawSupervising, areaManage, commonService, systemManage } from '@/router/routerMap'
 
 const state = {
   homePage: '/login',
@@ -49,12 +49,10 @@ const mutations = {
     const subMenu = menuList.twoLevelResourceList
     const subMenuObj = {}
     const allSubMenu = {
-      accountMgmt,
-      watchDutySchedule,
-      tripTrail,
-      anomaly,
-      trafficFlow,
-      focus
+      lawSupervising,
+      areaManage,
+      commonService,
+      systemManage
     }
     mainMenu.forEach(item => {
       subMenuObj[item.resourceKey] = allSubMenu[item.resourceKey].filter(subMenuItem => {

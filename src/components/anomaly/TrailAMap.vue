@@ -177,6 +177,13 @@ export default {
 
 <style lang="less">
 .trail-amap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ivu-modal{
+    top: 0;
+  }
   .vehicle-trajectory-player-row {
     width: 100%;
     height: 40px;

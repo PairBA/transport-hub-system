@@ -118,7 +118,7 @@ export default {
     if (!this.hubCode) {
       this.$store.commit('updateHubCode', this.hubList[0].hubCode)
     }
-    this.focusSearch()
+    // this.focusSearch()
   },
   methods: {
     async focusSearch() {
