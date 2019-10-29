@@ -28,6 +28,7 @@
             :current="current"
             :page-size="pageSize"
             @on-change="onChange"
+            :page-size-opts="[10, 50, 100, 500]"
             @on-page-size-change="onPageSizeChange">
       </Page>
     </div>

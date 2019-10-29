@@ -63,7 +63,9 @@ export default {
       default: () => {
         return [
           {
-            show: false
+            show: true,
+            realtime: true,
+            xAxisIndex: [0]
           }
         ]
       }

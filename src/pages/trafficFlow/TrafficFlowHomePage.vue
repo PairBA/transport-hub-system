@@ -160,7 +160,7 @@ export default {
           left: '6%',
           right: '6%',
           top: 60,
-          bottom: 30,
+          bottom: 50,
           containLabel: true
         },
         series: [
