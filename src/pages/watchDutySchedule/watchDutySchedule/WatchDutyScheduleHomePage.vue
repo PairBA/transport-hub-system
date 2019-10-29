@@ -15,9 +15,18 @@
                     <div v-for="(oneItem, indexForOne) in singleDay.scheduleDetailList" :key="`singleDay_${indexForOne}`">
                       <div style="font-size: 12px; color: #4A5158">{{oneItem.scheduleName}}</div>
                       <div v-if="oneItem.scheduleWorkerList">
-                        <span :style="{ color: singleDay.scheduleDate === item.scheduleDate ? '#338FF4' : '#374254', fontSize: '14px', fontWeight: 600 }" v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
+                        <Tooltip placement="top" style="width: 100%">
+                          <div style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap">
+                            <span :style="{ color: singleDay.scheduleDate === item.scheduleDate ? '#338FF4' : '#374254', fontSize: '14px', fontWeight: 600 }" v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
                       {{worker.fullName}}
                         </span>
+                          </div>
+                          <div slot="content">
+                             <span :style="{ color: '#FFFFFF', fontSize: '14px', fontWeight: 600 }" v-for="worker in oneItem.scheduleWorkerList" :key="worker.fullName">
+                      {{worker.fullName}}
+                        </span>
+                          </div>
+                        </Tooltip>
                       </div>
                       <div style="color: #A8AAB7; font-size: 14px" v-else>
                         暂无排班
