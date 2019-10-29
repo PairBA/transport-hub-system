@@ -1,30 +1,37 @@
 <template>
-  <Modal class="trail-amap"
-         width="70"
+  <Modal class-name="trail-amap"
+         width="90"
          :footer-hide="true"
          :closable="false"
          :value="isShowModal"
          @on-visible-change="closeModal">
     <PairSpin :show="showSpin"/>
-    <el-amap ref="map" vid="illegalBoardingAMap" style="height: 350px;" :zoom="zoom" :center="center" :amap-manager="mapManager" :events="events">
-      <el-amap-marker v-for="(marker, index) in markers" :key="index+5" :position="marker.position" :icon="marker.icon" :title="marker.title" :vid="index" :events="marker.event" zIndex="100"></el-amap-marker>
-      <el-amap-marker v-if="showSliderMarker" :position="sliderMarker.position" :icon="sliderMarker.icon" :title="sliderMarker.title" zIndex="99" ></el-amap-marker>
-      <el-amap-polygon v-for="(polygon, index) in polygons" :key="`polygonTrail_${index}`" :path="polygon.path" :strokeColor="polygon.strokeColor" :strokeWeight="polygon.strokeWeight" strokeStyle="dashed" :fillOpacity="0"></el-amap-polygon>
-    </el-amap>
-    <div class="vehicle-trajectory-player-row">
-      <div @click="toggleReplay" class="vehicle-trajectory-player-btn">
-        <Icon type="ios-play" :size="12" v-show="!sliderPlaying" color="white"  style="vertical-align: top"></Icon>
-        <Icon type="ios-pause" :size="12" v-show="sliderPlaying" color="white"  style="vertical-align: top"></Icon>
+    <div v-show="!showMeterTrip">
+      <el-amap ref="map" vid="illegalBoardingAMap" style="height: 600px;" :zoom="zoom" :center="center" :amap-manager="mapManager" :events="events">
+        <el-amap-marker v-for="(marker, index) in markerCom" :key="index+5" :position="marker.position" :icon="marker.icon" :title="marker.title" :vid="index" :events="marker.event" zIndex="100"></el-amap-marker>
+        <el-amap-marker v-if="showSliderMarker" :position="sliderMarker.position" :icon="sliderMarker.icon" :title="sliderMarker.title" zIndex="99" ></el-amap-marker>
+        <el-amap-polygon v-for="(polygon, index) in polygons" :key="`polygonTrail_${index}`" :path="polygon.path" :strokeColor="polygon.strokeColor" :strokeWeight="polygon.strokeWeight" strokeStyle="dashed" :fillOpacity="0"></el-amap-polygon>
+      </el-amap>
+      <div class="vehicle-trajectory-player-row">
+        <div @click="toggleReplay" class="vehicle-trajectory-player-btn">
+          <Icon type="ios-play" :size="12" v-show="!sliderPlaying" color="white"  style="vertical-align: top"></Icon>
+          <Icon type="ios-pause" :size="12" v-show="sliderPlaying" color="white"  style="vertical-align: top"></Icon>
+        </div>
+        <div class="vehicle-trajectory-player-slider">
+          <Slider v-model="sliderValue" :max="sliderMax"></Slider>
+        </div>
+        <div class="vehicle-trajectory-player-slidertime">
+          {{ sliderTime }}
+        </div>
+        <div class="vehicle-trajectory-player-speed">
+          <PlayerSpeed :playerSpeed="playerSpeed" @updatePlayerSpeed="updatePlayerSpeed"></PlayerSpeed>
+        </div>
       </div>
-      <div class="vehicle-trajectory-player-slider">
-        <Slider v-model="sliderValue" :max="sliderMax"></Slider>
-      </div>
-      <div class="vehicle-trajectory-player-slidertime">
-        {{ sliderTime }}
-      </div>
-      <div class="vehicle-trajectory-player-speed">
-        <PlayerSpeed :playerSpeed="playerSpeed" @updatePlayerSpeed="updatePlayerSpeed"></PlayerSpeed>
-      </div>
+    </div>
+    <div v-show="showMeterTrip" class="meter-trip-map" id="meterTripTrailAMap">
+      <el-amap ref="map" vid="meterTripIllegalMap" style="height: 652px;" :zoom="zoom" :center="center" :amap-manager="meterMapManager" :events="events">
+        <el-amap-marker v-for="(marker, index) in meterTripMarkers" :key="index+10" :position="marker.position" :icon="marker.icon" :title="marker.title" :vid="index"></el-amap-marker>
+      </el-amap>
     </div>
   </Modal>
 </template>
@@ -34,7 +41,8 @@ import Vue from 'vue'
 import VueAMap from 'vue-amap'
 import { AMAP_STYLE_NORMAL } from '@/constant'
 import PlayerSpeed from '@/components/tripTrail/PlayerSpeed'
-import { sleep } from '@/utils'
+import { sleep, drawTripLine, addMarker } from '@/utils'
+import { get, END_POINTS } from '@/api'
 Vue.use(VueAMap)
 VueAMap.initAMapApiLoader({
   key: '7bfb1994e208f200c2cd63a626f74868',
@@ -75,9 +83,12 @@ export default {
   },
   data() {
     const mapManager = new VueAMap.AMapManager()
+    const meterMapManager = new VueAMap.AMapManager()
     return {
       mapManager,
+      meterMapManager,
       zoom: 12,
+      showMeterTrip: false,
       center: [104.066143, 30.573095],
       plugins: ['Scale'],
       events: {
@@ -93,7 +104,9 @@ export default {
       sliderValue: 0,
       playerSpeed: 1,
       sliderPlaying: false,
-      isShowSlider: false
+      isShowSlider: false,
+      meterTripLine: '',
+      meterTripMarkers: []
     }
   },
   computed: {
@@ -112,6 +125,18 @@ export default {
     },
     sliderTime() {
       return this.timeForGpsList[this.sliderValue]
+    },
+    markerCom() {
+      return this.markers.map(value => {
+        return {
+          ...value,
+          event: {
+            dblclick: o => {
+              this.showMeterTripMethod(value.meterTripId, value.recDate)
+            }
+          }
+        }
+      })
     }
   },
   watch: {
@@ -121,6 +146,36 @@ export default {
     isShowModal: 'fit'
   },
   methods: {
+    async showMeterTripMethod(meterTripId, recDate) {
+      this.showMeterTrip = true
+      await this.getGpsList(meterTripId, recDate)
+    },
+    async getGpsList(meterTripId, recDate) {
+      const gpsListObject = await get(END_POINTS.GET_GPS_LIST + `?meterTripId=${meterTripId}&recDate=${recDate}&driverType=TAXI`)
+      if (gpsListObject.code === 2001) {
+        this.meterTripMarkers = []
+        const otGpsHistList = gpsListObject.data.otGpsHistList
+        if (otGpsHistList.length) {
+          this.renderMeterTripLine(drawTripLine(otGpsHistList, '#6AA84F'))
+          let markerStart = addMarker(otGpsHistList[0], require('@/img/tripDetail/icon_green.png'), '上客点')
+          let markerEnd = addMarker(otGpsHistList[otGpsHistList.length - 1], require('@/img/tripDetail/icon_red.png'), '下客点')
+          this.meterTripMarkers.push(markerStart)
+          this.meterTripMarkers.push(markerEnd)
+        }
+      } else {
+        this.meterTripMarkers = []
+        this.renderMeterTripLine('')
+      }
+    },
+    renderMeterTripLine(meterTripLine) {
+      let map = this.meterMapManager.getMap()
+      console.log(meterTripLine)
+      this.meterTripLine = new AMap.Polyline(meterTripLine)
+      map.add(this.meterTripLine)
+      this.$nextTick(() => {
+        map.setFitView([this.meterTripLine])
+      })
+    },
     fit() {
       if (this.isShowModal) {
         this.$nextTick(() => {
@@ -205,7 +260,10 @@ export default {
     cursor: pointer;
   }
   .vehicle-trajectory-player-slider {
-    width: 75%;
+    width: 85%;
+    .ivu-slider-wrap {
+      margin: 18px 0;
+    }
   }
   .vehicle-trajectory-player-slidertime {
     text-align: center;
