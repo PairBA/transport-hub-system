@@ -27,11 +27,12 @@
           </TimePicker>
         </FormItem>
         <FormItem :label="$t('sysManage.meterTripSearch.timeFrame')">
-          <RadioGroup v-model="orgMin" type="button">
-            <Radio label="5">5 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-            <Radio label="15">15 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-            <Radio label="30">30 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-          </RadioGroup>
+          <Slider v-model="orgMin" :min="0" :max="30" show-tip="always"></Slider>
+          <div style="position: relative">
+            <div style="position: absolute; left: 50%;transform: translateX(-50%)">15分钟</div>
+            <div style="float: left">0分钟</div>
+            <div style="float: right">30分钟</div>
+          </div>
         </FormItem>
         <FormItem :label="$t('sysManage.queryBar.destLocName')">
           <input v-model="mtsDestLocName"
@@ -60,16 +61,12 @@
           </TimePicker>
         </FormItem>
         <FormItem :label="$t('sysManage.meterTripSearch.timeFrame')">
-          <RadioGroup v-if="destTimeDisabled" v-model="destMin" type="button">
-            <Radio label="5" disabled>5 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-            <Radio label="15" disabled>15 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-            <Radio label="30" disabled>30 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-          </RadioGroup>
-          <RadioGroup v-else v-model="destMin" type="button">
-            <Radio label="5">5 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-            <Radio label="15">15 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-            <Radio label="30">30 {{ $t('sysManage.meterTripSearch.minute') }}</Radio>
-          </RadioGroup>
+          <Slider v-if="!destTimeDisabled" v-model="destMin" :min="0" :max="30" show-tip="always"></Slider>
+          <div style="position: relative">
+            <div style="position: absolute; left: 50%;transform: translateX(-50%)">15分钟</div>
+            <div style="float: left">0分钟</div>
+            <div style="float: right">30分钟</div>
+          </div>
         </FormItem>
         <FormItem>
           <Checkbox v-model="closeMeter">
@@ -341,6 +338,10 @@ export default {
     color: #495060;
     position: relative;
     cursor: text;
+  }
+
+  .ivu-slider-wrap {
+    margin: 8px 0;
   }
 
   .ivu-date-picker {

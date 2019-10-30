@@ -408,5 +408,12 @@ export default {
   .amap-marker-label {
     display: none;
   }
+  .amap-rectangle-drag {
+    width: 16px;
+    height: 16px;
+    background: url('../../img/point.png');
+    cursor: pointer;
+    background-size:100% 100%;
+  }
 }
 </style>
