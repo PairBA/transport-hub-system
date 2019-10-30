@@ -1,6 +1,8 @@
 <template>
   <div>
-    待开发
+    <ContentLayout>
+      <h2>待开发...</h2>
+    </ContentLayout>
   </div>
 </template>
 
