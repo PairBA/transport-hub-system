@@ -1,6 +1,6 @@
 <template>
-  <Modal class="real-location-amap-modal"
-         width="70"
+  <Modal class-name="real-location-amap-modal"
+         width="90"
          :footer-hide="true"
          :closable="false"
          :value="isShowModal"
@@ -26,7 +26,7 @@
     </Row>
     <el-amap ref="realLocationAmap"
              vid="realLocationAmap"
-             style="height: 300px;"
+             style="height: 550px;"
              :amap-manager="mapManager"
              :zoom="zoom"
              :center="center"
@@ -105,6 +105,8 @@ export default {
       if (!result) {
         this.lastTime = ''
         this.$emit('on-visible-change', result)
+        const map = this.mapManager.getMap()
+        map.clearMap()
         if (this.intervalId) {
           clearInterval(this.intervalId)
         }
@@ -170,6 +172,13 @@ export default {
 
 <style lang="less">
 .real-location-amap-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ivu-modal{
+    top: 0;
+  }
   .real-location-amap-modal-info {
     margin-bottom: 10px;
     font-size: 14px;
