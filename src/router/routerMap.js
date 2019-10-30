@@ -62,13 +62,13 @@ export const lawSupervising = [
   {
     name: '未注册车',
     path: '/lawSupervising/noVehicleHomePage',
-    search: '',
+    search: 'NoVehicleCondition',
     component: NoVehicleHomePage
   },
   {
     name: '疑似克隆车',
     path: '/lawSupervising/cloneVehicleHomePage',
-    search: '',
+    search: 'CloneVehicleCondition',
     component: CloneVehicleHomePage
   }
 ]
