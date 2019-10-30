@@ -117,7 +117,16 @@ export default {
   methods: {
     goToDetail(vehicleNo) {
       this.$store.commit('permission/updateOpenNamesFromMain', '/anomaly/gpsOnlineHomePage')
-      this.$router.push({ name: 'GPS在线时长', query: { vehicleNo } })
+      this.$router.push(
+        {
+          name: 'GPS在线时长',
+          query: {
+            vehicleNo,
+            startDate: new Date(this.daterange[0]),
+            endDate: new Date(this.daterange[1])
+          }
+        }
+      )
     },
     goSearch() {
       this.getGpsErrorStatList()

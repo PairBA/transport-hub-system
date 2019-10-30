@@ -1,6 +1,6 @@
 // 异常告警
-const GateVehicleHomePage = () => import('@/pages/anomaly/gateVehicle/GateVehicleHomePage')
-const GpsOnlineTimeHomePage = () => import('@/pages/anomaly/gpsOnlineTime/GpsOnlineTimeHomePage')
+// const GateVehicleHomePage = () => import('@/pages/anomaly/gateVehicle/GateVehicleHomePage')
+
 // 重点关注
 const VehicleQueryHomePage = () => import('@/pages/focus/vehicleQuery/VehicleQueryHomePage')
 // 执法监察
@@ -156,20 +156,20 @@ export const focus = [
   }
 ]
 
-export const anomaly = [
-  {
-    name: '闸口异常车辆',
-    path: '/anomaly/gateVehicleHomePage',
-    search: 'GateVehicleCondition',
-    component: GateVehicleHomePage
-  },
-  {
-    name: 'GPS在线时长',
-    path: '/anomaly/gpsOnlineHomePage',
-    search: 'GpsOnlineTimeCondition',
-    component: GpsOnlineTimeHomePage
-  }
-]
+// export const anomaly = [
+//   {
+//     name: '闸口异常车辆',
+//     path: '/anomaly/gateVehicleHomePage',
+//     search: 'GateVehicleCondition',
+//     component: GateVehicleHomePage
+//   },
+//   {
+//     name: 'GPS在线时长',
+//     path: '/anomaly/gpsOnlineHomePage',
+//     search: 'GpsOnlineTimeCondition',
+//     component: GpsOnlineTimeHomePage
+//   }
+// ]
 
 export default [
   ...lawSupervising,

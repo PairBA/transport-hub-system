@@ -12,7 +12,7 @@
                      :tooltip="GPSGraphData.tooltip"
                      :grid="GPSGraphData.grid"
                      :color="GPSGraphData.color"
-                     style="height: 350px;width: 100%"></PairECharts>
+                     style="height: 350px;width: 100%"></PairECharts>j
       </div>
     </ContentLayout>
   </div>
@@ -46,6 +46,10 @@ export default {
       this.showEchart = true
     })
     const vehicleNo = this.$route.query.vehicleNo
+    const startDate = this.$route.query.startDate
+    const endDate = this.$route.query.endDate
+    this.$store.commit('gpsOnlineTime/updateStartDate', startDate)
+    this.$store.commit('gpsOnlineTime/updateEndDate', endDate)
     if (vehicleNo) {
       this.$store.commit('gpsOnlineTime/updateVehicleNo', vehicleNo || '')
       this.goSearch()
