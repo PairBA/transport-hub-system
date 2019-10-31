@@ -16,6 +16,9 @@
               <span class="meter-trip-search-car-title">
                 {{$t("sysManage.meterTripSearch.itineraryRecord")}}
               </span>
+              <div style="float: right; letter-spacing: 4px;font-size: 16px;margin-right: 24px;margin-top: 4px">
+                共{{total}}条
+              </div>
             </Row>
             <div class="meter-trip-search-car-line"></div>
             <div class="meter-trip-search-itemlist">
