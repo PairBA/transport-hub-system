@@ -6,6 +6,28 @@
          :value="isShowModal"
          @on-visible-change="closeModal">
     <PairSpin :show="showSpin"/>
+    <Row class="trail-amap-modal-info" v-if="type === 'illegal'">
+      <Col span="6">
+        进场时间：{{data ? dateFormat(data.timeIn) : ''}}
+      </Col>
+      <Col span="6">
+        发车时间：{{data ? dateFormat(data.timeOn) : ''}}
+      </Col>
+      <Col span="6">
+        出场时间：{{data ? dateFormat(data.timeOut) : ''}}
+      </Col>
+    </Row>
+    <Row class="trail-amap-modal-info" v-if="type === 'cut'">
+      <Col span="6">
+        发车时间：{{data ? dateFormat(data.timeOn) : ''}}
+      </Col>
+      <Col span="6">
+        等待时间：{{data.timeWait}}
+      </Col>
+      <Col span="6">
+        平均等待时间：{{data.avgTimeWait}}
+      </Col>
+    </Row>
     <div v-show="!showMeterTrip">
       <el-amap ref="map" vid="illegalBoardingAMap" style="height: 600px;" :zoom="zoom" :center="center" :amap-manager="mapManager" :events="events">
         <el-amap-marker v-for="(marker, index) in markerCom" :key="index+5" :position="marker.position" :icon="marker.icon" :title="marker.title" :vid="index" :events="marker.event" zIndex="100"></el-amap-marker>
@@ -41,7 +63,7 @@ import Vue from 'vue'
 import VueAMap from 'vue-amap'
 import { AMAP_STYLE_NORMAL } from '@/constant'
 import PlayerSpeed from '@/components/tripTrail/PlayerSpeed'
-import { sleep, drawTripLine, addMarker } from '@/utils'
+import { sleep, drawTripLine, addMarker, dateFormat } from '@/utils'
 import { get, END_POINTS } from '@/api'
 Vue.use(VueAMap)
 VueAMap.initAMapApiLoader({
@@ -56,6 +78,14 @@ export default {
     PlayerSpeed
   },
   props: {
+    data: {
+      type: Object,
+      default: () => ''
+    },
+    type: {
+      type: String,
+      default: () => ''
+    },
     isShowModal: {
       type: Boolean,
       required: true
@@ -146,6 +176,9 @@ export default {
     isShowModal: 'fit'
   },
   methods: {
+    dateFormat(data) {
+      return dateFormat(new Date(data), 'yyyy-MM-dd hh:mm')
+    },
     async showMeterTripMethod(meterTripId, recDate) {
       this.showMeterTrip = true
       await this.getGpsList(meterTripId, recDate)
@@ -274,6 +307,12 @@ export default {
   }
   .vehicle-trajectory-player-speed {
     margin: auto;
+  }
+  .trail-amap-modal-info {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px #E9E9E9 solid;
   }
 }
 </style>

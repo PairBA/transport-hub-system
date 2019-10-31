@@ -28,6 +28,8 @@
                :polylines="polylines"
                :allGpsList="hubEventListObject.allGpsList || []"
                :timeForGpsList="hubEventListObject.timeForGpsList || []"
+               :type="'illegal'"
+               :data="modalData"
                :markers="markers"
                @on-visible-change="doCloseModal"/>
     <FocusModal :showFocusModal = 'showFocusModal'
@@ -62,7 +64,8 @@ export default {
       polygons: [],
       polylines: [],
       markers: [],
-      isFocus: false
+      isFocus: false,
+      modalData: {}
     }
   },
   computed: {
@@ -159,6 +162,7 @@ export default {
       this.showFocusModal = result
     },
     async doShowModal(row) {
+      this.modalData = row
       await this.getTransHubPolygonArea()
       const hubEventListObject = await get(END_POINTS.GET_HUB_EVENT_LIST + `?hubTrailId=${row.hubTrailId}&driverType=TAXI`)
       if (hubEventListObject.success) {
