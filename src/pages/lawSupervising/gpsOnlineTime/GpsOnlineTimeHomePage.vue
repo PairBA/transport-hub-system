@@ -12,7 +12,7 @@
                      :tooltip="GPSGraphData.tooltip"
                      :grid="GPSGraphData.grid"
                      :color="GPSGraphData.color"
-                     style="height: 350px;width: 100%"></PairECharts>j
+                     style="height: 350px;width: 100%"></PairECharts>
       </div>
     </ContentLayout>
   </div>
@@ -115,7 +115,7 @@ export default {
           left: '6%',
           right: '6%',
           top: 60,
-          bottom: 30,
+          bottom: 50,
           containLabel: true
         },
         series: [
