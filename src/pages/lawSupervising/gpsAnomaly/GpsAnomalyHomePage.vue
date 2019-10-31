@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     goToDetail(vehicleNo) {
-      this.$store.commit('permission/updateOpenNamesFromMain', '/anomaly/gpsOnlineHomePage')
+      this.$store.commit('permission/updateOpenNamesFromMain', '/lawSupervising/gpsOnlineHomePage')
       this.$router.push(
         {
           name: 'GPS在线时长',

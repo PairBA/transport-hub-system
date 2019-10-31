@@ -2,15 +2,15 @@ import routerMap from '@/router/routerMap'
 const MainPage = () => import('@/pages/MainPage')
 const Login = () => import('@/pages/Login')
 const NotFound = () => import('@/pages/NotFound')
-const AccountMgmtAddPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtAddPage')
-const AccountMgmtEditPage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtEditPage')
-const RoleMgmtAddPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtAddPage')
-const RoleMgmtEditPage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtEditPage')
-const ScheduleAddPage = () => import('@/pages/watchDutySchedule/schedule/ScheduleAddPage')
-const ScheduleEditPage = () => import('@/pages/watchDutySchedule/schedule/ScheduleEditPage')
+const AccountMgmtAddPage = () => import('@/pages/systemManage/accountMgmt/AccountMgmtAddPage')
+const AccountMgmtEditPage = () => import('@/pages/systemManage/accountMgmt/AccountMgmtEditPage')
+const RoleMgmtAddPage = () => import('@/pages/systemManage/roleMgmt/RoleMgmtAddPage')
+const RoleMgmtEditPage = () => import('@/pages/systemManage/roleMgmt/RoleMgmtEditPage')
+const ScheduleAddPage = () => import('@/pages/systemManage/schedule/ScheduleAddPage')
+const ScheduleEditPage = () => import('@/pages/systemManage/schedule/ScheduleEditPage')
 const ExceptionQueueDetail = () => import('@/pages/lawSupervising/exceptionQueue/ExceptionQueueDetail')
 const IllegalBoardingDetail = () => import('@/pages/lawSupervising/illegalBoarding/IllegalBoardingDetail')
-const GpsOnlineTimeHomePage = () => import('@/pages/anomaly/gpsOnlineTime/GpsOnlineTimeHomePage')
+const GpsOnlineTimeHomePage = () => import('@/pages/lawSupervising/gpsOnlineTime/GpsOnlineTimeHomePage')
 export const routerCommon = {
   path: '/',
   component: MainPage,

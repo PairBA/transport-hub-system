@@ -9,21 +9,21 @@ const NoVehicleHomePage = () => import('@/pages/lawSupervising/noVehicle/NoVehic
 const CloneVehicleHomePage = () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleHomePage')
 
 // 区域管理
-const TrafficFlowHomePage = () => import('@/pages/trafficFlow/TrafficFlowHomePage')
-const GateVehicleSearchHomePage = () => import('@/pages/trafficFlow/gateVehicle/GateVehicleHomePage')
-const VehicleTrajectoryHomePage = () => import('@/pages/tripTrail/vehicleTrajectory/VehicleTrajectoryHomePage')
+const TrafficFlowHomePage = () => import('@/pages/areaManage/trafficFlow/TrafficFlowHomePage')
+const GateVehicleSearchHomePage = () => import('@/pages/areaManage/gateVehicle/GateVehicleHomePage')
+const VehicleTrajectoryHomePage = () => import('@/pages/areaManage/vehicleTrajectory/VehicleTrajectoryHomePage')
 const ActiveSafetyHomePage = () => import('@/pages/areaManage/activeSafety/ActiveSafetyHomePage')
 const CapacitySchedulingHomePage = () => import('@/pages/areaManage/capacityScheduling/CapacitySchedulingHomePage')
 
 // 公共服务
 const ShortTripHomePage = () => import('@/pages/commonService/shortTrip/ShortTripHomePage')
-const SearchTripHomePage = () => import('@/pages/tripTrail/searchTrip/SearchTripHomePage')
+const SearchTripHomePage = () => import('@/pages/commonService/searchTrip/SearchTripHomePage')
 
 // 系统设置
-const AccountMgmtHomePage = () => import('@/pages/accountMgmt/accountMgmt/AccountMgmtHomePage')
-const RoleMgmtHomePage = () => import('@/pages/accountMgmt/roleMgmt/RoleMgmtHomePage')
-const WatchDutyScheduleHomePage = () => import('@/pages/watchDutySchedule/watchDutySchedule/WatchDutyScheduleHomePage')
-const ScheduleHomePage = () => import('@/pages/watchDutySchedule/schedule/ScheduleHomePage')
+const AccountMgmtHomePage = () => import('@/pages/systemManage/accountMgmt/AccountMgmtHomePage')
+const RoleMgmtHomePage = () => import('@/pages/systemManage/roleMgmt/RoleMgmtHomePage')
+const WatchDutyScheduleHomePage = () => import('@/pages/systemManage/watchDutySchedule/WatchDutyScheduleHomePage')
+const ScheduleHomePage = () => import('@/pages/systemManage/schedule/ScheduleHomePage')
 export const lawSupervising = [
   {
     name: 'GPS异常',
