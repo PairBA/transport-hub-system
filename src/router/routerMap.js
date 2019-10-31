@@ -1,14 +1,10 @@
-// 异常告警
-// const GateVehicleHomePage = () => import('@/pages/anomaly/gateVehicle/GateVehicleHomePage')
-
-// 重点关注
-const VehicleQueryHomePage = () => import('@/pages/focus/vehicleQuery/VehicleQueryHomePage')
 // 执法监察
-const GpsAnomalyHomePage = () => import('@/pages/anomaly/gpsAnomaly/GpsAnomalyHomePage')
+const GpsAnomalyHomePage = () => import('@/pages/lawSupervising/gpsAnomaly/GpsAnomalyHomePage')
 const MeterTripErrorHomePage = () => import('@/pages/lawSupervising/meterTripError/MeterTripErrorHomePage')
-const FocusHomePage = () => import('@/pages/focus/focus/FocusHomePage')
-const ExceptionQueueHomePage = () => import('@/pages/anomaly/exceptionQueue/ExceptionQueueHomePage')
-const IllegalBoardingHomePage = () => import('@/pages/anomaly/illegalBoarding/IllegalBoardingHomePage')
+const FocusHomePage = () => import('@/pages/lawSupervising/focus/FocusHomePage')
+const VehicleQueryHomePage = () => import('@/pages/lawSupervising/vehicleQuery/VehicleQueryHomePage')
+const ExceptionQueueHomePage = () => import('@/pages/lawSupervising/exceptionQueue/ExceptionQueueHomePage')
+const IllegalBoardingHomePage = () => import('@/pages/lawSupervising/illegalBoarding/IllegalBoardingHomePage')
 const NoVehicleHomePage = () => import('@/pages/lawSupervising/noVehicle/NoVehicleHomePage')
 const CloneVehicleHomePage = () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleHomePage')
 
@@ -46,6 +42,12 @@ export const lawSupervising = [
     path: '/lawSupervising/FocusHomePage',
     search: 'FocusSearch',
     component: FocusHomePage
+  },
+  {
+    name: '加入重点关注',
+    path: '/lawSupervising/VehicleQueryHomePage',
+    search: 'VehicleQuerySearch',
+    component: VehicleQueryHomePage
   },
   {
     name: '异常排队',
@@ -146,30 +148,6 @@ export const systemManage = [
     component: RoleMgmtHomePage
   }
 ]
-
-export const focus = [
-  {
-    name: '加入重点关注',
-    path: '/focus/VehicleQueryHomePage',
-    search: 'VehicleQuerySearch',
-    component: VehicleQueryHomePage
-  }
-]
-
-// export const anomaly = [
-//   {
-//     name: '闸口异常车辆',
-//     path: '/anomaly/gateVehicleHomePage',
-//     search: 'GateVehicleCondition',
-//     component: GateVehicleHomePage
-//   },
-//   {
-//     name: 'GPS在线时长',
-//     path: '/anomaly/gpsOnlineHomePage',
-//     search: 'GpsOnlineTimeCondition',
-//     component: GpsOnlineTimeHomePage
-//   }
-// ]
 
 export default [
   ...lawSupervising,

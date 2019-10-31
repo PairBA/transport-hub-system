@@ -1,5 +1,5 @@
 <template>
-  <div class="exception-queue__condition">
+  <div class="no-vehicle__condition">
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="交通枢纽：">
@@ -239,7 +239,7 @@ export default {
 </script>
 
 <style lang="less">
-.exception-queue__condition {
+.no-vehicle__condition {
   .ivu-date-picker {
     width: 49%;
   }
