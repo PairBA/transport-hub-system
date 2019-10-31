@@ -122,8 +122,8 @@ export default {
           name: 'GPS在线时长',
           query: {
             vehicleNo,
-            startDate: new Date(this.daterange[0]),
-            endDate: new Date(this.daterange[1])
+            startDate: new Date(this.daterange[0]).getTime(),
+            endDate: new Date(this.daterange[1]).getTime()
           }
         }
       )

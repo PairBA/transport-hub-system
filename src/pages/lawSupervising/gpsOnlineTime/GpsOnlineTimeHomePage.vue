@@ -48,8 +48,8 @@ export default {
     const vehicleNo = this.$route.query.vehicleNo
     const startDate = this.$route.query.startDate
     const endDate = this.$route.query.endDate
-    this.$store.commit('gpsOnlineTime/updateStartDate', startDate)
-    this.$store.commit('gpsOnlineTime/updateEndDate', endDate)
+    this.$store.commit('gpsOnlineTime/updateStartDate', new Date(startDate))
+    this.$store.commit('gpsOnlineTime/updateEndDate', new Date(endDate))
     if (vehicleNo) {
       this.$store.commit('gpsOnlineTime/updateVehicleNo', vehicleNo || '')
       this.goSearch()
