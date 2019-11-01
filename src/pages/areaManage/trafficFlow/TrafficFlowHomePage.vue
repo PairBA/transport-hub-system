@@ -175,9 +175,12 @@ export default {
           }
         },
         legend: {
-          data: ['闸口车辆数', '发车量', '闸口异常车次', '空车出场车次'],
           itemWidth: 10,
-          itemHeight: 10
+          itemHeight: 10,
+          data: ['闸口车辆数', '发车量', '闸口异常车次', '空车出场车次'],
+          textStyle: {
+            padding: [0, 24, 0, 0]
+          }
         },
         grid: {
           left: '6%',
@@ -190,6 +193,8 @@ export default {
           {
             name: '闸口车辆数',
             type: 'bar',
+            barGap: '20%',
+            barCategoryGap: '30%',
             smooth: false,
             color: '#99C9FF',
             showSymbol: false,
@@ -203,6 +208,8 @@ export default {
             name: '发车量',
             stack: '出场',
             type: 'bar',
+            barGap: '20%',
+            barCategoryGap: '30%',
             smooth: false,
             color: '#70D5A9',
             showSymbol: false,
@@ -216,6 +223,8 @@ export default {
             name: '闸口异常车次',
             stack: '出场',
             type: 'bar',
+            barGap: '20%',
+            barCategoryGap: '30%',
             smooth: false,
             color: '#8BEBFE',
             showSymbol: false,
@@ -229,6 +238,8 @@ export default {
             name: '空车出场车次',
             stack: '出场',
             type: 'bar',
+            barGap: '20%',
+            barCategoryGap: '30%',
             smooth: false,
             color: '#FFD478',
             showSymbol: false,

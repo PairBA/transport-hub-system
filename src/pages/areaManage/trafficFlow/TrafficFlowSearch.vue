@@ -187,11 +187,11 @@ export default {
             xAxis.push(dateFormat(new Date(item.time), 'yyyy-MM-dd'))
           }
           yGate.push(item.gateVehicle)
-          yNormal.push(item.normalVehicle)
+          yNormal.push(item.sumOutHired) // 以重车出场代替正常发车量-BY 文勇
           yExp.push(item.countExpVehicle)
           yOutAvl.push(item.sumOutAvl)
           gateVehicleNum += item.gateVehicle
-          normalVehicleNum += item.normalVehicle
+          normalVehicleNum += item.sumOutHired
           countExpVehicleNum += item.countExpVehicle
           sumOutAvlNum += item.sumOutAvl
         })
