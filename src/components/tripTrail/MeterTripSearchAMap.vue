@@ -1,5 +1,6 @@
 <template>
   <div class="meter-trip-search-amap" id="tripSearchAMap">
+    <Alert show-icon v-if="orgBounds.length || destBounds.length" class="action-notice">拖拽圆点可以修改范围</Alert>
     <el-amap ref="meterTripSearchAmap"
              vid="meterTripSearchAmap"
              :center="amapCenter"
@@ -405,6 +406,14 @@ export default {
 <style lang="less">
 .meter-trip-search-amap {
   height: 600px;
+  position: relative;
+  .action-notice {
+    position: absolute;
+    width: fit-content;
+    left: 12px;
+    top: 12px;
+    z-index: 10
+  }
   .amap-marker-label {
     display: none;
   }

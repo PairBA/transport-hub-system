@@ -89,11 +89,11 @@ export default {
           }
         },
         {
-          title: '等待时间',
+          title: '等待时间(分钟)',
           key: 'timeWait'
         },
         {
-          title: '平均等待时间',
+          title: '平均等待时间(分钟)',
           key: 'avgTimeWait'
         },
         {

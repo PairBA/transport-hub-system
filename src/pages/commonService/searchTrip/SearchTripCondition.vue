@@ -27,7 +27,8 @@
           </TimePicker>
         </FormItem>
         <FormItem :label="$t('sysManage.meterTripSearch.timeFrame')">
-          <Slider v-model="orgMin" :min="0" :max="30" show-tip="always"></Slider>
+          <div class="current-range">{{ orgMin }}分钟</div>
+          <Slider v-model="orgMin" :min="0" :max="30"></Slider>
           <div style="position: relative">
             <div style="position: absolute; left: 50%;transform: translateX(-50%)">15分钟</div>
             <div style="float: left">0分钟</div>
@@ -61,7 +62,8 @@
           </TimePicker>
         </FormItem>
         <FormItem :label="$t('sysManage.meterTripSearch.timeFrame')">
-          <Slider v-if="!destTimeDisabled" v-model="destMin" :min="0" :max="30" show-tip="always"></Slider>
+          <div class="current-range">{{ destMin }}分钟</div>
+          <Slider v-if="!destTimeDisabled" v-model="destMin" :min="0" :max="30"></Slider>
           <div style="position: relative">
             <div style="position: absolute; left: 50%;transform: translateX(-50%)">15分钟</div>
             <div style="float: left">0分钟</div>
@@ -356,6 +358,11 @@ export default {
     .ivu-radio-wrapper-checked {
       color: #2A9EF6;
     }
+  }
+  .current-range {
+    position: absolute;
+    top: -41px;
+    left: 73px;
   }
 }
 </style>

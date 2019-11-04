@@ -22,10 +22,10 @@
         发车时间：{{data ? dateFormat(data.timeOn) : ''}}
       </Col>
       <Col span="6">
-        等待时间：{{data.timeWait}}
+        等待时间(分钟)：{{data.timeWait}}
       </Col>
       <Col span="6">
-        平均等待时间：{{data.avgTimeWait}}
+        平均等待时间(分钟)：{{data.avgTimeWait}}
       </Col>
     </Row>
     <div v-show="!showMeterTrip">
@@ -51,6 +51,7 @@
       </div>
     </div>
     <div v-show="showMeterTrip" class="meter-trip-map" id="meterTripTrailAMap">
+      <Button class="back-btn" @click="goBack">返回</Button>
       <el-amap ref="map" vid="meterTripIllegalMap" style="height: 652px;" :zoom="zoom" :center="center" :amap-manager="meterMapManager" :events="events">
         <el-amap-marker v-for="(marker, index) in meterTripMarkers" :key="index+10" :position="marker.position" :icon="marker.icon" :title="marker.title" :vid="index"></el-amap-marker>
       </el-amap>
@@ -176,6 +177,9 @@ export default {
     isShowModal: 'fit'
   },
   methods: {
+    goBack() {
+      this.showMeterTrip = false
+    },
     dateFormat(data) {
       return dateFormat(new Date(data), 'yyyy-MM-dd hh:mm')
     },
@@ -202,7 +206,7 @@ export default {
     },
     renderMeterTripLine(meterTripLine) {
       let map = this.meterMapManager.getMap()
-      console.log(meterTripLine)
+      map.remove(this.meterTripLine)
       this.meterTripLine = new AMap.Polyline(meterTripLine)
       map.add(this.meterTripLine)
       this.$nextTick(() => {
@@ -293,7 +297,7 @@ export default {
     cursor: pointer;
   }
   .vehicle-trajectory-player-slider {
-    width: 85%;
+    width: 75%;
     .ivu-slider-wrap {
       margin: 18px 0;
     }
@@ -313,6 +317,15 @@ export default {
     font-size: 14px;
     font-weight: bold;
     border-bottom: 1px #E9E9E9 solid;
+  }
+  .meter-trip-map {
+    position: relative;
+    .back-btn {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 100;
+    }
   }
 }
 </style>
