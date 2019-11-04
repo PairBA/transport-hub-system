@@ -171,11 +171,15 @@ export default {
         this.$store.commit('search/updateTraFloObjEchartsInfo', null)
         this.$store.commit('search/updateTraFloObjGateVehicleNum', 0)
         this.$store.commit('search/updateTraFloObjNormalVehicleNum', 0)
-        let xAxis = []
-        let yGate = []
-        let yNormal = []
+        let xAxis = [] // 时间轴
+        let yGate = [] // 闸口车辆
+        let yNormal = [] // 发车量
+        let yExp = [] // 异常车次
+        let yOutAvl = [] // 空车出场车次
         let gateVehicleNum = 0
         let normalVehicleNum = 0
+        let countExpVehicleNum = 0
+        let sumOutAvlNum = 0
         result.data.forEach(item => {
           if (this.countType === 'HOUR') { // 按小时统计
             xAxis.push(dateFormat(new Date(item.time), 'yyyy-MM-dd hh:mm'))
@@ -183,16 +187,24 @@ export default {
             xAxis.push(dateFormat(new Date(item.time), 'yyyy-MM-dd'))
           }
           yGate.push(item.gateVehicle)
-          yNormal.push(item.normalVehicle)
-          gateVehicleNum = gateVehicleNum + item.gateVehicle
-          normalVehicleNum = normalVehicleNum + item.normalVehicle
+          yNormal.push(item.sumOutHired) // 以重车出场代替正常发车量-BY 文勇
+          yExp.push(item.countExpVehicle)
+          yOutAvl.push(item.sumOutAvl)
+          gateVehicleNum += item.gateVehicle
+          normalVehicleNum += item.sumOutHired
+          countExpVehicleNum += item.countExpVehicle
+          sumOutAvlNum += item.sumOutAvl
         })
         this.$store.commit('search/updateTraFloObjGateVehicleNum', gateVehicleNum)
         this.$store.commit('search/updateTraFloObjNormalVehicleNum', normalVehicleNum)
+        this.$store.commit('search/updateTraFloObjCountExpVehicleNum', countExpVehicleNum)
+        this.$store.commit('search/updateTraFloObjSumOutAvlNum', sumOutAvlNum)
         this.$store.commit('search/updateTraFloObjEchartsInfo', {
           xAxis: xAxis,
           yGate: yGate,
-          yNormal: yNormal
+          yNormal: yNormal,
+          yExp: yExp,
+          yOutAvl: yOutAvl
         })
         // 构造echarts数据结束
         // 构造表格前端分页数据开始

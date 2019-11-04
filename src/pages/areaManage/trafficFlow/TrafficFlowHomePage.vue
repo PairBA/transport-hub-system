@@ -27,6 +27,12 @@
               <span class="traffic-flow-count-info-span">
                 发车量总数：{{normalVehicleNum}}（车次）
               </span>
+              <span class="traffic-flow-count-info-span">
+                闸口异常总数：{{countExpVehicleNum}}（车次）
+              </span>
+              <span class="traffic-flow-count-info-span">
+                空车出场总数：{{sumOutAvlNum}}（车次）
+              </span>
             </div>
             <div>
               <Table :columns="columns"
@@ -70,6 +76,12 @@ export default {
     normalVehicleNum() {
       return this.$store.state.search.traFloObj.normalVehicleNum
     },
+    countExpVehicleNum() {
+      return this.$store.state.search.traFloObj.countExpVehicleNum
+    },
+    sumOutAvlNum() {
+      return this.$store.state.search.traFloObj.sumOutAvlNum
+    },
     echartsInfo() {
       return this.$store.state.search.traFloObj.echartsInfo
     },
@@ -102,6 +114,16 @@ export default {
           title: '发车量',
           key: 'normalVehicle',
           tooltip: true
+        },
+        {
+          title: '闸口异常',
+          key: 'countExpVehicle',
+          tooltip: true
+        },
+        {
+          title: '空车出场',
+          key: 'sumOutAvl',
+          tooltip: true
         }
       ]
     },
@@ -111,7 +133,7 @@ export default {
           type: 'category',
           data: this.echartsInfo ? this.echartsInfo.xAxis : [],
           name: '时间',
-          boundaryGap: false,
+          boundaryGap: true,
           nameTextStyle: {
             fontSize: 16
           },
@@ -141,10 +163,10 @@ export default {
           },
           formatter: params => {
             if (params && params.length) {
-              let title = params[0].axisValue + '<br />'
+              let title = params[0].axisValue + '（车次）<br />'
               let content = ''
               params.forEach(item => {
-                content = `${content}${item.marker}${item.seriesName}: ${item.data} （车次）<br />`
+                content = `${content}${item.marker}${item.seriesName}: ${item.data} <br />`
               })
               return `${title}${content}`
             } else {
@@ -153,8 +175,12 @@ export default {
           }
         },
         legend: {
-          data: ['闸口车辆数', '发车量'],
-          right: '20%'
+          itemWidth: 10,
+          itemHeight: 10,
+          data: ['闸口车辆数', '发车量', '闸口异常车次', '空车出场车次'],
+          textStyle: {
+            padding: [0, 24, 0, 0]
+          }
         },
         grid: {
           left: '6%',
@@ -166,12 +192,13 @@ export default {
         series: [
           {
             name: '闸口车辆数',
-            type: 'line',
+            type: 'bar',
+            barGap: '20%',
+            barCategoryGap: '30%',
             smooth: false,
-            color: '#6BB523',
+            color: '#99C9FF',
             showSymbol: false,
             hoverAnimation: false,
-            // symbolSize: 25,
             lineStyle: {
               width: 3
             },
@@ -179,16 +206,48 @@ export default {
           },
           {
             name: '发车量',
-            type: 'line',
+            stack: '出场',
+            type: 'bar',
+            barGap: '20%',
+            barCategoryGap: '30%',
             smooth: false,
-            color: '#1F88E5',
+            color: '#70D5A9',
             showSymbol: false,
             hoverAnimation: false,
-            // symbolSize: 25,
             lineStyle: {
               width: 3
             },
             data: this.echartsInfo ? this.echartsInfo.yNormal : []
+          },
+          {
+            name: '闸口异常车次',
+            stack: '出场',
+            type: 'bar',
+            barGap: '20%',
+            barCategoryGap: '30%',
+            smooth: false,
+            color: '#8BEBFE',
+            showSymbol: false,
+            hoverAnimation: false,
+            lineStyle: {
+              width: 3
+            },
+            data: this.echartsInfo ? this.echartsInfo.yExp : []
+          },
+          {
+            name: '空车出场车次',
+            stack: '出场',
+            type: 'bar',
+            barGap: '20%',
+            barCategoryGap: '30%',
+            smooth: false,
+            color: '#FFD478',
+            showSymbol: false,
+            hoverAnimation: false,
+            lineStyle: {
+              width: 3
+            },
+            data: this.echartsInfo ? this.echartsInfo.yOutAvl : []
           }
         ]
       }

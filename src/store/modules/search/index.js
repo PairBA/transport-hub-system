@@ -15,6 +15,8 @@ const state = {
     echartsInfo: null, // echarts的数据
     gateVehicleNum: 0, // 总闸口车辆数
     normalVehicleNum: 0, // 总发车辆
+    countExpVehicleNum: 0, // 异常车次
+    sumOutAvlNum: 0, // 空车出场车次
     tableListObject: { // 前端分页的表格数据对象
       tableList: [],
       showTableList: [],
@@ -63,6 +65,12 @@ const mutations = {
   },
   updateTraFloObjNormalVehicleNum(state, value) {
     state.traFloObj.normalVehicleNum = value
+  },
+  updateTraFloObjCountExpVehicleNum(state, value) {
+    state.traFloObj.countExpVehicleNum = value
+  },
+  updateTraFloObjSumOutAvlNum(state, value) {
+    state.traFloObj.sumOutAvlNum = value
   },
   updateTraFloObjTableListObjectTableList(state, value) {
     state.traFloObj.tableListObject.tableList = value
