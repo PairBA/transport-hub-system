@@ -112,7 +112,7 @@ export default {
         },
         {
           title: '发车量',
-          key: 'normalVehicle',
+          key: 'sumOutHired',
           tooltip: true
         },
         {
