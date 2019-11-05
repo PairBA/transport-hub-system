@@ -33,8 +33,6 @@
             <Option value=" ">{{$t("sysManage.queryBar.tripStatusSelect.ALL")}}</Option>
             <Option :value="'GPS_LOST'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsLost') }}</Option>
             <Option :value="'GPS_REPEAT'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsRepeat') }}</Option>
-            <Option :value="'CLONE_VEHICLE'">{{ $t('sysManage.commonSelect.issueJudgeType.cloneVehicle') }}</Option>
-            <Option :value="'UNKNOWN_VEHICLE'">{{ $t('sysManage.commonSelect.issueJudgeType.unknownVehicle') }}</Option>
             <Option :value="'GPS_TIME_ERROR'">{{ $t('sysManage.commonSelect.issueJudgeType.gpsTimeError') }}</Option>
             <Option :value="'NO_GPS_UPLOAD'">{{ $t('sysManage.commonSelect.issueJudgeType.noGpsUpload') }}</Option>
           </Select>
