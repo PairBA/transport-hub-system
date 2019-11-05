@@ -83,7 +83,7 @@ const mutations = {
     localStorage.setItem('hubCodeAndNameList', hubCodeAndNameList.join(';'))
     localStorage.setItem('systemName', systemName)
     localStorage.setItem('roleId', roleId)
-    localStorage.setItem('hub-terminalCode', terminalCode)
+    localStorage.setItem('hub-terminalCode', terminalCode || '')
 
     state.userName = userName
     state.isLoggedin = true

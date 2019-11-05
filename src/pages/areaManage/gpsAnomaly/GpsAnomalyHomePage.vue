@@ -25,6 +25,9 @@ export default {
     }
   },
   computed: {
+    terminalCode() {
+      return localStorage.getItem('hub-terminalCode')
+    },
     showSpin: {
       get() {
         return this.$store.state.search.showSpin
@@ -112,6 +115,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit('gpsAnomaly/updateTerminalName', this.terminalCode || '')
     this.$store.dispatch('getCompListForSelect')
     this.$store.dispatch('getTerminalList')
   },

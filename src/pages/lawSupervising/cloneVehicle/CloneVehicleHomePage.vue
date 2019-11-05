@@ -117,6 +117,9 @@ export default {
     }
   },
   computed: {
+    terminalCode() {
+      return localStorage.getItem('hub-terminalCode')
+    },
     gateJudgeList() {
       return this.$store.state.gateVehicle.gateJudgeList
     },
@@ -223,6 +226,7 @@ export default {
     }
   },
   async mounted() {
+    this.$store.commit('gateVehicle/updateTerminalName', this.terminalCode || '')
     this.$store.dispatch('getCompListForSelect')
     this.$store.dispatch('getTerminalList')
     this.showEchart = true

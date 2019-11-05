@@ -19,7 +19,7 @@
         </FormItem>
         <FormItem :label="$t('sysManage.queryBar.terminalManufacturer')">
           <Select v-model="terminalName" :placeholder="$t('sysManage.queryBar.terminalManufacturerPH')">
-            <Option :value="''">
+            <Option :value="''" v-if="!terminalCode">
               {{ $t('sysManage.queryBar.driverStatusSelect.ALL') }}
             </Option>
             <Option v-for="item in terminalList" :key="item.terminalCode" :value="item.terminalCode">
@@ -112,6 +112,9 @@ export default {
     }
   },
   computed: {
+    terminalCode() {
+      return localStorage.getItem('hub-terminalCode')
+    },
     hubCode: {
       set(value) {
         this.$store.commit('updateHubCode', value)
