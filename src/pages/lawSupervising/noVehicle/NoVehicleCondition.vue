@@ -17,17 +17,6 @@
             <Option value="T2">T2</Option>
           </Select>
         </FormItem>
-        <FormItem :label="$t('sysManage.queryBar.terminalManufacturer')">
-          <Select v-model="terminalName" :placeholder="$t('sysManage.queryBar.terminalManufacturerPH')">
-            <Option :value="''">
-              {{ $t('sysManage.queryBar.driverStatusSelect.ALL') }}
-            </Option>
-            <Option v-for="item in terminalList" :key="item.terminalCode" :value="item.terminalCode">
-              {{ item.terminalName }}
-            </Option>
-          </Select>
-        </FormItem>
-        <CompanySelect/>
         <FormItem :label="$t('sysManage.queryBar.vehicleNo')">
           <VehicleInput v-model="vehicleNo"/>
         </FormItem>
@@ -90,11 +79,9 @@
 <script>
 import { END_POINTS } from '@/api'
 import { dateFormat, downloadFile } from '@/utils'
-import CompanySelect from '@/components/common/CompanySelect'
 import VehicleInput from '@/components/common/VehicleInput'
 export default {
   components: {
-    CompanySelect,
     VehicleInput
   },
   data() {
@@ -177,14 +164,6 @@ export default {
         this.$store.commit('gateVehicle/updateGateName', value)
       }
     },
-    terminalName: {
-      get() {
-        return this.$store.state.gateVehicle.terminalName
-      },
-      set(value) {
-        this.$store.commit('gateVehicle/updateTerminalName', value)
-      }
-    },
     showSpin: {
       get() {
         return this.$store.state.search.showSpin
@@ -192,9 +171,6 @@ export default {
       set(value) {
         this.$store.commit('search/updateShowSpin', value)
       }
-    },
-    terminalList() {
-      return this.$store.state.terminalList
     }
   },
   mounted() {
@@ -223,12 +199,10 @@ export default {
       const url = END_POINTS.EXPORT_GATE_JUDGE_REPORT +
         '?judgeType=UNKNOWN_VEHICLE' +
         '&areaCode=' + localStorage.getItem('areaCode') +
-        '&companyId=' + this.$store.state.companyIdForSelect +
         '&startDate=' + dateFormat(this.startDate, 'yyyy-MM-dd') + ' ' + this.startTime +
         '&vehicleNo=' + this.vehicleNo +
         '&endDate=' + dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime +
         '&hubCode=' + this.hubCode +
-        '&terminalName=' + this.terminalName +
         '&gateName=' + this.gateName +
         '&x-me-token=' + token
       downloadFile(`${baseUrl}${url}`)
