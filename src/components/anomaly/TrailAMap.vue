@@ -8,18 +8,18 @@
     <PairSpin :show="showSpin"/>
     <Row class="trail-amap-modal-info" v-if="type === 'illegal'">
       <Col span="6">
-        进场时间：{{data ? dateFormat(data.timeIn) : ''}}
+        进场时间：{{data && data.timeIn ? dateFormat(data.timeIn) : '- -'}}
       </Col>
       <Col span="6">
-        发车时间：{{data ? dateFormat(data.timeOn) : ''}}
+        发车时间：{{data && data.timeOn ? dateFormat(data.timeOn) : '- -'}}
       </Col>
       <Col span="6">
-        出场时间：{{data ? dateFormat(data.timeOut) : ''}}
+        出场时间：{{data && data.timeOut ? dateFormat(data.timeOut) : '- -'}}
       </Col>
     </Row>
     <Row class="trail-amap-modal-info" v-if="type === 'cut'">
       <Col span="6">
-        发车时间：{{data ? dateFormat(data.timeOn) : ''}}
+        发车时间：{{data && data.timeOn ? dateFormat(data.timeOn) : '- -'}}
       </Col>
       <Col span="6">
         等待时间(分钟)：{{data.timeWait}}

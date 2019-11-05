@@ -1,6 +1,6 @@
 <template>
   <div class="illegal-boarding-detail">
-    <PairBreadcrumb parentPath="/anomaly/illegalBoardingHomePage"
+    <PairBreadcrumb parentPath="/lawSupervising/illegalBoardingHomePage"
                     parentTitle="违规上客"
                     :title="vehicleNo"/>
     <div class="illegal-boarding-detail-content">
@@ -84,21 +84,25 @@ export default {
           title: '进场时间',
           key: 'timeIn',
           render: (h, params) => {
-            return h('span', dateFormat(new Date(params.row.timeIn), 'yyyy-MM-dd hh:mm'))
+            return params.row.timeIn ? h('span', dateFormat(new Date(params.row.timeIn), 'yyyy-MM-dd hh:mm')) : h('span', '- -')
           }
         },
         {
           title: '发车时间',
           key: 'timeOn',
           render: (h, params) => {
-            return h('span', dateFormat(new Date(params.row.timeOn), 'yyyy-MM-dd hh:mm'))
+            return params.row.timeOn ? h('span', {
+              style: {
+                color: '#FF4D63'
+              }
+            }, dateFormat(new Date(params.row.timeOn), 'yyyy-MM-dd hh:mm')) : h('span', '- -')
           }
         },
         {
           title: '出场时间',
           key: 'timeOut',
           render: (h, params) => {
-            return h('span', dateFormat(new Date(params.row.timeOut), 'yyyy-MM-dd hh:mm'))
+            return params.row.timeOut ? h('span', dateFormat(new Date(params.row.timeOut), 'yyyy-MM-dd hh:mm')) : h('span', '- -')
           }
         },
         {

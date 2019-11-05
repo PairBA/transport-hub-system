@@ -1,6 +1,6 @@
 <template>
   <div class="exception-queue-detail">
-    <PairBreadcrumb parentPath="/anomaly/exceptionQueueHomePage"
+    <PairBreadcrumb parentPath="/lawSupervising/exceptionQueueHomePage"
                     parentTitle="异常排队"
                     :title="vehicleNo"/>
     <div class="exception-queue-detail-content">
@@ -84,8 +84,7 @@ export default {
           title: '发车时间',
           key: 'timeOn',
           render: (h, params) => {
-            // console.log(params)
-            return h('span', dateFormat(new Date(params.row.timeOn), 'yyyy-MM-dd hh:mm'))
+            return params.row.timeOn ? h('span', dateFormat(new Date(params.row.timeOn), 'yyyy-MM-dd hh:mm')) : h('span', '- -')
           }
         },
         {

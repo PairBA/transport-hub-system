@@ -221,8 +221,8 @@ export default {
     }
   },
   async mounted() {
-    this.$store.dispatch('getCompListForSelect')
-    this.$store.dispatch('getTerminalList')
+    this.$store.commit('gateVehicle/updateTerminalName', '')
+    this.$store.commit('updateCompanyIdForSelect', '')
     this.getTableColumns()
     this.$store.commit('gateVehicle/updateJudgeType', 'UNKNOWN_VEHICLE')
     this.goSearch()

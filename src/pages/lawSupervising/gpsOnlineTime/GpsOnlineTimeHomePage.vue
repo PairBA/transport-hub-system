@@ -1,20 +1,21 @@
 <template>
   <div class="gpsOnlineTime__homePage">
-    <ContentLayout :showSpin="showSpin">
-      <div class="content__card">
-        <div class="title">GPS在线时长</div>
-        <PairECharts :id="'GPSGraphData'"
-                     v-if="showEchart"
-                     :title="GPSGraphData.title"
-                     :series="GPSGraphData.series"
-                     :xAxis="GPSGraphData.xAxis"
-                     :yAxis="GPSGraphData.yAxis"
-                     :tooltip="GPSGraphData.tooltip"
-                     :grid="GPSGraphData.grid"
-                     :color="GPSGraphData.color"
-                     style="height: 350px;width: 100%"></PairECharts>
-      </div>
-    </ContentLayout>
+    <PairBreadcrumb parentPath="/lawSupervising/gpsAnomalyHomePage"
+                    parentTitle="GPS异常"
+                    :title="'GPS在线时长'"/>
+    <div class="content__card">
+      <div class="title">GPS在线时长</div>
+      <PairECharts :id="'GPSGraphData'"
+                   v-if="showEchart"
+                   :title="GPSGraphData.title"
+                   :series="GPSGraphData.series"
+                   :xAxis="GPSGraphData.xAxis"
+                   :yAxis="GPSGraphData.yAxis"
+                   :tooltip="GPSGraphData.tooltip"
+                   :grid="GPSGraphData.grid"
+                   :color="GPSGraphData.color"
+                   style="height: 350px;width: 100%"></PairECharts>
+    </div>
   </div>
 </template>
 
@@ -149,7 +150,11 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../theme/customized.less';
 .gpsOnlineTime__homePage{
+  .content__card{
+    margin: 24px;
+  }
   .title {
     text-align: center;
     background-color: #F5F8FF;
