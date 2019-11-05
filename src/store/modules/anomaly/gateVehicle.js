@@ -25,13 +25,14 @@ const actions = {
     state,
     rootState
   }, { currentPage }) {
+    let judgeType = state.judgeType.join('::')
+    if (state.judgeType.some(item => item === ' ')) judgeType = ' '
     const result = await post(END_POINTS.GET_GATE_JUDGE_LIST, {
       currentPage,
       orderBy: '',
       pageSize: state.pageSize,
       queryVO: {
-        judgeType: state.judgeType,
-        gateName: state.gateName,
+        judgeType,
         startDate: dateFormat(state.startDate, 'yyyy-MM-dd') + ' ' + state.startTime,
         endDate: dateFormat(state.endDate, 'yyyy-MM-dd') + ' ' + state.endTime,
         areaCode: rootState.areaCodeForSelect,
@@ -49,8 +50,10 @@ const actions = {
     state,
     rootState
   }) {
+    let judgeType = state.judgeType.join('::')
+    if (state.judgeType.some(item => item === ' ')) judgeType = ' '
     const result = await get(END_POINTS.GET_GATE_JUDGE_GRAPH, {
-      judgeType: state.judgeType,
+      judgeType,
       gateName: state.gateName,
       startDate: dateFormat(state.startDate, 'yyyy-MM-dd') + ' ' + state.startTime,
       endDate: dateFormat(state.endDate, 'yyyy-MM-dd') + ' ' + state.endTime,

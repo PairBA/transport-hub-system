@@ -224,7 +224,7 @@ export default {
     this.$store.dispatch('getCompListForSelect')
     this.$store.dispatch('getTerminalList')
     this.getTableColumns()
-    this.$store.commit('gateVehicle/updateJudgeType', 'CLONE_VEHICLE')
+    this.$store.commit('gateVehicle/updateJudgeType', ['CLONE_VEHICLE'])
     this.goSearch()
   },
   methods: {
