@@ -6,7 +6,7 @@ import { dateFormat } from '@/utils'
 const state = {
   vehicleNo: '',
   terminalName: '',
-  daterange: [new Date(), new Date()],
+  daterange: [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date(new Date().getTime() - 24 * 60 * 60 * 1000)],
   list: [],
   currentPage: 1,
   pageSize: 10,

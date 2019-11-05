@@ -24,8 +24,8 @@ const actions = {
     })
     if (result.success) {
       commit('updateGPSGraphData', result.data)
-      return result
     }
+    return result
   }
 }
 const mutations = {

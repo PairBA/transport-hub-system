@@ -1,6 +1,6 @@
 <template>
   <div class="gpsOnlineTime__homePage">
-    <PairBreadcrumb parentPath="/lawSupervising/gpsAnomalyHomePage"
+    <PairBreadcrumb parentPath="/areaManage/gpsAnomalyHomePage"
                     parentTitle="GPS异常"
                     :title="'GPS在线时长'"/>
     <div class="content__card">
@@ -47,8 +47,8 @@ export default {
       this.showEchart = true
     })
     const vehicleNo = this.$route.query.vehicleNo
-    const startDate = this.$route.query.startDate
-    const endDate = this.$route.query.endDate
+    let startDate = this.$route.query.startDate
+    let endDate = this.$route.query.endDate
     this.$store.commit('gpsOnlineTime/updateStartDate', new Date(startDate))
     this.$store.commit('gpsOnlineTime/updateEndDate', new Date(endDate))
     if (vehicleNo) {

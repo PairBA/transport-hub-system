@@ -1,5 +1,4 @@
 // 执法监察
-const GpsAnomalyHomePage = () => import('@/pages/lawSupervising/gpsAnomaly/GpsAnomalyHomePage')
 const MeterTripErrorHomePage = () => import('@/pages/lawSupervising/meterTripError/MeterTripErrorHomePage')
 const FocusHomePage = () => import('@/pages/lawSupervising/focus/FocusHomePage')
 const VehicleQueryHomePage = () => import('@/pages/lawSupervising/vehicleQuery/VehicleQueryHomePage')
@@ -7,9 +6,11 @@ const ExceptionQueueHomePage = () => import('@/pages/lawSupervising/exceptionQue
 const IllegalBoardingHomePage = () => import('@/pages/lawSupervising/illegalBoarding/IllegalBoardingHomePage')
 const NoVehicleHomePage = () => import('@/pages/lawSupervising/noVehicle/NoVehicleHomePage')
 const CloneVehicleHomePage = () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleHomePage')
+const GateVehicleHomePage = () => import('@/pages/lawSupervising/gateVehicle/GateVehicleHomePage')
 
 // 区域管理
 const TrafficFlowHomePage = () => import('@/pages/areaManage/trafficFlow/TrafficFlowHomePage')
+const GpsAnomalyHomePage = () => import('@/pages/areaManage/gpsAnomaly/GpsAnomalyHomePage')
 const GateVehicleSearchHomePage = () => import('@/pages/areaManage/gateVehicle/GateVehicleHomePage')
 const VehicleTrajectoryHomePage = () => import('@/pages/areaManage/vehicleTrajectory/VehicleTrajectoryHomePage')
 const ActiveSafetyHomePage = () => import('@/pages/areaManage/activeSafety/ActiveSafetyHomePage')
@@ -27,9 +28,9 @@ const ScheduleHomePage = () => import('@/pages/systemManage/schedule/ScheduleHom
 export const lawSupervising = [
   {
     name: 'GPS异常',
-    path: '/lawSupervising/gpsAnomalyHomePage',
-    search: 'GpsAnomalyCondition',
-    component: GpsAnomalyHomePage
+    path: '/lawSupervising/gateVehicleHomePage',
+    search: 'GateVehicleCondition',
+    component: GateVehicleHomePage
   },
   {
     name: '计价器异常',
@@ -80,6 +81,12 @@ export const areaManage = [
     path: '/areaManage/TrafficFlowHomePage',
     search: 'TrafficFlowSearch',
     component: TrafficFlowHomePage
+  },
+  {
+    name: 'GPS异常统计',
+    path: '/areaManage/gpsAnomalyHomePage',
+    search: 'GpsAnomalyCondition',
+    component: GpsAnomalyHomePage
   },
   {
     name: '闸口车辆查询',

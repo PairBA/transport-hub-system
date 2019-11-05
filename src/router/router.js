@@ -58,7 +58,7 @@ export const routerCommon = {
     },
     {
       name: 'GPS在线时长',
-      path: '/lawSupervising/gpsOnlineHomePage',
+      path: '/areaManage/gpsOnlineHomePage',
       component: GpsOnlineTimeHomePage
     }
   ]

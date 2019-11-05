@@ -7,8 +7,7 @@ const mutations = {
     state.companyIdForSelect = companyId
   },
   updateTerminalList(state, value) {
-    const terminalCode = localStorage.getItem('hub-terminalCode')
-    state.terminalList = terminalCode ? value.filter(item => item.terminalCode === terminalCode) : value
+    state.terminalList = value
   },
   updateCenterGps(state, centerGps) {
     state.center = centerGps

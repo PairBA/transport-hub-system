@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { dateFormat } from '@/utils'
 export default {
   components: {},
   data() {
@@ -116,14 +117,14 @@ export default {
   },
   methods: {
     goToDetail(vehicleNo) {
-      this.$store.commit('permission/updateOpenNamesFromMain', '/lawSupervising/gpsOnlineHomePage')
+      // this.$store.commit('permission/updateOpenNamesFromMain', '/areaManage/gpsOnlineHomePage')
       this.$router.push(
         {
           name: 'GPS在线时长',
           query: {
             vehicleNo,
-            startDate: new Date(this.daterange[0]).getTime(),
-            endDate: new Date(this.daterange[1]).getTime()
+            startDate: dateFormat(new Date(this.daterange[0]), 'yyyy-MM-dd'),
+            endDate: dateFormat(new Date(this.daterange[1]), 'yyyy-MM-dd')
           }
         }
       )
