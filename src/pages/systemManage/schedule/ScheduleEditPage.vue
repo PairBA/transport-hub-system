@@ -1,6 +1,6 @@
 <template>
   <div class="schedule__edit">
-    <PairBreadcrumb parentPath="/watchDutySchedule/scheduleHomePage"
+    <PairBreadcrumb parentPath="/systemManage/scheduleHomePage"
                     parentTitle="班次时间"
                     title="编辑班次"/>
     <div class="schedule__edit-content">
