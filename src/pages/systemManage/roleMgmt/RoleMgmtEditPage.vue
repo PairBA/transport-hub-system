@@ -76,7 +76,7 @@ export default {
     getTreeList(selectMenuIdList) {
       let parentMenuIdList = []
       selectMenuIdList.forEach(value => {
-        if (parentMenuIdList.indexOf(value.pId) === -1) {
+        if (parentMenuIdList.indexOf(value.pId) === -1 && value.pId !== '0' && value.pId !== '100') {
           parentMenuIdList.push(value.pId)
         }
       })
@@ -151,7 +151,8 @@ export default {
         id: this.id,
         roleName: this.formValidate.roleName,
         manageMenuIdList,
-        appletMenuIdList
+        appletMenuIdList,
+        configId: localStorage.getItem('configId')
       })
       if (result.code === 2000) {
         this.$Message.success({
