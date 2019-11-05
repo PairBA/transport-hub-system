@@ -8,6 +8,7 @@
                      :tooltip="gateECharts.tooltip"
                      :series="gateECharts.series"
                      :grid="gateECharts.grid"
+                     v-if="showEchart"
                      style="height: 300px;width: 100%;">
         </PairECharts>
       </div>
@@ -38,6 +39,7 @@ export default {
     return {
       vehicleNo: '',
       showFocusModal: false,
+      showEchart: false,
       tableColumns: [
         {
           title: this.$t('sysManage.gateAnalysis.gate'),
@@ -223,6 +225,7 @@ export default {
   async mounted() {
     this.$store.dispatch('getCompListForSelect')
     this.$store.dispatch('getTerminalList')
+    this.showEchart = true
     this.getTableColumns()
     this.$store.commit('gateVehicle/updateJudgeType', ['CLONE_VEHICLE'])
     this.goSearch()

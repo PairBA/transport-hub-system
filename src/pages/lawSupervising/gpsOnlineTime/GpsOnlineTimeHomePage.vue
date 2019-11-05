@@ -1,7 +1,7 @@
 <template>
   <div class="gpsOnlineTime__homePage">
     <PairBreadcrumb parentPath="/areaManage/gpsAnomalyHomePage"
-                    parentTitle="GPS异常"
+                    parentTitle="GPS异常统计"
                     :title="'GPS在线时长'"/>
     <div class="content__card">
       <div class="title">GPS在线时长</div>

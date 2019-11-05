@@ -3,6 +3,7 @@
     <ContentLayout :showSpin="showSpin">
       <div class="content__card" style="margin-bottom: 24px">
         <PairECharts id="gateECharts"
+                     v-if="showEchart"
                      :xAxis="gateECharts.xAxis"
                      :yAxis="gateECharts.yAxis"
                      :tooltip="gateECharts.tooltip"
@@ -38,6 +39,7 @@ export default {
     return {
       vehicleNo: '',
       showFocusModal: false,
+      showEchart: false,
       tableColumns: [
         {
           title: this.$t('sysManage.gateAnalysis.gate'),
@@ -223,6 +225,7 @@ export default {
   async mounted() {
     this.$store.dispatch('getCompListForSelect')
     this.$store.dispatch('getTerminalList')
+    this.showEchart = true
     this.getTableColumns()
     this.goSearch()
   },
