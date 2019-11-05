@@ -72,7 +72,8 @@ const mutations = {
     configId,
     hubCodeAndNameList,
     systemName,
-    roleId
+    roleId,
+    terminalCode
   }) {
     localStorage.setItem('hub-token', token)
     localStorage.setItem('userName', userName)
@@ -82,6 +83,7 @@ const mutations = {
     localStorage.setItem('hubCodeAndNameList', hubCodeAndNameList.join(';'))
     localStorage.setItem('systemName', systemName)
     localStorage.setItem('roleId', roleId)
+    localStorage.setItem('hub-terminalCode', terminalCode)
 
     state.userName = userName
     state.isLoggedin = true
@@ -93,6 +95,7 @@ const mutations = {
     localStorage.removeItem('email')
     localStorage.removeItem('mobile')
     localStorage.removeItem('photo')
+    localStorage.removeItem('hub-terminalCode')
 
     state.userName = ''
     state.isLoggedin = false
