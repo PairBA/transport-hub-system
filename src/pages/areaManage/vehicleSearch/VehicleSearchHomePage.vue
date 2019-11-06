@@ -26,8 +26,12 @@
 import { get, END_POINTS } from '@/api'
 const focus = require('@/img/focus/focus.png')
 const cancelFocus = require('@/img/focus/cancelFocus.png')
+import FocusModal from '@/components/modal/focus/FocusModal'
 
 export default {
+  components: {
+    FocusModal
+  },
   data() {
     return {
       showFocusModal: false,
