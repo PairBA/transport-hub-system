@@ -15,6 +15,8 @@ const GateVehicleSearchHomePage = () => import('@/pages/areaManage/gateVehicle/G
 const VehicleTrajectoryHomePage = () => import('@/pages/areaManage/vehicleTrajectory/VehicleTrajectoryHomePage')
 const ActiveSafetyHomePage = () => import('@/pages/areaManage/activeSafety/ActiveSafetyHomePage')
 const CapacitySchedulingHomePage = () => import('@/pages/areaManage/capacityScheduling/CapacitySchedulingHomePage')
+const DriverSearchHomePage = () => import('@/pages/areaManage/driverSearch/DriverSearchHomePage')
+const VehicleSearchHomePage = () => import('@/pages/areaManage/vehicleSearch/VehicleSearchHomePage')
 
 // 公共服务
 const ShortTripHomePage = () => import('@/pages/commonService/shortTrip/ShortTripHomePage')
@@ -93,6 +95,18 @@ export const areaManage = [
     path: '/areaManage/gateVehicleHomePage',
     search: 'GateVehicleSearchCondition',
     component: GateVehicleSearchHomePage
+  },
+  {
+    name: '驾驶员查询',
+    path: '/areaManage/DriverSearchHomePage',
+    search: '',
+    component: DriverSearchHomePage
+  },
+  {
+    name: '车辆查询',
+    path: '/areaManage/VehicleSearchHomePage',
+    search: '',
+    component: VehicleSearchHomePage
   },
   {
     name: '车辆轨迹',
