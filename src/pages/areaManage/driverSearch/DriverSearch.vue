@@ -34,28 +34,45 @@
 </template>
 
 <script>
-import { get, END_POINTS } from '@/api'
-
 export default {
-  data() {
-    return {
-      driverType: 'TAXI',
-      driverName: '',
-      driverNumber: '',
-      serviceNumber: ''
-    }
-  },
   computed: {
+    driverType: {
+      get() {
+        return this.$store.state.driverSearch.driverType
+      },
+      set(value) {
+        this.$store.commit('driverSearch/updateDSDriverType', value)
+      }
+    },
+    driverName: {
+      get() {
+        return this.$store.state.driverSearch.driverName
+      },
+      set(value) {
+        this.$store.commit('driverSearch/updateDSDriverName', value)
+      }
+    },
+    driverNumber: {
+      get() {
+        return this.$store.state.driverSearch.driverNumber
+      },
+      set(value) {
+        this.$store.commit('driverSearch/updateDSDriverNumber', value)
+      }
+    },
+    serviceNumber: {
+      get() {
+        return this.$store.state.driverSearch.serviceNumber
+      },
+      set(value) {
+        this.$store.commit('driverSearch/updateDSServiceNumber', value)
+      }
+    }
   },
   methods: {
     async goSearch() {
       this.$store.commit('search/updateShowSpin', true)
-      const response = await get(END_POINTS.GET_TRAIL_LIST, {
-        driverType: this.driverType
-      })
-      if (response.code === 2000) {
-      } else {
-      }
+      await this.$store.dispatch('driverSearch/getDSTableObj')
       this.$store.commit('search/updateShowSpin', false)
     }
   }

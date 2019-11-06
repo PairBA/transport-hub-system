@@ -30,27 +30,37 @@
 </template>
 
 <script>
-import { get, END_POINTS } from '@/api'
-
 export default {
-  data() {
-    return {
-      driverType: 'TAXI',
-      driverNo: '川A',
-      selfNumber: ''
-    }
-  },
   computed: {
+    driverType: {
+      get() {
+        return this.$store.state.vehicleSearch.driverType
+      },
+      set(value) {
+        this.$store.commit('vehicleSearch/updateVSDriverType', value)
+      }
+    },
+    driverNo: {
+      get() {
+        return this.$store.state.vehicleSearch.driverNo
+      },
+      set(value) {
+        this.$store.commit('vehicleSearch/updateVSDriverNo', value)
+      }
+    },
+    selfNumber: {
+      get() {
+        return this.$store.state.vehicleSearch.selfNumber
+      },
+      set(value) {
+        this.$store.commit('vehicleSearch/updateVSSelfNumber', value)
+      }
+    }
   },
   methods: {
     async goSearch() {
       this.$store.commit('search/updateShowSpin', true)
-      const response = await get(END_POINTS.GET_TRAIL_LIST, {
-        driverType: this.driverType
-      })
-      if (response.code === 2000) {
-      } else {
-      }
+      await this.$store.dispatch('vehicleSearch/getVSTableObj')
       this.$store.commit('search/updateShowSpin', false)
     }
   }

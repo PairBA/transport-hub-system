@@ -12,6 +12,8 @@ import gpsOnlineTime from './modules/anomaly/gpsOnlineTime'
 import accountMgmt from './modules/accountMgmt/accountMgmt'
 import watchDutySchedule from './modules/watchDutySchedule/watchDutySchedule'
 import gateVehicleSearch from './modules/trafficFlow/gateVehicleSearch'
+import driverSearch from './modules/areaManage/driverSearch'
+import vehicleSearch from './modules/areaManage/vehicleSearch'
 
 export default {
   login,
@@ -27,5 +29,7 @@ export default {
   focus,
   vehicleQuery,
   watchDutySchedule,
-  gateVehicleSearch
+  gateVehicleSearch,
+  driverSearch,
+  vehicleSearch
 }
