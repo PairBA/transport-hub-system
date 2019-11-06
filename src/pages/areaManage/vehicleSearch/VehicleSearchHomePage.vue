@@ -14,14 +14,32 @@
         </PairPage>
       </TableWrapper>
     </ContentLayout>
+    <FocusModal :showFocusModal = 'showFocusModal'
+                :vehicleNo = 'propVehicleNo'
+                @close-focus-modal="closeFocusModal"
+                @go-search="goSearch">
+    </FocusModal>
   </div>
 </template>
 
 <script>
+import { get, END_POINTS } from '@/api'
+const focus = require('@/img/focus/focus.png')
+const cancelFocus = require('@/img/focus/cancelFocus.png')
+
 export default {
+  data() {
+    return {
+      showFocusModal: false,
+      propVehicleNo: ''
+    }
+  },
   computed: {
     showSpin() {
       return this.$store.state.search.showSpin
+    },
+    showFocusBtn() {
+      return this.$store.state.permission.focusRule
     },
     tableList() {
       return this.$store.state.vehicleSearch.tableObj.tableList
@@ -38,19 +56,7 @@ export default {
     columns() {
       return [
         {
-          title: '姓名',
-          key: ''
-        },
-        {
-          title: '性别',
-          key: ''
-        },
-        {
-          title: '服务证号',
-          key: ''
-        },
-        {
-          title: '身份证号（从业资格证号）',
+          title: '自编号',
           key: ''
         },
         {
@@ -58,20 +64,83 @@ export default {
           key: ''
         },
         {
-          title: '自编号',
-          key: ''
-        },
-        {
           title: '公司',
           key: ''
         },
         {
-          title: '准驾车型',
+          title: '注册日期',
+          key: ''
+        },
+        {
+          title: '入户日期',
+          key: ''
+        },
+        {
+          title: '注册到期日期',
+          key: ''
+        },
+        {
+          title: '厂牌型号',
+          key: ''
+        },
+        {
+          title: '燃料类型',
           key: ''
         },
         {
           title: '联系电话',
           key: ''
+        },
+        {
+          title: '操作',
+          key: 'action',
+          width: 125,
+          align: 'center',
+          render: (h, params) => {
+            let content = ''
+            let src = ''
+            if (params.row.focus) { // 已经被关注
+              content = '取消关注'
+              src = cancelFocus
+            } else { // 未被关注
+              content = '关注'
+              src = focus
+            }
+            if (this.showFocusBtn) {
+              return h('div', [
+                h('Tooltip', {
+                  props: {
+                    content: content,
+                    transfer: true,
+                    placement: 'bottom'
+                  },
+                  style: {
+                    cursor: 'pointer',
+                    width: '30px'
+                  }
+                }, [
+                  h('img', {
+                    style: {
+                      cursor: 'pointer',
+                      width: '30px'
+                    },
+                    attrs: {
+                      src: src
+                    },
+                    on: {
+                      click: () => {
+                        if (params.row.focus) { // 已经被关注
+                          this.doCancelFocus(params.row)
+                        } else { // 未被关注
+                          this.openFocus(params.row)
+                        }
+                      }
+                    }
+                  })
+                ], content)
+              ])
+            }
+          }
         }
       ]
     }
@@ -83,6 +152,30 @@ export default {
     changeSize(pageSize) {
       this.$store.commit('vehicleSearch/updateVSPageSize', pageSize)
       this.getPage(1)
+    },
+    openFocus(row) {
+      this.propVehicleNo = row.vehicleNo
+      this.showFocusModal = true
+    },
+    closeFocusModal(result) {
+      this.showFocusModal = result
+      this.propVehicleNo = ''
+    },
+    async doCancelFocus(row) {
+      const response = await get(END_POINTS.CANCEL_FOCUS, {
+        vehicleNo: row.vehicleNo
+      })
+      if (response.code === 2000) {
+        this.goSearch()
+        this.$Message.success({
+          content: '成功取消关注！'
+        })
+      }
+    },
+    async goSearch() {
+      this.$store.commit('search/updateShowSpin', true)
+      await this.$store.dispatch('vehicleSearch/getVSTableObj')
+      this.$store.commit('search/updateShowSpin', false)
     }
   },
   mounted() {
