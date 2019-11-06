@@ -1,6 +1,6 @@
 <template>
   <div class="accountMgmt__add">
-    <PairBreadcrumb parentPath="/accountMgmt/roleMgmtHomePage"
+    <PairBreadcrumb parentPath="/systemManage/roleMgmtHomePage"
                     parentTitle="角色管理"
                     title="新增角色"/>
     <div class="accountMgmt__add-content">
