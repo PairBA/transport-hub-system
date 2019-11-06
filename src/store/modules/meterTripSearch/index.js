@@ -246,6 +246,7 @@ const mutations = {
           return {
             meterTripId: value.meterTripId, // meterTripId
             companyName: value.companyName,
+            comShortName: value.comShortName,
             terminalName: value.terminalName,
             vehicleNo: value.vehicleNo, // 车辆号牌
             orgGps: orgGps, // 上客点gps

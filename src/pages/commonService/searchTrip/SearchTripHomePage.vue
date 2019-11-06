@@ -41,7 +41,7 @@
                     </span>
                   </Row>
                   <div style="font-size:16px;line-height:21px;margin-top: 4px">
-                    {{$t("sysManage.commonVar.companyName")}}: {{item.companyName}} <span style="margin-left: 30px">{{$t("sysManage.queryBar.terminalManufacturer")}}: {{item.terminalName}}</span>
+                    {{$t("sysManage.commonVar.companyName")}}: {{item.comShortName || item.companyName}} <span style="margin-left: 30px">{{$t("sysManage.queryBar.terminalManufacturer")}}: {{item.terminalName}}</span>
                   </div>
                   <Row class="meter-trip-search-itemlist-info"
                        style="margin-top: 8px;">
