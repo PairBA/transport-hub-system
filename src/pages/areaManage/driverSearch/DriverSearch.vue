@@ -8,6 +8,19 @@
             <Option value="TAXI">巡游出租车</Option>
           </Select>
         </FormItem>
+        <CompanySelect></CompanySelect>
+        <FormItem label="姓名:">
+          <Input v-model="driverName"
+                 placeholder="请输入姓名"/>
+        </FormItem>
+        <FormItem label="身份证号（从业资格证号）:">
+          <Input v-model="driverNumber"
+                 placeholder="请输入身份证号（从业资格证号）"/>
+        </FormItem>
+        <FormItem label="服务证号:">
+          <Input v-model="serviceNumber"
+                 placeholder="请输入服务证号"/>
+        </FormItem>
         <Divider/>
         <div style="text-align: center">
           <Button type="primary"
@@ -26,7 +39,10 @@ import { get, END_POINTS } from '@/api'
 export default {
   data() {
     return {
-      driverType: 'TAXI'
+      driverType: 'TAXI',
+      driverName: '',
+      driverNumber: '',
+      serviceNumber: ''
     }
   },
   computed: {
@@ -42,8 +58,6 @@ export default {
       }
       this.$store.commit('search/updateShowSpin', false)
     }
-  },
-  mounted() {
   }
 }
 </script>

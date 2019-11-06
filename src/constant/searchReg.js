@@ -14,5 +14,6 @@ export const searchComponentsReg = {
   GpsOnlineTimeCondition: () => import('@/pages/lawSupervising/gpsOnlineTime/GpsOnlineTimeCondition.vue'),
   NoVehicleCondition: () => import('@/pages/lawSupervising/noVehicle/NoVehicleCondition.vue'),
   CloneVehicleCondition: () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleCondition.vue'),
-  DriverSearch: () => import('@/pages/areaManage/driverSearch/DriverSearch.vue')
+  DriverSearch: () => import('@/pages/areaManage/driverSearch/DriverSearch.vue'),
+  VehicleSearch: () => import('@/pages/areaManage/vehicleSearch/VehicleSearch.vue')
 }

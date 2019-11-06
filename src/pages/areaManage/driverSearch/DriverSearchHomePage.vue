@@ -17,6 +17,9 @@ export default {
         this.$store.commit('search/updateShowSpin', value)
       }
     }
+  },
+  mounted() {
+    this.$store.dispatch('getCompListForSelect')
   }
 }
 </script>

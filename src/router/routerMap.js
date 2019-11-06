@@ -105,7 +105,7 @@ export const areaManage = [
   {
     name: '车辆查询',
     path: '/areaManage/VehicleSearchHomePage',
-    search: '',
+    search: 'VehicleSearch',
     component: VehicleSearchHomePage
   },
   {
