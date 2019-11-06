@@ -76,7 +76,10 @@ export default {
         {
           title: '公司',
           key: 'companyName',
-          tooltip: true
+          tooltip: true,
+          render: (h, params) => {
+            return h('div', params.row.comShortName || params.row.companyName)
+          }
         },
         {
           title: '终端厂商',

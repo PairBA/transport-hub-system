@@ -53,7 +53,10 @@ export default {
         },
         {
           title: '公司',
-          key: 'companyName'
+          key: 'companyName',
+          render: (h, params) => {
+            return h('div', params.row.comShortName || params.row.companyName)
+          }
         },
         {
           title: this.$t('sysManage.queryBar.terminalManufacturer'),
