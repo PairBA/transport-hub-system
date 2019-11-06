@@ -92,7 +92,7 @@ export default {
     renderTreeData(menuTreeForRoleListData) {
       let levelOneList = []
       menuTreeForRoleListData.menuList.forEach(value => {
-        if (value.pId === '0') {
+        if (value.level === 1) {
           levelOneList.push(value)
         }
       })
