@@ -99,7 +99,7 @@ export const areaManage = [
   {
     name: '驾驶员查询',
     path: '/areaManage/DriverSearchHomePage',
-    search: '',
+    search: 'DriverSearch',
     component: DriverSearchHomePage
   },
   {
