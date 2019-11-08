@@ -73,5 +73,6 @@ export default {
   EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList',
   // 运力调度
   GET_DYNAMIC_DATA: '/api/transhub/est/getDynamicData',
-  GET_TRANSPORT_NOTIFY_CONFIG: '/api/transhub/config/getTransportNotifyConfig'
+  GET_TRANSPORT_NOTIFY_CONFIG: '/api/transhub/config/getTransportNotifyConfig',
+  NOTIFY_DRIVER_BY_MAN: '/api/transhub/est/notifyDriverByMan'
 }

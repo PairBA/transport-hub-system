@@ -9,15 +9,15 @@ const state = {
   notifyType: '',
   notifyEnable: true,
   estChart: {
-    estCountArray: [],
+    estCountArray: []
   }
 }
 
 const actions = {
-  async loadEstChartInScreen({commit, state, rootState}) {
+  async loadEstChartInScreen({ commit, state, rootState }) {
     const configResp = await get(END_POINTS.GET_TRANSPORT_NOTIFY_CONFIG, {
       areaCode: rootState.areaCodeForSelect,
-      hubCode: rootState.hubCode,
+      hubCode: rootState.hubCode
     })
     if (configResp.code === 2001) {
       commit('updateNotifyTarget', configResp.data.notifyRange)
@@ -36,6 +36,12 @@ const actions = {
       commit('updateInvalidEstChart')
       commit('updateNotifyEnable', true)
     }
+  },
+  async notifyDriverByMan({ rootState }) {
+    const response = await get(END_POINTS.NOTIFY_DRIVER_BY_MAN, {
+      hubCode: rootState.hubCode
+    })
+    return response
   }
 }
 
