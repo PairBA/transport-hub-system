@@ -109,7 +109,7 @@ export const areaManage = [
   {
     name: '运力调度',
     path: '/areaManage/capacitySchedulingHomePage',
-    search: '',
+    search: 'CapacitySchedulingSearch',
     component: CapacitySchedulingHomePage
   }
 ]

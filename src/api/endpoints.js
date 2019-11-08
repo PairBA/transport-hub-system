@@ -70,5 +70,8 @@ export default {
   GET_GPS_POINT_COUNT: 'api/gpsQuality/getGpsPointCount',
   // 闸口车辆查询
   GET_GATE_VEHICLE_LIST: '/api/gateVehicle/getGateVehicleList',
-  EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList'
+  EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList',
+  // 运力调度
+  GET_DYNAMIC_DATA: '/api/transhub/est/getDynamicData',
+  GET_TRANSPORT_NOTIFY_CONFIG: '/api/transhub/config/getTransportNotifyConfig'
 }

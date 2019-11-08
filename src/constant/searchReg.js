@@ -13,5 +13,6 @@ export const searchComponentsReg = {
   GpsAnomalyCondition: () => import('@/pages/areaManage/gpsAnomaly/GpsAnomalyCondition.vue'),
   GpsOnlineTimeCondition: () => import('@/pages/lawSupervising/gpsOnlineTime/GpsOnlineTimeCondition.vue'),
   NoVehicleCondition: () => import('@/pages/lawSupervising/noVehicle/NoVehicleCondition.vue'),
-  CloneVehicleCondition: () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleCondition.vue')
+  CloneVehicleCondition: () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleCondition.vue'),
+  CapacitySchedulingSearch: () => import('@/pages/areaManage/capacityScheduling/CapacitySchedulingSearch.vue')
 }
