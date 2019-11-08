@@ -33,7 +33,8 @@ export default {
       return [
         {
           title: '角色',
-          key: 'roleName'
+          key: 'roleName',
+          width: 200
         },
         {
           title: '权限',

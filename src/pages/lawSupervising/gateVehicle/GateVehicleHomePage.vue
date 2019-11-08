@@ -53,7 +53,10 @@ export default {
         },
         {
           title: '公司',
-          key: 'companyName'
+          key: 'companyName',
+          render: (h, params) => {
+            return h('div', params.row.comShortName || params.row.companyName)
+          }
         },
         {
           title: this.$t('sysManage.queryBar.terminalManufacturer'),
@@ -117,6 +120,9 @@ export default {
     }
   },
   computed: {
+    terminalCode() {
+      return localStorage.getItem('hub-terminalCode')
+    },
     gateJudgeList() {
       return this.$store.state.gateVehicle.gateJudgeList
     },
@@ -223,6 +229,8 @@ export default {
     }
   },
   async mounted() {
+    this.$store.commit('gateVehicle/updateTerminalName', this.terminalCode || '')
+    this.$store.commit('gateVehicle/updateJudgeType', [''])
     this.$store.dispatch('getCompListForSelect')
     this.$store.dispatch('getTerminalList')
     this.showEchart = true

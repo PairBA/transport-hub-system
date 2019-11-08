@@ -76,7 +76,7 @@ export default {
     getTreeList(selectMenuIdList) {
       let parentMenuIdList = []
       selectMenuIdList.forEach(value => {
-        if (parentMenuIdList.indexOf(value.pId) === -1 && value.pId !== '0' && value.pId !== '100') {
+        if (parentMenuIdList.indexOf(value.pId) === -1 && value.level !== 1) {
           parentMenuIdList.push(value.pId)
         }
       })
@@ -93,7 +93,7 @@ export default {
     renderTreeData(allList, idList) {
       let levelOneList = []
       allList.menuList.forEach(value => {
-        if (value.pId === '0') {
+        if (value.level === 1) {
           levelOneList.push(value)
         }
       })
@@ -121,7 +121,8 @@ export default {
               id: valueTwo.id,
               pId: valueTwo.pId,
               title: valueTwo.name,
-              checked: checkedLevelTwo
+              checked: checkedLevelTwo,
+              level: valueTwo.level
             })
             checkedLevelOne = false
           }
@@ -132,7 +133,8 @@ export default {
           title: value.name,
           expand: true,
           checked: checkedLevelOne,
-          children: levelTwoList
+          children: levelTwoList,
+          level: value.level
         }
       })
     },

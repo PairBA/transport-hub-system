@@ -5,7 +5,7 @@
         {{ $t('sysManage.queryBar.driverStatusSelect.ALL') }}
       </Option>
       <Option v-for="company in companyListForSelect" :key="company.id" :value="company.id">
-        {{ company.name }}
+        {{ company.comShortName || company.name  }}
       </Option>
     </Select>
   </FormItem>

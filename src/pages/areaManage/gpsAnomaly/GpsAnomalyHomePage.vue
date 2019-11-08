@@ -25,6 +25,9 @@ export default {
     }
   },
   computed: {
+    terminalCode() {
+      return localStorage.getItem('hub-terminalCode')
+    },
     showSpin: {
       get() {
         return this.$store.state.search.showSpin
@@ -64,7 +67,10 @@ export default {
         },
         {
           title: '公司',
-          key: 'companyName'
+          key: 'companyName',
+          render: (h, params) => {
+            return h('div', params.row.comShortName || params.row.companyName)
+          }
         },
         {
           title: '终端厂商',
@@ -112,6 +118,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit('gpsAnomaly/updateTerminalName', this.terminalCode || '')
     this.$store.dispatch('getCompListForSelect')
     this.$store.dispatch('getTerminalList')
   },

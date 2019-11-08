@@ -66,6 +66,9 @@ export default {
           title: '公司',
           key: 'companyName',
           tooltip: true,
+          render: (h, params) => {
+            return h('div', params.row.comShortName || params.row.companyName)
+          },
           renderHeader
         },
         {

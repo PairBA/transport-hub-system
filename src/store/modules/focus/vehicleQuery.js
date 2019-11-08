@@ -78,6 +78,7 @@ const mutations = {
           return {
             vehicleNo: item.vehicleNo,
             companyName: item.companyName,
+            comShortName: item.comShortName,
             terminalName: item.terminalName,
             focus: item.focus, // 是否被关注
             realLocation: realLocation, // 是否显示实时位置操作
