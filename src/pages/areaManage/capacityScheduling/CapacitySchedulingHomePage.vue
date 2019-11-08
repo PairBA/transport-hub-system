@@ -13,7 +13,6 @@
                        :legend="estTripLegend"
                        :xAxis="estTripXAxis"
                        :yAxis="estTripYAxis"
-                       :title="estTripTitle"
                        :dataZoom="estTripDataZoom"
                        :grid="grid"
                        :tooltip="tooltipForTripCount"/>
@@ -110,15 +109,15 @@ export default {
             {
               name: '预估运力',
               textStyle: {
-                color: 'white',
-                fontSize: 30
+                color: '#66758D',
+                fontSize: 12
               }
             },
             {
               name: '预估发车量',
               textStyle: {
-                color: 'white',
-                fontSize: 30
+                color: '#66758D',
+                fontSize: 12
               }
             }
           ],
@@ -145,8 +144,8 @@ export default {
         },
         axisLabel: {
           textStyle: {
-            color: '#FFFFFF',
-            fontSize: 24
+            color: '#374254',
+            fontSize: 12
           }
         }
       }
@@ -163,8 +162,8 @@ export default {
         min: 0,
         boundaryGap: [0, '100%'],
         nameTextStyle: {
-          color: '#FFFFFF',
-          fontSize: 24
+          color: '#374254',
+          fontSize: 12
         },
         splitLine: {
           show: true,
@@ -174,20 +173,10 @@ export default {
         },
         axisLabel: {
           textStyle: {
-            color: '#FFFFFF',
-            fontSize: 24
+            color: '#374254',
+            fontSize: 12
           }
         }
-      }
-    },
-    estTripTitle() {
-      return {
-        text: '供求预测',
-        textStyle: {
-          color: '#ffffff',
-          fontSize: 32
-        },
-        left: 'center'
       }
     },
     estTripDataZoom() {
@@ -211,9 +200,6 @@ export default {
         trigger: 'axis',
         axisPointer: {
           animation: false
-        },
-        textStyle: {
-          fontSize: 36
         }
       }
     }
@@ -290,7 +276,6 @@ export default {
           border-radius: 20px;
           position: absolute;
           right: 0;
-          cursor: pointer;
           text-align: center;
           padding: 8px 19px;
           width: 94px;

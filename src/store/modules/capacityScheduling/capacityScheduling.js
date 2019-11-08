@@ -3,6 +3,8 @@ import {
   END_POINTS
 } from '@/api'
 
+import { dateFormat } from '@/utils'
+
 const state = {
   searchDate: new Date(),
   notifyTarget: '',
@@ -25,7 +27,7 @@ const actions = {
       commit('updateNotifyEnable', false)
       const dynamicResp = await get(END_POINTS.GET_DYNAMIC_DATA, {
         hubCode: rootState.hubCode,
-        estDate: state.searchDate
+        estDate: dateFormat(state.searchDate, 'yyyy-MM-dd')
       })
       if (dynamicResp.code === 2001) {
         commit('updateEstChartInScreen', dynamicResp.data)
