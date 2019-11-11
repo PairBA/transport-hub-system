@@ -26,6 +26,8 @@
         <Row class="title">
           <Col class="left"
                span="12">
+            <PairIcon type="capacity"
+                      class="capacity"/>
             <span class="text">预警播报</span>
           </Col>
           <Col class="right"
@@ -93,13 +95,112 @@
           </Row>
         </Row>
       </Row>
+      <Row class="table-wrapper">
+        <Table :columns="columns"
+               :data="list">
+        </Table>
+        <PairPage id="vehicleListPage"
+                  :total="total"
+                  :current="currentPage"
+                  :page-size="pageSize"
+                  @on-change="getPage"
+                  @on-page-size-change="changeSize">
+        </PairPage>
+      </Row>
     </ContentLayout>
   </div>
 </template>
 
 <script>
+import { dateFormat } from '@/utils'
+
 export default {
   computed: {
+    list() {
+      return this.$store.state.capacityScheduling.list
+    },
+    currentPage() {
+      return this.$store.state.capacityScheduling.currentPage
+    },
+    pageSize() {
+      return this.$store.state.capacityScheduling.pageSize
+    },
+    total() {
+      return this.$store.state.capacityScheduling.total
+    },
+    columns() {
+      return [
+        {
+          title: '时间',
+          key: 'crtOn',
+          render: (h, params) => {
+            return h('div', dateFormat(new Date(params.row.crtOn), 'yyyy-MM-dd hh:mm'))
+          }
+        },
+        {
+          title: '模式',
+          key: 'notifyType',
+          render: (h, params) => {
+            let content = ''
+            let notifyType = params.row.notifyType
+            if ('SYSTEM' === notifyType) {
+              content = '托管模式'
+            } else if ('MAN' === notifyType) {
+              content = '手动播报'
+            } else if ("CONFIRM" === notifyType) {
+              content = '人工确认'
+            } else {
+              content = ' '
+            }
+            return h('div', content)
+          }
+        },
+        {
+          title: '范围',
+          key: 'notifyRange',
+          render: (h, params) => {
+            let content = ''
+            let notifyRange = params.row.notifyRange
+            if ('NEARBY' === notifyRange) {
+              content = '附近司机'
+            } else if ('ALL' === notifyRange) {
+              content = '全域司机'
+            } else {
+              content = ' '
+            }
+            return h('div', content)
+          }
+        },
+        {
+          title: '通知数量',
+          key: 'sumDispatchRec'
+        },
+        {
+          title: '响应总数',
+          key: 'sumDispatchAns'
+        },
+        {
+          title: '状态',
+          key: 'statusDispatch',
+          render: (h, params) => {
+            let content = ''
+            let statusDispatch = params.row.statusDispatch
+            if ('TBC' === statusDispatch) {
+              content ='待确认'
+            } else if ('OPEN' === statusDispatch) {
+              content = '已发送'
+            } else if ('CLOSE' === statusDispatch) {
+              content = '已结束'
+            } else if ('UNSENT' === statusDispatch) {
+              content = '未发送'
+            } else {
+              content = ' ';
+            }
+            return h('div', content)
+          }
+        }
+      ]
+    },
     showSpin() {
       return this.$store.state.search.showSpin
     },
@@ -108,6 +209,23 @@ export default {
     },
     enable() {
       return this.$store.state.capacityScheduling.notifyEnable
+    },
+    hubCode: {
+      set(value) {
+        this.$store.commit('updateHubCode', value)
+      },
+      get() {
+        return this.$store.state.hubCode
+      }
+    },
+    hubList() {
+      return localStorage.getItem('hubCodeAndNameList').split(';').map(hub => {
+        const hubArr = hub.split(',')
+        return {
+          hubCode: hubArr[0],
+          hubName: hubArr[1]
+        }
+      })
     },
     notifyType: {
       get() {
@@ -460,11 +578,24 @@ export default {
           content: '手动播报失败！'
         })
       }
+    },
+    getPage(currentPage) {
+      this.$store.dispatch('capacityScheduling/getNotifyHistList', { currentPage })
+    },
+    changeSize(pageSize) {
+      this.$store.commit('capacityScheduling/updatePageSize', pageSize)
+      this.getPage(1)
     }
   },
   async mounted() {
     this.$store.commit('search/updateShowSpin', true)
-    await this.$store.dispatch('capacityScheduling/loadEstChartInScreen')
+    if (!this.hubCode) {
+      this.$store.commit('updateHubCode', this.hubList[0].hubCode)
+    }
+    await Promise.all([
+      this.$store.dispatch('capacityScheduling/loadEstChartInScreen'),
+      this.$store.dispatch('capacityScheduling/getNotifyHistList', { currentPage: 1 })
+    ])
     this.$store.commit('search/updateShowSpin', false)
   }
 }
@@ -501,6 +632,14 @@ export default {
       padding: 14px 20px;
       box-shadow: 0 4px 12px -4px rgba(168,176,185,0.5);
       .left {
+        .capacity {
+          position: relative;
+          top: 10px;
+          margin-right: 10px;
+          display: inline-block;
+          width: 34px;
+          height: 34px;
+        }
         .text {
           color: #66758D;
           font-size: 20px;
@@ -533,6 +672,11 @@ export default {
         color: rgba(55,66,84,1);
       }
     }
+  }
+  .table-wrapper {
+    background: #FFF;
+    padding: 24px;
+    margin-top: 24px;
   }
 }
 </style>

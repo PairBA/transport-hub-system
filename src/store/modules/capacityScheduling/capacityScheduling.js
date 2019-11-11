@@ -1,5 +1,6 @@
 import {
   get,
+  post,
   END_POINTS
 } from '@/api'
 
@@ -12,7 +13,11 @@ const state = {
   notifyEnable: true,
   estChart: {
     estCountArray: []
-  }
+  },
+  list: [],
+  total: 0,
+  currentPage: 1,
+  pageSize: 10
 }
 
 const actions = {
@@ -64,6 +69,18 @@ const actions = {
       commit('updateNotifyTarget', notifyTarget)
     }
     return response
+  },
+  async getNotifyHistList({ commit, state, rootState }, { currentPage }) {
+    const response = await post(END_POINTS.GET_NOTIFY_HIST_LIST, {
+      currentPage,
+      orderBy: '',
+      pageSize: state.pageSize,
+      queryVO: {
+        hubCode: rootState.hubCode
+      },
+      refreshTotalRecord: true
+    })
+    commit('updateNotifyHistList', response)
   }
 }
 
@@ -88,6 +105,21 @@ const mutations = {
     state.notifyType = ''
     state.notifyEnable = true
     state.estChart.estCountArray = []
+  },
+  updateNotifyHistList(state, response) {
+    if (response.code === 2001) {
+      state.currentPage = response.currentPage
+      state.pageSize = response.pageSize
+      state.list = response.data
+      state.total = response.total
+    } else {
+      state.currentPage = 1
+      state.total = 0
+      state.list = []
+    }
+  },
+  updatePageSize(state, value) {
+    state.pageSize = value
   }
 }
 

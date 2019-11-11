@@ -76,5 +76,6 @@ export default {
   GET_TRANSPORT_NOTIFY_CONFIG: '/api/transhub/config/getTransportNotifyConfig',
   NOTIFY_DRIVER_BY_MAN: '/api/transhub/est/notifyDriverByMan',
   UPDATE_HUB_NOTIFY_TYPE: '/api/transhub/config/updateTransportNotifyType',
-  UPDATE_HUB_NOTIFY_CONFIG: '/api/transhub/config/updateTransportNotifyConfig'
+  UPDATE_HUB_NOTIFY_CONFIG: '/api/transhub/config/updateTransportNotifyConfig',
+  GET_NOTIFY_HIST_LIST: '/api/transhub/hist/getNotifyHistList'
 }

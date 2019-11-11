@@ -65,7 +65,10 @@ export default {
   methods: {
     async goSearch() {
       this.$store.commit('search/updateShowSpin', true)
-      await this.$store.dispatch('capacityScheduling/loadEstChartInScreen')
+      await Promise.all([
+        this.$store.dispatch('capacityScheduling/loadEstChartInScreen'),
+        this.$store.dispatch('capacityScheduling/getNotifyHistList', { currentPage: 1 })
+      ])
       this.$store.commit('search/updateShowSpin', false)
     }
   },
