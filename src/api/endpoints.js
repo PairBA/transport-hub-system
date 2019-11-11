@@ -74,5 +74,7 @@ export default {
   // 运力调度
   GET_DYNAMIC_DATA: '/api/transhub/est/getDynamicData',
   GET_TRANSPORT_NOTIFY_CONFIG: '/api/transhub/config/getTransportNotifyConfig',
-  NOTIFY_DRIVER_BY_MAN: '/api/transhub/est/notifyDriverByMan'
+  NOTIFY_DRIVER_BY_MAN: '/api/transhub/est/notifyDriverByMan',
+  UPDATE_HUB_NOTIFY_TYPE: '/api/transhub/config/updateTransportNotifyType',
+  UPDATE_HUB_NOTIFY_CONFIG: '/api/transhub/config/updateTransportNotifyConfig'
 }

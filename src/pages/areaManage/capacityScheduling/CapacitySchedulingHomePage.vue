@@ -38,7 +38,37 @@
           </Col>
         </Row>
         <Row class="content">
-          aadsdsa
+          <Col span="12"
+               class="col">
+            <span>预警模式：</span>
+            <RadioGroup v-model="notifyType"
+                        style="margin-left: 24px;">
+              <Radio label="SYSTEM"
+                     class="monitor_est-font-size"
+                     :disabled="enable">
+                <span>托管模式</span>
+              </Radio>
+              <Radio label="CONFIRM"
+                     :disabled="enable">
+                <span>人工确认</span>
+              </Radio>
+            </RadioGroup>
+          </Col>
+          <Col span="12"
+               class="col">
+            <span>播报范围：</span>
+            <RadioGroup v-model="notifyTarget"
+                        style="margin-left: 24px;">
+              <Radio label="NEARBY"
+                     :disabled="enable">
+                <span>附近司机</span>
+              </Radio>
+              <Radio label="ALL"
+                     :disabled="enable">
+                <span>全域司机</span>
+              </Radio>
+            </RadioGroup>
+          </Col>
         </Row>
       </Row>
     </ContentLayout>
@@ -56,6 +86,40 @@ export default {
     },
     enable() {
       return this.$store.state.capacityScheduling.notifyEnable
+    },
+    notifyType: {
+      get() {
+        return this.$store.state.capacityScheduling.notifyType
+      },
+      async set(value) {
+        const response = await this.$store.dispatch('capacityScheduling/updateHubNotifyTypeInScreen', value)
+        if (response.success) {
+          this.$Message.success({
+            content: '修改成功！'
+          })
+        } else {
+          this.$Message.error({
+            content: '修改失败！'
+          })
+        }
+      }
+    },
+    notifyTarget: {
+      get() {
+        return this.$store.state.capacityScheduling.notifyTarget
+      },
+      async set(value) {
+        const response = await this.$store.dispatch('capacityScheduling/updateHubNotifyConfigInScreen', value)
+        if (response.success) {
+          this.$Message.success({
+            content: '修改成功！'
+          })
+        } else {
+          this.$Message.error({
+            content: '修改失败！'
+          })
+        }
+      }
     },
     estTripSeries() {
       const { estCountArray } = this.$store.state.capacityScheduling.estChart
@@ -288,6 +352,12 @@ export default {
     }
     .content {
       padding: 24px;
+      .col {
+        font-size: 14px;
+        padding-left: 140px;
+        font-weight: 400;
+        color: rgba(55,66,84,1);
+      }
     }
   }
 }

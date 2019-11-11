@@ -44,6 +44,26 @@ const actions = {
       hubCode: rootState.hubCode
     })
     return response
+  },
+  async updateHubNotifyTypeInScreen({ commit, state, rootState }, notifyType) {
+    const response = await get(END_POINTS.UPDATE_HUB_NOTIFY_TYPE, {
+      hubCode: rootState.hubCode,
+      notifyType: notifyType
+    })
+    if (response.success) {
+      commit('updateNotifyType', notifyType)
+    }
+    return response
+  },
+  async updateHubNotifyConfigInScreen({ commit, state, rootState }, notifyTarget) {
+    const response = await get(END_POINTS.UPDATE_HUB_NOTIFY_CONFIG, {
+      hubCode: rootState.hubCode,
+      notifyRange: notifyTarget
+    })
+    if (response.success) {
+      commit('updateNotifyTarget', notifyTarget)
+    }
+    return response
   }
 }
 
