@@ -1,11 +1,11 @@
 <template>
   <div class="capacity-scheduling-home-page">
     <ContentLayout :showSpin="showSpin">
-      <div class="content-card">
-        <div class="title">
+      <Row class="content-card">
+        <Row class="title">
           供求预测
-        </div>
-        <div class="content">
+        </Row>
+        <Row class="content">
           <PairECharts v-if="estCountArray.length"
                        id="estTrips"
                        style="width: 100%;height: 300px;"
@@ -13,15 +13,15 @@
                        :legend="estTripLegend"
                        :xAxis="estTripXAxis"
                        :yAxis="estTripYAxis"
-                       :dataZoom="estTripDataZoom"
+                       :dataZoom="noDataZoom"
                        :grid="grid"
                        :tooltip="tooltipForTripCount"/>
-          <div v-else
+          <Row v-else
                class="content-info">
             数据为空！
-          </div>
-        </div>
-      </div>
+          </Row>
+        </Row>
+      </Row>
       <Row class="dispatch">
         <Row class="title">
           <Col class="left"
@@ -69,6 +69,28 @@
               </Radio>
             </RadioGroup>
           </Col>
+        </Row>
+      </Row>
+      <Row class="content-card"
+           style="margin-top: 24px;">
+        <Row class="title">
+          等待时间
+        </Row>
+        <Row class="content">
+          <PairECharts v-if="estCountArray.length"
+                       id="waitMinute"
+                       style="width: 100%;height: 300px;"
+                       :series="waitMinuteSeries"
+                       :legend="waitMinutelenged"
+                       :xAxis="estTripXAxis"
+                       :yAxis="estMinuteYAxis"
+                       :dataZoom="noDataZoom"
+                       :tooltip="tooltipForMinuteCount"
+                       :grid="grid"/>
+          <Row v-else
+               class="content-info">
+            数据为空！
+          </Row>
         </Row>
       </Row>
     </ContentLayout>
@@ -243,7 +265,7 @@ export default {
         }
       }
     },
-    estTripDataZoom() {
+    noDataZoom() {
       return [
         {
           show: false
@@ -266,6 +288,149 @@ export default {
           animation: false
         }
       }
+    },
+    waitMinuteSeries() {
+      const { estCountArray } = this.$store.state.capacityScheduling.estChart
+      const estCountArrayWithoutZero = []
+      for (let i = 0; i < estCountArray.length; i++) {
+        if (estCountArray[i].avgRunning === 0) {
+          continue
+        }
+        estCountArrayWithoutZero.push(estCountArray[i])
+      }
+      if (estCountArrayWithoutZero.length) {
+        return [
+          {
+            name: '等待时间',
+            type: 'line',
+            color: '#6AA84F',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: estCountArrayWithoutZero.map(estCount =>
+              this.formatMiniuteCountData(
+                estCount.estDateTime,
+                estCount.avgRunning
+              )
+            )
+          },
+          {
+            name: '等待时间实际值',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            symbolSize: 0,
+            lineStyle: {
+              opacity: 0
+            },
+            data: estCountArrayWithoutZero.map(estCount =>
+              this.formatCountData(
+                estCount.estDateTime,
+                estCount.avgRunning
+              )
+            )
+          }
+        ]
+      } else {
+        return [
+          {
+            name: '等待时间',
+            type: 'line',
+            color: '#1890FF',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: []
+          },
+          {
+            name: '等待时间实际值',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            symbolSize: 0,
+            lineStyle: {
+              opacity: 0
+            },
+            data: []
+          }
+        ]
+      }
+    },
+    waitMinutelenged() {
+      const { estCountArray } = this.$store.state.capacityScheduling.estChart
+      const estCountArrayWithoutZero = []
+      for (let i = 0; i < estCountArray.length; i++) {
+        if (estCountArray[i].avgRunning === 0) {
+          continue
+        }
+        estCountArrayWithoutZero.push(estCountArray[i])
+      }
+      if (estCountArrayWithoutZero.length) {
+        return {
+          data: [
+            {
+              name: '等待时间',
+              textStyle: {
+                color: 'white',
+                fontSize: 12
+              }
+            }
+          ],
+          right: '2%'
+        }
+      } else {
+        return {
+          show: false
+        }
+      }
+    },
+    estMinuteYAxis() {
+      return {
+        type: 'value',
+        name: '分钟',
+        nameGap: 8,
+        min: 0,
+        max: value => {
+          return 60
+        },
+        boundaryGap: [0, '100%'],
+        nameTextStyle: {
+          color: '#FFFFFF',
+          fontSize: 12
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'dashed'
+          }
+        },
+        axisLabel: {
+          textStyle: {
+            color: '#FFFFFF',
+            fontSize: 12
+          }
+        }
+      }
+    },
+    tooltipForMinuteCount() {
+      return {
+        trigger: 'axis',
+        formatter: params => {
+          params = params[1]
+          const date = new Date(params.name)
+          const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+          const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+          const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+          const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+
+          return `${hour}:${minute} ${month}-${day}<br/>` +
+            '<div style="float:left;width:12px;height:12px;background:#6AA84F; border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;margin-top: 5px;margin-right: 3px"></div>等待时间: ' + params.value[1]
+        },
+        axisPointer: {
+          animation: false
+        },
+        textStyle: {
+          fontSize: 12
+        }
+      }
     }
   },
   methods: {
@@ -273,6 +438,15 @@ export default {
       return {
         name: key,
         value: [key, value ? Math.round(value) : '-']
+      }
+    },
+    formatMiniuteCountData(key, value) {
+      if (value > 60) {
+        value = 60
+      }
+      return {
+        name: key.toString(),
+        value: [key, Math.round(value)]
       }
     },
     async toNotify() {
