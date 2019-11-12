@@ -23,7 +23,7 @@ const actions = {
   }, { currentPage }) {
     const response = await post(END_POINTS.GET_DRIVER_BASE_INFO_LIST, {
       currentPage,
-      pageSize: state.pageSize,
+      pageSize: state.tableObj.pageSize,
       queryVO: {
         driverType: state.driverType,
         driverName: state.driverName,
