@@ -143,11 +143,11 @@ export default {
           render: (h, params) => {
             let content = ''
             let notifyType = params.row.notifyType
-            if ('SYSTEM' === notifyType) {
+            if (notifyType === 'SYSTEM') {
               content = '托管模式'
-            } else if ('MAN' === notifyType) {
+            } else if (notifyType === 'MAN') {
               content = '手动播报'
-            } else if ("CONFIRM" === notifyType) {
+            } else if (notifyType === 'CONFIRM') {
               content = '人工确认'
             } else {
               content = ' '
@@ -161,9 +161,9 @@ export default {
           render: (h, params) => {
             let content = ''
             let notifyRange = params.row.notifyRange
-            if ('NEARBY' === notifyRange) {
+            if (notifyRange === 'NEARBY') {
               content = '附近司机'
-            } else if ('ALL' === notifyRange) {
+            } else if (notifyRange === 'ALL') {
               content = '全域司机'
             } else {
               content = ' '
@@ -185,16 +185,16 @@ export default {
           render: (h, params) => {
             let content = ''
             let statusDispatch = params.row.statusDispatch
-            if ('TBC' === statusDispatch) {
-              content ='待确认'
-            } else if ('OPEN' === statusDispatch) {
+            if (statusDispatch === 'TBC') {
+              content = '待确认'
+            } else if (statusDispatch === 'OPEN') {
               content = '已发送'
-            } else if ('CLOSE' === statusDispatch) {
+            } else if (statusDispatch === 'CLOSE') {
               content = '已结束'
-            } else if ('UNSENT' === statusDispatch) {
+            } else if (statusDispatch === 'UNSENT') {
               content = '未发送'
             } else {
-              content = ' ';
+              content = ' '
             }
             return h('div', content)
           }
@@ -314,14 +314,14 @@ export default {
               name: '预估运力',
               textStyle: {
                 color: '#66758D',
-                fontSize: 12
+                fontSize: 14
               }
             },
             {
               name: '预估发车量',
               textStyle: {
                 color: '#66758D',
-                fontSize: 12
+                fontSize: 14
               }
             }
           ],
@@ -349,7 +349,7 @@ export default {
         axisLabel: {
           textStyle: {
             color: '#374254',
-            fontSize: 12
+            fontSize: 14
           }
         }
       }
@@ -367,7 +367,7 @@ export default {
         boundaryGap: [0, '100%'],
         nameTextStyle: {
           color: '#374254',
-          fontSize: 12
+          fontSize: 14
         },
         splitLine: {
           show: true,
@@ -378,7 +378,7 @@ export default {
         axisLabel: {
           textStyle: {
             color: '#374254',
-            fontSize: 12
+            fontSize: 14
           }
         }
       }
@@ -487,8 +487,8 @@ export default {
             {
               name: '等待时间',
               textStyle: {
-                color: 'white',
-                fontSize: 12
+                color: '#374254',
+                fontSize: 14
               }
             }
           ],
@@ -511,8 +511,8 @@ export default {
         },
         boundaryGap: [0, '100%'],
         nameTextStyle: {
-          color: '#FFFFFF',
-          fontSize: 12
+          color: '#374254',
+          fontSize: 14
         },
         splitLine: {
           show: true,
@@ -522,8 +522,8 @@ export default {
         },
         axisLabel: {
           textStyle: {
-            color: '#FFFFFF',
-            fontSize: 12
+            color: '#374254',
+            fontSize: 14
           }
         }
       }
@@ -546,7 +546,7 @@ export default {
           animation: false
         },
         textStyle: {
-          fontSize: 12
+          fontSize: 14
         }
       }
     }
@@ -568,6 +568,7 @@ export default {
       }
     },
     async toNotify() {
+      this.$store.commit('search/updateShowSpin', true)
       const response = await this.$store.dispatch('capacityScheduling/notifyDriverByMan')
       if (response.success) {
         this.$Message.success({
@@ -578,6 +579,7 @@ export default {
           content: '手动播报失败！'
         })
       }
+      this.$store.commit('search/updateShowSpin', false)
     },
     getPage(currentPage) {
       this.$store.dispatch('capacityScheduling/getNotifyHistList', { currentPage })
