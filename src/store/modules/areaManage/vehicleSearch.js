@@ -6,7 +6,7 @@ import {
 const state = {
   driverType: 'TAXI',
   vehicleNo: '川A',
-  // selfNumber: '',
+  selfNumber: '',
   tableObj: { // 列表的对象
     tableList: [],
     total: 0,
@@ -27,7 +27,8 @@ const actions = {
         areaCode: rootState.areaCodeForSelect,
         driverType: state.driverType,
         companyId: rootState.companyIdForSelect,
-        vehicleNo: state.vehicleNo
+        vehicleNo: state.vehicleNo,
+        customNum: state.selfNumber
       },
       refreshTotalRecord: true
     })
