@@ -5,8 +5,8 @@ import {
 
 const state = {
   driverType: 'TAXI',
-  driverNo: '川A',
-  selfNumber: '',
+  vehicleNo: '川A',
+  // selfNumber: '',
   tableObj: { // 列表的对象
     tableList: [],
     total: 0,
@@ -19,12 +19,15 @@ const actions = {
     commit,
     state,
     rootState
-  }, { currentPage = 1 }) {
-    const response = await post(END_POINTS.GET_GATE_VEHICLE_LIST, {
+  }, { currentPage }) {
+    const response = await post(END_POINTS.GET_VEHICLE_INFO_LIST, {
       currentPage,
-      pageSize: state.pageSize,
+      pageSize: state.tableObj.pageSize,
       queryVO: {
-        hubCode: rootState.hubCode
+        areaCode: rootState.areaCodeForSelect,
+        driverType: state.driverType,
+        companyId: rootState.companyIdForSelect,
+        vehicleNo: state.vehicleNo
       },
       refreshTotalRecord: true
     })
@@ -35,19 +38,19 @@ const mutations = {
   updateVSDriverType(state, value) {
     state.driverType = value
   },
-  updateVSDriverNo(state, value) {
-    state.driverNo = value
+  updateVSVehicleNo(state, value) {
+    state.vehicleNo = value
   },
   updateVSSelfNumber(state, value) {
     state.selfNumber = value
   },
   updateVSTableObj(state, response) {
     if (response.code === 2001) {
-      state.tableObj.list = response.data
+      state.tableObj.tableList = response.data
       state.tableObj.currentPage = response.currentPage
       state.tableObj.total = response.total
     } else {
-      state.tableObj.list = []
+      state.tableObj.tableList = []
       state.tableObj.currentPage = 1
       state.tableObj.total = 0
     }

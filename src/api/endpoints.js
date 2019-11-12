@@ -72,5 +72,7 @@ export default {
   GET_GATE_VEHICLE_LIST: '/api/gateVehicle/getGateVehicleList',
   EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList',
   // 驾驶员查询
-  GET_DRIVER_BASE_INFO_LIST: '/api/tocc/driver/getDriverBaseInfoList'
+  GET_DRIVER_BASE_INFO_LIST: '/api/tocc/driver/getDriverBaseInfoList',
+  // 车辆查询
+  GET_VEHICLE_INFO_LIST: '/api/tocc/vehicle/getVehicleInfoList'
 }

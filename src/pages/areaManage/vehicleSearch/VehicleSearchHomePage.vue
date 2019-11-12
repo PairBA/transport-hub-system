@@ -25,6 +25,7 @@
 <script>
 import FocusModal from '@/components/modal/focus/FocusModal'
 import { get, END_POINTS } from '@/api'
+import { dateFormat } from '@/utils'
 const focus = require('@/img/focus/focus.png')
 const cancelFocus = require('@/img/focus/cancelFocus.png')
 
@@ -61,39 +62,59 @@ export default {
       return [
         {
           title: '自编号',
-          key: ''
+          key: 'customNum'
         },
         {
           title: '车牌号',
-          key: ''
+          key: 'vehicleNo'
         },
         {
           title: '公司',
-          key: ''
+          key: 'comShortName'
         },
         {
           title: '注册日期',
-          key: ''
+          key: 'regStartDate',
+          render: (h, params) => {
+            let content = '-'
+            let regStartDate = params.row.regStartDate
+            if (regStartDate) {
+              content = dateFormat(new Date(regStartDate), 'yyyy-MM-dd')
+            }
+            return h('div', content)
+          }
         },
         {
           title: '入户日期',
-          key: ''
+          key: 'permitDate',
+          render: (h, params) => {
+            let content = '-'
+            let permitDate = params.row.permitDate
+            if (permitDate) {
+              content = dateFormat(new Date(permitDate), 'yyyy-MM-dd')
+            }
+            return h('div', content)
+          }
         },
         {
           title: '注册到期日期',
-          key: ''
+          key: 'regEndDate',
+          render: (h, params) => {
+            let content = '-'
+            let regEndDate = params.row.regEndDate
+            if (regEndDate) {
+              content = dateFormat(new Date(regEndDate), 'yyyy-MM-dd')
+            }
+            return h('div', content)
+          }
         },
         {
           title: '厂牌型号',
-          key: ''
+          key: 'brand'
         },
         {
           title: '燃料类型',
-          key: ''
-        },
-        {
-          title: '联系电话',
-          key: ''
+          key: 'greenVehicle'
         },
         {
           title: '操作',
@@ -178,12 +199,17 @@ export default {
     },
     async goSearch() {
       this.$store.commit('search/updateShowSpin', true)
-      await this.$store.dispatch('vehicleSearch/getVSTableObj')
+      await this.$store.dispatch('vehicleSearch/getVSTableObj', { currentPage: 1 })
       this.$store.commit('search/updateShowSpin', false)
     }
   },
-  mounted() {
-    this.$store.dispatch('getCompListForSelect')
+  async mounted() {
+    this.$store.commit('search/updateShowSpin', true)
+    await Promise.all([
+      this.$store.dispatch('getCompListForSelect'),
+      this.$store.dispatch('vehicleSearch/getVSTableObj', { currentPage: 1 })
+    ])
+    this.$store.commit('search/updateShowSpin', false)
   }
 }
 </script>
