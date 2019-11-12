@@ -49,6 +49,14 @@ const mutations = {
       state.tableObj.tableList = response.data
       state.tableObj.currentPage = response.currentPage
       state.tableObj.total = response.total
+    } else if (response.code === 2006) {
+      state.tableObj.tableList = [
+        {
+          vehicleNo: state.vehicleNo
+        }
+      ]
+      state.tableObj.currentPage = 1
+      state.tableObj.total = 1
     } else {
       state.tableObj.tableList = []
       state.tableObj.currentPage = 1
