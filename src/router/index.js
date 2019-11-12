@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import NProgress from 'nprogress'
 
 import store from '@/store'
 import { routers } from './router'
@@ -12,6 +13,8 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  // 开启进度条
+  NProgress.start()
   // 如果去登录页,则直接跳登录页
   if (to.name === '登录') next()
   else if (store.getters['login/isLoggedin']) {
@@ -35,6 +38,12 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else next({ name: '登录' })
+})
+
+// 当路由跳转结束后
+router.afterEach(() => {
+  // 关闭进度条
+  NProgress.done()
 })
 
 export default router

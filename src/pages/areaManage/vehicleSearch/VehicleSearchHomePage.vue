@@ -171,8 +171,10 @@ export default {
     }
   },
   methods: {
-    getPage(currentPage) {
-      this.$store.dispatch('vehicleSearch/getDSTableObj', { currentPage })
+    async getPage(currentPage) {
+      this.$store.commit('search/updateShowSpin', true)
+      await this.$store.dispatch('vehicleSearch/getVSTableObj', { currentPage })
+      this.$store.commit('search/updateShowSpin', false)
     },
     changeSize(pageSize) {
       this.$store.commit('vehicleSearch/updateVSPageSize', pageSize)

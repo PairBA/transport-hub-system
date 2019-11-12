@@ -16,6 +16,7 @@
     "core-js": "^2.6.5",
     "echarts": "^4.2.1",
     "iview": "^3.4.2",
+    "nprogress": "^0.2.0",
     "svg-inline-loader": "^0.8.0",
     "vue": "^2.6.10",
     "vue-amap": "^0.5.10",
