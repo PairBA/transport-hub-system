@@ -11,15 +11,18 @@
         <CompanySelect></CompanySelect>
         <FormItem label="姓名:">
           <Input v-model="driverName"
-                 placeholder="请输入姓名"/>
+                 placeholder="请输入姓名"
+                 :clearable="true"/>
         </FormItem>
         <FormItem label="身份证号（从业资格证号）:">
           <Input v-model="driverNumber"
-                 placeholder="请输入身份证号（从业资格证号）"/>
+                 placeholder="请输入身份证号（从业资格证号）"
+                 :clearable="true"/>
         </FormItem>
         <FormItem label="服务证号:">
           <Input v-model="serviceNumber"
-                 placeholder="请输入服务证号"/>
+                 placeholder="请输入服务证号"
+                 :clearable="true"/>
         </FormItem>
         <Divider/>
         <div style="text-align: center">

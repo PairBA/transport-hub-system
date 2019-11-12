@@ -11,11 +11,13 @@
         <CompanySelect></CompanySelect>
         <FormItem label="车牌号:">
           <Input v-model="vehicleNo"
-                 placeholder="请输入车牌号"/>
+                 placeholder="请输入车牌号"
+                 :clearable="true"/>
         </FormItem>
         <FormItem label="自编号:">
           <Input v-model="selfNumber"
-                 placeholder="请输入自编号"/>
+                 placeholder="请输入自编号"
+                 :clearable="true"/>
         </FormItem>
         <Divider/>
         <div style="text-align: center">
