@@ -27,7 +27,7 @@ const actions = {
         areaCode: rootState.areaCodeForSelect,
         driverType: state.driverType,
         companyId: rootState.companyIdForSelect,
-        vehicleNo: state.vehicleNo,
+        vehicleNo: state.vehicleNo === '川A' ? '' : state.vehicleNo,
         customNum: state.selfNumber
       },
       refreshTotalRecord: true
