@@ -20,12 +20,16 @@ const actions = {
     commit,
     state,
     rootState
-  }, { currentPage = 1 }) {
-    const response = await post(END_POINTS.GET_GATE_VEHICLE_LIST, {
+  }, { currentPage }) {
+    const response = await post(END_POINTS.GET_DRIVER_BASE_INFO_LIST, {
       currentPage,
       pageSize: state.pageSize,
       queryVO: {
-        hubCode: rootState.hubCode
+        driverType: state.driverType,
+        driverName: state.driverName,
+        companyId: rootState.companyIdForSelect,
+        idCard: state.driverNumber,
+        jobSeniorityCard: state.serviceNumber
       },
       refreshTotalRecord: true
     })
@@ -47,11 +51,11 @@ const mutations = {
   },
   updateDSTableObj(state, response) {
     if (response.code === 2001) {
-      state.tableObj.list = response.data
+      state.tableObj.tableList = response.data
       state.tableObj.currentPage = response.currentPage
       state.tableObj.total = response.total
     } else {
-      state.tableObj.list = []
+      state.tableObj.tableList = []
       state.tableObj.currentPage = 1
       state.tableObj.total = 0
     }

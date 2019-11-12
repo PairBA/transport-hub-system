@@ -70,5 +70,7 @@ export default {
   GET_GPS_POINT_COUNT: 'api/gpsQuality/getGpsPointCount',
   // 闸口车辆查询
   GET_GATE_VEHICLE_LIST: '/api/gateVehicle/getGateVehicleList',
-  EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList'
+  EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList',
+  // 驾驶员查询
+  GET_DRIVER_BASE_INFO_LIST: '/api/tocc/driver/getDriverBaseInfoList'
 }

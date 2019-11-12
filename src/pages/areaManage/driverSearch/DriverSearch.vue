@@ -72,7 +72,10 @@ export default {
   methods: {
     async goSearch() {
       this.$store.commit('search/updateShowSpin', true)
-      await this.$store.dispatch('driverSearch/getDSTableObj')
+      await Promise.all([
+        this.$store.dispatch('getCompListForSelect'),
+        this.$store.dispatch('driverSearch/getDSTableObj', { currentPage: 1 })
+      ])
       this.$store.commit('search/updateShowSpin', false)
     }
   }

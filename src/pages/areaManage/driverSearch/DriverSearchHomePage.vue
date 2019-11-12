@@ -39,54 +39,72 @@ export default {
       return [
         {
           title: '姓名',
-          key: ''
+          key: 'driverName'
         },
         {
           title: '性别',
-          key: ''
+          key: 'gender',
+          render: (h, params) => {
+            let content = '未知'
+            let gender = params.row.gender
+            if (gender === 'M') {
+              content = '男'
+            } else if (gender === 'F') {
+              content = '女'
+            }
+            return h('div', content)
+          }
         },
         {
           title: '服务证号',
-          key: ''
+          key: 'jobSeniorityCard'
         },
         {
           title: '身份证号（从业资格证号）',
-          key: ''
+          key: 'idCard',
+          width: 250
         },
         {
           title: '车牌号',
-          key: ''
+          key: 'vehicleNo'
         },
         {
           title: '自编号',
-          key: ''
+          key: 'customNum'
         },
         {
           title: '公司',
-          key: ''
+          key: 'comShortName'
         },
         {
           title: '准驾车型',
-          key: ''
+          key: 'vehicleClass'
         },
         {
           title: '联系电话',
-          key: ''
+          key: 'mobile'
         }
       ]
     }
   },
   methods: {
-    getPage(currentPage) {
-      this.$store.dispatch('driverSearch/getDSTableObj', { currentPage })
+    async getPage(currentPage) {
+      this.$store.commit('search/updateShowSpin', true)
+      await this.$store.dispatch('driverSearch/getDSTableObj', { currentPage })
+      this.$store.commit('search/updateShowSpin', false)
     },
     changeSize(pageSize) {
       this.$store.commit('driverSearch/updateDSPageSize', pageSize)
       this.getPage(1)
     }
   },
-  mounted() {
-    this.$store.dispatch('getCompListForSelect')
+  async mounted() {
+    this.$store.commit('search/updateShowSpin', true)
+    await Promise.all([
+      this.$store.dispatch('getCompListForSelect'),
+      this.$store.dispatch('driverSearch/getDSTableObj', { currentPage: 1 })
+    ])
+    this.$store.commit('search/updateShowSpin', false)
   }
 }
 </script>
