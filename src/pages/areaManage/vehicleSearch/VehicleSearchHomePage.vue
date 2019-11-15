@@ -14,10 +14,10 @@
         </PairPage>
       </TableWrapper>
     </ContentLayout>
-    <FocusModal :showFocusModal = 'showFocusModal'
-                :vehicleNo = 'propVehicleNo'
+    <FocusModal :showFocusModal='showFocusModal'
+                :vehicleNo='propVehicleNo'
                 @close-focus-modal="closeFocusModal"
-                @go-search="goSearch">
+                @go-search="goSearchCurrentPage">
     </FocusModal>
   </div>
 </template>
@@ -62,7 +62,14 @@ export default {
       return [
         {
           title: '自编号',
-          key: 'customNum'
+          key: 'customNum',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.customNum) {
+              content = params.row.customNum
+            }
+            return h('span', content)
+          }
         },
         {
           title: '车牌号',
@@ -70,13 +77,20 @@ export default {
         },
         {
           title: '公司',
-          key: 'comShortName'
+          key: 'comShortName',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.comShortName) {
+              content = params.row.comShortName
+            }
+            return h('span', content)
+          }
         },
         {
           title: '注册日期',
           key: 'regStartDate',
           render: (h, params) => {
-            let content = '-'
+            let content = '--'
             let regStartDate = params.row.regStartDate
             if (regStartDate) {
               content = dateFormat(new Date(regStartDate), 'yyyy-MM-dd')
@@ -88,7 +102,7 @@ export default {
           title: '入户日期',
           key: 'permitDate',
           render: (h, params) => {
-            let content = '-'
+            let content = '--'
             let permitDate = params.row.permitDate
             if (permitDate) {
               content = dateFormat(new Date(permitDate), 'yyyy-MM-dd')
@@ -100,7 +114,7 @@ export default {
           title: '注册到期日期',
           key: 'regEndDate',
           render: (h, params) => {
-            let content = '-'
+            let content = '--'
             let regEndDate = params.row.regEndDate
             if (regEndDate) {
               content = dateFormat(new Date(regEndDate), 'yyyy-MM-dd')
@@ -110,11 +124,25 @@ export default {
         },
         {
           title: '厂牌型号',
-          key: 'brand'
+          key: 'brand',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.brand) {
+              content = params.row.brand
+            }
+            return h('span', content)
+          }
         },
         {
           title: '燃料类型',
-          key: 'greenVehicle'
+          key: 'greenVehicle',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.greenVehicle) {
+              content = params.row.greenVehicle
+            }
+            return h('span', content)
+          }
         },
         {
           title: '操作',
@@ -193,7 +221,7 @@ export default {
         vehicleNo: row.vehicleNo
       })
       if (response.code === 2000) {
-        this.goSearch()
+        this.goSearchCurrentPage()
         this.$Message.success({
           content: '成功取消关注！'
         })
@@ -202,6 +230,11 @@ export default {
     async goSearch() {
       this.$store.commit('search/updateShowSpin', true)
       await this.$store.dispatch('vehicleSearch/getVSTableObj', { currentPage: 1 })
+      this.$store.commit('search/updateShowSpin', false)
+    },
+    async goSearchCurrentPage() {
+      this.$store.commit('search/updateShowSpin', true)
+      await this.$store.dispatch('vehicleSearch/getVSTableObj', { currentPage: this.currentPage })
       this.$store.commit('search/updateShowSpin', false)
     }
   },

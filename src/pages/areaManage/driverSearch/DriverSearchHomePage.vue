@@ -57,12 +57,26 @@ export default {
         },
         {
           title: '服务证号',
-          key: 'jobSeniorityCard'
+          key: 'jobSeniorityCard',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.jobSeniorityCard) {
+              content = params.row.jobSeniorityCard
+            }
+            return h('span', content)
+          }
         },
         {
           title: '身份证号（从业资格证号）',
           key: 'idCard',
-          width: 250
+          width: 250,
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.idCard) {
+              content = params.row.idCard
+            }
+            return h('span', content)
+          }
         },
         {
           title: '车牌号',
@@ -70,19 +84,47 @@ export default {
         },
         {
           title: '自编号',
-          key: 'customNum'
+          key: 'customNum',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.customNum) {
+              content = params.row.customNum
+            }
+            return h('span', content)
+          }
         },
         {
           title: '公司',
-          key: 'comShortName'
+          key: 'comShortName',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.comShortName) {
+              content = params.row.comShortName
+            }
+            return h('span', content)
+          }
         },
         {
           title: '准驾车型',
-          key: 'vehicleClass'
+          key: 'vehicleClass',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.vehicleClass) {
+              content = params.row.vehicleClass
+            }
+            return h('span', content)
+          }
         },
         {
           title: '联系电话',
-          key: 'mobile'
+          key: 'mobile',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.mobile) {
+              content = params.row.mobile
+            }
+            return h('span', content)
+          }
         }
       ]
     }
