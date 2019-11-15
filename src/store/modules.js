@@ -31,7 +31,7 @@ export default {
   vehicleQuery,
   watchDutySchedule,
   gateVehicleSearch,
-  capacityScheduling
+  capacityScheduling,
   driverSearch,
   vehicleSearch
 }

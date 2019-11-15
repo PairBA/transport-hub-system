@@ -78,7 +78,6 @@ export default {
   UPDATE_HUB_NOTIFY_TYPE: '/api/transhub/config/updateTransportNotifyType',
   UPDATE_HUB_NOTIFY_CONFIG: '/api/transhub/config/updateTransportNotifyConfig',
   GET_NOTIFY_HIST_LIST: '/api/transhub/hist/getNotifyHistList',
-  EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList',
   // 驾驶员查询
   GET_DRIVER_BASE_INFO_LIST: '/api/tocc/driver/getDriverBaseInfoList',
   // 车辆查询
