@@ -71,6 +71,14 @@ export default {
   // 闸口车辆查询
   GET_GATE_VEHICLE_LIST: '/api/gateVehicle/getGateVehicleList',
   EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList',
+  // 运力调度
+  GET_DYNAMIC_DATA: '/api/transhub/est/getDynamicData',
+  GET_TRANSPORT_NOTIFY_CONFIG: '/api/transhub/config/getTransportNotifyConfig',
+  NOTIFY_DRIVER_BY_MAN: '/api/transhub/est/notifyDriverByMan',
+  UPDATE_HUB_NOTIFY_TYPE: '/api/transhub/config/updateTransportNotifyType',
+  UPDATE_HUB_NOTIFY_CONFIG: '/api/transhub/config/updateTransportNotifyConfig',
+  GET_NOTIFY_HIST_LIST: '/api/transhub/hist/getNotifyHistList',
+  EXPORT_GATE_VEHICLE_LIST: '/api/gateVehicle/exportGateVehicleList',
   // 驾驶员查询
   GET_DRIVER_BASE_INFO_LIST: '/api/tocc/driver/getDriverBaseInfoList',
   // 车辆查询

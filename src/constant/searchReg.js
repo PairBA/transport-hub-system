@@ -15,5 +15,7 @@ export const searchComponentsReg = {
   NoVehicleCondition: () => import('@/pages/lawSupervising/noVehicle/NoVehicleCondition.vue'),
   CloneVehicleCondition: () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleCondition.vue'),
   DriverSearch: () => import('@/pages/areaManage/driverSearch/DriverSearch.vue'),
-  VehicleSearch: () => import('@/pages/areaManage/vehicleSearch/VehicleSearch.vue')
+  VehicleSearch: () => import('@/pages/areaManage/vehicleSearch/VehicleSearch.vue'),
+  CloneVehicleCondition: () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleCondition.vue'),
+  CapacitySchedulingSearch: () => import('@/pages/areaManage/capacityScheduling/CapacitySchedulingSearch.vue')
 }
