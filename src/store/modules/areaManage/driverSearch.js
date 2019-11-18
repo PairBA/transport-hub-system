@@ -25,6 +25,7 @@ const actions = {
       currentPage,
       pageSize: state.tableObj.pageSize,
       queryVO: {
+        areaCode: rootState.areaCodeForSelect,
         driverType: state.driverType,
         driverName: state.driverName,
         companyId: rootState.companyIdForSelect,
