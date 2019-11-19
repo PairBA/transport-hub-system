@@ -3,8 +3,11 @@
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="交通枢纽：">
-          <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
-            <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
+          <Select v-model="hubCode"
+                  :placeholder="'请输入交通枢纽'">
+            <Option v-for="item in hubList"
+                    :key="`gatVeh_${item.hubCode}`"
+                    :value="item.hubCode">
               {{ item.hubName }}
             </Option>
           </Select>

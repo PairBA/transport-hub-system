@@ -6,7 +6,7 @@
           <Select v-model="hubCode"
                   :placeholder="'请输入交通枢纽'">
             <Option v-for="item in hubList"
-                    :key="item.hubCode"
+                    :key="`capSch_${item.hubCode}`"
                     :value="item.hubCode">
               {{ item.hubName }}
             </Option>
