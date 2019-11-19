@@ -258,7 +258,7 @@ export default {
         '&vehicleNo=' + (this.vehicleNo === '川A' ? '' : this.vehicleNo) +
         '&endDate=' + dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime +
         '&hubCode=' + this.hubCode +
-        '&terminalName=' + this.terminalName +
+        '&terminalName=' + (this.terminalName ? this.terminalName : '') +
         '&gateName=' + this.gateName +
         '&x-me-token=' + token
       downloadFile(`${baseUrl}${url}`)
