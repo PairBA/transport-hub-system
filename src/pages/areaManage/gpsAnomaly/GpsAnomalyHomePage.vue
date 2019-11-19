@@ -5,7 +5,13 @@
         <Table :columns="columns"
                :data="list">
         </Table>
-        <PairPage id="trailList" :total="total" :current="currentPage" :page-size="pageSize" @on-change="getPage" @on-page-size-change="changeSize"></PairPage>
+        <PairPage id="trailList"
+                  :total="total"
+                  :current="currentPage"
+                  :page-size="pageSize"
+                  @on-change="getPage"
+                  @on-page-size-change="changeSize">
+        </PairPage>
       </TableWrapper>
     </ContentLayout>
   </div>
