@@ -56,6 +56,12 @@ export default {
       this.activeName = name
       this.$store.commit('permission/updateSubMenu', this.subMenuObj[name])
     }
+  },
+  mounted() {
+    const path = this.$route.path
+    this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
+      return $1
+    }).substring(1)
   }
 }
 </script>
