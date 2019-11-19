@@ -35,6 +35,7 @@ const actions = {
       pageSize: state.pageSize,
       queryVO: {
         judgeType,
+        gateName: state.gateName,
         startDate: dateFormat(state.startDate, 'yyyy-MM-dd') + ' ' + state.startTime,
         endDate: dateFormat(state.endDate, 'yyyy-MM-dd') + ' ' + state.endTime,
         areaCode: rootState.areaCodeForSelect,
