@@ -218,7 +218,6 @@ export default {
       }
     },
     terminalList() {
-      console.log(this.$store.state.terminalList)
       return this.$store.state.terminalList
     }
   },
