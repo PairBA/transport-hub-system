@@ -182,17 +182,11 @@ export default {
     }
   },
   mounted() {
-    if (this.vehicleNo && this.vehicleNo !== '川A') {
-      this.goSearch()
-    }
     this.$nextTick(() => {
       this.showEchart = true
     })
   },
   methods: {
-    goSearch() {
-      this.getHubStatTrailList()
-    },
     goToDetail({ mobile, vehicleNo }) {
       this.$router.push({
         name: '违规上客详情',
@@ -211,17 +205,6 @@ export default {
     changeSize(pageSize) {
       this.$store.commit('illegalBoarding/updatePageSize', pageSize)
       this.getPage(1)
-    },
-    async getHubStatTrailList() {
-      if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
-        this.$Message.warning({
-          content: '时间间隔不能大于7天！'
-        })
-      } else {
-        this.showSpin = true
-        await this.$store.dispatch('illegalBoarding/getHubStatTrailList', { currentPage: 1 })
-        this.showSpin = false
-      }
     }
   }
 }

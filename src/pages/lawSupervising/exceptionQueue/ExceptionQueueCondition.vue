@@ -107,6 +107,7 @@ export default {
     if (!this.hubCode) {
       this.$store.commit('updateHubCode', this.hubList[0].hubCode)
     }
+    this.goSearch()
   },
   methods: {
     async goSearch() {
