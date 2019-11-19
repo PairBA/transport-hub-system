@@ -5,7 +5,7 @@
         <FormItem label="交通枢纽：">
           <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
             <Option v-for="item in hubList"
-                    :key="`gate_${item.hubCode}`"
+                    :key="`gateVeh_hub_${item.hubCode}`"
                     :value="item.hubCode">
               {{ item.hubName }}
             </Option>
@@ -24,7 +24,9 @@
             <Option :value="''" v-if="!terminalCode">
               {{ $t('sysManage.queryBar.driverStatusSelect.ALL') }}
             </Option>
-            <Option v-for="item in terminalList" :key="item.terminalCode" :value="item.terminalCode">
+            <Option v-for="item in terminalList"
+                    :key="`gateVeh_ter_${item.terminalCode}`"
+                    :value="item.terminalCode">
               {{ item.terminalName }}
             </Option>
           </Select>
@@ -216,6 +218,7 @@ export default {
       }
     },
     terminalList() {
+      console.log(this.$store.state.terminalList)
       return this.$store.state.terminalList
     }
   },

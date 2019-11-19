@@ -7,7 +7,9 @@
             <Option v-if="!terminalCode" :value="''">
               {{ $t('sysManage.queryBar.driverStatusSelect.ALL') }}
             </Option>
-            <Option v-for="item in terminalList" :key="item.terminalCode" :value="item.terminalCode">
+            <Option v-for="item in terminalList"
+                    :key="`gpsAno_${item.terminalCode}`"
+                    :value="item.terminalCode">
               {{ item.terminalName }}
             </Option>
           </Select>
