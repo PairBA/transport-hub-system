@@ -67,6 +67,7 @@ const mutations = {
     const homePage = allSubMenu[firstMenu][0]
     state.homePageMenuKey = homePage.name
     state.homePage = homePage.path
+    state.activePath = homePage.path
   },
   updateShowMenu(state, value) {
     state.showMenu = value

@@ -33,7 +33,6 @@ export default {
   watch: {
     $route: {
       handler() {
-        console.log('$route handler....')
         const path = this.$route.path
         this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
           return $1
