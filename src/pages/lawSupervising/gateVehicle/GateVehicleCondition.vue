@@ -4,7 +4,9 @@
       <Form label-position="top">
         <FormItem label="交通枢纽：">
           <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
-            <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
+            <Option v-for="item in hubList"
+                    :key="`gate_${item.hubCode}`"
+                    :value="item.hubCode">
               {{ item.hubName }}
             </Option>
           </Select>
@@ -239,7 +241,9 @@ export default {
     },
     exportGate() {
       let judgeType = this.judgeType.join('::')
-      if (this.judgeType.some(item => item === ' ')) judgeType = ' '
+      if (this.judgeType.some(item => item === ' ')) {
+        judgeType = 'GPS_LOST::GPS_REPEAT::GPS_TIME_ERROR::NO_GPS_UPLOAD'
+      }
       const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
       const url = END_POINTS.EXPORT_GATE_JUDGE_REPORT +
@@ -254,7 +258,6 @@ export default {
         '&gateName=' + this.gateName +
         '&x-me-token=' + token
       downloadFile(`${baseUrl}${url}`)
-      // window.location.href = `${baseUrl}${url}`
     }
   }
 }

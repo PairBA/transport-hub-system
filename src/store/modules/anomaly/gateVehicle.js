@@ -26,7 +26,9 @@ const actions = {
     rootState
   }, { currentPage }) {
     let judgeType = state.judgeType.join('::')
-    if (state.judgeType.some(item => item === ' ')) judgeType = ' '
+    if (state.judgeType.some(item => item === ' ')) {
+      judgeType = 'GPS_LOST::GPS_REPEAT::GPS_TIME_ERROR::NO_GPS_UPLOAD'
+    }
     const result = await post(END_POINTS.GET_GATE_JUDGE_LIST, {
       currentPage,
       orderBy: '',
@@ -51,7 +53,9 @@ const actions = {
     rootState
   }) {
     let judgeType = state.judgeType.join('::')
-    if (state.judgeType.some(item => item === ' ')) judgeType = ' '
+    if (state.judgeType.some(item => item === ' ')) {
+      judgeType = 'GPS_LOST::GPS_REPEAT::GPS_TIME_ERROR::NO_GPS_UPLOAD'
+    }
     const result = await get(END_POINTS.GET_GATE_JUDGE_GRAPH, {
       judgeType,
       gateName: state.gateName,
