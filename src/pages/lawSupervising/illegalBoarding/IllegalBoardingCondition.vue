@@ -110,16 +110,16 @@ export default {
     if (!this.hubCode) {
       this.$store.commit('updateHubCode', this.hubList[0].hubCode)
     }
-    this.goSearch()
+    this.goSearch('mounted')
   },
   methods: {
-    async goSearch() {
+    async goSearch(param) {
       if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
         this.$Message.warning({
           content: '时间间隔不能大于7天！'
         })
       } else {
-        if (this.routerName !== '违规上客') {
+        if (this.routerName !== '违规上客'  && param !== 'mounted') {
           this.$router.push({ name: '违规上客' })
         }
         this.showSpin = true
