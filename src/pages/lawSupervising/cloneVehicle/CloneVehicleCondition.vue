@@ -78,7 +78,7 @@
           </Button>
           <Button type="primary"
                   style="margin-left: 24px"
-                  @click="exportGate">
+                  @click="exportCloneVehicle">
             {{$t("sysManage.versionMgmt.exportExcel")}}
           </Button>
         </div>
@@ -220,7 +220,7 @@ export default {
         this.showSpin = false
       }
     },
-    exportGate() {
+    exportCloneVehicle() {
       const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
       const url = END_POINTS.EXPORT_GATE_JUDGE_REPORT +

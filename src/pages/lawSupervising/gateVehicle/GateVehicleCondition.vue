@@ -251,7 +251,7 @@ export default {
         '&areaCode=' + localStorage.getItem('areaCode') +
         '&companyId=' + this.$store.state.companyIdForSelect +
         '&startDate=' + dateFormat(this.startDate, 'yyyy-MM-dd') + ' ' + this.startTime +
-        '&vehicleNo=' + this.vehicleNo === '川A' ? '' : this.vehicleNo +
+        '&vehicleNo=' + (this.vehicleNo === '川A' ? '' : this.vehicleNo) +
         '&endDate=' + dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime +
         '&hubCode=' + this.hubCode +
         '&terminalName=' + this.terminalName +
