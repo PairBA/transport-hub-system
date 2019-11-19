@@ -30,6 +30,23 @@ export default {
       return this.$store.state.permission.subMenuObj
     }
   },
+  watch: {
+    $route: {
+      handler() {
+        console.log('$route handler....')
+        const path = this.$route.path
+        this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
+          return $1
+        }).substring(1)
+        this.$store.commit('permission/updateActivePath', path)
+        this.getSelectMenu(this.activeName)
+        this.$nextTick(() => {
+          this.$refs.mainMenu.updateActiveName()
+        })
+      },
+      deep: true
+    }
+  },
   methods: {
     onSelectMenu(name) {
       this.activeName = name
@@ -40,16 +57,6 @@ export default {
       this.activeName = name
       this.$store.commit('permission/updateSubMenu', this.subMenuObj[name])
     }
-  },
-  mounted() {
-    const path = this.$route.path
-    this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
-      return $1
-    }).substring(1)
-    this.getSelectMenu(this.activeName)
-    this.$nextTick(() => {
-      this.$refs.mainMenu.updateActiveName()
-    })
   }
 }
 </script>

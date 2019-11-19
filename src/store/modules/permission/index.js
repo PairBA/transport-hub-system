@@ -63,8 +63,8 @@ const mutations = {
     state.mainMenu = mainMenu
     state.subMenuObj = subMenuObj
     const firstMenu = mainMenu[0].resourceKey
-    state.subMenu = subMenuObj[firstMenu]
-    const homePage = subMenuObj[firstMenu][0]
+    state.subMenu = allSubMenu[firstMenu]
+    const homePage = allSubMenu[firstMenu][0]
     state.homePageMenuKey = homePage.name
     state.homePage = homePage.path
   },
