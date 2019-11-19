@@ -245,6 +245,8 @@ export default {
       let judgeType = this.judgeType.join('::')
       if (this.judgeType.some(item => item === ' ')) {
         judgeType = 'GPS_LOST::GPS_REPEAT::GPS_TIME_ERROR::NO_GPS_UPLOAD'
+      } else if (this.judgeType[0] === '') {
+        judgeType = 'GPS_LOST::GPS_REPEAT::GPS_TIME_ERROR::NO_GPS_UPLOAD'
       }
       const token = localStorage.getItem('hub-token')
       const baseUrl = process.env.VUE_APP_BASE_URL
