@@ -3,8 +3,11 @@
     <MenuSearchWrapper>
       <Form label-position="top">
         <FormItem label="交通枢纽：">
-          <Select v-model="hubCode" :placeholder="'请输入交通枢纽'">
-            <Option v-for="item in hubList" :key="item.hubCode" :value="item.hubCode">
+          <Select v-model="hubCode"
+                  :placeholder="'请输入交通枢纽'">
+            <Option v-for="item in hubList"
+                    :key="`noVehicle_${item.hubCode}`"
+                    :value="item.hubCode">
               {{ item.hubName }}
             </Option>
           </Select>
@@ -188,6 +191,7 @@ export default {
         })
       } else {
         this.showSpin = true
+        this.$store.commit('gateVehicle/updateJudgeType', ['UNKNOWN_VEHICLE'])
         await this.$store.dispatch('gateVehicle/getGateJudgeList', { currentPage: 1 })
         await this.$store.dispatch('gateVehicle/getGateJudgeGraph')
         this.showSpin = false

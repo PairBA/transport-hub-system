@@ -1,7 +1,8 @@
 <template>
   <div class="noVehicle__homePage">
     <ContentLayout :showSpin="showSpin">
-      <div class="content__card" style="margin-bottom: 24px">
+      <div class="content__card"
+           style="margin-bottom: 24px">
         <PairECharts id="gateECharts"
                      :xAxis="gateECharts.xAxis"
                      :yAxis="gateECharts.yAxis"
@@ -14,7 +15,13 @@
       </div>
       <TableWrapper>
         <Table :columns="tableColumns" :data="gateJudgeList"/>
-        <PairPage id="gateJudgeList" :total="total" :current="currentPage" :page-size="pageSize" @on-change="getPage" @on-page-size-change="changeSize"></PairPage>
+        <PairPage id="gateJudgeList"
+                  :total="total"
+                  :current="currentPage"
+                  :page-size="pageSize"
+                  @on-change="getPage"
+                  @on-page-size-change="changeSize">
+        </PairPage>
       </TableWrapper>
     </ContentLayout>
     <FocusModal :showFocusModal = 'showFocusModal'
@@ -261,6 +268,7 @@ export default {
         })
       } else {
         this.showSpin = true
+        this.$store.commit('gateVehicle/updateJudgeType', ['UNKNOWN_VEHICLE'])
         await this.$store.dispatch('gateVehicle/getGateJudgeList', { currentPage: 1 })
         await this.$store.dispatch('gateVehicle/getGateJudgeGraph')
         this.showSpin = false
