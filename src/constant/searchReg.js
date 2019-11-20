@@ -16,5 +16,6 @@ export const searchComponentsReg = {
   CloneVehicleCondition: () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleCondition.vue'),
   DriverSearch: () => import('@/pages/areaManage/driverSearch/DriverSearch.vue'),
   VehicleSearch: () => import('@/pages/areaManage/vehicleSearch/VehicleSearch.vue'),
-  CapacitySchedulingSearch: () => import('@/pages/areaManage/capacityScheduling/CapacitySchedulingSearch.vue')
+  CapacitySchedulingSearch: () => import('@/pages/areaManage/capacityScheduling/CapacitySchedulingSearch.vue'),
+  ActiveSafetySearch: () => import('@/pages/lawSupervising/activeSafety/ActiveSafetySearch.vue')
 }

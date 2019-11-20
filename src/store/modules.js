@@ -15,6 +15,7 @@ import gateVehicleSearch from './modules/trafficFlow/gateVehicleSearch'
 import capacityScheduling from './modules/capacityScheduling/capacityScheduling'
 import driverSearch from './modules/areaManage/driverSearch'
 import vehicleSearch from './modules/areaManage/vehicleSearch'
+import activeSafety from './modules/lawSupervising/activeSafety'
 
 export default {
   login,
@@ -33,5 +34,6 @@ export default {
   gateVehicleSearch,
   capacityScheduling,
   driverSearch,
-  vehicleSearch
+  vehicleSearch,
+  activeSafety
 }

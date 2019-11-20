@@ -7,7 +7,7 @@ const IllegalBoardingHomePage = () => import('@/pages/lawSupervising/illegalBoar
 const NoVehicleHomePage = () => import('@/pages/lawSupervising/noVehicle/NoVehicleHomePage')
 const CloneVehicleHomePage = () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleHomePage')
 const GateVehicleHomePage = () => import('@/pages/lawSupervising/gateVehicle/GateVehicleHomePage')
-const ActiveSafetyHomePage = () => import('@/pages/areaManage/activeSafety/ActiveSafetyHomePage')
+const ActiveSafetyHomePage = () => import('@/pages/lawSupervising/activeSafety/ActiveSafetyHomePage')
 
 // 区域管理
 const TrafficFlowHomePage = () => import('@/pages/areaManage/trafficFlow/TrafficFlowHomePage')
@@ -79,7 +79,7 @@ export const lawSupervising = [
   {
     name: '主动安全',
     path: '/lawSupervising/activeSafetyHomePage',
-    search: '',
+    search: 'ActiveSafetySearch',
     component: ActiveSafetyHomePage
   }
 ]
