@@ -7,13 +7,13 @@ const IllegalBoardingHomePage = () => import('@/pages/lawSupervising/illegalBoar
 const NoVehicleHomePage = () => import('@/pages/lawSupervising/noVehicle/NoVehicleHomePage')
 const CloneVehicleHomePage = () => import('@/pages/lawSupervising/cloneVehicle/CloneVehicleHomePage')
 const GateVehicleHomePage = () => import('@/pages/lawSupervising/gateVehicle/GateVehicleHomePage')
+const ActiveSafetyHomePage = () => import('@/pages/areaManage/activeSafety/ActiveSafetyHomePage')
 
 // 区域管理
 const TrafficFlowHomePage = () => import('@/pages/areaManage/trafficFlow/TrafficFlowHomePage')
 const GpsAnomalyHomePage = () => import('@/pages/areaManage/gpsAnomaly/GpsAnomalyHomePage')
 const GateVehicleSearchHomePage = () => import('@/pages/areaManage/gateVehicle/GateVehicleHomePage')
 const VehicleTrajectoryHomePage = () => import('@/pages/areaManage/vehicleTrajectory/VehicleTrajectoryHomePage')
-const ActiveSafetyHomePage = () => import('@/pages/areaManage/activeSafety/ActiveSafetyHomePage')
 const CapacitySchedulingHomePage = () => import('@/pages/areaManage/capacityScheduling/CapacitySchedulingHomePage')
 const DriverSearchHomePage = () => import('@/pages/areaManage/driverSearch/DriverSearchHomePage')
 const VehicleSearchHomePage = () => import('@/pages/areaManage/vehicleSearch/VehicleSearchHomePage')
@@ -75,6 +75,12 @@ export const lawSupervising = [
     path: '/lawSupervising/cloneVehicleHomePage',
     search: 'CloneVehicleCondition',
     component: CloneVehicleHomePage
+  },
+  {
+    name: '主动安全',
+    path: '/lawSupervising/activeSafetyHomePage',
+    search: '',
+    component: ActiveSafetyHomePage
   }
 ]
 export const areaManage = [
@@ -113,12 +119,6 @@ export const areaManage = [
     path: '/areaManage/vehicleTrajectoryHomePage',
     search: 'VehicleTrajectorySearch',
     component: VehicleTrajectoryHomePage
-  },
-  {
-    name: '主动安全',
-    path: '/areaManage/activeSafetyHomePage',
-    search: '',
-    component: ActiveSafetyHomePage
   },
   {
     name: '运力调度',
