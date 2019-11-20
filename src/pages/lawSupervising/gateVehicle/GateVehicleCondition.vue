@@ -259,7 +259,7 @@ export default {
         '&endDate=' + dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime +
         '&hubCode=' + this.hubCode +
         '&terminalName=' + (this.terminalName ? this.terminalName : '') +
-        '&gateName=' + this.gateName +
+        '&gateName=' + (this.gateName ? this.gateName : '') +
         '&x-me-token=' + token
       downloadFile(`${baseUrl}${url}`)
     }
