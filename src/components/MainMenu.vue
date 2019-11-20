@@ -33,15 +33,7 @@ export default {
   watch: {
     $route: {
       handler() {
-        const path = this.$route.path
-        this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
-          return $1
-        }).substring(1)
-        this.$store.commit('permission/updateActivePath', path)
-        this.getSelectMenu(this.activeName)
-        this.$nextTick(() => {
-          this.$refs.mainMenu.updateActiveName()
-        })
+        this.doInit()
       },
       deep: true
     }
@@ -55,13 +47,21 @@ export default {
     getSelectMenu(name) {
       this.activeName = name
       this.$store.commit('permission/updateSubMenu', this.subMenuObj[name])
+    },
+    doInit() {
+      const path = this.$route.path
+      this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
+        return $1
+      }).substring(1)
+      this.$store.commit('permission/updateActivePath', path)
+      this.getSelectMenu(this.activeName)
+      this.$nextTick(() => {
+        this.$refs.mainMenu.updateActiveName()
+      })
     }
   },
   mounted() {
-    const path = this.$route.path
-    this.activeName = path.replace(/(.+)\/.*/, (match, $1) => {
-      return $1
-    }).substring(1)
+    this.doInit()
   }
 }
 </script>
