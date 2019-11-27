@@ -29,6 +29,12 @@ const WatchDutyScheduleHomePage = () => import('@/pages/systemManage/watchDutySc
 const ScheduleHomePage = () => import('@/pages/systemManage/schedule/ScheduleHomePage')
 export const lawSupervising = [
   {
+    name: '主动安全',
+    path: '/lawSupervising/activeSafetyHomePage',
+    search: 'ActiveSafetySearch',
+    component: ActiveSafetyHomePage
+  },
+  {
     name: 'GPS异常',
     path: '/lawSupervising/gateVehicleHomePage',
     search: 'GateVehicleCondition',
@@ -75,12 +81,6 @@ export const lawSupervising = [
     path: '/lawSupervising/cloneVehicleHomePage',
     search: 'CloneVehicleCondition',
     component: CloneVehicleHomePage
-  },
-  {
-    name: '主动安全',
-    path: '/lawSupervising/activeSafetyHomePage',
-    search: 'ActiveSafetySearch',
-    component: ActiveSafetyHomePage
   }
 ]
 export const areaManage = [
