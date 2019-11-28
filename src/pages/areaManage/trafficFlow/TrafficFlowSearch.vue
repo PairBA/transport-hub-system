@@ -88,6 +88,7 @@
 
 <script>
 import { get, END_POINTS } from '@/api'
+import cloneDeep from 'clone-deep'
 import { dateFormat, downloadFile } from '@/utils'
 export default {
   data() {
@@ -234,12 +235,15 @@ export default {
       )
       // 当前页不大于总页数
       if (this.tableListObject.currentPage <= this.tableListObject.totalPage) {
-        let showTableList = [] // 显示的列表
+        // 显示的列表
+        let showTableList = []
+        // 用 reverse 反转数组
+        let tableList = cloneDeep(this.tableListObject.tableList).reverse()
         for (let i = this.tableListObject.pageSize * (this.tableListObject.currentPage - 1) + 1;
           i <= ((this.tableListObject.total > this.tableListObject.pageSize * this.tableListObject.currentPage)
             ? (this.tableListObject.pageSize * this.tableListObject.currentPage) : (this.tableListObject.total));
           i++) {
-          showTableList.push(this.tableListObject.tableList[i - 1])
+          showTableList.push(tableList[i - 1])
         }
         this.$store.commit('search/updateTraFloObjTableListObjectShowTableList', showTableList)
       }
