@@ -119,7 +119,7 @@ export default {
           content: '时间间隔不能大于7天！'
         })
       } else {
-        if (this.routerName !== '违规上客'  && param !== 'mounted') {
+        if (this.routerName !== '违规上客' && param !== 'mounted') {
           this.$router.push({ name: '违规上客' })
         }
         this.showSpin = true

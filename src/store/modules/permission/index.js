@@ -64,7 +64,7 @@ const mutations = {
     state.subMenuObj = subMenuObj
     const firstMenu = mainMenu[0].resourceKey
     state.subMenu = allSubMenu[firstMenu]
-    const homePage = allSubMenu[firstMenu][0]
+    const homePage = allSubMenu[firstMenu].find(subMenuAll => subMenuObj[firstMenu].some(subMenu => subMenu.name === subMenuAll.name))
     state.homePageMenuKey = homePage.name
     state.homePage = homePage.path
     state.activePath = homePage.path
