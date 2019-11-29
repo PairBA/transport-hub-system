@@ -25,7 +25,6 @@
 <script>
 import FocusModal from '@/components/modal/focus/FocusModal'
 import { get, END_POINTS } from '@/api'
-import { dateFormat } from '@/utils'
 const focus = require('@/img/focus/focus.png')
 const cancelFocus = require('@/img/focus/cancelFocus.png')
 
