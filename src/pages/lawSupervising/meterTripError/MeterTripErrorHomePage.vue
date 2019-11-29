@@ -47,16 +47,16 @@ export default {
       return this.$store.state.permission.focusRule
     },
     tableList() {
-      return this.$store.state.vehicleSearch.tableObj.tableList
+      return this.$store.state.meterTripError.tableObj.tableList
     },
     currentPage() {
-      return this.$store.state.vehicleSearch.tableObj.currentPage
+      return this.$store.state.meterTripError.tableObj.currentPage
     },
     pageSize() {
-      return this.$store.state.vehicleSearch.tableObj.pageSize
+      return this.$store.state.meterTripError.tableObj.pageSize
     },
     total() {
-      return this.$store.state.vehicleSearch.tableObj.total
+      return this.$store.state.meterTripError.tableObj.total
     },
     columns() {
       return [
@@ -92,8 +92,12 @@ export default {
           render: (h, params) => {
             let content = '--'
             let judgeType = params.row.judgeType
-            if (judgeType) {
-              content = dateFormat(new Date(judgeType), 'yyyy-MM-dd')
+            if (judgeType === 'METER_STATE_EXP') {
+              content = '状态异常'
+            } else if (judgeType === 'METER_DIST_EXP') {
+              content = '里程异常'
+            } else if (judgeType === 'METER_FARE_EXP') {
+              content = '金额异常'
             }
             return h('div', content)
           }

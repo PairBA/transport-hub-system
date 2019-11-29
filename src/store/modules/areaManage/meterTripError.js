@@ -17,20 +17,21 @@ const state = {
 }
 const actions = {
   async getMTETableObj({ commit, state, rootState }, { currentPage }) {
-    // const response = await post(END_POINTS.GET_DRIVER_BASE_INFO_LIST, {
-    //   currentPage,
-    //   pageSize: state.tableObj.pageSize,
-    //   queryVO: {
-    //     areaCode: rootState.areaCodeForSelect,
-    //     driverType: state.driverType,
-    //     driverName: state.driverName,
-    //     companyId: rootState.companyIdForSelect,
-    //     idCard: state.driverNumber,
-    //     jobSeniorityCard: state.serviceNumber
-    //   },
-    //   refreshTotalRecord: true
-    // })
-    // commit('updateMTETableObj', response)
+    const response = await post(END_POINTS.GET_METER_ERROR_LIST, {
+      currentPage,
+      pageSize: state.tableObj.pageSize,
+      queryVO: {
+        areaCode: rootState.areaCodeForSelect,
+        companyId: rootState.companyIdForSelect,
+        terminalCode: state.mteTerminalCode,
+        judgeType: state.mteJudgeType === '0' ? '' : state.mteJudgeType,
+        vehicleNo: state.mteVehicleNo === '川A' ? '' : state.mteVehicleNo,
+        startDate: state.mteDateRange[0].getTime(),
+        endDate: state.mteDateRange[1].getTime()
+      },
+      refreshTotalRecord: true
+    })
+    commit('updateMTETableObj', response)
   }
 }
 const mutations = {
