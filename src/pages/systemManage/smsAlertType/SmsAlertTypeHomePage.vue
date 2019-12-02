@@ -60,7 +60,7 @@ export default {
     }
   },
   watch: {
-    other: {
+    vehicle: {
       handler(newValue, oldValue) {
         this.judgeUpdate(oldValue, newValue)
       }
@@ -96,6 +96,12 @@ export default {
       this.$store.commit('search/updateShowSpin', false)
     },
     switchConfig(data) {
+      this.vehicle = []
+      this.vehicleList = []
+      this.gps = []
+      this.gpsList = []
+      this.meter = []
+      this.meterList = []
       data.forEach(item => {
         if (item.alertItem === '车辆异常') {
           this.vehicleList.push(item)
@@ -120,10 +126,40 @@ export default {
         alertType: alertType,
         isEnabled: isEnabled
       })
-      console.log(result)
+      if (result.code === 2000) {
+        this.$Message.success({
+          content: result.msg
+        })
+      } else {
+        this.$Message.error({
+          content: result.msg
+        })
+      }
+      // 刷新一下
+      this.getGateAlertConfigList()
     },
     judgeUpdate(oldValue, newValue) {
-
+      let alertType = ''
+      let isEnabled = true
+      if (oldValue.length > newValue.length) {
+        isEnabled = false
+        oldValue.forEach(oldItem => {
+          let res = newValue.find(newItem => newItem === oldItem)
+          if (!res) { // 赋值找不到的那个
+            alertType = oldItem
+          }
+        })
+      } else {
+        newValue.forEach(newItem => {
+          let res = oldValue.find(oldItem => oldItem === newItem)
+          if (!res) { // 赋值找不到的那个
+            alertType = newItem
+          }
+        })
+      }
+      if (alertType) {
+        this.updateGateAlertConfig(alertType, isEnabled)
+      }
     }
   },
   mounted() {
