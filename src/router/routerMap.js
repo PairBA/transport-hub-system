@@ -38,7 +38,7 @@ export const lawSupervising = [
   {
     name: '计价器异常',
     path: '/lawSupervising/meterTripErrorHomePage',
-    search: '',
+    search: 'MeterTripErrorSearch',
     component: MeterTripErrorHomePage
   },
   {

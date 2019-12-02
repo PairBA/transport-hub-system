@@ -16,6 +16,7 @@ import capacityScheduling from './modules/capacityScheduling/capacityScheduling'
 import driverSearch from './modules/areaManage/driverSearch'
 import vehicleSearch from './modules/areaManage/vehicleSearch'
 import activeSafety from './modules/lawSupervising/activeSafety'
+import meterTripError from './modules/areaManage/meterTripError'
 
 export default {
   login,
@@ -35,5 +36,6 @@ export default {
   capacityScheduling,
   driverSearch,
   vehicleSearch,
-  activeSafety
+  activeSafety,
+  meterTripError
 }

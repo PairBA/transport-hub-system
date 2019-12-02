@@ -17,5 +17,6 @@ export const searchComponentsReg = {
   DriverSearch: () => import('@/pages/areaManage/driverSearch/DriverSearch.vue'),
   VehicleSearch: () => import('@/pages/areaManage/vehicleSearch/VehicleSearch.vue'),
   CapacitySchedulingSearch: () => import('@/pages/areaManage/capacityScheduling/CapacitySchedulingSearch.vue'),
-  ActiveSafetySearch: () => import('@/pages/lawSupervising/activeSafety/ActiveSafetySearch.vue')
+  ActiveSafetySearch: () => import('@/pages/lawSupervising/activeSafety/ActiveSafetySearch.vue'),
+  MeterTripErrorSearch: () => import('@/pages/lawSupervising/meterTripError/MeterTripErrorSearch.vue')
 }

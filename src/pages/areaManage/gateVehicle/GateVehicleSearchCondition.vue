@@ -38,7 +38,6 @@
                       format="HH:mm"
                       placeholder="请选择时间"
                       style="float: right;"
-                      :steps="[1, 60]"
                       :clearable="false"
                       :editable="false">
           </TimePicker>
@@ -58,7 +57,6 @@
                       format="HH:mm"
                       placeholder="请选择时间"
                       style="float: right;"
-                      :steps="[1, 60]"
                       :clearable="false"
                       :editable="false">
           </TimePicker>
