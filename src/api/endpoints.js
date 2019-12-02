@@ -85,5 +85,6 @@ export default {
   // 主动安全
   GET_VEHICLE_ALARM_LIST: '/api/lawSystem/activeSafe/getVehicleAlarmList',
   // 短信告警类型
-  GET_GATE_ALERT_CONFIG_LIST: '/api/lawSystem/meterError/getGateAlertConfigList'
+  GET_GATE_ALERT_CONFIG_LIST: '/api/lawSystem/meterError/getGateAlertConfigList',
+  UPDATE_GATE_ALERT_CONFIG: '/api/lawSystem/meterError/updateGateAlertConfig'
 }

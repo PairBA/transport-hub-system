@@ -62,16 +62,41 @@ export default {
       meter: []
     }
   },
-  computed: {
-  },
-  mounted() {
-    this.getRoleList()
+  watch: {
+    other: {
+      handler(newValue, oldValue) {
+        this.judgeUpdate(oldValue, newValue)
+      }
+    },
+    gps: {
+      handler(newValue, oldValue) {
+        this.judgeUpdate(oldValue, newValue)
+      }
+    },
+    meter: {
+      handler(newValue, oldValue) {
+        this.judgeUpdate(oldValue, newValue)
+      }
+    }
   },
   methods: {
-    async getRoleList() {
+    judgeUpdate(oldValue, newValue) {
+
+    },
+    async getGateAlertConfigList() {
       const result = await get(END_POINTS.GET_GATE_ALERT_CONFIG_LIST)
       console.log(result)
+    },
+    async updateGateAlertConfig(alertType, isEnabled) {
+      const result = await get(END_POINTS.UPDATE_GATE_ALERT_CONFIG, {
+        alertType: alertType,
+        isEnabled: isEnabled
+      })
+      console.log(result)
     }
+  },
+  mounted() {
+    this.getGateAlertConfigList()
   }
 }
 </script>
