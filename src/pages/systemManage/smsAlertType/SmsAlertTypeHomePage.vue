@@ -5,7 +5,8 @@
         <Row>
           <span class="title">车辆异常</span>
           <Divider></Divider>
-          <CheckboxGroup v-model="vehicle">
+          <CheckboxGroup v-model="vehicle"
+                         @on-change="vehicleChange">
             <Checkbox v-for="item in vehicleList"
                       :key="item.alertType"
                       :label="item.alertType">
@@ -16,7 +17,8 @@
         <Row style="padding-top: 24px;">
           <span class="title">GPS异常</span>
           <Divider></Divider>
-          <CheckboxGroup v-model="gps">
+          <CheckboxGroup v-model="gps"
+                         @on-change="gpsChange">
             <Checkbox v-for="item in gpsList"
                       :key="item.alertType"
                       :label="item.alertType">
@@ -27,7 +29,8 @@
         <Row style="padding-top: 24px;">
           <span class="title">计价器异常</span>
           <Divider></Divider>
-          <CheckboxGroup v-model="meter">
+          <CheckboxGroup v-model="meter"
+                         @on-change="meterChange">
             <Checkbox v-for="item in meterList"
                       :key="item.alertType"
                       :label="item.alertType">
@@ -46,6 +49,7 @@ export default {
   name: 'SmsAlertTypeHomePage',
   data() {
     return {
+      isDoJudgeUpdate: false,
       vehicle: [],
       vehicleList: [],
       gps: [],
@@ -62,21 +66,36 @@ export default {
   watch: {
     vehicle: {
       handler(newValue, oldValue) {
-        this.judgeUpdate(oldValue, newValue)
+        if (this.isDoJudgeUpdate) {
+          this.judgeUpdate(oldValue, newValue)
+        }
       }
     },
     gps: {
       handler(newValue, oldValue) {
-        this.judgeUpdate(oldValue, newValue)
+        if (this.isDoJudgeUpdate) {
+          this.judgeUpdate(oldValue, newValue)
+        }
       }
     },
     meter: {
       handler(newValue, oldValue) {
-        this.judgeUpdate(oldValue, newValue)
+        if (this.isDoJudgeUpdate) {
+          this.judgeUpdate(oldValue, newValue)
+        }
       }
     }
   },
   methods: {
+    vehicleChange() {
+      this.isDoJudgeUpdate = true
+    },
+    gpsChange() {
+      this.isDoJudgeUpdate = true
+    },
+    meterChange() {
+      this.isDoJudgeUpdate = true
+    },
     async getGateAlertConfigList() {
       this.$store.commit('search/updateShowSpin', true)
       const result = await get(END_POINTS.GET_GATE_ALERT_CONFIG_LIST)
