@@ -1,13 +1,15 @@
-import {
-  post,
-  END_POINTS
-} from '@/api'
+import { post, END_POINTS } from '@/api'
+
+import { dateFormat } from '@/utils'
 
 const state = {
   mteTerminalCode: '',
   mteJudgeType: '',
   mteVehicleNo: '川A',
-  mteDateRange: [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date(new Date().getTime() - 24 * 60 * 60 * 1000)],
+  mteDateRange: [
+    new Date(dateFormat(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), 'yyyy/MM/dd') + ' 00:00:00'),
+    new Date(dateFormat(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), 'yyyy/MM/dd') + ' 00:00:00')
+  ],
   tableObj: { // 列表的对象
     tableList: [],
     total: 0,
@@ -15,6 +17,7 @@ const state = {
     pageSize: 10
   }
 }
+
 const actions = {
   async getMTETableObj({ commit, state, rootState }, { currentPage }) {
     const response = await post(END_POINTS.GET_METER_ERROR_LIST, {
@@ -34,6 +37,7 @@ const actions = {
     commit('updateMTETableObj', response)
   }
 }
+
 const mutations = {
   updateMteTerminalCode(state, value) {
     state.mteTerminalCode = value
