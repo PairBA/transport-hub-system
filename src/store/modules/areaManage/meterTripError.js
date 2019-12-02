@@ -7,7 +7,7 @@ const state = {
   mteTerminalCode: '',
   mteJudgeType: '',
   mteVehicleNo: '川A',
-  mteDateRange: [new Date(), new Date()],
+  mteDateRange: [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date(new Date().getTime() - 24 * 60 * 60 * 1000)],
   tableObj: { // 列表的对象
     tableList: [],
     total: 0,

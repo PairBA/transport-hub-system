@@ -25,6 +25,7 @@
 <script>
 import FocusModal from '@/components/modal/focus/FocusModal'
 import { get, END_POINTS } from '@/api'
+import { dateFormat } from '@/utils'
 const focus = require('@/img/focus/focus.png')
 const cancelFocus = require('@/img/focus/cancelFocus.png')
 
@@ -86,6 +87,17 @@ export default {
           }
         },
         {
+          title: '日期',
+          key: 'judgeDate',
+          render: (h, params) => {
+            let content = '--'
+            if (params.row.judgeDate) {
+              content = dateFormat(new Date(params.row.judgeDate), 'yyyy-MM-dd')
+            }
+            return h('span', content)
+          }
+        },
+        {
           title: '问题类型',
           key: 'judgeType',
           render: (h, params) => {
@@ -104,6 +116,7 @@ export default {
         {
           title: '问题描述',
           key: 'judgeDesc',
+          width: 350,
           render: (h, params) => {
             let content = '--'
             if (params.row.judgeDesc) {
