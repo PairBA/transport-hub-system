@@ -4,11 +4,13 @@
     <div class="sms-alert-type-home-page-content">
       <div class="card">
         <Row>
-          <CheckboxGroup v-model="other">
-            <Checkbox label="重点关注">
+          <span class="title">车辆异常</span>
+          <Divider></Divider>
+          <CheckboxGroup v-model="vehicle">
+            <Checkbox label="FOCUS_VEHICLE">
               <span>重点关注</span>
             </Checkbox>
-            <Checkbox label="未注册车">
+            <Checkbox label="UNKNOWN_VEHICLE">
               <span>未注册车</span>
             </Checkbox>
           </CheckboxGroup>
@@ -17,16 +19,16 @@
           <span class="title">GPS异常</span>
           <Divider></Divider>
           <CheckboxGroup v-model="gps">
-            <Checkbox label="GPS重复">
+            <Checkbox label="GPS_REPEAT">
               <span>GPS重复</span>
             </Checkbox>
-            <Checkbox label="GPS缺失">
+            <Checkbox label="GPS_LOST">
               <span>GPS缺失</span>
             </Checkbox>
-            <Checkbox label="GPS时间错误">
+            <Checkbox label="GPS_TIME_ERROR">
               <span>GPS时间错误</span>
             </Checkbox>
-            <Checkbox label="疑似克隆车">
+            <Checkbox label="CLONE_VEHICLE">
               <span>疑似克隆车</span>
             </Checkbox>
           </CheckboxGroup>
@@ -35,10 +37,10 @@
           <span class="title">计价器异常</span>
           <Divider></Divider>
           <CheckboxGroup v-model="meter">
-            <Checkbox label="计价器状态异常">
+            <Checkbox label="METER_STATE_EXP">
               <span>计价器状态异常</span>
             </Checkbox>
-            <Checkbox label="计价里程异常">
+            <Checkbox label="METER_DIST_EXP">
               <span>计价里程异常</span>
             </Checkbox>
             <Checkbox label="计价公式异常">
@@ -57,7 +59,7 @@ export default {
   name: 'SmsAlertTypeHomePage',
   data() {
     return {
-      other: [],
+      vehicle: [],
       gps: [],
       meter: []
     }
@@ -80,12 +82,32 @@ export default {
     }
   },
   methods: {
-    judgeUpdate(oldValue, newValue) {
-
-    },
     async getGateAlertConfigList() {
       const result = await get(END_POINTS.GET_GATE_ALERT_CONFIG_LIST)
-      console.log(result)
+      if (result.code === 2000) {
+        if (result.data && result.data.length) {
+          this.switchConfig(result.data)
+        } else {
+          this.$Message.error({
+            content: '查询结果为空！'
+          })
+        }
+      } else {
+        this.$Message.error({
+          content: result.msg
+        })
+      }
+    },
+    switchConfig(data) {
+      data.forEach(item => {
+        if (item.alertItem === '车辆异常' && item.isEnabled) {
+          this.vehicle.push(item.alertType)
+        } else if (item.alertItem === 'GPS异常' && item.isEnabled) {
+          this.gps.push(item.alertType)
+        } else if (item.alertItem === '计价器异常' && item.isEnabled) {
+          this.meter.push(item.alertType)
+        }
+      })
     },
     async updateGateAlertConfig(alertType, isEnabled) {
       const result = await get(END_POINTS.UPDATE_GATE_ALERT_CONFIG, {
@@ -93,6 +115,9 @@ export default {
         isEnabled: isEnabled
       })
       console.log(result)
+    },
+    judgeUpdate(oldValue, newValue) {
+
     }
   },
   mounted() {
@@ -115,9 +140,7 @@ export default {
     }
   }
   .ivu-checkbox-group-item {
-    &:not(:first-child) {
-      margin-left: 12px;
-    }
+    margin-left: 24px;
   }
   .ivu-checkbox-wrapper {
     font-size: 14px;
