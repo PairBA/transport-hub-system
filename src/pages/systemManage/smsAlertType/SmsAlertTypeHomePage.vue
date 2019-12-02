@@ -1,17 +1,15 @@
 <template>
   <div class="sms-alert-type-home-page">
-    <PairBreadcrumb title="短信告警类型"/>
-    <div class="sms-alert-type-home-page-content">
+    <ContentLayout :showSpin="showSpin">
       <div class="card">
         <Row>
           <span class="title">车辆异常</span>
           <Divider></Divider>
           <CheckboxGroup v-model="vehicle">
-            <Checkbox label="FOCUS_VEHICLE">
-              <span>重点关注</span>
-            </Checkbox>
-            <Checkbox label="UNKNOWN_VEHICLE">
-              <span>未注册车</span>
+            <Checkbox v-for="item in vehicleList"
+                      :key="item.alertType"
+                      :label="item.alertType">
+              <span>{{item.alertName}}</span>
             </Checkbox>
           </CheckboxGroup>
         </Row>
@@ -19,17 +17,10 @@
           <span class="title">GPS异常</span>
           <Divider></Divider>
           <CheckboxGroup v-model="gps">
-            <Checkbox label="GPS_REPEAT">
-              <span>GPS重复</span>
-            </Checkbox>
-            <Checkbox label="GPS_LOST">
-              <span>GPS缺失</span>
-            </Checkbox>
-            <Checkbox label="GPS_TIME_ERROR">
-              <span>GPS时间错误</span>
-            </Checkbox>
-            <Checkbox label="CLONE_VEHICLE">
-              <span>疑似克隆车</span>
+            <Checkbox v-for="item in gpsList"
+                      :key="item.alertType"
+                      :label="item.alertType">
+              <span>{{item.alertName}}</span>
             </Checkbox>
           </CheckboxGroup>
         </Row>
@@ -37,19 +28,15 @@
           <span class="title">计价器异常</span>
           <Divider></Divider>
           <CheckboxGroup v-model="meter">
-            <Checkbox label="METER_STATE_EXP">
-              <span>计价器状态异常</span>
-            </Checkbox>
-            <Checkbox label="METER_DIST_EXP">
-              <span>计价里程异常</span>
-            </Checkbox>
-            <Checkbox label="计价公式异常">
-              <span>计价公式异常</span>
+            <Checkbox v-for="item in meterList"
+                      :key="item.alertType"
+                      :label="item.alertType">
+              <span>{{item.alertName}}</span>
             </Checkbox>
           </CheckboxGroup>
         </Row>
       </div>
-    </div>
+    </ContentLayout>
   </div>
 </template>
 
@@ -60,8 +47,16 @@ export default {
   data() {
     return {
       vehicle: [],
+      vehicleList: [],
       gps: [],
-      meter: []
+      gpsList: [],
+      meter: [],
+      meterList: []
+    }
+  },
+  computed: {
+    showSpin() {
+      return this.$store.state.search.showSpin
     }
   },
   watch: {
@@ -83,6 +78,7 @@ export default {
   },
   methods: {
     async getGateAlertConfigList() {
+      this.$store.commit('search/updateShowSpin', true)
       const result = await get(END_POINTS.GET_GATE_ALERT_CONFIG_LIST)
       if (result.code === 2000) {
         if (result.data && result.data.length) {
@@ -97,15 +93,25 @@ export default {
           content: result.msg
         })
       }
+      this.$store.commit('search/updateShowSpin', false)
     },
     switchConfig(data) {
       data.forEach(item => {
-        if (item.alertItem === '车辆异常' && item.isEnabled) {
-          this.vehicle.push(item.alertType)
-        } else if (item.alertItem === 'GPS异常' && item.isEnabled) {
-          this.gps.push(item.alertType)
-        } else if (item.alertItem === '计价器异常' && item.isEnabled) {
-          this.meter.push(item.alertType)
+        if (item.alertItem === '车辆异常') {
+          this.vehicleList.push(item)
+          if (item.isEnabled) {
+            this.vehicle.push(item.alertType)
+          }
+        } else if (item.alertItem === 'GPS异常') {
+          this.gpsList.push(item)
+          if (item.isEnabled) {
+            this.gps.push(item.alertType)
+          }
+        } else if (item.alertItem === '计价器异常') {
+          this.meterList.push(item)
+          if (item.isEnabled) {
+            this.meter.push(item.alertType)
+          }
         }
       })
     },
@@ -128,15 +134,12 @@ export default {
 
 <style lang="less">
 .sms-alert-type-home-page {
-  .sms-alert-type-home-page-content {
+  .card {
     padding: 24px;
-    .card {
-      padding: 24px;
-      background: #FFFFFF;
-      .title {
-        font-size: 16px;
-        font-weight: 500;
-      }
+    background: #FFFFFF;
+    .title {
+      font-size: 16px;
+      font-weight: 500;
     }
   }
   .ivu-checkbox-group-item {
