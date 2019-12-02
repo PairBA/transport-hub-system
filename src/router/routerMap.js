@@ -27,6 +27,7 @@ const AccountMgmtHomePage = () => import('@/pages/systemManage/accountMgmt/Accou
 const RoleMgmtHomePage = () => import('@/pages/systemManage/roleMgmt/RoleMgmtHomePage')
 const WatchDutyScheduleHomePage = () => import('@/pages/systemManage/watchDutySchedule/WatchDutyScheduleHomePage')
 const ScheduleHomePage = () => import('@/pages/systemManage/schedule/ScheduleHomePage')
+const SmsAlertTypeHomePage = () => import('@/pages/systemManage/smsAlertType/SmsAlertTypeHomePage')
 export const lawSupervising = [
   {
     name: 'GPS异常',
@@ -167,6 +168,12 @@ export const systemManage = [
     path: '/systemManage/roleMgmtHomePage',
     search: '',
     component: RoleMgmtHomePage
+  },
+  {
+    name: '短信告警类型',
+    path: '/systemManage/SmsAlertTypeHomePage',
+    search: '',
+    component: SmsAlertTypeHomePage
   }
 ]
 
