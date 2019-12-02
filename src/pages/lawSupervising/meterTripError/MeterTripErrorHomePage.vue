@@ -120,7 +120,7 @@ export default {
           render: (h, params) => {
             let content = ''
             let src = ''
-            if (params.row.isFocused) { // 已经被关注
+            if (params.row.focused) { // 已经被关注
               content = '取消关注'
               src = cancelFocus
             } else { // 未被关注
@@ -150,7 +150,7 @@ export default {
                     },
                     on: {
                       click: () => {
-                        if (params.row.isFocused) { // 已经被关注
+                        if (params.row.focused) { // 已经被关注
                           this.doCancelFocus(params.row)
                         } else { // 未被关注
                           this.openFocus(params.row)
