@@ -48,6 +48,11 @@
                   @click="goSearch">
             {{$t("sysManage.queryBar.searchBT")}}
           </Button>
+          <Button type="primary"
+                  style="margin-left: 24px"
+                  @click="exportMeterError">
+            {{$t("sysManage.versionMgmt.exportExcel")}}
+          </Button>
         </div>
       </Form>
     </MenuSearchWrapper>
@@ -55,6 +60,9 @@
 </template>
 
 <script>
+import { END_POINTS } from '@/api'
+import { dateFormat, downloadFile } from '@/utils'
+
 export default {
   data() {
     return {
@@ -128,6 +136,20 @@ export default {
       this.$store.commit('search/updateShowSpin', true)
       await this.$store.dispatch('meterTripError/getMTETableObj', { currentPage: 1 })
       this.$store.commit('search/updateShowSpin', false)
+    },
+    exportMeterError() {
+      const token = localStorage.getItem('hub-token')
+      const baseUrl = process.env.VUE_APP_BASE_URL
+      const url = END_POINTS.EXPORT_METER_ERROR_EXCEL +
+        '?areaCode=' + localStorage.getItem('areaCode') +
+        '&companyId=' + this.$store.state.companyIdForSelect +
+        '&terminalCode=' + this.mteTerminalCode +
+        '&judgeType=' + (this.mteJudgeType === '0' ? '' : this.mteJudgeType) +
+        '&vehicleNo=' + (this.mteVehicleNo === '川A' ? '' : this.mteVehicleNo) +
+        '&startDate=' + dateFormat(this.mteDateRange[0], 'yyyy-MM-dd') +
+        '&endDate=' + dateFormat(this.mteDateRange[1], 'yyyy-MM-dd') +
+        '&x-me-token=' + token
+      downloadFile(`${baseUrl}${url}`)
     }
   }
 }
