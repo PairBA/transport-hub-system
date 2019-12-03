@@ -303,6 +303,9 @@ export default {
         this.$store.commit('search/updateShowSpin', false)
       }
     }
+  },
+  mounted() {
+    this.reVehicleQuerySearch()
   }
 }
 </script>

@@ -186,8 +186,21 @@ export default {
     this.$nextTick(() => {
       this.showEchart = true
     })
+    this.goSearch()
   },
   methods: {
+    async goSearch() {
+      if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
+      } else {
+        this.showSpin = true
+        await this.$store.dispatch('exceptionQueue/getHubStatTrailList', { currentPage: 1 })
+        await this.$store.dispatch('exceptionQueue/getHubStatTrailGraph')
+        this.showSpin = false
+      }
+    },
     goToDetail({ mobile, vehicleNo }) {
       this.$router.push({
         name: '异常排队详情',

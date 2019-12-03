@@ -14,7 +14,13 @@
       </div>
       <TableWrapper>
         <Table :columns="tableColumns" :data="gateJudgeList"/>
-        <PairPage id="gateJudgeList" :total="total" :current="currentPage" :page-size="pageSize" @on-change="getPage" @on-page-size-change="changeSize"></PairPage>
+        <PairPage id="gateJudgeList"
+                  :total="total"
+                  :current="currentPage"
+                  :page-size="pageSize"
+                  @on-change="getPage"
+                  @on-page-size-change="changeSize">
+        </PairPage>
       </TableWrapper>
     </ContentLayout>
     <FocusModal :showFocusModal = 'showFocusModal'
@@ -230,8 +236,10 @@ export default {
   },
   async mounted() {
     this.$store.commit('gateVehicle/updateTerminalName', this.terminalCode || '')
-    this.$store.dispatch('getCompListForSelect')
-    this.$store.dispatch('getTerminalList')
+    await Promise.all([
+      this.$store.dispatch('getCompListForSelect'),
+      this.$store.dispatch('getTerminalList')
+    ])
     this.showEchart = true
     this.getTableColumns()
     this.$store.commit('gateVehicle/updateJudgeType', ['CLONE_VEHICLE'])

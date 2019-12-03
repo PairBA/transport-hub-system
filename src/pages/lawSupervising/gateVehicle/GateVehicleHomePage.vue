@@ -231,8 +231,10 @@ export default {
   async mounted() {
     this.$store.commit('gateVehicle/updateTerminalName', this.terminalCode || '')
     this.$store.commit('gateVehicle/updateJudgeType', [''])
-    this.$store.dispatch('getCompListForSelect')
-    this.$store.dispatch('getTerminalList')
+    await Promise.all([
+      this.$store.dispatch('getCompListForSelect'),
+      this.$store.dispatch('getTerminalList')
+    ])
     this.showEchart = true
     this.getTableColumns()
     this.goSearch()

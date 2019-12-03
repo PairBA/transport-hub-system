@@ -16,7 +16,13 @@
         <Table :columns="columns"
                :data="list">
         </Table>
-        <PairPage id="trailList" :total="total" :current="currentPage" :page-size="pageSize" @on-change="getPage" @on-page-size-change="changeSize"></PairPage>
+        <PairPage id="trailList"
+                  :total="total"
+                  :current="currentPage"
+                  :page-size="pageSize"
+                  @on-change="getPage"
+                  @on-page-size-change="changeSize">
+        </PairPage>
       </TableWrapper>
     </ContentLayout>
   </div>
@@ -185,8 +191,21 @@ export default {
     this.$nextTick(() => {
       this.showEchart = true
     })
+    this.goSearch()
   },
   methods: {
+    async goSearch() {
+      if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
+        this.$Message.warning({
+          content: '时间间隔不能大于7天！'
+        })
+      } else {
+        this.showSpin = true
+        await this.$store.dispatch('illegalBoarding/getHubStatTrailList', { currentPage: 1 })
+        await this.$store.dispatch('illegalBoarding/getHubStatTrailGraph')
+        this.showSpin = false
+      }
+    },
     goToDetail({ mobile, vehicleNo }) {
       this.$router.push({
         name: '违规上客详情',

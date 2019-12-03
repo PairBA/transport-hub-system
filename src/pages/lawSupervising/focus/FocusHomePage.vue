@@ -233,6 +233,9 @@ export default {
     doCloseModal(result) {
       this.isShowModal = result
     }
+  },
+  mounted() {
+    this.reFocusSearch()
   }
 }
 </script>

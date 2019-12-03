@@ -110,18 +110,14 @@ export default {
     if (!this.hubCode) {
       this.$store.commit('updateHubCode', this.hubList[0].hubCode)
     }
-    this.goSearch('mounted')
   },
   methods: {
-    async goSearch(param) {
+    async goSearch() {
       if (new Date(this.daterange[1]).getTime() - new Date(this.daterange[0]).getTime() > 6 * 24 * 60 * 60 * 1000) {
         this.$Message.warning({
           content: '时间间隔不能大于7天！'
         })
       } else {
-        if (this.routerName !== '异常排队' && param !== 'mounted') {
-          this.$router.push({ name: '异常排队' })
-        }
         this.showSpin = true
         await this.$store.dispatch('exceptionQueue/getHubStatTrailList', { currentPage: 1 })
         await this.$store.dispatch('exceptionQueue/getHubStatTrailGraph')
