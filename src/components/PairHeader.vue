@@ -57,7 +57,7 @@ export default {
       return this.$store.state.hubCode
     },
     subTitle() {
-      return this.hubList.find(hub => hub.hubCode === this.hubCode) ? this.hubList.find(hub => hub.hubCode === this.hubCode).hubName : ''
+      return this.hubList.find(hub => hub.hubCode === this.hubCode) ? this.hubList.find(hub => hub.hubCode === this.hubCode).hubName : this.hubList[0].hubName
     },
     hubList() {
       return this.hubCodeAndNameList.split(';').map(hub => {
