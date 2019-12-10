@@ -17,6 +17,7 @@
         <div>
           <Input v-model="remark"
                  type="textarea"
+                 require
                  :rows="2"
                  placeholder="请输入备注" />
         </div>
@@ -66,6 +67,12 @@ export default {
       }
     },
     async confirmFocus() {
+      if (!this.remark) {
+        this.$Message.warning({
+          content: '必须输入备注！'
+        })
+        return
+      }
       this.focusLoading = true
       const result = await get(END_POINTS.FOCUS_VEHICLE, {
         areaCode: localStorage.getItem('areaCode'),
