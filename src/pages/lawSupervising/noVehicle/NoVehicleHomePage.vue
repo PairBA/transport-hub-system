@@ -153,36 +153,12 @@ export default {
         this.$store.commit('search/updateShowSpin', value)
       }
     },
-    startDate: {
+    dateRange: {
       get() {
-        return this.$store.state.gateVehicle.startDate
+        return this.$store.state.gateVehicle.dateRange
       },
       set(value) {
-        this.$store.commit('gateVehicle/updateStartDate', value)
-      }
-    },
-    endDate: {
-      get() {
-        return this.$store.state.gateVehicle.endDate
-      },
-      set(value) {
-        this.$store.commit('gateVehicle/updateEndDate', value)
-      }
-    },
-    startTime: {
-      get() {
-        return this.$store.state.gateVehicle.startTime
-      },
-      set(value) {
-        this.$store.commit('gateVehicle/updateStartTime', value)
-      }
-    },
-    endTime: {
-      get() {
-        return this.$store.state.gateVehicle.endTime
-      },
-      set(value) {
-        this.$store.commit('gateVehicle/updateEndTime', value)
+        this.$store.commit('gateVehicle/updateDateRange', value)
       }
     },
     graphData() {
@@ -260,8 +236,8 @@ export default {
       this.getPage(1)
     },
     async goSearch() {
-      const startDate = new Date(dateFormat(this.startDate, 'yyyy-MM-dd') + ' ' + this.startTime).getTime()
-      const endDate = new Date(dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime).getTime()
+      const startDate = new Date(dateFormat(this.dateRange[0], 'yyyy-MM-dd') + ' 00:00').getTime()
+      const endDate = new Date(dateFormat(this.dateRange[1], 'yyyy-MM-dd') + ' 23:59').getTime()
       if (startDate > endDate) {
         this.$Notice.warning({
           desc: this.$t('sysManage.tripData.warningDesc')

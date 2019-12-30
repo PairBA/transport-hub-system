@@ -5,10 +5,10 @@ import {
 } from '@/api'
 import { dateFormat } from '@/utils'
 const state = {
-  startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-  startTime: '00:00',
-  endDate: new Date(),
-  endTime: dateFormat(new Date(), 'hh') + ':00',
+  dateRange: [
+    new Date(dateFormat(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), 'yyyy/MM/dd') + ' 00:00:00'),
+    new Date(dateFormat(new Date(new Date().getTime()), 'yyyy/MM/dd') + ' 00:00:00')
+  ],
   judgeType: [],
   vehicleNo: '',
   gateName: '',
@@ -38,8 +38,8 @@ const actions = {
       queryVO: {
         judgeType,
         gateName: state.gateName,
-        startDate: dateFormat(state.startDate, 'yyyy-MM-dd') + ' ' + state.startTime,
-        endDate: dateFormat(state.endDate, 'yyyy-MM-dd') + ' ' + state.endTime,
+        startDate: dateFormat(state.dateRange[0], 'yyyy-MM-dd') + ' 00:00',
+        endDate: dateFormat(state.dateRange[1], 'yyyy-MM-dd') + ' 23:59',
         areaCode: rootState.areaCodeForSelect,
         hubCode: rootState.hubCode,
         companyId: rootState.companyIdForSelect,
@@ -64,8 +64,8 @@ const actions = {
     const result = await get(END_POINTS.GET_GATE_JUDGE_GRAPH, {
       judgeType,
       gateName: state.gateName,
-      startDate: dateFormat(state.startDate, 'yyyy-MM-dd') + ' ' + state.startTime,
-      endDate: dateFormat(state.endDate, 'yyyy-MM-dd') + ' ' + state.endTime,
+      startDate: dateFormat(state.dateRange[0], 'yyyy-MM-dd') + ' 00:00',
+      endDate: dateFormat(state.dateRange[1], 'yyyy-MM-dd') + ' 23:59',
       areaCode: rootState.areaCodeForSelect,
       hubCode: rootState.hubCode,
       companyId: rootState.companyIdForSelect,
@@ -79,17 +79,8 @@ const mutations = {
   updateGraph(state, value) {
     state.graphData = value.code === 2000 ? value.data : ''
   },
-  updateStartDate(state, value) {
-    state.startDate = value
-  },
-  updateEndDate(state, value) {
-    state.endDate = value
-  },
-  updateStartTime(state, value) {
-    state.startTime = value
-  },
-  updateEndTime(state, value) {
-    state.endTime = value
+  updateDateRange(state, value) {
+    state.dateRange = value
   },
   updateGateName(state, gateName) {
     state.gateName = gateName

@@ -44,43 +44,16 @@
         <FormItem :label="$t('sysManage.queryBar.vehicleNo')">
           <VehicleInput v-model="vehicleNo"/>
         </FormItem>
-        <FormItem :label="$t('sysManage.commonVar.startDateAndTime')">
-          <DatePicker v-model="startDate"
-                      type="date"
+        <FormItem label="日期区间：">
+          <DatePicker v-model="dateRange"
+                      type="daterange"
                       format="yyyy/MM/dd"
-                      style="float: left;"
-                      :editable="false"
+                      placement="bottom-start"
+                      placeholder="请选择时间区间"
                       :clearable="false"
-                      :options="options"
-                      :placeholder="$t('sysManage.queryBar.datePH')">
+                      :editable="false"
+                      :options="options">
           </DatePicker>
-          <TimePicker v-model="startTime"
-                      format="HH:mm"
-                      style="float: right;"
-                      :editable="false"
-                      :clearable="false"
-                      :disabled-minutes="disabledMinutes"
-                      :placeholder="$t('sysManage.queryBar.timeSelectPH')">
-          </TimePicker>
-        </FormItem>
-        <FormItem :label="$t('sysManage.commonVar.endDateAndTime')">
-          <DatePicker v-model="endDate"
-                      type="date"
-                      format="yyyy/MM/dd"
-                      style="float: left;"
-                      :editable="false"
-                      :clearable="false"
-                      :options="options"
-                      :placeholder="$t('sysManage.queryBar.datePH')">
-          </DatePicker>
-          <TimePicker v-model="endTime"
-                      format="HH:mm"
-                      style="float: right;"
-                      :editable="false"
-                      :disabled-minutes="disabledMinutes"
-                      :clearable="false"
-                      :placeholder="$t('sysManage.queryBar.timeSelectPH')">
-          </TimePicker>
         </FormItem>
         <Divider/>
         <div style="text-align: center">
@@ -153,36 +126,12 @@ export default {
         this.$store.commit('gateVehicle/updateVehicleNo', value)
       }
     },
-    startDate: {
+    dateRange: {
       get() {
-        return this.$store.state.gateVehicle.startDate
+        return this.$store.state.gateVehicle.dateRange
       },
       set(value) {
-        this.$store.commit('gateVehicle/updateStartDate', value)
-      }
-    },
-    endDate: {
-      get() {
-        return this.$store.state.gateVehicle.endDate
-      },
-      set(value) {
-        this.$store.commit('gateVehicle/updateEndDate', value)
-      }
-    },
-    startTime: {
-      get() {
-        return this.$store.state.gateVehicle.startTime
-      },
-      set(value) {
-        this.$store.commit('gateVehicle/updateStartTime', value)
-      }
-    },
-    endTime: {
-      get() {
-        return this.$store.state.gateVehicle.endTime
-      },
-      set(value) {
-        this.$store.commit('gateVehicle/updateEndTime', value)
+        this.$store.commit('gateVehicle/updateDateRange', value)
       }
     },
     judgeType: {
@@ -228,8 +177,8 @@ export default {
   },
   methods: {
     async goSearch() {
-      const startDate = new Date(dateFormat(this.startDate, 'yyyy-MM-dd') + ' ' + this.startTime).getTime()
-      const endDate = new Date(dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime).getTime()
+      const startDate = new Date(dateFormat(this.dateRange[0], 'yyyy-MM-dd') + ' 00:00').getTime()
+      const endDate = new Date(dateFormat(this.dateRange[1], 'yyyy-MM-dd') + ' 23:59').getTime()
       if (startDate > endDate) {
         this.$Notice.warning({
           desc: this.$t('sysManage.tripData.warningDesc')
@@ -254,9 +203,9 @@ export default {
         '?judgeType=' + judgeType +
         '&areaCode=' + localStorage.getItem('areaCode') +
         '&companyId=' + this.$store.state.companyIdForSelect +
-        '&startDate=' + dateFormat(this.startDate, 'yyyy-MM-dd') + ' ' + this.startTime +
+        '&startDate=' + dateFormat(this.dateRange[0], 'yyyy-MM-dd') + ' 00:00' +
         '&vehicleNo=' + (this.vehicleNo === '川A' ? '' : this.vehicleNo) +
-        '&endDate=' + dateFormat(this.endDate, 'yyyy-MM-dd') + ' ' + this.endTime +
+        '&endDate=' + dateFormat(this.dateRange[1], 'yyyy-MM-dd') + ' 23:59' +
         '&hubCode=' + this.hubCode +
         '&terminalName=' + (this.terminalName ? this.terminalName : '') +
         '&gateName=' + (this.gateName ? this.gateName : '') +
@@ -270,7 +219,7 @@ export default {
 <style lang="less">
 .gateVehicle__condition {
   .ivu-date-picker {
-    width: 49%;
+    width: 100%;
   }
 }
 </style>
