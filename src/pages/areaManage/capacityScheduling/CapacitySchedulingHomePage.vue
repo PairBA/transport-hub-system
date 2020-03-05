@@ -265,7 +265,7 @@ export default {
       const { estCountArray } = this.$store.state.capacityScheduling.estChart
       return [
         {
-          name: '预估运力',
+          name: '当前空车量',
           type: 'line',
           color: '#1890FF',
           showSymbol: false,
