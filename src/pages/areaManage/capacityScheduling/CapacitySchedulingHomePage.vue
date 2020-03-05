@@ -311,7 +311,7 @@ export default {
         return {
           data: [
             {
-              name: '预估运力',
+              name: '当前空车量',
               textStyle: {
                 color: '#66758D',
                 fontSize: 14
