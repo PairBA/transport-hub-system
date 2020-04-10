@@ -31,6 +31,7 @@ export async function send(url, {
       method,
       headers: {
         'me-client-type': 'me-client/web',
+        'me-api-type': 'hubmanager',
         'x-me-token': localStorage.getItem('hub-token'),
         ...headers
       },
