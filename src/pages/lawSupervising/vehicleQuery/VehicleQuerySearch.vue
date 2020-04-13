@@ -133,7 +133,7 @@ export default {
           '&areaCode=' + localStorage.getItem('areaCode') +
           '&configId=' + localStorage.getItem('configId') +
           '&hubCode=' + this.hubCode +
-          '&x-me-token=' + token
+          '&x-me-token=' + token + ' &me-api-type=hubmanager'
         // window.location.href = `${baseUrl}${url}`
         // window.open(`${baseUrl}${url}`)
         downloadFile(`${baseUrl}${url}`)

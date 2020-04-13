@@ -198,7 +198,7 @@ export default {
         '&hubCode=' + this.hubCode +
         '&startDate=' + dateFormat(new Date(this.startDate), 'yyyy-MM-dd') + ' ' + this.startTime + ':00' +
         '&endDate=' + dateFormat(new Date(this.endDate), 'yyyy-MM-dd') + ' ' + this.endTime + ':00' +
-        '&x-me-token=' + token
+        '&x-me-token=' + token + ' &me-api-type=hubmanager'
       downloadFile(`${baseUrl}${url}`)
     }
   }
