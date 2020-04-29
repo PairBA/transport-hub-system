@@ -148,7 +148,7 @@ export default {
         '&vehicleNo=' + (this.mteVehicleNo === '川A' ? '' : this.mteVehicleNo) +
         '&startDate=' + dateFormat(this.mteDateRange[0], 'yyyy-MM-dd') +
         '&endDate=' + dateFormat(this.mteDateRange[1], 'yyyy-MM-dd') +
-        '&x-me-token=' + token + ' &me-api-type=hubmanager'
+        '&x-me-token=' + token + '&me-api-type=hubmanager'
       downloadFile(`${baseUrl}${url}`)
     }
   }

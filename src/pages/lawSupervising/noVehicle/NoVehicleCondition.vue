@@ -157,7 +157,7 @@ export default {
         '&endDate=' + dateFormat(this.dateRange[1], 'yyyy-MM-dd') + ' 23:59' +
         '&hubCode=' + this.hubCode +
         '&gateName=' + this.gateName +
-        '&x-me-token=' + token + ' &me-api-type=hubmanager'
+        '&x-me-token=' + token + '&me-api-type=hubmanager'
       downloadFile(`${baseUrl}${url}`)
     }
   }

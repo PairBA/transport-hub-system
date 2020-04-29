@@ -157,7 +157,7 @@ export default {
           '&configId=' + localStorage.getItem('configId') +
           '&vehicleNo=' + vehicleNo +
           '&driverType=TAXI' +
-          '&x-me-token=' + token + ' &me-api-type=hubmanager'
+          '&x-me-token=' + token + '&me-api-type=hubmanager'
         // window.location.href = `${baseUrl}${url}`
         // window.open(`${baseUrl}${url}`)
         downloadFile(`${baseUrl}${url}`)

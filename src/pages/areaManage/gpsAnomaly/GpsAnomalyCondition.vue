@@ -141,7 +141,7 @@ export default {
           '&vehicleNo=' + this.vehicleNo +
           '&terminalName=' + this.terminalName +
           '&companyId=' + this.companyId +
-          '&x-me-token=' + token + ' &me-api-type=hubmanager'
+          '&x-me-token=' + token + '&me-api-type=hubmanager'
         downloadFile(`${baseUrl}${url}`)
         // window.location.href = `${baseUrl}${url}`
       }

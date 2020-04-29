@@ -187,7 +187,7 @@ export default {
         '&hubCode=' + this.hubCode +
         '&terminalName=' + this.terminalName +
         '&gateName=' + this.gateName +
-        '&x-me-token=' + token + ' &me-api-type=hubmanager'
+        '&x-me-token=' + token + '&me-api-type=hubmanager'
       downloadFile(`${baseUrl}${url}`)
     }
   }
