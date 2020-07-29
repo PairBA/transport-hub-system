@@ -388,7 +388,8 @@ export default {
       basicInformation: '基本信息',
       address: '地址',
       icon: '图标',
-      refreshSuccess: '刷新成功'
+      refreshSuccess: '刷新成功',
+      is: '为'
     },
     unit: { // 单位
       currency: '元',
