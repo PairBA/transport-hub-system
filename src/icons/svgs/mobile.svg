@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="20px" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title></title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon切图" transform="translate(-45.000000, -12.000000)">
+            <g id="小icon/手机号-2" transform="translate(43.000000, 12.000000)">
+                <g id="小icon/手机号">
+                    <path d="M17.25,19.25 L17.25,0.75 L2.75,0.75 L2.75,19.25 L17.25,19.25 Z" id="路径" stroke="#333333" stroke-width="1.5"></path>
+                    <circle id="椭圆形" fill="#333333" fill-rule="evenodd" cx="10" cy="16.5" r="1"></circle>
+                    <rect id="矩形" stroke="#333333" stroke-width="1.5" x="5.75" y="3.75" width="8.5" height="9.5"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

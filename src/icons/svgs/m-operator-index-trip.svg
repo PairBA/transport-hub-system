@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="63px" height="62px" viewBox="0 0 63 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>里程</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.2">
+        <g id="运行监控" transform="translate(-668.000000, -314.000000)" fill="#90CAF9">
+            <g id="里程-2" transform="translate(667.500000, 314.000000)">
+                <g id="里程" transform="translate(5.000000, 6.000000)">
+                    <path d="M8.9,0 L45.1,0 C49.7391919,-4.97263586e-15 53.5,3.7608081 53.5,8.4 L53.5,41.6 C53.5,46.2391919 49.7391919,50 45.1,50 L8.9,50 C4.2608081,50 0.5,46.2391919 0.5,41.6 L0.5,8.4 C0.5,3.7608081 4.2608081,8.52205726e-16 8.9,0 Z M11.1,18.75 L11.1,39.5833333 L19.58,39.5833333 L19.58,18.75 L11.1,18.75 Z M23.82,10.4166667 L23.82,39.5833333 L32.3,39.5833333 L32.3,10.4166667 L23.82,10.4166667 Z M36.54,25 L36.54,39.5833333 L45.02,39.5833333 L45.02,25 L36.54,25 Z" id="合并形状-copy"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
+    <title>jingchangcishu_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="规范切图" transform="translate(-341.000000, -55.000000)">
+            <g id="jingchangcishu_icon" transform="translate(323.000000, 37.000000)">
+                <g transform="translate(18.000000, 18.000000)">
+                    <g>
+                        <g transform="translate(3.000000, 4.000000)">
+                            <rect id="Rectangle-12" fill="#FFFFFF" fill-rule="nonzero" x="4.4" y="5.5" width="13.2" height="2.2"></rect>
+                            <rect id="Rectangle-12-Copy" fill="#FFFFFF" fill-rule="nonzero" x="4.4" y="9.9" width="13.2" height="2.2"></rect>
+                            <rect id="Rectangle-12-Copy-2" fill="#FFFFFF" fill-rule="nonzero" x="4.4" y="14.3" width="7.7" height="2.2"></rect>
+                            <rect id="Rectangle-12-Copy-3" fill="#FFFFFF" fill-rule="nonzero" x="15.4" y="17.6" width="7.7" height="2.2"></rect>
+                            <polyline id="Rectangle-11" stroke="#FFFFFF" stroke-width="2.2" fill-rule="nonzero" transform="translate(17.411270, 18.700000) rotate(-315.000000) translate(-17.411270, -18.700000) " points="19.6112698 20.9 15.2112698 20.9 15.2112698 16.5"></polyline>
+                            <path d="M8.4669468,20.9 L20.9,12.6112979 L20.9,2.2 C20.9,1.59248678 20.4075132,1.1 19.8,1.1 L2.2,1.1 C1.59248678,1.1 1.1,1.59248678 1.1,2.2 L1.1,19.8 C1.1,20.4075132 1.59248678,20.9 2.2,20.9 L8.4669468,20.9 Z" id="Combined-Shape" stroke="#FFFFFF" stroke-width="2.2" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

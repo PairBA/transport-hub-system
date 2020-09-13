@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>起点</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="切图" transform="translate(-1063.000000, -636.000000)">
+            <g id="起点-2" transform="translate(1063.000000, 636.000000)">
+                <g id="起点">
+                    <g transform="translate(8.000000, 2.000000)">
+                        <ellipse id="Oval-5-Copy" fill-opacity="0.638671875" fill="#333333" fill-rule="nonzero" cx="16" cy="42.3529412" rx="8" ry="2.64705882"></ellipse>
+                        <path d="M16.1185185,40 C5.37283951,29.8910373 0,21.8910373 0,16 C0,7.163444 7.21650655,0 16.1185185,0 C25.0205305,0 32.237037,7.163444 32.237037,16 C32.237037,21.8910373 26.8641975,29.8910373 16.1185185,40 Z M16.1185185,22.6666667 C19.8276902,22.6666667 22.8345679,19.6818983 22.8345679,16 C22.8345679,12.3181017 19.8276902,9.33333333 16.1185185,9.33333333 C12.4093469,9.33333333 9.40246914,12.3181017 9.40246914,16 C9.40246914,19.6818983 12.4093469,22.6666667 16.1185185,22.6666667 Z" id="Combined-Shape" stroke="#FFFFFF" stroke-width="2.66666667" fill="#389E0D" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

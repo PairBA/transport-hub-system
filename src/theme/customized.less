@@ -1,0 +1,95 @@
+// Color Icon
+@colorIcon---purple-color: #597EF7;
+@colorIcon---blue-color: #1890FF;
+@colorIcon---green-color: #52C41A;
+@colorIcon---title-color: #BAE7FF;
+@colorIcon---darkgreen-color: #08979C;
+@colorIcon---red-color: #FF4D4F;
+@colorIcon---orange-color: #FF7A45;
+
+//Header
+@system__header--height: 70px;
+
+//Header
+@content__header--height: 64px;
+//Footer
+@system__footer--height: 30px;
+
+//System
+@system__main--height: 100vh;
+@system__content--height: calc(~"@{system__main--height} - @{content__header--height} - @{system__footer--height}");
+
+//Layout Title
+@layout__title-fontSize: 24px;
+@layout__small-title-fontSize: 18px;
+@layout__padding: 24px;
+
+//Pair Spin
+@system__spin-width: 150px;
+@system__spin-padding: 25px;
+@system__spin-font-size: 18px;
+@system__spin-circular-width: 70px;
+@system__spin-background-color: rgba(52,52,52,0.6);
+@system__spin-color: #ABAEF9;
+
+//Message
+@system__message-font-size: 18px;
+@system__message-letter-space: 1.5px;
+
+//full-icon
+@full-icon__margin: 12px;
+
+//Menu
+@menu__backgroud: rgba(22,41,74,1);
+
+@watch-duty__content--height: calc(~"@{system__main--height} - @{system__header--height} - 162px");
+//Card
+.content__card {
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 12px -4px rgba(168, 176, 185, 0.5);
+}
+
+.card-marker {
+  width: 6px;
+  height: 20px;
+  background: rgba(11, 93, 158, 1);
+  float: left;
+}
+.common-margin-left {
+  margin-left: 24px;
+}
+.full-screen-icon {
+  position: absolute;
+  right: 24px;
+  bottom: 12px;
+  z-index: 10;
+  cursor: pointer;
+}
+body {
+  .ivu-message {
+    font-size: @system__message-font-size;
+    letter-spacing: @system__message-letter-space;
+
+    & .ivu-icon {
+      font-size: @system__message-font-size;
+    }
+  }
+}
+@info__fontSize: 18px;
+
+// Adaptive
+@adaptive__min-width: 992px; // 宽度 ≥ 992px
+@adaptive__max-width: 991px; // 宽度 ≤ 991px
+@adaptive__small-width-high: 576px; // 宽度 ≥ 576px
+@adaptive__small-width-low: 575px; // 宽度 ≤ 575px
+
+@adaptive__content-padding: 3% 3% 30% 3%; // 宽度 ≤ 575px
+
+.adapt-ivu-col {
+  padding: 0 3%;
+}
+
+.validate-on-focus {
+  outline: none;
+}

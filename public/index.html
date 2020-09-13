@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <link rel="icon" href="<%= BASE_URL %>paircity.ico">
+  <title>智能管理执法服务系统</title>
+</head>
+<style>
+  html,body {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+  /*滚动条整体部分，其中的属性有width,height,background,border等（就和一个块级元素一样）。*/
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    padding-right: 4px;
+  }
+  /*外层轨道，可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: rgba(187,222,251,0.2);
+  }
+  /*滚动条里面可以拖动的那部分（滚动条里面小方块样式）。*/
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #BBDEFB;
+  }
+</style>
+<body>
+  <noscript>
+    <strong>We're sorry but transport-hub-system doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+</html>
